@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{c9725714-7931-48d9-ad2a-bc0c167feed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sqlite">
+      <UniqueIdentifier>{5bca8af7-537d-4486-9c25-13f7aaebfa3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt">
+      <UniqueIdentifier>{aed0e198-da26-44c6-b978-b8ddfeadbb5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm">
+      <UniqueIdentifier>{4099a156-4bb9-45a4-8006-3a13c1517cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\core">
+      <UniqueIdentifier>{8ead45c6-dfcf-4cc4-bc20-47245a05749d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sqlite\sqlite3.c">
+      <Filter>sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\core\data_type.cpp">
+      <Filter>src\sqt\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\core\database.cpp">
+      <Filter>src\sqt\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\core\statement.cpp">
+      <Filter>src\sqt\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\core\transaction.cpp">
+      <Filter>src\sqt\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sqlite\sqlite3.h">
+      <Filter>sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\data_type.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\database.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\index_info.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\sql_error.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\statement.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\table_info.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\core\transaction.h">
+      <Filter>src\sqt\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\abstract_table.h">
+      <Filter>src\sqt\orm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\orm_support.h">
+      <Filter>src\sqt\orm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\abstract_column.h">
+      <Filter>src\sqt\orm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\column.h">
+      <Filter>src\sqt\orm</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="test">
+      <UniqueIdentifier>{95192bad-e7be-4329-9310-359055f2ec7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\case">
+      <UniqueIdentifier>{a5d3d1de-d26f-4263-baa5-8f1452564172}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test\main.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\case\orm_support_test.cpp">
+      <Filter>test\case</Filter>
+    </ClCompile>
+    <ClCompile Include="test\case\orm_support_test2.cpp">
+      <Filter>test\case</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test\case\orm_support_test.h">
+      <Filter>test\case</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
