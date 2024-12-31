@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="test\case\orm_support_test.cpp" />
     <ClCompile Include="test\case\orm_support_test2.cpp" />
+    <ClCompile Include="test\case\value_type_test.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -30,6 +30,12 @@
     <ClInclude Include="src\sqt\orm\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\column.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
+    <ClInclude Include="src\sqt\orm\table_mapping.h" />
+    <ClInclude Include="src\sqt\orm\value_type\composite_value_type.h" />
+    <ClInclude Include="src\sqt\orm\value_type\data_type_mapping.h" />
+    <ClInclude Include="src\sqt\orm\value_type\nullable_value_type.h" />
+    <ClInclude Include="src\sqt\orm\value_type\primitive_value_type.h" />
+    <ClInclude Include="src\sqt\orm\value_type\value_type_traits.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

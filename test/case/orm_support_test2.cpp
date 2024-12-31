@@ -1,4 +1,3 @@
-#include <gtest/gtest.h>
 #include "orm_support_test.h"
 
 /*

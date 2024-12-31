@@ -3,6 +3,9 @@
 #include <array>
 #include <sqt/orm/abstract_table.h>
 #include <sqt/orm/column.h>
+#include <sqt/orm/table_mapping.h>
+#include <sqt/orm/value_type/primitive_value_type.h>
+#include <sqt/orm/value_type/nullable_value_type.h>
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
 namespace __sqt_table_##TABLE_NAME { \
@@ -35,15 +38,17 @@ public: \
     private: \
         using ThisType = COLUMN_NAME##Type; \
     public: \
+        using ValueType = decltype(((EntityType*)nullptr)->CLASS_FIELD); \
+        using ValueTypeTraits = sqt::ValueTypeTraits<ValueType>; \
         constexpr explicit COLUMN_NAME##Type(const BaseColumn*& last) : BaseColumn(last) { } \
         constexpr std::string_view GetName() const noexcept override { \
             return #COLUMN_NAME; \
         } \
         constexpr sqt::DataType GetDataType() const noexcept override { \
-            return {}; \
+            return ValueTypeTraits::DataType; \
         } \
         constexpr bool IsNullable() const noexcept override { \
-            return false; \
+            return ValueTypeTraits::IsNullable; \
         } \
         void BindValueToStatement( \
             sqt::Statement& statement, \
@@ -108,3 +113,12 @@ inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept {
     }; \
 } \
 };
+
+
+#define SQT_MAP(NAMESPACE, TABLE_NAME) \
+namespace sqt { \
+template<> \
+struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::EntityType> { \
+    using type = NAMESPACE::__sqt_table_##TABLE_NAME::TableType; \
+}; \
+}
