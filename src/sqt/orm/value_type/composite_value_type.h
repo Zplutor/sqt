@@ -32,6 +32,10 @@ constexpr bool IsCompositeValueTypeV = IsCompositeValueType<T>::value;
 
 
 template<typename T>
+concept CompositeValueType = IsCompositeValueTypeV<T>;
+
+
+template<typename T>
 struct ValueTypeTraits<T, std::enable_if_t<IsCompositeValueTypeV<T>>> {
 
     static constexpr std::size_t PlaceholderCount = std::tuple_size<T>::value;

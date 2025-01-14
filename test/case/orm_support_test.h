@@ -4,6 +4,8 @@
 #include <string>
 #include <sqt/orm/orm_support.h>
 
+namespace orm_support {
+
 struct Entity {
     int int_value{};
     float float_value{};
@@ -22,8 +24,6 @@ SQT_COLUMN(NullableFloatColumn, nullable_float_value)
 SQT_COLUMN(NullableStringColumn, nullable_string_value)
 SQT_TABLE_END
 
-SQT_MAP(, Entity)
-
 
 struct Entity0Column {
 
@@ -31,8 +31,6 @@ struct Entity0Column {
 
 SQT_TABLE_BEGIN(Entity0Column, Entity0Column)
 SQT_TABLE_END
-
-SQT_MAP(, Entity0Column)
 
 
 struct Entity1Column {
@@ -43,4 +41,9 @@ SQT_TABLE_BEGIN(Entity1Column, Entity1Column)
 SQT_COLUMN(id, id)
 SQT_TABLE_END
 
-SQT_MAP(, Entity1Column)
+}
+
+
+SQT_REGISTER(orm_support, Entity)
+SQT_REGISTER(orm_support, Entity0Column)
+SQT_REGISTER(orm_support, Entity1Column)

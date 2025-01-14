@@ -115,7 +115,7 @@ inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept {
 };
 
 
-#define SQT_MAP(NAMESPACE, TABLE_NAME) \
+#define SQT_REGISTER(NAMESPACE, TABLE_NAME) \
 namespace sqt { \
 template<> \
 struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::EntityType> { \

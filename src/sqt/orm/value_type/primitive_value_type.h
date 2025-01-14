@@ -15,6 +15,9 @@ struct IsPrimitiveValueType<T, std::void_t<decltype(MapToDataType<T>::value)>> :
 template<typename T>
 constexpr bool IsPrimitiveValueTypeV = IsPrimitiveValueType<T>::value;
 
+template<typename T>
+concept PrimitiveValueType = IsPrimitiveValueTypeV<T>;
+
 
 template<typename T>
 struct ValueTypeTraits<T, std::enable_if_t<IsPrimitiveValueTypeV<T>>> {

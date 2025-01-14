@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "orm_support_test.h"
 
+using namespace orm_support;
+
 TEST(ORMSupportTest, TableDefinition) {
 
     using Table = sqt::TableT<Entity>;
@@ -158,7 +160,7 @@ SQT_COLUMN(ID, id)
 SQT_TABLE_END
 }
 
-SQT_MAP(orm, ScopedEntity)
+SQT_REGISTER(orm, ScopedEntity)
 
 TEST(ORMSupportTest, DifferentNamespace) {
 

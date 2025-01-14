@@ -35,6 +35,10 @@ constexpr bool IsNullableValueTypeV =
 
 
 template<typename T>
+concept NullableValueType = IsNullableValueTypeV<T>;
+
+
+template<typename T>
 struct ValueTypeTraits<T, std::enable_if_t<IsNullableValueTypeV<T>>> {
 
     static constexpr sqt::DataType DataType = MapToDataTypeV<GetOptionalValueTypeT<T>>;

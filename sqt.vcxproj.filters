@@ -19,6 +19,21 @@
     <Filter Include="src\sqt\orm\value_type">
       <UniqueIdentifier>{9902a23c-7f16-4fd1-a49f-ff2a4150d397}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\select">
+      <UniqueIdentifier>{d4a4df00-d9f2-447e-b81b-255341cc8ad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\utility">
+      <UniqueIdentifier>{f81443f2-ead3-4971-874c-acf471aa03a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\executor">
+      <UniqueIdentifier>{c4416396-feb8-460f-8c83-c71798422f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\binder">
+      <UniqueIdentifier>{3dd9247c-a082-425f-a83f-e1b38df7ee31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\expression">
+      <UniqueIdentifier>{16a8be46-0029-4a38-9945-0de85d95806b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -35,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="src\sqt\core\transaction.cpp">
       <Filter>src\sqt\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\orm\utility\utility.cpp">
+      <Filter>src\sqt\orm\utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +109,45 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table_mapping.h">
       <Filter>src\sqt\orm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\select\primitive_selecter.h">
+      <Filter>src\sqt\orm\select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\select\column_selecter.h">
+      <Filter>src\sqt\orm\select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\select\entity_selecter.h">
+      <Filter>src\sqt\orm\select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\utility\utility.h">
+      <Filter>src\sqt\orm\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\data_context.h">
+      <Filter>src\sqt\orm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\executor\executor.h">
+      <Filter>src\sqt\orm\executor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\binder\entity_binder.h">
+      <Filter>src\sqt\orm\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\binder\binder_chain.h">
+      <Filter>src\sqt\orm\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\placeholder.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\select\limit_selecter.h">
+      <Filter>src\sqt\orm\select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\binder\value_binder.h">
+      <Filter>src\sqt\orm\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value_type\bindable_value_type.h">
+      <Filter>src\sqt\orm\value_type</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
