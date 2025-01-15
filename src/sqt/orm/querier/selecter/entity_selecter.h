@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/select/primitive_selecter.h>
+#include <sqt/orm/querier/selecter/primitive_selecter.h>
 #include <sqt/orm/table_mapping.h>
 
 namespace sqt {

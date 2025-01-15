@@ -3,7 +3,7 @@
 #include <format>
 #include <string>
 #include <string_view>
-#include <sqt/orm/select/limit_selecter.h>
+#include <sqt/orm/querier/selecter/limit_selecter.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/utility/utility.h>
 

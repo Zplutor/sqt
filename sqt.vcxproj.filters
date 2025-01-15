@@ -19,9 +19,6 @@
     <Filter Include="src\sqt\orm\value_type">
       <UniqueIdentifier>{9902a23c-7f16-4fd1-a49f-ff2a4150d397}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sqt\orm\select">
-      <UniqueIdentifier>{d4a4df00-d9f2-447e-b81b-255341cc8ad4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sqt\orm\utility">
       <UniqueIdentifier>{f81443f2-ead3-4971-874c-acf471aa03a1}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="src\sqt\orm\querier">
       <UniqueIdentifier>{f1ac8a31-e33e-43f8-a57e-4e68ea8bf7a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\querier\selecter">
+      <UniqueIdentifier>{f217c39a-aa86-4815-a5d1-1e052b3cccff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,15 +113,6 @@
     <ClInclude Include="src\sqt\orm\table_mapping.h">
       <Filter>src\sqt\orm</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\select\primitive_selecter.h">
-      <Filter>src\sqt\orm\select</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\select\column_selecter.h">
-      <Filter>src\sqt\orm\select</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\select\entity_selecter.h">
-      <Filter>src\sqt\orm\select</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\utility\utility.h">
       <Filter>src\sqt\orm\utility</Filter>
     </ClInclude>
@@ -140,9 +131,6 @@
     <ClInclude Include="src\sqt\orm\expression\placeholder.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\select\limit_selecter.h">
-      <Filter>src\sqt\orm\select</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\binder\value_binder.h">
       <Filter>src\sqt\orm\binder</Filter>
     </ClInclude>
@@ -157,6 +145,18 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\binder\binder_like.h">
       <Filter>src\sqt\orm\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_selecter.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\primitive_selecter.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

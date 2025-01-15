@@ -40,10 +40,10 @@
     <ClInclude Include="src\sqt\orm\expression\placeholder.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
     <ClInclude Include="src\sqt\orm\querier\querier_like.h" />
-    <ClInclude Include="src\sqt\orm\select\column_selecter.h" />
-    <ClInclude Include="src\sqt\orm\select\entity_selecter.h" />
-    <ClInclude Include="src\sqt\orm\select\limit_selecter.h" />
-    <ClInclude Include="src\sqt\orm\select\primitive_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\primitive_selecter.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
     <ClInclude Include="src\sqt\orm\value_type\bindable_value_type.h" />

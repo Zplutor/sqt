@@ -2,7 +2,7 @@
 
 #include <sqt/core/database.h>
 #include <sqt/orm/executor/executor.h>
-#include <sqt/orm/select/entity_selecter.h>
+#include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/table_mapping.h>
 
 namespace sqt {
