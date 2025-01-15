@@ -30,6 +30,7 @@
     <ClInclude Include="src\sqt\orm\abstract_column.h" />
     <ClInclude Include="src\sqt\orm\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\binder\binder_chain.h" />
+    <ClInclude Include="src\sqt\orm\binder\binder_like.h" />
     <ClInclude Include="src\sqt\orm\binder\entity_binder.h" />
     <ClInclude Include="src\sqt\orm\binder\value_binder.h" />
     <ClInclude Include="src\sqt\orm\column.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="src\sqt\orm\expression\operand.h" />
     <ClInclude Include="src\sqt\orm\expression\placeholder.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
+    <ClInclude Include="src\sqt\orm\querier\querier_like.h" />
     <ClInclude Include="src\sqt\orm\select\column_selecter.h" />
     <ClInclude Include="src\sqt\orm\select\entity_selecter.h" />
     <ClInclude Include="src\sqt\orm\select\limit_selecter.h" />

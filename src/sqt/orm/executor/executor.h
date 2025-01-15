@@ -2,10 +2,11 @@
 
 #include <sqt/core/statement.h>
 #include <sqt/orm/binder/binder_chain.h>
+#include <sqt/orm/querier/querier_like.h>
 
 namespace sqt {
 
-template<typename Q>
+template<QuerierLike Q>
 class Executor {
 public:
     Executor(Statement statement, const Q& querier) : 

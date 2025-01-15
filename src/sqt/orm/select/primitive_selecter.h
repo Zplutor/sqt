@@ -30,6 +30,10 @@ public:
         return sql;
     }
 
+    void BindInlineParameters(Statement&) const {
+
+    }
+
     constexpr auto Limit(std::size_t limit) const {
         return LimitSelecter<Selecter, Operand<std::size_t>>{
             static_cast<const Selecter&>(*this), 

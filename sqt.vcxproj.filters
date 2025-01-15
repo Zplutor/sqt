@@ -34,6 +34,9 @@
     <Filter Include="src\sqt\orm\expression">
       <UniqueIdentifier>{16a8be46-0029-4a38-9945-0de85d95806b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\querier">
+      <UniqueIdentifier>{f1ac8a31-e33e-43f8-a57e-4e68ea8bf7a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -148,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value_type\bindable_value_type.h">
       <Filter>src\sqt\orm\value_type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\querier_like.h">
+      <Filter>src\sqt\orm\querier</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\binder\binder_like.h">
+      <Filter>src\sqt\orm\binder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

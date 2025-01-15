@@ -15,7 +15,7 @@ public:
 
     }
 
-    void Bind(Statement& statement, const ValueType& value) {
+    void Bind(Statement& statement, const ValueType& value) const {
         ValueTypeTraits<V>::BindValueToStatement(statement, index_, value);
     }
 

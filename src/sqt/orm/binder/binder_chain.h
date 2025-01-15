@@ -2,10 +2,11 @@
 
 #include <tuple>
 #include <sqt/core/statement.h>
+#include <sqt/orm/binder/binder_like.h>
 
 namespace sqt {
 
-template<typename... Binders>
+template<BinderLike... Binders>
 class BinderChain;
 
 template<>
@@ -14,7 +15,7 @@ public:
     BinderChain(Statement& statement, std::tuple<>) noexcept { }
 };
 
-template<typename FirstBinder, typename... RestBinders>
+template<BinderLike FirstBinder, BinderLike... RestBinders>
 class BinderChain<FirstBinder, RestBinders...> {
 public:
     BinderChain(Statement& statement, std::tuple<FirstBinder, RestBinders...> binders) :
@@ -41,9 +42,15 @@ private:
 };
 
 
-template<typename... Binders>
+template<BinderLike... Binders>
 auto MakeBinderChain(Statement& statement, std::tuple<Binders...> tuple) {
     return BinderChain<Binders...>(statement, std::move(tuple));
 }
+
+
+template<typename T>
+concept BinderLikeTuple = requires(T t, Statement & statement) {
+    MakeBinderChain(statement, t);
+};
 
 }
