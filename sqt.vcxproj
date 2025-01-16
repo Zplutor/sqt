@@ -16,6 +16,7 @@
     <ClCompile Include="src\sqt\core\data_type.cpp" />
     <ClCompile Include="src\sqt\core\statement.cpp" />
     <ClCompile Include="src\sqt\core\transaction.cpp" />
+    <ClCompile Include="src\sqt\orm\expression\operator.cpp" />
     <ClCompile Include="src\sqt\orm\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -36,14 +37,22 @@
     <ClInclude Include="src\sqt\orm\column.h" />
     <ClInclude Include="src\sqt\orm\data_context.h" />
     <ClInclude Include="src\sqt\orm\executor\executor.h" />
+    <ClInclude Include="src\sqt\orm\expression\expression.h" />
+    <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
     <ClInclude Include="src\sqt\orm\expression\operand.h" />
+    <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
+    <ClInclude Include="src\sqt\orm\expression\operator.h" />
     <ClInclude Include="src\sqt\orm\expression\placeholder.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
     <ClInclude Include="src\sqt\orm\querier\querier_like.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_capacity.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\limit_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\primitive_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\selecter_like.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\where_capacity.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
     <ClInclude Include="src\sqt\orm\value_type\bindable_value_type.h" />

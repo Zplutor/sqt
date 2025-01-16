@@ -3,6 +3,7 @@
 #include <array>
 #include <sqt/orm/abstract_table.h>
 #include <sqt/orm/column.h>
+#include <sqt/orm/expression/expression_support.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/value_type/primitive_value_type.h>
 #include <sqt/orm/value_type/nullable_value_type.h>
@@ -60,6 +61,7 @@ public: \
             int column_index, \
             EntityType& entity) const override { \
         } \
+        __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
     }; \
     COLUMN_NAME##Type COLUMN_NAME{ last_column_ };
 

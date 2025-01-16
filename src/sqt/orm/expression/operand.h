@@ -18,12 +18,12 @@ class Operand<T, std::enable_if_t<IsColumnV<T>>> {
 public:
     static constexpr std::size_t ParameterCount = 0;
 
-    static constexpr std::tuple<> BuildPlaceholderBinder(int parameter_index) noexcept {
+    static constexpr std::tuple<> BuildPlaceholderBinders(int parameter_index) noexcept {
         return {};
     }
 
 public:
-    explicit Operand(const T& column) : column_(&column) {
+    constexpr explicit Operand(const T& column) : column_(&column) {
 
     }
 
@@ -72,7 +72,7 @@ public:
 
     static constexpr std::size_t ParameterCount = ValueTypeTraits<T>::PlaceholderCount;
 
-    static constexpr std::tuple<> BuildPlaceholderBinder(int parameter_index) noexcept {
+    static constexpr std::tuple<> BuildPlaceholderBinders(int parameter_index) noexcept {
         return {};
     }
 
@@ -104,7 +104,7 @@ public:
 
     static constexpr std::size_t ParameterCount = ValueTypeTraits<ValueType>::PlaceholderCount;
 
-    static constexpr std::tuple<ValueBinder<ValueType>> BuildPlaceholderBinder(
+    static constexpr std::tuple<ValueBinder<ValueType>> BuildPlaceholderBinders(
         int parameter_index) noexcept {
 
         return std::make_tuple(ValueBinder<ValueType>{ parameter_index });

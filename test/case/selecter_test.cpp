@@ -22,12 +22,17 @@ TEST(SelecterTest, Test) {
 
     auto db = std::make_shared<sqt::Database>(sqt::Database::Open(db_path));
 
+    constexpr auto& table = sqt::TableV<Entity>;
+
     constexpr auto selecter = sqt::DataContext<Entity>::MakeSelecter();
+    constexpr auto where_selecter = selecter.Where(table.ID == 1);
     constexpr auto limit_selecter = selecter.Limit(1);
-    constexpr auto limit_selecter2 = selecter.Limit(sqt::_);
+    constexpr auto limit_selecter2 = where_selecter.Limit(sqt::_);
 
     sqt::DataContext<Entity> data_context{ db };
     
+    auto where_executor = data_context.Prepare(where_selecter);
+
     auto executor = data_context.Prepare(limit_selecter);
     executor.BeginBind();
 

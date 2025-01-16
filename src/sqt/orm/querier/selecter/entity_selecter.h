@@ -10,9 +10,6 @@ class EntitySelecter : public PrimitiveSelecter<EntitySelecter<E>> {
 public:
     using EntityType = E;
 
-    static constexpr std::size_t ParameterIndex = 1;
-    static constexpr std::size_t ParameterCount = 0;
-
 public:
     constexpr EntitySelecter() noexcept = default;
 

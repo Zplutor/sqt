@@ -57,6 +57,9 @@
     <ClCompile Include="src\sqt\orm\utility\utility.cpp">
       <Filter>src\sqt\orm\utility</Filter>
     </ClCompile>
+    <ClCompile Include="src\sqt\orm\expression\operator.cpp">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
@@ -156,6 +159,30 @@
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\primitive_selecter.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\selecter_like.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\expression.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\expression_support.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operator.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\expression_like.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_capacity.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\where_capacity.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
   </ItemGroup>
