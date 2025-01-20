@@ -25,7 +25,7 @@ public:
         auto statement = db_->PrepareStatement(querier.BuildSQL());
         querier.BindInlineParameters(statement);
 
-        return Executor{ std::move(statement), querier };
+        return Executor{ querier, std::move(statement) };
     }
 
 private:

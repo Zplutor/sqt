@@ -38,4 +38,10 @@ TEST(SelecterTest, Test) {
 
     auto executor2 = data_context.Prepare(limit_selecter2);
     executor2.BeginBind().Bind(2);
+
+    auto result = executor.Result();
+    for (const auto& element : result) {
+
+        
+    }
 }

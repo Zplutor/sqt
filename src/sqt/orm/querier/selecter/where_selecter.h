@@ -11,6 +11,8 @@ class WhereSelecter :
     public LimitCapacity<WhereSelecter<INNER, EXPR>> {
 
 public:
+    using ResultElementType = INNER::ResultElementType;
+
     static constexpr std::size_t ParameterIndex = INNER::ParameterIndex + INNER::ParameterCount;
     static constexpr std::size_t ParameterCount = EXPR::ParameterCount;
 
@@ -18,6 +20,10 @@ public:
         auto inner_binders = INNER::BuildPlaceholderBinders();
         auto expression_binders = EXPR::BuildPlaceholderBinders(ParameterIndex);
         return std::tuple_cat(std::move(inner_binders), std::move(expression_binders));
+    }
+
+    static ResultElementType GetResultElement(Statement& statement) {
+        return INNER::GetResultElement(statement);
     }
 
 public:

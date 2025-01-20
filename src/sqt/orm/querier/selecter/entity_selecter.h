@@ -9,6 +9,11 @@ template<typename E>
 class EntitySelecter : public PrimitiveSelecter<EntitySelecter<E>> {
 public:
     using EntityType = E;
+    using ResultElementType = E;
+
+    static E GetResultElement(Statement& statement) {
+        return {};
+    }
 
 public:
     constexpr EntitySelecter() noexcept = default;

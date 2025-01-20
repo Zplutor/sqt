@@ -37,6 +37,8 @@
     <ClInclude Include="src\sqt\orm\column.h" />
     <ClInclude Include="src\sqt\orm\data_context.h" />
     <ClInclude Include="src\sqt\orm\executor\executor.h" />
+    <ClInclude Include="src\sqt\orm\executor\iterator.h" />
+    <ClInclude Include="src\sqt\orm\executor\result.h" />
     <ClInclude Include="src\sqt\orm\expression\expression.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
     <ClInclude Include="src\sqt\orm\expression\operand.h" />

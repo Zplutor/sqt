@@ -185,5 +185,11 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\where_capacity.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\executor\iterator.h">
+      <Filter>src\sqt\orm\executor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\executor\result.h">
+      <Filter>src\sqt\orm\executor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
