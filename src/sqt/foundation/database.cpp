@@ -1,6 +1,6 @@
-#include <sqt/core/database.h>
+#include <sqt/foundation/database.h>
 #include <format>
-#include <sqt/core/sql_error.h>
+#include <sqt/foundation/sql_error.h>
 
 namespace sqt {
 

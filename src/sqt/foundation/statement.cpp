@@ -1,5 +1,5 @@
-#include <sqt/core/statement.h>
-#include <sqt/core/sql_error.h>
+#include <sqt/foundation/statement.h>
+#include <sqt/foundation/sql_error.h>
 
 namespace sqt {
 

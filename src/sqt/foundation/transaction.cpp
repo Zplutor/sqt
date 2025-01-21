@@ -1,5 +1,5 @@
-#include <sqt/core/transaction.h>
-#include <sqt/core/database.h>
+#include <sqt/foundation/transaction.h>
+#include <sqt/foundation/database.h>
 
 namespace sqt {
 

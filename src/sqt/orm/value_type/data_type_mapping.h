@@ -2,7 +2,7 @@
 
 #include <string>
 #include <type_traits>
-#include <sqt/core/data_type.h>
+#include <sqt/foundation/data_type.h>
 
 namespace sqt {
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/core/statement.h>
+#include <sqt/foundation/statement.h>
 #include <sqt/orm/binder/binder_chain.h>
 #include <sqt/orm/executor/result.h>
 #include <sqt/orm/querier/querier_like.h>

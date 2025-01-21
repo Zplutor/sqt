@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/core/statement.h>
+#include <sqt/foundation/statement.h>
 #include <sqt/orm/querier/selecter/selecter_like.h>
 
 namespace sqt {

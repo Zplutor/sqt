@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/core/statement.h>
+#include <sqt/foundation/statement.h>
 
 namespace sqt {
 

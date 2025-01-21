@@ -1,4 +1,4 @@
-#include <sqt/core/data_type.h>
+#include <sqt/foundation/data_type.h>
 #include <cctype>
 
 namespace sqt {

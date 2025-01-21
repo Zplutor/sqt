@@ -1,7 +1,7 @@
 #pragma once
 
 #include <span>
-#include <sqt/core/data_type.h>
+#include <sqt/foundation/data_type.h>
 
 namespace sqt {
 

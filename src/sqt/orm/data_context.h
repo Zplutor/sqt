@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/core/database.h>
+#include <sqt/foundation/database.h>
 #include <sqt/orm/executor/executor.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/table_mapping.h>

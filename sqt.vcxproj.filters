@@ -13,9 +13,6 @@
     <Filter Include="src\sqt\orm">
       <UniqueIdentifier>{4099a156-4bb9-45a4-8006-3a13c1517cd5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sqt\core">
-      <UniqueIdentifier>{8ead45c6-dfcf-4cc4-bc20-47245a05749d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sqt\orm\value_type">
       <UniqueIdentifier>{9902a23c-7f16-4fd1-a49f-ff2a4150d397}</UniqueIdentifier>
     </Filter>
@@ -37,22 +34,13 @@
     <Filter Include="src\sqt\orm\querier\selecter">
       <UniqueIdentifier>{f217c39a-aa86-4815-a5d1-1e052b3cccff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\foundation">
+      <UniqueIdentifier>{b58c6c96-efe2-411b-bb84-d43aa99ab0d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>sqlite</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sqt\core\data_type.cpp">
-      <Filter>src\sqt\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sqt\core\database.cpp">
-      <Filter>src\sqt\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sqt\core\statement.cpp">
-      <Filter>src\sqt\core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sqt\core\transaction.cpp">
-      <Filter>src\sqt\core</Filter>
     </ClCompile>
     <ClCompile Include="src\sqt\orm\utility\utility.cpp">
       <Filter>src\sqt\orm\utility</Filter>
@@ -60,31 +48,22 @@
     <ClCompile Include="src\sqt\orm\expression\operator.cpp">
       <Filter>src\sqt\orm\expression</Filter>
     </ClCompile>
+    <ClCompile Include="src\sqt\foundation\data_type.cpp">
+      <Filter>src\sqt\foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\foundation\database.cpp">
+      <Filter>src\sqt\foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\foundation\statement.cpp">
+      <Filter>src\sqt\foundation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sqt\foundation\transaction.cpp">
+      <Filter>src\sqt\foundation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
       <Filter>sqlite</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\data_type.h">
-      <Filter>src\sqt\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\database.h">
-      <Filter>src\sqt\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\index_info.h">
-      <Filter>src\sqt\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\sql_error.h">
-      <Filter>src\sqt\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\statement.h">
-      <Filter>src\sqt\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\table_info.h">
-      <Filter>src\sqt\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\core\transaction.h">
-      <Filter>src\sqt\core</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\abstract_table.h">
       <Filter>src\sqt\orm</Filter>
@@ -190,6 +169,27 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\executor\result.h">
       <Filter>src\sqt\orm\executor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\data_type.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\database.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\index_info.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\sql_error.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\statement.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\table_info.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\foundation\transaction.h">
+      <Filter>src\sqt\foundation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

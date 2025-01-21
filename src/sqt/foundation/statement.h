@@ -4,7 +4,7 @@
 #include <optional>
 #include <string_view>
 #include <sqlite3.h>
-#include <sqt/core/data_type.h>
+#include <sqt/foundation/data_type.h>
 
 namespace sqt {
 

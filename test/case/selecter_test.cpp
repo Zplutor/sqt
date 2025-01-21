@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sqt/orm/data_context.h>
 #include <sqt/orm/orm_support.h>
-#include <sqt/core/database.h>
+#include <sqt/foundation/database.h>
 
 struct Entity {
     int id{};

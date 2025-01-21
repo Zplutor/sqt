@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/core/statement.h>
+#include <sqt/foundation/statement.h>
 #include <sqt/orm/value_type/data_type_mapping.h>
 #include <sqt/orm/value_type/value_type_traits.h>
 

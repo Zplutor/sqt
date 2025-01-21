@@ -2,10 +2,10 @@
 
 #include <filesystem>
 #include <sqlite3.h>
-#include <sqt/core/index_info.h>
-#include <sqt/core/statement.h>
-#include <sqt/core/transaction.h>
-#include <sqt/core/table_info.h>
+#include <sqt/foundation/index_info.h>
+#include <sqt/foundation/statement.h>
+#include <sqt/foundation/transaction.h>
+#include <sqt/foundation/table_info.h>
 
 namespace sqt {
 

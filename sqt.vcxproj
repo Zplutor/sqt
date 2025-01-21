@@ -12,22 +12,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c" />
-    <ClCompile Include="src\sqt\core\database.cpp" />
-    <ClCompile Include="src\sqt\core\data_type.cpp" />
-    <ClCompile Include="src\sqt\core\statement.cpp" />
-    <ClCompile Include="src\sqt\core\transaction.cpp" />
+    <ClCompile Include="src\sqt\foundation\database.cpp" />
+    <ClCompile Include="src\sqt\foundation\data_type.cpp" />
+    <ClCompile Include="src\sqt\foundation\statement.cpp" />
+    <ClCompile Include="src\sqt\foundation\transaction.cpp" />
     <ClCompile Include="src\sqt\orm\expression\operator.cpp" />
     <ClCompile Include="src\sqt\orm\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h" />
-    <ClInclude Include="src\sqt\core\database.h" />
-    <ClInclude Include="src\sqt\core\data_type.h" />
-    <ClInclude Include="src\sqt\core\index_info.h" />
-    <ClInclude Include="src\sqt\core\sql_error.h" />
-    <ClInclude Include="src\sqt\core\statement.h" />
-    <ClInclude Include="src\sqt\core\table_info.h" />
-    <ClInclude Include="src\sqt\core\transaction.h" />
+    <ClInclude Include="src\sqt\foundation\database.h" />
+    <ClInclude Include="src\sqt\foundation\data_type.h" />
+    <ClInclude Include="src\sqt\foundation\index_info.h" />
+    <ClInclude Include="src\sqt\foundation\sql_error.h" />
+    <ClInclude Include="src\sqt\foundation\statement.h" />
+    <ClInclude Include="src\sqt\foundation\table_info.h" />
+    <ClInclude Include="src\sqt\foundation\transaction.h" />
     <ClInclude Include="src\sqt\orm\abstract_column.h" />
     <ClInclude Include="src\sqt\orm\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\binder\binder_chain.h" />

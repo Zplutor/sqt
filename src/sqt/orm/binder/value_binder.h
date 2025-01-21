@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/core/statement.h>
+#include <sqt/foundation/statement.h>
 #include <sqt/orm/value_type/bindable_value_type.h>
 
 namespace sqt {

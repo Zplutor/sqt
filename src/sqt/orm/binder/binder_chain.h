@@ -1,7 +1,7 @@
 #pragma once
 
 #include <tuple>
-#include <sqt/core/statement.h>
+#include <sqt/foundation/statement.h>
 #include <sqt/orm/binder/binder_like.h>
 
 namespace sqt {

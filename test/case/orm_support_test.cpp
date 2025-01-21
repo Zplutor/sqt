@@ -147,7 +147,7 @@ TEST(ORMSupportTest, SingleColumn) {
 }
 
 
-//Define ORM in different namespace.
+//Define table in different namespace.
 namespace entity {
 struct ScopedEntity {
     int id{};
