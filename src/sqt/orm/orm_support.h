@@ -1,10 +1,10 @@
 #pragma once
 
 #include <array>
-#include <sqt/orm/abstract_table.h>
-#include <sqt/orm/column.h>
+#include <sqt/orm/column/column.h>
 #include <sqt/orm/expression/expression_support.h>
 #include <sqt/orm/table_mapping.h>
+#include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/value_type/primitive_value_type.h>
 #include <sqt/orm/value_type/nullable_value_type.h>
 

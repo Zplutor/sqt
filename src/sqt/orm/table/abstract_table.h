@@ -1,7 +1,7 @@
 #pragma
 
 #include <string_view>
-#include <sqt/orm/abstract_column.h>
+#include <sqt/orm/column/abstract_column.h>
 
 namespace sqt {
 

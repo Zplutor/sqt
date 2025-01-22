@@ -2,12 +2,15 @@
 
 #include <span>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/abstract_column.h>
+#include <sqt/orm/column/abstract_column.h>
 
 namespace sqt {
 
 template<typename E>
 class Column : public AbstractColumn {
+public:
+    using EntityType = E;
+
 public:
     constexpr Column() noexcept = default;
 

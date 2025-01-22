@@ -28,13 +28,14 @@
     <ClInclude Include="src\sqt\foundation\statement.h" />
     <ClInclude Include="src\sqt\foundation\table_info.h" />
     <ClInclude Include="src\sqt\foundation\transaction.h" />
-    <ClInclude Include="src\sqt\orm\abstract_column.h" />
-    <ClInclude Include="src\sqt\orm\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\binder\binder_chain.h" />
     <ClInclude Include="src\sqt\orm\binder\binder_like.h" />
     <ClInclude Include="src\sqt\orm\binder\entity_binder.h" />
     <ClInclude Include="src\sqt\orm\binder\value_binder.h" />
-    <ClInclude Include="src\sqt\orm\column.h" />
+    <ClInclude Include="src\sqt\orm\column\abstract_column.h" />
+    <ClInclude Include="src\sqt\orm\column\column.h" />
+    <ClInclude Include="src\sqt\orm\column\column_like.h" />
+    <ClInclude Include="src\sqt\orm\column\composite_column.h" />
     <ClInclude Include="src\sqt\orm\data_context.h" />
     <ClInclude Include="src\sqt\orm\executor\executor.h" />
     <ClInclude Include="src\sqt\orm\executor\iterator.h" />
@@ -55,6 +56,7 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_like.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\where_capacity.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
+    <ClInclude Include="src\sqt\orm\table\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
     <ClInclude Include="src\sqt\orm\value_type\bindable_value_type.h" />

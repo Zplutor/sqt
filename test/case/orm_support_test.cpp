@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <sqt/orm/column/column_like.h>
 #include "orm_support_test.h"
 
 using namespace orm_support;
@@ -44,6 +45,7 @@ TEST(ORMSupportTest, TableDefinition) {
         static_assert(!std::is_copy_assignable_v<Table::IntColumnType>);
         static_assert(!std::is_move_constructible_v<Table::IntColumnType>);
         static_assert(!std::is_move_assignable_v<Table::IntColumnType>);
+        static_assert(sqt::ColumnLike<Table::IntColumnType>);
 
         constexpr auto column_name = table.IntColumn.GetName();
         ASSERT_EQ(column_name, "IntColumn");
@@ -58,6 +60,7 @@ TEST(ORMSupportTest, TableDefinition) {
         static_assert(!std::is_copy_assignable_v<Table::FloatColumnType>);
         static_assert(!std::is_move_constructible_v<Table::FloatColumnType>);
         static_assert(!std::is_move_assignable_v<Table::FloatColumnType>);
+        static_assert(sqt::ColumnLike<Table::FloatColumnType>);
 
         constexpr auto column_name = table.FloatColumn.GetName();
         ASSERT_EQ(column_name, "FloatColumn");
@@ -72,6 +75,7 @@ TEST(ORMSupportTest, TableDefinition) {
         static_assert(!std::is_copy_assignable_v<Table::StringColumnType>);
         static_assert(!std::is_move_constructible_v<Table::StringColumnType>);
         static_assert(!std::is_move_assignable_v<Table::StringColumnType>);
+        static_assert(sqt::ColumnLike<Table::StringColumnType>);
 
         constexpr auto column_name = table.StringColumn.GetName();
         ASSERT_EQ(column_name, "StringColumn");
@@ -86,6 +90,7 @@ TEST(ORMSupportTest, TableDefinition) {
         static_assert(!std::is_copy_assignable_v<Table::NullableIntColumnType>);
         static_assert(!std::is_move_constructible_v<Table::NullableIntColumnType>);
         static_assert(!std::is_move_assignable_v<Table::NullableIntColumnType>);
+        static_assert(sqt::ColumnLike<Table::NullableIntColumnType>);
 
         constexpr auto column_name = table.NullableIntColumn.GetName();
         ASSERT_EQ(column_name, "NullableIntColumn");
@@ -100,6 +105,7 @@ TEST(ORMSupportTest, TableDefinition) {
         static_assert(!std::is_copy_assignable_v<Table::NullableFloatColumnType>);
         static_assert(!std::is_move_constructible_v<Table::NullableFloatColumnType>);
         static_assert(!std::is_move_assignable_v<Table::NullableFloatColumnType>);
+        static_assert(sqt::ColumnLike<Table::NullableFloatColumnType>);
 
         constexpr auto column_name = table.NullableFloatColumn.GetName();
         ASSERT_EQ(column_name, "NullableFloatColumn");
@@ -114,6 +120,7 @@ TEST(ORMSupportTest, TableDefinition) {
         static_assert(!std::is_copy_assignable_v<Table::NullableStringColumnType>);
         static_assert(!std::is_move_constructible_v<Table::NullableStringColumnType>);
         static_assert(!std::is_move_assignable_v<Table::NullableStringColumnType>);
+        static_assert(sqt::ColumnLike<Table::NullableStringColumnType>);
 
         constexpr auto column_name = table.NullableStringColumn.GetName();
         ASSERT_EQ(column_name, "NullableStringColumn");

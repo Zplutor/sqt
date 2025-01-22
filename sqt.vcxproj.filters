@@ -37,6 +37,12 @@
     <Filter Include="src\sqt\foundation">
       <UniqueIdentifier>{b58c6c96-efe2-411b-bb84-d43aa99ab0d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\table">
+      <UniqueIdentifier>{9815fec2-0a59-4753-8c2d-798b2db55973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\column">
+      <UniqueIdentifier>{41568260-6c4a-41e1-8924-9b40e2915abd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -65,16 +71,7 @@
     <ClInclude Include="sqlite\sqlite3.h">
       <Filter>sqlite</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\abstract_table.h">
-      <Filter>src\sqt\orm</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\orm_support.h">
-      <Filter>src\sqt\orm</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\abstract_column.h">
-      <Filter>src\sqt\orm</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\column.h">
       <Filter>src\sqt\orm</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value_type\composite_value_type.h">
@@ -190,6 +187,21 @@
     </ClInclude>
     <ClInclude Include="src\sqt\foundation\transaction.h">
       <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\abstract_table.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\column\abstract_column.h">
+      <Filter>src\sqt\orm\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\column\column.h">
+      <Filter>src\sqt\orm\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\column\composite_column.h">
+      <Filter>src\sqt\orm\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\column\column_like.h">
+      <Filter>src\sqt\orm\column</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -40,8 +40,4 @@ TEST(SelecterTest, Test) {
     executor2.BeginBind().Bind(2);
 
     auto result = executor.Result();
-    for (const auto& element : result) {
-
-        
-    }
 }
