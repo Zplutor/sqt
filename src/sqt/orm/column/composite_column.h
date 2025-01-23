@@ -44,10 +44,6 @@ public:
         };
     }
 
-    ColumnsView<EntityType> GetColumns() const noexcept {
-        return columns_;
-    }
-
 private:
     std::array<const Column<EntityType>*, 1 + sizeof...(Rest)> columns_;
 };
@@ -83,13 +79,15 @@ public:
         };
     }
 
-    ColumnsView<EntityType> GetColumns() const noexcept {
-        return ColumnsView<EntityType>{ &column_, 1 };
-    }
-
 private:
     const Column<EntityType>* column_{};
 };
+
+
+template<ColumnLike... Columns>
+constexpr auto MakeCompositeColumn(const Columns&... columns) { 
+    return CompositeColumn<Columns...>{ columns... };
+}
 
 
 template<typename T>

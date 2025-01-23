@@ -32,10 +32,6 @@ TEST(CompositeColumnTest, SingleColumn) {
 
     constexpr CompositeColumnType composite{ TableV.id };
 
-    auto columns = composite.GetColumns();
-    ASSERT_EQ(columns.size(), 1);
-    ASSERT_EQ(columns[0]->GetName(), "id");
-
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 1);
     ASSERT_EQ(abstract_columns[0]->GetName(), "id");
@@ -52,11 +48,6 @@ TEST(CompositeColumnTest, TwoColumns) {
         TableV.id, 
         TableV.name,
     };
-
-    auto columns = composite.GetColumns();
-    ASSERT_EQ(columns.size(), 2);
-    ASSERT_EQ(columns[0]->GetName(), "id");
-    ASSERT_EQ(columns[1]->GetName(), "name");
 
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 2);
@@ -81,15 +72,26 @@ TEST(CompositeColumnTest, ThreeColumns) {
         TableV.age,
     };
 
-    auto columns = composite.GetColumns();
-    ASSERT_EQ(columns.size(), 3);
-    ASSERT_EQ(columns[0]->GetName(), "id");
-    ASSERT_EQ(columns[1]->GetName(), "name");
-    ASSERT_EQ(columns[2]->GetName(), "age");
-
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 3);
     ASSERT_EQ(abstract_columns[0]->GetName(), "id");
     ASSERT_EQ(abstract_columns[1]->GetName(), "name");
     ASSERT_EQ(abstract_columns[2]->GetName(), "age");
+}
+
+
+TEST(CompositeColumnTest, MakeCompositeColumn) {
+
+    auto single_column = sqt::MakeCompositeColumn(TableV.id);
+    static_assert(std::is_same_v<decltype(single_column), sqt::CompositeColumn<TableT::idType>>);
+
+    auto two_columns = sqt::MakeCompositeColumn(TableV.id, TableV.name);
+    static_assert(
+        std::is_same_v<decltype(two_columns), 
+        sqt::CompositeColumn<TableT::idType, TableT::nameType>>);
+
+    auto three_columns = sqt::MakeCompositeColumn(TableV.id, TableV.name, TableV.age);
+    static_assert(
+        std::is_same_v<decltype(three_columns),
+        sqt::CompositeColumn<TableT::idType, TableT::nameType, TableT::ageType>>);
 }

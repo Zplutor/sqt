@@ -43,6 +43,12 @@
     <Filter Include="src\sqt\orm\column">
       <UniqueIdentifier>{41568260-6c4a-41e1-8924-9b40e2915abd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\index">
+      <UniqueIdentifier>{5935330b-d89e-4ae3-892b-b43b651cec8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\internal">
+      <UniqueIdentifier>{15853671-0fad-4629-ba12-b1286265c6c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -202,6 +208,18 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\column\column_like.h">
       <Filter>src\sqt\orm\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\index\abstract_index.h">
+      <Filter>src\sqt\orm\index</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\utility\macro_utility.h">
+      <Filter>src\sqt\orm\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\linked_list.h">
+      <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\index\index_support.h">
+      <Filter>src\sqt\orm\index</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

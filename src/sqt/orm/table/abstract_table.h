@@ -2,6 +2,7 @@
 
 #include <string_view>
 #include <sqt/orm/column/abstract_column.h>
+#include <sqt/orm/index/abstract_index.h>
 
 namespace sqt {
 
@@ -14,6 +15,7 @@ public:
 
     virtual std::string_view GetName() const noexcept = 0;
     virtual AbstractColumnsView GetAbstractColumns() const noexcept = 0;
+    virtual AbstractIndexesView GetAbstractIndexes() const noexcept = 0;
 };
 
 }

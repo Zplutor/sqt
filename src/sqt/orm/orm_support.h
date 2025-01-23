@@ -2,9 +2,14 @@
 
 #include <array>
 #include <sqt/orm/column/column.h>
+#include <sqt/orm/column/composite_column.h>
 #include <sqt/orm/expression/expression_support.h>
+#include <sqt/orm/index/abstract_index.h>
+#include <sqt/orm/index/index_support.h>
+#include <sqt/orm/internal/linked_list.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/abstract_table.h>
+#include <sqt/orm/utility/macro_utility.h>
 #include <sqt/orm/value_type/primitive_value_type.h>
 #include <sqt/orm/value_type/nullable_value_type.h>
 
@@ -19,29 +24,38 @@ public: \
     } \
     constexpr sqt::ColumnsView<EntityType> GetColumns() const noexcept; \
     sqt::AbstractColumnsView GetAbstractColumns() const noexcept override; \
+    sqt::AbstractIndexesView GetAbstractIndexes() const noexcept override; \
 private: \
     constexpr TableType() noexcept = default; \
-    class BaseColumn : public sqt::Column<EntityType> { \
+    using ColumnLinkedList = sqt::LinkedList<sqt::Column<EntityType>>; \
+    ColumnLinkedList column_linked_list_; \
+    using IndexLinkedList = sqt::LinkedList<sqt::AbstractIndex>; \
+    IndexLinkedList index_linked_list_; \
+    template<typename... Columns> \
+    class BaseIndex : public sqt::CompositeColumn<Columns...>, public IndexLinkedList::Node { \
     public: \
-        constexpr explicit BaseColumn(const BaseColumn*& last) noexcept : previous_(last) { \
-            last = this; \
+        constexpr BaseIndex( \
+            const IndexLinkedList::Node*& last_index, \
+            const Columns&... columns) : \
+            sqt::CompositeColumn<Columns...>(columns...), \
+            IndexLinkedList::Node(last_index) { } \
+        sqt::AbstractColumnsView GetAbstractColumns() const noexcept override { \
+            return sqt::CompositeColumn<Columns...>::GetAbstractColumns(); \
         } \
-    private: \
-        friend class TableType; \
-        const BaseColumn* const previous_{}; \
     }; \
-    const BaseColumn* last_column_{}; \
+    template<typename... Columns> \
+    static constexpr BaseIndex<Columns...> MakeBaseIndex(const Columns&...) { } \
 
 
 #define SQT_COLUMN(COLUMN_NAME, CLASS_FIELD) \
 public: \
-    class COLUMN_NAME##Type : public BaseColumn { \
+    class COLUMN_NAME##Type : public ColumnLinkedList::Node { \
     private: \
         using ThisType = COLUMN_NAME##Type; \
     public: \
         using ValueType = decltype(((EntityType*)nullptr)->CLASS_FIELD); \
         using ValueTypeTraits = sqt::ValueTypeTraits<ValueType>; \
-        constexpr explicit COLUMN_NAME##Type(const BaseColumn*& last) : BaseColumn(last) { } \
+        using Node::Node; \
         constexpr std::string_view GetName() const noexcept override { \
             return #COLUMN_NAME; \
         } \
@@ -63,7 +77,19 @@ public: \
         } \
         __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
     }; \
-    COLUMN_NAME##Type COLUMN_NAME{ last_column_ };
+    COLUMN_NAME##Type COLUMN_NAME{ column_linked_list_.Last() };
+
+
+#define SQT_INDEX(...) \
+private: \
+    using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) = decltype(MakeBaseIndex(__VA_ARGS__)); \
+public: \
+    class SQT_INDEX_TYPE_NAME(__VA_ARGS__) : public SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) { \
+    public: \
+        using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__)::SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__); \
+    }; \
+    SQT_INDEX_TYPE_NAME(__VA_ARGS__) SQT_INDEX_NAME(__VA_ARGS__){ \
+        index_linked_list_.Last(), __VA_ARGS__ };
 
 
 #define SQT_TABLE_END \
@@ -72,35 +98,12 @@ public: \
 class TableType::Insider { \
 public: \
     static constexpr TableType TableInstance; \
-    static constexpr std::size_t ColumnCount = []() { \
-        std::size_t result{}; \
-        auto current = TableInstance.last_column_; \
-        while (current) { \
-            ++result; \
-            current = current->previous_; \
-        } \
-        return result; \
-    }(); \
-    template<std::size_t Count> \
-    static constexpr void FillColumnArray( \
-        std::array<const sqt::Column<EntityType>*, Count>& array, \
-        std::size_t index, \
-        const sqt::Column<EntityType>* column) { \
-        if (index >= array.size()) { \
-            return; \
-        } \
-        array[Count - index - 1] = column; \
-        FillColumnArray<Count>( \
-            array, ++index, static_cast<const BaseColumn*>(column)->previous_); \
-    } \
-    template<std::size_t Count> \
-    static constexpr std::array<const sqt::Column<EntityType>*, Count> MakeColumns() { \
-        std::array<const sqt::Column<EntityType>*, Count> result; \
-        FillColumnArray<Count>(result, 0, TableInstance.last_column_); \
-        return result; \
-    } \
+    static constexpr std::size_t ColumnCount = TableInstance.column_linked_list_.Count(); \
     static constexpr std::array<const sqt::Column<EntityType>*, ColumnCount> Columns = \
-        MakeColumns<ColumnCount>(); \
+        TableInstance.column_linked_list_.ToNodeBaseArray<ColumnCount>(); \
+    static constexpr std::size_t IndexCount = TableInstance.index_linked_list_.Count(); \
+    static constexpr std::array<const sqt::AbstractIndex*, IndexCount> Indexes = \
+        TableInstance.index_linked_list_.ToNodeBaseArray<IndexCount>(); \
 }; \
 constexpr const TableType& TableType::GetInstance() noexcept { \
     return Insider::TableInstance; \
@@ -113,6 +116,9 @@ inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept {
         reinterpret_cast<const sqt::AbstractColumn* const*>(GetColumns().data()), \
         GetColumns().size() \
     }; \
+} \
+inline sqt::AbstractIndexesView TableType::GetAbstractIndexes() const noexcept { \
+    return TableType::Insider::Indexes; \
 } \
 };
 

@@ -132,7 +132,7 @@ TEST(ORMSupportTest, TableDefinition) {
 }
 
 
-TEST(ORMSupportTest, NoColumn) {
+TEST(ORMSupportTest, NoColumnTable) {
 
     constexpr const auto& table = sqt::TableV<Entity0Column>;
     ASSERT_TRUE(table.GetColumns().empty());
@@ -140,7 +140,7 @@ TEST(ORMSupportTest, NoColumn) {
 }
 
 
-TEST(ORMSupportTest, SingleColumn) {
+TEST(ORMSupportTest, SingleColumnTable) {
 
     constexpr const auto& table = sqt::TableV<Entity1Column>;
 
@@ -151,6 +151,77 @@ TEST(ORMSupportTest, SingleColumn) {
     auto abstract_columns = table.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 1);
     ASSERT_EQ(abstract_columns[0], &table.id);
+}
+
+
+TEST(ORMSupportTest, SingleColumnIndex) {
+
+    using Table = sqt::TableT<Entity1Index>;
+
+    static_assert(!std::is_copy_constructible_v<Table::IndexType_id0>);
+    static_assert(!std::is_copy_assignable_v<Table::IndexType_id0>);
+    static_assert(!std::is_move_constructible_v<Table::IndexType_id0>);
+    static_assert(!std::is_move_assignable_v<Table::IndexType_id0>);
+
+    constexpr auto& table = sqt::TableV<Entity1Index>;
+
+    auto indexes = table.GetAbstractIndexes();
+    ASSERT_EQ(indexes.size(), 1);
+    ASSERT_EQ(indexes[0], &table.Index_id0);
+
+    auto columns = table.Index_id0.GetAbstractColumns();
+    ASSERT_EQ(columns.size(), 1);
+    ASSERT_EQ(columns[0], &table.id0);
+}
+
+
+TEST(ORMSupportTest, TwoColumnIndex) {
+
+    using Table = sqt::TableT<Entity2Index>;
+
+    static_assert(!std::is_copy_constructible_v<Table::IndexType_id0id1>);
+    static_assert(!std::is_copy_assignable_v<Table::IndexType_id0id1>);
+    static_assert(!std::is_move_constructible_v<Table::IndexType_id0id1>);
+    static_assert(!std::is_move_assignable_v<Table::IndexType_id0id1>);
+
+    constexpr auto& table = sqt::TableV<Entity2Index>;
+
+    auto indexes = table.GetAbstractIndexes();
+    ASSERT_EQ(indexes.size(), 1);
+    ASSERT_EQ(indexes[0], &table.Index_id0id1);
+
+    auto columns = table.Index_id0id1.GetAbstractColumns();
+    ASSERT_EQ(columns.size(), 2);
+    ASSERT_EQ(columns[0], &table.id0);
+    ASSERT_EQ(columns[1], &table.id1);
+}
+
+
+TEST(ORMSupportTest, MaxCountColumnIndex) {
+
+    using Table = sqt::TableT<Entity8Index>;
+
+    static_assert(!std::is_copy_constructible_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
+    static_assert(!std::is_copy_assignable_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
+    static_assert(!std::is_move_constructible_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
+    static_assert(!std::is_move_assignable_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
+
+    constexpr auto& table = sqt::TableV<Entity8Index>;
+
+    auto indexes = table.GetAbstractIndexes();
+    ASSERT_EQ(indexes.size(), 1);
+    ASSERT_EQ(indexes[0], &table.Index_id0id1id2id3id4id5id6id7);
+
+    auto columns = table.Index_id0id1id2id3id4id5id6id7.GetAbstractColumns();
+    ASSERT_EQ(columns.size(), 8);
+    ASSERT_EQ(columns[0], &table.id0);
+    ASSERT_EQ(columns[1], &table.id1);
+    ASSERT_EQ(columns[2], &table.id2);
+    ASSERT_EQ(columns[3], &table.id3);
+    ASSERT_EQ(columns[4], &table.id4);
+    ASSERT_EQ(columns[5], &table.id5);
+    ASSERT_EQ(columns[6], &table.id6);
+    ASSERT_EQ(columns[7], &table.id7);
 }
 
 
