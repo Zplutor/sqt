@@ -169,6 +169,9 @@ TEST(ORMSupportTest, SingleColumnIndex) {
     ASSERT_EQ(indexes.size(), 1);
     ASSERT_EQ(indexes[0], &table.Index_id0);
 
+    auto index_name = table.Index_id0.GetName();
+    ASSERT_EQ(index_name, "Entity1Index_Index_id0");
+
     auto columns = table.Index_id0.GetAbstractColumns();
     ASSERT_EQ(columns.size(), 1);
     ASSERT_EQ(columns[0], &table.id0);
@@ -189,6 +192,9 @@ TEST(ORMSupportTest, TwoColumnIndex) {
     auto indexes = table.GetAbstractIndexes();
     ASSERT_EQ(indexes.size(), 1);
     ASSERT_EQ(indexes[0], &table.Index_id0id1);
+
+    auto index_name = table.Index_id0id1.GetName();
+    ASSERT_EQ(index_name, "Entity2Index_Index_id0id1");
 
     auto columns = table.Index_id0id1.GetAbstractColumns();
     ASSERT_EQ(columns.size(), 2);
@@ -211,6 +217,9 @@ TEST(ORMSupportTest, MaxCountColumnIndex) {
     auto indexes = table.GetAbstractIndexes();
     ASSERT_EQ(indexes.size(), 1);
     ASSERT_EQ(indexes[0], &table.Index_id0id1id2id3id4id5id6id7);
+
+    auto index_name = table.Index_id0id1id2id3id4id5id6id7.GetName();
+    ASSERT_EQ(index_name, "Entity8Index_Index_id0id1id2id3id4id5id6id7");
 
     auto columns = table.Index_id0id1id2id3id4id5id6id7.GetAbstractColumns();
     ASSERT_EQ(columns.size(), 8);

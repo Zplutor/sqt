@@ -12,6 +12,7 @@ public:
     AbstractIndex(const AbstractIndex&) = delete;
     AbstractIndex& operator=(const AbstractIndex&) = delete;
 
+    virtual std::string_view GetName() const noexcept = 0;
     virtual AbstractColumnsView GetAbstractColumns() const noexcept = 0;
 };
 

@@ -10,17 +10,19 @@
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/utility/macro_utility.h>
+#include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value_type/primitive_value_type.h>
 #include <sqt/orm/value_type/nullable_value_type.h>
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
 namespace __sqt_table_##TABLE_NAME { \
 using EntityType = ENTITY_CLASS; \
+constexpr std::string_view TableName = #TABLE_NAME; \
 class TableType : public sqt::AbstractTable { \
 public: \
     static constexpr const TableType& GetInstance() noexcept; \
     constexpr std::string_view GetName() const noexcept override { \
-        return #TABLE_NAME; \
+        return TableName; \
     } \
     constexpr sqt::ColumnsView<EntityType> GetColumns() const noexcept; \
     sqt::AbstractColumnsView GetAbstractColumns() const noexcept override; \
@@ -85,8 +87,16 @@ private: \
     using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) = decltype(MakeBaseIndex(__VA_ARGS__)); \
 public: \
     class SQT_INDEX_TYPE_NAME(__VA_ARGS__) : public SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) { \
+    private: \
+        static constexpr std::string_view IndexName = SQT_INDEX_NAME_STRING(__VA_ARGS__); \
+        static constexpr std::size_t FullNameLength = TableName.size() + IndexName.size() + 1; \
+        static constexpr std::array<char, FullNameLength> FullName = \
+            sqt::MakeIndexFullName<FullNameLength>(TableName, IndexName); \
     public: \
         using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__)::SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__); \
+        std::string_view GetName() const noexcept override { \
+            return std::string_view{ FullName.data(), FullName.size() }; \
+        } \
     }; \
     SQT_INDEX_TYPE_NAME(__VA_ARGS__) SQT_INDEX_NAME(__VA_ARGS__){ \
         index_linked_list_.Last(), __VA_ARGS__ };
