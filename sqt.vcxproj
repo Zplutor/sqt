@@ -55,11 +55,14 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_column.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_index.h" />
+    <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\table\column.h" />
     <ClInclude Include="src\sqt\orm\table\column_like.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
     <ClInclude Include="src\sqt\orm\table\index_support.h" />
+    <ClInclude Include="src\sqt\orm\table\primary_key.h" />
+    <ClInclude Include="src\sqt\orm\table\primary_key_support.h" />
     <ClInclude Include="src\sqt\orm\table\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />

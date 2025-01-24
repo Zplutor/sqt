@@ -9,6 +9,7 @@
 #include <sqt/orm/table/column.h>
 #include <sqt/orm/table/composite_column.h>
 #include <sqt/orm/table/index_support.h>
+#include <sqt/orm/table/primary_key_support.h>
 #include <sqt/orm/utility/macro_utility.h>
 #include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value_type/primitive_value_type.h>
@@ -80,6 +81,10 @@ public: \
         __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
     }; \
     COLUMN_NAME##Type COLUMN_NAME{ column_linked_list_.Last() };
+
+
+#define SQT_PRIMARY_KEY(...) SQT_DEFINE_PRIMARY_KEY(false, __VA_ARGS__)
+#define SQL_PRIMARY_KEY_AUTOINCREMENT(COLUMN_NAME) SQT_DEFINE_PRIMARY_KEY(true, COLUMN_NAME)
 
 
 #define SQT_INDEX(...) \

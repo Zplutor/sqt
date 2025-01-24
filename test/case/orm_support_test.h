@@ -38,6 +38,39 @@ SQT_COLUMN(id, id)
 SQT_TABLE_END
 
 
+struct EntityPK1 {
+    int id0{};
+    int id1{};
+};
+SQT_TABLE_BEGIN(EntityPK1, EntityPK1)
+SQT_COLUMN(id0, id0)
+SQT_COLUMN(id1, id1)
+SQT_PRIMARY_KEY(id0)
+SQT_TABLE_END
+
+
+struct EntityPK2 {
+    int id0{};
+    int id1{};
+    int id2{};
+};
+SQT_TABLE_BEGIN(EntityPK2, EntityPK2)
+SQT_COLUMN(id0, id0)
+SQT_COLUMN(id1, id1)
+SQT_COLUMN(id2, id2)
+SQT_PRIMARY_KEY(id0, id1)
+SQT_TABLE_END
+
+
+struct EntityPKAutoInc {
+    int id{};
+};
+SQT_TABLE_BEGIN(EntityPKAutoInc, EntityPKAutoInc)
+SQT_COLUMN(id, id)
+SQL_PRIMARY_KEY_AUTOINCREMENT(id)
+SQT_TABLE_END
+
+
 struct Entity1Index {
     int id0{};
     int id1{};
@@ -91,6 +124,9 @@ SQT_TABLE_END
 SQT_REGISTER(orm_support, Entity)
 SQT_REGISTER(orm_support, Entity0Column)
 SQT_REGISTER(orm_support, Entity1Column)
+SQT_REGISTER(orm_support, EntityPK1)
+SQT_REGISTER(orm_support, EntityPK2)
+SQT_REGISTER(orm_support, EntityPKAutoInc)
 SQT_REGISTER(orm_support, Entity1Index)
 SQT_REGISTER(orm_support, Entity2Index)
 SQT_REGISTER(orm_support, Entity8Index)

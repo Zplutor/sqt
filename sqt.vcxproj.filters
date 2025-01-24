@@ -218,5 +218,14 @@
     <ClInclude Include="src\sqt\orm\table\table_initializer.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\primary_key.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\primary_key_support.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

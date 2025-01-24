@@ -16,6 +16,10 @@ TEST(ORMSupportTest, TableDefinition) {
     //GetInstance should be constexpr
     constexpr const auto& table = Table::GetInstance();
 
+    //GetAbstractPrimaryKey should be constexpr
+    constexpr auto primary_key = table.GetAbstractPrimaryKey();
+    ASSERT_EQ(primary_key, nullptr);
+
     //GetName should be constexpr
     constexpr auto table_name = table.GetName();
     ASSERT_EQ(table_name, "Entity");
@@ -151,6 +155,63 @@ TEST(ORMSupportTest, SingleColumnTable) {
     auto abstract_columns = table.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 1);
     ASSERT_EQ(abstract_columns[0], &table.id);
+}
+
+
+TEST(ORMSupportTest, SingleColumnPrimaryKey) {
+
+    using Table = sqt::TableT<EntityPK1>;
+    static_assert(!std::is_copy_constructible_v<Table::PrimaryKeyType>);
+    static_assert(!std::is_copy_assignable_v<Table::PrimaryKeyType>);
+    static_assert(!std::is_move_constructible_v<Table::PrimaryKeyType>);
+    static_assert(!std::is_move_assignable_v<Table::PrimaryKeyType>);
+
+    constexpr auto& table = sqt::TableV<EntityPK1>;
+
+    constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
+    ASSERT_EQ(abstract_pk, &table.PrimaryKey);
+
+    constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
+    ASSERT_FALSE(auto_inc);
+
+    auto columns = table.PrimaryKey.GetAbstractColumns();
+    ASSERT_EQ(columns.size(), 1);
+    ASSERT_EQ(columns[0]->GetName(), "id0");
+}
+
+
+TEST(ORMSupportTest, TwoColumnPrimaryKey) {
+
+    using Table = sqt::TableT<EntityPK2>;
+    static_assert(!std::is_copy_constructible_v<Table::PrimaryKeyType>);
+    static_assert(!std::is_copy_assignable_v<Table::PrimaryKeyType>);
+    static_assert(!std::is_move_constructible_v<Table::PrimaryKeyType>);
+    static_assert(!std::is_move_assignable_v<Table::PrimaryKeyType>);
+
+    constexpr auto& table = sqt::TableV<EntityPK2>;
+
+    constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
+    ASSERT_EQ(abstract_pk, &table.PrimaryKey);
+
+    constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
+    ASSERT_FALSE(auto_inc);
+
+    auto columns = table.PrimaryKey.GetAbstractColumns();
+    ASSERT_EQ(columns.size(), 2);
+    ASSERT_EQ(columns[0]->GetName(), "id0");
+    ASSERT_EQ(columns[1]->GetName(), "id1");
+}
+
+
+TEST(ORMSupportTest, AutoIncrementPrimaryKey) {
+
+    constexpr auto& table = sqt::TableV<EntityPKAutoInc>;
+    constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
+    ASSERT_TRUE(auto_inc);
+
+    auto columns = table.PrimaryKey.GetAbstractColumns();
+    ASSERT_EQ(columns.size(), 1);
+    ASSERT_EQ(columns[0]->GetName(), "id");
 }
 
 
