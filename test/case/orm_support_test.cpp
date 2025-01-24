@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <sqt/orm/column/column_like.h>
+#include <sqt/orm/table/column_like.h>
 #include "orm_support_test.h"
 
 using namespace orm_support;

@@ -1,8 +1,8 @@
 #pragma
 
 #include <string_view>
-#include <sqt/orm/column/abstract_column.h>
-#include <sqt/orm/index/abstract_index.h>
+#include <sqt/orm/table/abstract_column.h>
+#include <sqt/orm/table/abstract_index.h>
 
 namespace sqt {
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <sqt/orm/binder/value_binder.h>
-#include <sqt/orm/column/column.h>
 #include <sqt/orm/expression/placeholder.h>
+#include <sqt/orm/table/column.h>
 #include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value_type/composite_value_type.h>
 

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <sqt/orm/column/composite_column.h>
 #include <sqt/orm/orm_support.h>
+#include <sqt/orm/table/composite_column.h>
 
 namespace composite_column_test {
 

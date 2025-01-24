@@ -32,10 +32,6 @@
     <ClInclude Include="src\sqt\orm\binder\binder_like.h" />
     <ClInclude Include="src\sqt\orm\binder\entity_binder.h" />
     <ClInclude Include="src\sqt\orm\binder\value_binder.h" />
-    <ClInclude Include="src\sqt\orm\column\abstract_column.h" />
-    <ClInclude Include="src\sqt\orm\column\column.h" />
-    <ClInclude Include="src\sqt\orm\column\column_like.h" />
-    <ClInclude Include="src\sqt\orm\column\composite_column.h" />
     <ClInclude Include="src\sqt\orm\data_context.h" />
     <ClInclude Include="src\sqt\orm\executor\executor.h" />
     <ClInclude Include="src\sqt\orm\executor\iterator.h" />
@@ -46,8 +42,6 @@
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operator.h" />
     <ClInclude Include="src\sqt\orm\expression\placeholder.h" />
-    <ClInclude Include="src\sqt\orm\index\abstract_index.h" />
-    <ClInclude Include="src\sqt\orm\index\index_support.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
     <ClInclude Include="src\sqt\orm\querier\querier_like.h" />
@@ -59,7 +53,14 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_like.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\where_capacity.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
+    <ClInclude Include="src\sqt\orm\table\abstract_column.h" />
+    <ClInclude Include="src\sqt\orm\table\abstract_index.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_table.h" />
+    <ClInclude Include="src\sqt\orm\table\column.h" />
+    <ClInclude Include="src\sqt\orm\table\column_like.h" />
+    <ClInclude Include="src\sqt\orm\table\composite_column.h" />
+    <ClInclude Include="src\sqt\orm\table\index_support.h" />
+    <ClInclude Include="src\sqt\orm\table\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />

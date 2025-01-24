@@ -40,12 +40,6 @@
     <Filter Include="src\sqt\orm\table">
       <UniqueIdentifier>{9815fec2-0a59-4753-8c2d-798b2db55973}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sqt\orm\column">
-      <UniqueIdentifier>{41568260-6c4a-41e1-8924-9b40e2915abd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\sqt\orm\index">
-      <UniqueIdentifier>{5935330b-d89e-4ae3-892b-b43b651cec8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sqt\orm\internal">
       <UniqueIdentifier>{15853671-0fad-4629-ba12-b1286265c6c5}</UniqueIdentifier>
     </Filter>
@@ -197,29 +191,32 @@
     <ClInclude Include="src\sqt\orm\table\abstract_table.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\column\abstract_column.h">
-      <Filter>src\sqt\orm\column</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\column\column.h">
-      <Filter>src\sqt\orm\column</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\column\composite_column.h">
-      <Filter>src\sqt\orm\column</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\column\column_like.h">
-      <Filter>src\sqt\orm\column</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\index\abstract_index.h">
-      <Filter>src\sqt\orm\index</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h">
       <Filter>src\sqt\orm\utility</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\linked_list.h">
       <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\index\index_support.h">
-      <Filter>src\sqt\orm\index</Filter>
+    <ClInclude Include="src\sqt\orm\table\abstract_column.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\abstract_index.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column_like.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\composite_column.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\index_support.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\table_initializer.h">
+      <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

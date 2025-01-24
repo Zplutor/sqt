@@ -1,14 +1,14 @@
 #pragma once
 
 #include <array>
-#include <sqt/orm/column/column.h>
-#include <sqt/orm/column/composite_column.h>
 #include <sqt/orm/expression/expression_support.h>
-#include <sqt/orm/index/abstract_index.h>
-#include <sqt/orm/index/index_support.h>
 #include <sqt/orm/internal/linked_list.h>
 #include <sqt/orm/table_mapping.h>
+#include <sqt/orm/table/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
+#include <sqt/orm/table/column.h>
+#include <sqt/orm/table/composite_column.h>
+#include <sqt/orm/table/index_support.h>
 #include <sqt/orm/utility/macro_utility.h>
 #include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value_type/primitive_value_type.h>
