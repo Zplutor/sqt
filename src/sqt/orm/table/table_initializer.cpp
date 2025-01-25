@@ -1,7 +1,7 @@
 #include <sqt/orm/table/table_initializer.h>
 #include <format>
 #include <sqt/foundation/transaction.h>
-//#include "utility/sql/orm/data_set_helpers.h"
+#include <sqt/orm/utility/utility.h>
 
 namespace sqt {
 
@@ -36,8 +36,8 @@ void TableInitializer::CreateTable(const AbstractTable& table, Database& db) {
         table.GetName(),
         GenerateColumnDefinitionsSQL(table.GetAbstractColumns(), inline_pk_column),
         inline_pk_column ?
-        std::string{} :
-        GeneratePrimaryKeyConstraintSQL(table.GetAbstractPrimaryKey()));
+            std::string{} :
+            GeneratePrimaryKeyConstraintSQL(table.GetAbstractPrimaryKey()));
 
     db.ExecuteSQL(sql);
 }
@@ -47,9 +47,15 @@ std::string TableInitializer::GenerateColumnDefinitionsSQL(
     std::span<const AbstractColumn* const> columns,
     const AbstractColumn* inline_pk_column) {
 
-    return zaf::JoinAsString(columns, ",", [inline_pk_column](auto column) {
-        return GenerateColumnSQL(*column, column == inline_pk_column);
-    });
+    std::string result;
+    for (std::size_t index = 0; index < columns.size(); ++index) {
+        if (index != 0) {
+            result += ',';
+        }
+        auto column = columns[index];
+        result += GenerateColumnSQL(*column, column == inline_pk_column);
+    }
+    return result;
 }
 
 
@@ -69,9 +75,12 @@ void TableInitializer::AlterTable(
     TableInfo&& existent_table_info,
     Database& db) {
 
-    zaf::Sort(existent_table_info.columns, [](const auto& column1, const auto& column2) {
-        return column1.name < column2.name;
-    });
+    std::sort(
+        existent_table_info.columns.begin(), 
+        existent_table_info.columns.end(),
+        [](const auto& column1, const auto& column2) {
+            return column1.name < column2.name;
+        });
 
     std::vector<const AbstractColumn*> inexistent_columns;
     for (auto each_column : table.GetAbstractColumns()) {
@@ -81,8 +90,8 @@ void TableInitializer::AlterTable(
             existent_table_info.columns.end(),
             each_column,
             [](const ColumnInfo& existent_column, const AbstractColumn* abstract_column) {
-            return existent_column.name < abstract_column->GetName();
-        });
+                return existent_column.name < abstract_column->GetName();
+            });
 
         if (iterator == existent_table_info.columns.end() ||
             iterator->name != each_column->GetName()) {
@@ -147,16 +156,9 @@ void TableInitializer::CreateIndex(
     const AbstractIndex& index,
     Database& db) {
 
-    auto index_name = std::format(
-        "Index_{}_{}",
-        table.GetName(),
-        zaf::JoinAsString(index.GetAbstractColumns(), "_", [](auto column) {
-        return column->GetName();
-    }));
-
     auto sql = std::format(
         "create index if not exists {} on {} ({})",
-        index_name,
+        index.GetName(),
         table.GetName(),
         JoinColumnNames(index.GetAbstractColumns()));
 

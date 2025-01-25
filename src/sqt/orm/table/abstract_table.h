@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 
 #include <string_view>
 #include <sqt/orm/table/abstract_column.h>

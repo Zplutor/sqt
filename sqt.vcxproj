@@ -17,6 +17,7 @@
     <ClCompile Include="src\sqt\foundation\statement.cpp" />
     <ClCompile Include="src\sqt\foundation\transaction.cpp" />
     <ClCompile Include="src\sqt\orm\expression\operator.cpp" />
+    <ClCompile Include="src\sqt\orm\table\table_initializer.cpp" />
     <ClCompile Include="src\sqt\orm\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>

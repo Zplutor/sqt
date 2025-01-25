@@ -66,6 +66,9 @@
     <ClCompile Include="src\sqt\foundation\transaction.cpp">
       <Filter>src\sqt\foundation</Filter>
     </ClCompile>
+    <ClCompile Include="src\sqt\orm\table\table_initializer.cpp">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
