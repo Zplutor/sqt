@@ -43,6 +43,9 @@
     <Filter Include="src\sqt\orm\internal">
       <UniqueIdentifier>{15853671-0fad-4629-ba12-b1286265c6c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\querier\inserter">
+      <UniqueIdentifier>{6c97785b-d4d2-4f10-98fd-7662e023f41b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -229,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\primary_key_support.h">
       <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\inserter\inserter.h">
+      <Filter>src\sqt\orm\querier\inserter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h">
+      <Filter>src\sqt\orm\querier\inserter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\assignment.h">
+      <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

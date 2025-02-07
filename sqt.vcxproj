@@ -37,6 +37,7 @@
     <ClInclude Include="src\sqt\orm\executor\executor.h" />
     <ClInclude Include="src\sqt\orm\executor\iterator.h" />
     <ClInclude Include="src\sqt\orm\executor\result.h" />
+    <ClInclude Include="src\sqt\orm\expression\assignment.h" />
     <ClInclude Include="src\sqt\orm\expression\expression.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
     <ClInclude Include="src\sqt\orm\expression\operand.h" />
@@ -45,6 +46,8 @@
     <ClInclude Include="src\sqt\orm\expression\placeholder.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
+    <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h" />
+    <ClInclude Include="src\sqt\orm\querier\inserter\inserter.h" />
     <ClInclude Include="src\sqt\orm\querier\querier_like.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h" />
