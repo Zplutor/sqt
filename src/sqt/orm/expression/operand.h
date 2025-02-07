@@ -28,7 +28,7 @@ public:
     }
 
     std::string BuildSQL() const {
-        return std::string{ column_->GetName() };
+        return std::string{ T::Name };
     }
 
     constexpr void BindInlineParameters(Statement& statement, int parameter_index) const noexcept {

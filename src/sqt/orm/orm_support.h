@@ -59,8 +59,9 @@ public: \
         using ValueType = decltype(((EntityType*)nullptr)->CLASS_FIELD); \
         using ValueTypeTraits = sqt::ValueTypeTraits<ValueType>; \
         using Node::Node; \
+        static constexpr std::string_view Name = #COLUMN_NAME; \
         constexpr std::string_view GetName() const noexcept override { \
-            return #COLUMN_NAME; \
+            return Name; \
         } \
         constexpr sqt::DataType GetDataType() const noexcept override { \
             return ValueTypeTraits::DataType; \
