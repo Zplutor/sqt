@@ -12,6 +12,14 @@ class Expression {
 public:
     static constexpr std::size_t ParameterCount = LHS::ParameterCount + RHS::ParameterCount;
 
+    static std::string BuildSQL() {
+        return std::format(
+            "({}{}{})",
+            LHS::BuildSQL(),
+            ConvertOperatorToString(OP),
+            RHS::BuildSQL());
+    }
+
     static constexpr auto BuildPlaceholderBinders(int parameter_index) {
         auto lhs_binders = LHS::BuildPlaceholderBinders(parameter_index);
         auto rhs_binders = RHS::BuildPlaceholderBinders(parameter_index + LHS::ParameterCount);
@@ -35,14 +43,6 @@ public:
         using ThisType = Expression<OP, LHS, RHS>;
         using ResultType = Expression<Operator::Or, ThisType, Other>;
         return ResultType{ *this, std::move(other) };
-    }
-
-    std::string BuildSQL() const {
-        return std::format(
-            "({}{}{})",
-            lhs_.BuildSQL(), 
-            ConvertOperatorToString(OP),
-            rhs_.BuildSQL());
     }
 
     void BindInlineParameters(Statement& statement, int parameter_index) const {

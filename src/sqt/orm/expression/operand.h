@@ -18,6 +18,10 @@ class Operand<T, std::enable_if_t<IsColumnV<T>>> {
 public:
     static constexpr std::size_t ParameterCount = 0;
 
+    static std::string BuildSQL() {
+        return std::string{ T::Name };
+    }
+
     static constexpr std::tuple<> BuildPlaceholderBinders(int parameter_index) noexcept {
         return {};
     }
@@ -25,10 +29,6 @@ public:
 public:
     constexpr explicit Operand(const T& column) : column_(&column) {
 
-    }
-
-    std::string BuildSQL() const {
-        return std::string{ T::Name };
     }
 
     constexpr void BindInlineParameters(Statement& statement, int parameter_index) const noexcept {
@@ -72,6 +72,13 @@ public:
 
     static constexpr std::size_t ParameterCount = ValueTypeTraits<T>::PlaceholderCount;
 
+    static std::string BuildSQL() {
+        if constexpr (ParameterCount == 1) {
+            return "?";
+        }
+        return std::format("({})", JoinPlaceholders(ParameterCount));
+    }
+
     static constexpr std::tuple<> BuildPlaceholderBinders(int parameter_index) noexcept {
         return {};
     }
@@ -79,13 +86,6 @@ public:
 public:
     constexpr explicit Operand(T value) : value_(std::move(value)) {
 
-    }
-
-    std::string BuildSQL() const {
-        if constexpr (ParameterCount == 1) {
-            return "?";
-        }
-        return std::format("({})", JoinPlaceholders(ParameterCount));
     }
 
     void BindInlineParameters(Statement& statement, int parameter_index) const {
@@ -104,6 +104,10 @@ public:
 
     static constexpr std::size_t ParameterCount = ValueTypeTraits<ValueType>::PlaceholderCount;
 
+    static std::string BuildSQL() {
+        return "?";
+    }
+
     static constexpr std::tuple<ValueBinder<ValueType>> BuildPlaceholderBinders(
         int parameter_index) noexcept {
 
@@ -112,10 +116,6 @@ public:
 
 public:
     constexpr Operand() noexcept = default;
-
-    std::string BuildSQL() const {
-        return "?";
-    }
 
     constexpr void BindInlineParameters(Statement& statement, int parameter_index) const noexcept {
 
