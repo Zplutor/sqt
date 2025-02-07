@@ -18,6 +18,14 @@ public:
     static constexpr std::size_t ParameterIndex = INNER::ParameterIndex + INNER::ParameterCount;
     static constexpr std::size_t ParameterCount = EXPR::ParameterCount;
 
+    static std::string_view BuildSQL() {
+        static const std::string sql = std::format(
+            "{} limit {}", 
+            INNER::BuildSQL(), 
+            EXPR::BuildSQL());
+        return sql;
+    }
+
     static constexpr auto BuildPlaceholderBinders() {
         auto inner_binders = INNER::BuildPlaceholderBinders();
         auto expression_binders = EXPR::BuildPlaceholderBinders(ParameterIndex);
@@ -33,13 +41,6 @@ public:
         inner_selecter_(std::move(inner_selecter)),
         expression_(std::move(expression)) {
 
-    }
-
-    std::string_view BuildSQL() const {
-        static const std::string sql = [this]() {
-            return std::format("{} limit {}", inner_selecter_.BuildSQL(), expression_.BuildSQL());
-        }();
-        return sql;
     }
 
     void BindInlineParameters(Statement& statement) const {

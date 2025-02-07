@@ -11,11 +11,11 @@ concept QuerierLike =
     requires {
         { T::ParameterIndex } -> std::same_as<const std::size_t&>;
         { T::ParameterCount } -> std::same_as<const std::size_t&>;
+        { T::BuildSQL() } -> std::same_as<std::string_view>;
         { T::BuildPlaceholderBinders() } -> BinderLikeTuple;
     } 
     &&
     requires(const T t, Statement& statement) {
-        { t.BuildSQL() } -> std::same_as<std::string_view>;
         { t.BindInlineParameters(statement) } -> std::same_as<void>;
     };
 
