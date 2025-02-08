@@ -7,6 +7,6 @@
 namespace sqt {
 
 template<typename T>
-concept BindableValueType = PrimitiveValueType<T> || NullableValueType<T> || CompositeValueType<T>;
+concept BindableValueType = PrimitiveValueLike<T> || NullableValueLike<T> || CompositeValueLike<T>;
 
 }

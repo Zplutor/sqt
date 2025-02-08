@@ -29,17 +29,11 @@ using GetOptionalValueTypeT = typename GetOptionalValueType<T>::type;
 
 
 template<typename T>
-constexpr bool IsNullableValueTypeV =
-    IsOptionalV<T> &&
-    IsPrimitiveValueTypeV<GetOptionalValueTypeT<T>>;
+concept NullableValueLike = IsOptionalV<T> && PrimitiveValueLike<GetOptionalValueTypeT<T>>;
 
 
-template<typename T>
-concept NullableValueType = IsNullableValueTypeV<T>;
-
-
-template<typename T>
-struct ValueTypeTraits<T, std::enable_if_t<IsNullableValueTypeV<T>>> {
+template<NullableValueLike T>
+struct ValueTypeTraits<T> {
 
     static constexpr sqt::DataType DataType = MapToDataTypeV<GetOptionalValueTypeT<T>>;
     static constexpr bool IsNullable = true;

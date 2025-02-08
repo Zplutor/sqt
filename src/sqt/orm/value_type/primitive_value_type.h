@@ -6,21 +6,14 @@
 
 namespace sqt {
 
-template<typename T, typename = void>
-struct IsPrimitiveValueType : std::false_type {};
-
 template<typename T>
-struct IsPrimitiveValueType<T, std::void_t<decltype(MapToDataType<T>::value)>> : std::true_type {};
-
-template<typename T>
-constexpr bool IsPrimitiveValueTypeV = IsPrimitiveValueType<T>::value;
-
-template<typename T>
-concept PrimitiveValueType = IsPrimitiveValueTypeV<T>;
+concept PrimitiveValueLike = requires {
+    { MapToDataType<T>::value } -> std::same_as<const DataType&>;
+};
 
 
-template<typename T>
-struct ValueTypeTraits<T, std::enable_if_t<IsPrimitiveValueTypeV<T>>> {
+template<PrimitiveValueLike T>
+struct ValueTypeTraits<T> {
 
     static constexpr sqt::DataType DataType = MapToDataTypeV<T>;
     static constexpr bool IsNullable = false;

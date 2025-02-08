@@ -233,7 +233,7 @@
     <ClInclude Include="src\sqt\orm\table\primary_key_support.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\inserter\inserter.h">
+    <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h">
       <Filter>src\sqt\orm\querier\inserter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h">

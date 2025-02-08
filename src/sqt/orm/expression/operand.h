@@ -3,6 +3,7 @@
 #include <sqt/orm/binder/value_binder.h>
 #include <sqt/orm/expression/placeholder.h>
 #include <sqt/orm/table/column.h>
+#include <sqt/orm/table/column_like.h>
 #include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value_type/composite_value_type.h>
 
@@ -13,8 +14,8 @@ class Operand;
 
 
 //Used for individual column.
-template<typename T>
-class Operand<T, std::enable_if_t<IsColumnV<T>>> {
+template<ColumnLike T>
+class Operand<T> {
 public:
     static constexpr std::size_t ParameterCount = 0;
 
@@ -65,7 +66,7 @@ private:
 
 template<typename T>
 class Operand<T, std::enable_if_t<
-    IsPrimitiveValueTypeV<T> || IsNullableValueTypeV<T> || IsCompositeValueTypeV<T>>> {
+    PrimitiveValueLike<T> || NullableValueLike<T> || CompositeValueLike<T>>> {
 
 public:
     using ValueType = T;

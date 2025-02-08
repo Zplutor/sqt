@@ -7,26 +7,26 @@
 
 namespace sqt {
 
-template<ConflictAction CONFLICT_ACTION, typename... ASSIGNMENT>
-class Inserter {
+template<ConflictAction CONFLICT_ACTION, typename ASSIGNMENT>
+class EntityInserter {
 public:
     static constexpr std::size_t ParameterIndex = 0;
     static constexpr std::size_t ParameterCount = 0;
+
+    static std::string_view BuildSQL() {
+        static const std::string sql = []() {
+            "insert or {} into {} ({}) values ({})";
+        };
+        return sql;
+    }
 
     static constexpr auto BuildPlaceholderBinders() {
 
     }
 
 public:
-    constexpr Inserter(ASSIGNMENT... assignments) : assignments_(std::move(assignments)) {
+    constexpr EntityInserter(ASSIGNMENT assignment) : assignment_(std::move(assignment)) {
 
-    }
-
-    std::string_view BuildSQL() const {
-        static const std::string sql = []() {
-            
-        };
-        return sql;
     }
 
     void BindInlineParameters(Statement& statement) const {
@@ -34,7 +34,7 @@ public:
     }
 
 private:
-    std::tuple<ASSIGNMENT...> assignments_;
+    ASSIGNMENT assignment_;
 };
 
 }

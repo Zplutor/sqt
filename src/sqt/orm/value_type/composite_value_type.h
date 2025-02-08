@@ -14,7 +14,7 @@ struct AreAllPrimitiveOrNullableValueTypes<> : std::true_type {};
 template<typename T, typename... Rest>
 struct AreAllPrimitiveOrNullableValueTypes<T, Rest...> {
     static constexpr bool value =
-        (IsPrimitiveValueTypeV<T> || IsNullableValueTypeV<T>) &&
+        (PrimitiveValueLike<T> || NullableValueLike<T>) &&
         AreAllPrimitiveOrNullableValueTypes<Rest...>::value;
 };
 
@@ -27,16 +27,13 @@ struct IsCompositeValueType<std::tuple<Types...>> {
     static constexpr bool value = AreAllPrimitiveOrNullableValueTypes<Types...>::value;
 };
 
-template<typename T>
-constexpr bool IsCompositeValueTypeV = IsCompositeValueType<T>::value;
-
 
 template<typename T>
-concept CompositeValueType = IsCompositeValueTypeV<T>;
+concept CompositeValueLike = IsCompositeValueType<T>::value;
 
 
-template<typename T>
-struct ValueTypeTraits<T, std::enable_if_t<IsCompositeValueTypeV<T>>> {
+template<CompositeValueLike T>
+struct ValueTypeTraits<T> {
 
     static constexpr std::size_t PlaceholderCount = std::tuple_size<T>::value;
 

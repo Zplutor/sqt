@@ -47,7 +47,7 @@
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h" />
-    <ClInclude Include="src\sqt\orm\querier\inserter\inserter.h" />
+    <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h" />
     <ClInclude Include="src\sqt\orm\querier\querier_like.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h" />

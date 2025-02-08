@@ -2,7 +2,7 @@
 
 namespace sqt {
 
-template<typename T, typename = void>
+template<typename T>
 struct ValueTypeTraits;
 
 }
