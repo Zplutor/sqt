@@ -38,7 +38,7 @@ struct ValueTypeTraits<T> {
     static constexpr sqt::DataType DataType = MapToDataTypeV<GetOptionalValueTypeT<T>>;
     static constexpr bool IsNullable = true;
 
-    static constexpr std::size_t PlaceholderCount = 1;
+    static constexpr std::size_t ParameterCount = 1;
 
     static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
         if (value.has_value()) {

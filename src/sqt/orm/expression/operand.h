@@ -28,16 +28,13 @@ public:
     }
 
 public:
-    constexpr explicit Operand(const T& column) : column_(&column) {
+    constexpr explicit Operand(const T& column) noexcept {
 
     }
 
     constexpr void BindInlineParameters(Statement& statement, int parameter_index) const noexcept {
 
     }
-
-private:
-    const T* column_{};
 };
 
 
@@ -71,7 +68,7 @@ class Operand<T, std::enable_if_t<
 public:
     using ValueType = T;
 
-    static constexpr std::size_t ParameterCount = ValueTypeTraits<T>::PlaceholderCount;
+    static constexpr std::size_t ParameterCount = ValueTypeTraits<T>::ParameterCount;
 
     static std::string BuildSQL() {
         if constexpr (ParameterCount == 1) {
@@ -103,7 +100,7 @@ class Operand<T, std::enable_if_t<PlaceholderType<T>>> {
 public:
     using ValueType = typename T::ValueType;
 
-    static constexpr std::size_t ParameterCount = ValueTypeTraits<ValueType>::PlaceholderCount;
+    static constexpr std::size_t ParameterCount = ValueTypeTraits<ValueType>::ParameterCount;
 
     static std::string BuildSQL() {
         return "?";

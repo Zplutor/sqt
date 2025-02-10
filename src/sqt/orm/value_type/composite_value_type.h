@@ -35,7 +35,7 @@ concept CompositeValueLike = IsCompositeValueType<T>::value;
 template<CompositeValueLike T>
 struct ValueTypeTraits<T> {
 
-    static constexpr std::size_t PlaceholderCount = std::tuple_size<T>::value;
+    static constexpr std::size_t ParameterCount = std::tuple_size<T>::value;
 
     static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
 

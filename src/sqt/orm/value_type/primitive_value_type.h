@@ -18,7 +18,7 @@ struct ValueTypeTraits<T> {
     static constexpr sqt::DataType DataType = MapToDataTypeV<T>;
     static constexpr bool IsNullable = false;
 
-    static constexpr std::size_t PlaceholderCount = 1;
+    static constexpr std::size_t ParameterCount = 1;
 
     static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
         statement.BindParameter(parameter_index, value);
