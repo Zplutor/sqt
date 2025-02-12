@@ -22,6 +22,8 @@ public:
     void BindParameter(int parameter_index, int value);
     void BindParameter(int parameter_index, std::int64_t value);
     void BindParameter(int parameter_index, std::uint64_t value);
+    void BindParameter(int parameter_index, float value);
+    void BindParameter(int parameter_index, double value);
     void BindParameter(int parameter_index, std::string_view value);
     void BindParameter(int parameter_index, std::nullopt_t);
     void ClearBindings();
@@ -32,6 +34,7 @@ public:
     DataType GetColumnType(int column_index) const noexcept;
     int GetColumnInt(int column_index) const noexcept;
     std::int64_t GetColumnInt64(int column_index) const noexcept;
+    double GetColumnDouble(int column_index) const noexcept;
     std::string_view GetColumnText(int column_index) const noexcept;
 
     sqlite3_stmt* Handle() const noexcept {

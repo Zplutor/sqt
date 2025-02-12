@@ -3,6 +3,8 @@
 #include <mutex>
 #include <sqt/foundation/database.h>
 #include <sqt/orm/executor/executor.h>
+#include <sqt/orm/expression/value_operand.h>
+#include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table_mapping.h>
@@ -13,6 +15,18 @@ namespace sqt {
 template<typename E>
 class DataContext {
 public:
+    static constexpr auto MakeInserter(E entity) noexcept {
+        return EntityInserter<ConflictAction::Abort, Operand<E>>{ 
+            Operand<E>{ std::move(entity) } 
+        };
+    }
+
+    static constexpr auto MakeInserter() noexcept {
+        return EntityInserter<ConflictAction::Abort, Operand<Placeholder<E>>>{
+            Operand<Placeholder<E>>{}
+        };
+    }
+
     static constexpr auto MakeSelecter() noexcept {
         return EntitySelecter<E>{};
     }

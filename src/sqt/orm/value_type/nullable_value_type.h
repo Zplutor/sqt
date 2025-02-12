@@ -40,11 +40,10 @@ struct ValueTypeTraits<T> {
 
     static constexpr std::size_t ParameterCount = 1;
 
-    static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
         if (value.has_value()) {
             statement.BindParameter(parameter_index, *value);
         }
-        return parameter_index + 1;
     }
 
     static T GetValueFromStatement(const Statement& statement, int column_index) {

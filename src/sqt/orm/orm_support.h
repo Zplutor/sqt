@@ -17,13 +17,14 @@
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
 namespace __sqt_table_##TABLE_NAME { \
-using EntityType = ENTITY_CLASS; \
-constexpr std::string_view TableName = #TABLE_NAME; \
+using UserEntityType = ENTITY_CLASS; \
+constexpr std::string_view UserTableName = #TABLE_NAME; \
 class TableType : public sqt::AbstractTable { \
 public: \
+    using EntityType = UserEntityType; \
     static constexpr const TableType& GetInstance() noexcept; \
     constexpr std::string_view GetName() const noexcept override { \
-        return TableName; \
+        return UserTableName; \
     } \
     constexpr sqt::ColumnsView<EntityType> GetColumns() const noexcept; \
     sqt::AbstractColumnsView GetAbstractColumns() const noexcept override; \
@@ -73,11 +74,14 @@ public: \
             sqt::Statement& statement, \
             int parameter_index, \
             const EntityType& entity) const override { \
+            ValueTypeTraits::BindValueToStatement( \
+                statement, parameter_index, entity.CLASS_FIELD); \
         } \
         void GetValueFromStatement( \
             const sqt::Statement& statement, \
             int column_index, \
             EntityType& entity) const override { \
+            entity.CLASS_FIELD = ValueTypeTraits::GetValueFromStatement(statement, column_index); \
         } \
         __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
     }; \
@@ -95,9 +99,9 @@ public: \
     class SQT_INDEX_TYPE_NAME(__VA_ARGS__) : public SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) { \
     private: \
         static constexpr std::string_view IndexName = SQT_INDEX_NAME_STRING(__VA_ARGS__); \
-        static constexpr std::size_t FullNameLength = TableName.size() + IndexName.size() + 1; \
+        static constexpr std::size_t FullNameLength = UserTableName.size() + IndexName.size() + 1;\
         static constexpr std::array<char, FullNameLength> FullName = \
-            sqt::MakeIndexFullName<FullNameLength>(TableName, IndexName); \
+            sqt::MakeIndexFullName<FullNameLength>(UserTableName, IndexName); \
     public: \
         using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__)::SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__); \
         std::string_view GetName() const noexcept override { \
@@ -115,7 +119,7 @@ class TableType::Insider { \
 public: \
     static constexpr TableType TableInstance; \
     static constexpr std::size_t ColumnCount = TableInstance.column_linked_list_.Count(); \
-    static constexpr std::array<const sqt::Column<EntityType>*, ColumnCount> Columns = \
+    static constexpr std::array<const sqt::Column<UserEntityType>*, ColumnCount> Columns = \
         TableInstance.column_linked_list_.ToNodeBaseArray<ColumnCount>(); \
     static constexpr std::size_t IndexCount = TableInstance.index_linked_list_.Count(); \
     static constexpr std::array<const sqt::AbstractIndex*, IndexCount> Indexes = \
@@ -124,7 +128,7 @@ public: \
 constexpr const TableType& TableType::GetInstance() noexcept { \
     return Insider::TableInstance; \
 } \
-constexpr sqt::ColumnsView<EntityType> TableType::GetColumns() const noexcept { \
+constexpr sqt::ColumnsView<UserEntityType> TableType::GetColumns() const noexcept { \
     return TableType::Insider::Columns; \
 } \
 inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept { \
@@ -142,7 +146,7 @@ inline sqt::AbstractIndexesView TableType::GetAbstractIndexes() const noexcept {
 #define SQT_REGISTER(NAMESPACE, TABLE_NAME) \
 namespace sqt { \
 template<> \
-struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::EntityType> { \
+struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::UserEntityType> { \
     using type = NAMESPACE::__sqt_table_##TABLE_NAME::TableType; \
 }; \
 }

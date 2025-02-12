@@ -8,20 +8,30 @@ namespace sqt {
 
 template<typename T>
 concept EntityValueLike = requires {
-    typename TableT<T>;
+    typename Table<T>::type;
 };
 
 template<EntityValueLike T>
 struct ValueTypeTraits<T> {
 
-    static constexpr std::size_t ParameterCount = std::tuple_size<T>::value;
+    static constexpr std::size_t ParameterCount = TableV<T>.GetColumns().size();
 
-    static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
 
+        int index = parameter_index;
+        for (auto each_column : TableV<T>.GetColumns()) {
+            each_column->BindValueToStatement(statement, index++, value);
+        }
     }
 
     static T GetValueFromStatement(const Statement& statement, int column_index) {
 
+        T result{};
+        int index = column_index;
+        for (auto each_column : TableV<T>.GetColumns()) {
+            each_column->GetValueFromStatement(statement, index++, result);
+        }
+        return result;
     }
 };
 

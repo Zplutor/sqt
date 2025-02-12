@@ -1,41 +1,9 @@
 #pragma once
 
-#include <sqt/orm/binder/value_binder.h>
-#include <sqt/orm/expression/placeholder.h>
-#include <sqt/orm/table/column.h>
-#include <sqt/orm/table/column_like.h>
-#include <sqt/orm/utility/utility.h>
-#include <sqt/orm/value_type/composite_value_type.h>
-
 namespace sqt {
 
 template<typename T, typename = void>
 class Operand;
-
-
-//Used for individual column.
-template<ColumnLike T>
-class Operand<T> {
-public:
-    static constexpr std::size_t ParameterCount = 0;
-
-    static std::string BuildSQL() {
-        return std::string{ T::Name };
-    }
-
-    static constexpr std::tuple<> BuildPlaceholderBinders(int parameter_index) noexcept {
-        return {};
-    }
-
-public:
-    constexpr explicit Operand(const T& column) noexcept {
-
-    }
-
-    constexpr void BindInlineParameters(Statement& statement, int parameter_index) const noexcept {
-
-    }
-};
 
 
 /*
@@ -59,65 +27,5 @@ private:
     const T* composite_column_{};
 };
 */
-
-
-template<typename T>
-class Operand<T, std::enable_if_t<
-    PrimitiveValueLike<T> || NullableValueLike<T> || CompositeValueLike<T>>> {
-
-public:
-    using ValueType = T;
-
-    static constexpr std::size_t ParameterCount = ValueTypeTraits<T>::ParameterCount;
-
-    static std::string BuildSQL() {
-        if constexpr (ParameterCount == 1) {
-            return "?";
-        }
-        return std::format("({})", JoinPlaceholders(ParameterCount));
-    }
-
-    static constexpr std::tuple<> BuildPlaceholderBinders(int parameter_index) noexcept {
-        return {};
-    }
-
-public:
-    constexpr explicit Operand(T value) : value_(std::move(value)) {
-
-    }
-
-    void BindInlineParameters(Statement& statement, int parameter_index) const {
-        ValueTypeTraits<T>::BindValueToStatement(statement, parameter_index, value_);
-    }
-
-private:
-    T value_{};
-};
-
-
-template<typename T>
-class Operand<T, std::enable_if_t<PlaceholderType<T>>> {
-public:
-    using ValueType = typename T::ValueType;
-
-    static constexpr std::size_t ParameterCount = ValueTypeTraits<ValueType>::ParameterCount;
-
-    static std::string BuildSQL() {
-        return "?";
-    }
-
-    static constexpr std::tuple<ValueBinder<ValueType>> BuildPlaceholderBinders(
-        int parameter_index) noexcept {
-
-        return std::make_tuple(ValueBinder<ValueType>{ parameter_index });
-    }
-
-public:
-    constexpr Operand() noexcept = default;
-
-    constexpr void BindInlineParameters(Statement& statement, int parameter_index) const noexcept {
-
-    }
-};
 
 }

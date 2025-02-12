@@ -20,9 +20,8 @@ struct ValueTypeTraits<T> {
 
     static constexpr std::size_t ParameterCount = 1;
 
-    static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
         statement.BindParameter(parameter_index, value);
-        return parameter_index + 1;
     }
 
     static T GetValueFromStatement(const Statement& statement, int column_index) {
@@ -32,6 +31,10 @@ struct ValueTypeTraits<T> {
                 return static_cast<T>(statement.GetColumnInt64(column_index));
             }
             return static_cast<T>(statement.GetColumnInt(column_index));
+        }
+
+        if constexpr (std::is_floating_point_v<T>) {
+            return static_cast<T>(statement.GetColumnDouble(column_index));
         }
 
         if constexpr (std::is_same_v<std::string, T>) {

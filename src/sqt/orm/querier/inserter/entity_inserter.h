@@ -2,39 +2,53 @@
 
 #include <tuple>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/expression/assignment.h>
+#include <sqt/orm/expression/value_operand_like.h>
 #include <sqt/orm/querier/inserter/conflict_action.h>
+#include <sqt/orm/table_mapping.h>
+#include <sqt/orm/utility/utility.h>
 
 namespace sqt {
 
-template<ConflictAction CONFLICT_ACTION, typename ASSIGNMENT>
+template<ConflictAction CONFLICT_ACTION, ValueOperandLike VALUE_OPERAND>
 class EntityInserter {
 public:
-    static constexpr std::size_t ParameterIndex = 0;
-    static constexpr std::size_t ParameterCount = 0;
+    static constexpr std::size_t ParameterIndex = 1;
+    static constexpr std::size_t ParameterCount = VALUE_OPERAND::ParameterCount;
 
     static std::string_view BuildSQL() {
+
         static const std::string sql = []() {
-            "insert or {} into {} ({}) values ({})";
-        };
+
+            constexpr auto conflict_action = ConvertConflictActionToString(CONFLICT_ACTION);
+
+            constexpr auto& table = TableV<typename VALUE_OPERAND::ValueType>;
+            constexpr auto table_name = table.GetName();
+
+            return std::format(
+                "insert or {} into {} ({}) values ({})", 
+                conflict_action, 
+                table_name, 
+                JoinColumnNames(table.GetAbstractColumns()),
+                VALUE_OPERAND::BuildSQL());
+        }();
         return sql;
     }
 
     static constexpr auto BuildPlaceholderBinders() {
-
+        return VALUE_OPERAND::BuildPlaceholderBinders(ParameterIndex);
     }
 
 public:
-    constexpr EntityInserter(ASSIGNMENT assignment) : assignment_(std::move(assignment)) {
+    constexpr EntityInserter(VALUE_OPERAND value) : value_(std::move(value)) {
 
     }
 
     void BindInlineParameters(Statement& statement) const {
-
+        value_.BindInlineParameters(statement, ParameterIndex);
     }
 
 private:
-    ASSIGNMENT assignment_;
+    VALUE_OPERAND value_;
 };
 
 }

@@ -38,12 +38,17 @@
     <ClInclude Include="src\sqt\orm\executor\iterator.h" />
     <ClInclude Include="src\sqt\orm\executor\result.h" />
     <ClInclude Include="src\sqt\orm\expression\assignment.h" />
+    <ClInclude Include="src\sqt\orm\expression\assignment_like.h" />
     <ClInclude Include="src\sqt\orm\expression\expression.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
+    <ClInclude Include="src\sqt\orm\expression\identifier_operand.h" />
+    <ClInclude Include="src\sqt\orm\expression\identifier_operand_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operand.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operator.h" />
     <ClInclude Include="src\sqt\orm\expression\placeholder.h" />
+    <ClInclude Include="src\sqt\orm\expression\value_operand.h" />
+    <ClInclude Include="src\sqt\orm\expression\value_operand_like.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h" />
@@ -65,6 +70,7 @@
     <ClInclude Include="src\sqt\orm\table\column_like.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
     <ClInclude Include="src\sqt\orm\table\index_support.h" />
+    <ClInclude Include="src\sqt\orm\table\table_like.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key_support.h" />
     <ClInclude Include="src\sqt\orm\table\table_initializer.h" />

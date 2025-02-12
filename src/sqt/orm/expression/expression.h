@@ -2,8 +2,9 @@
 
 #include <format>
 #include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/operand.h>
+#include <sqt/orm/expression/identifier_operand.h>
 #include <sqt/orm/expression/operator.h>
+#include <sqt/orm/expression/value_operand.h>
 
 namespace sqt {
 

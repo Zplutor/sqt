@@ -10,6 +10,7 @@ template<typename T>
 concept QuerierLike = 
     requires {
         { T::ParameterIndex } -> std::same_as<const std::size_t&>;
+        requires T::ParameterIndex >= 1;
         { T::ParameterCount } -> std::same_as<const std::size_t&>;
         { T::BuildSQL() } -> std::same_as<std::string_view>;
         { T::BuildPlaceholderBinders() } -> BinderLikeTuple;

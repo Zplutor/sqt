@@ -31,7 +31,7 @@ public:
         statement_.Step();
     }
 
-    Result<QUERIER> Result() requires SelecterLike<QUERIER> {
+    auto Result() requires SelecterLike<QUERIER> {
         return sqt::Result<QUERIER>{ statement_ };
     }
 

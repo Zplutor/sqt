@@ -242,6 +242,24 @@
     <ClInclude Include="src\sqt\orm\expression\assignment.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\table_like.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\identifier_operand.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\identifier_operand_like.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\value_operand.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\value_operand_like.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\assignment_like.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
     <ClInclude Include="src\sqt\orm\value_type\entity_value_type.h">
       <Filter>src\sqt\orm\value_type</Filter>
     </ClInclude>

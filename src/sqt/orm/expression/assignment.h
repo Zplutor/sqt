@@ -1,39 +1,33 @@
 #pragma once
 
-#include <format>
-#include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/operand.h>
+#include <sqt/orm/expression/identifier_operand_like.h>
+#include <sqt/orm/expression/value_operand_like.h>
 
 namespace sqt {
 
-template<typename LHS, ExpressionLike RHS>
+template<IdentifierOperandLike IDENTIFIER, ValueOperandLike VALUE>
 class Assignment {
 public:
-    static constexpr std::size_t ParameterCount = LHS::ParameterCount + RHS::ParameterCount;
+    using IdentifierOperandType = IDENTIFIER;
+    using ValueOperandType = VALUE;
+
+    static constexpr std::size_t ParameterCount = VALUE::ParameterCount;
 
     static constexpr auto BuildPlaceholderBinders(int parameter_index) {
-        auto lhs_binders = LHS::BuildPlaceholderBinders(parameter_index);
-        auto rhs_binders = RHS::BuildPlaceholderBinders(parameter_index + LHS::ParameterCount);
-        return std::tuple_cat(std::move(lhs_binders), std::move(rhs_binders));
+        return VALUE::BuildPlaceholderBinders(parameter_index);
     }
 
 public:
-    Assignment(LHS lhs, RHS rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)) {
+    constexpr explicit Assignment(VALUE value) : value_(std::move(value)) {
 
-    }
-
-    std::string BuildSQL() const {
-        return std::format("{}={}", lhs_.BuildSQL(), rhs_.BuildSQL());
     }
 
     void BindInlineParameters(Statement& statement, int parameter_index) const {
-        lhs_.BindInlineParameters(statement, parameter_index);
-        rhs_.BindInlineParameters(statement, parameter_index + LHS::ParameterCount);
+        value_.BindInlineParameters(statement, parameter_index);
     }
 
 private:
-    LHS lhs_{};
-    RHS rhs_{};
+    VALUE value_{};
 };
 
 }

@@ -61,6 +61,17 @@ void Statement::BindParameter(int parameter_index, std::uint64_t value) {
 }
 
 
+void Statement::BindParameter(int parameter_index, float value) {
+    BindParameter(parameter_index, static_cast<double>(value));
+}
+
+
+void Statement::BindParameter(int parameter_index, double value) {
+    int error_code = sqlite3_bind_double(statement_handle_, parameter_index, value);
+    SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);
+}
+
+
 void Statement::BindParameter(int parameter_index, std::string_view value) {
 
     int error_code = sqlite3_bind_text(
@@ -119,6 +130,11 @@ int Statement::GetColumnInt(int column_index) const noexcept {
 
 std::int64_t Statement::GetColumnInt64(int column_index) const noexcept {
     return sqlite3_column_int64(statement_handle_, column_index);
+}
+
+
+double Statement::GetColumnDouble(int column_index) const noexcept {
+    return sqlite3_column_double(statement_handle_, column_index);
 }
 
 

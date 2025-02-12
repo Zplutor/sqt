@@ -37,7 +37,7 @@ struct ValueTypeTraits<T> {
 
     static constexpr std::size_t ParameterCount = std::tuple_size<T>::value;
 
-    static int BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
         auto binder = [&statement, &index](const auto& value) {
@@ -53,8 +53,6 @@ struct ValueTypeTraits<T> {
                 (binder(values), ...);
             },
             value);
-
-        return index;
     }
 
     static T GetValueFromStatement(const Statement& statement, int column_index) {
