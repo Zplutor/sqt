@@ -15,16 +15,15 @@ namespace sqt {
 template<typename E>
 class DataContext {
 public:
-    static constexpr auto MakeInserter(E entity) noexcept {
-        return EntityInserter<ConflictAction::Abort, Operand<E>>{ 
-            Operand<E>{ std::move(entity) } 
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
+    static constexpr auto MakeInserter() noexcept {
+        return EntityInserter<CONFLICT_ACTION, Operand<Placeholder<E>>>{
+            Operand<Placeholder<E>>{}
         };
     }
 
-    static constexpr auto MakeInserter() noexcept {
-        return EntityInserter<ConflictAction::Abort, Operand<Placeholder<E>>>{
-            Operand<Placeholder<E>>{}
-        };
+    static constexpr auto MakeAutoIncInserter() noexcept {
+
     }
 
     static constexpr auto MakeSelecter() noexcept {
@@ -36,13 +35,21 @@ public:
 
     }
 
+    DataContext(const DataContext&) = delete;
+    DataContext& operator=(const DataContext&) = delete;
+
     template<typename Q>
     auto Prepare(const Q& querier) {
-
         auto statement = init_once_guard_.DB().PrepareStatement(querier.BuildSQL());
         querier.BindInlineParameters(statement);
-
         return Executor{ querier, std::move(statement) };
+    }
+
+    void Insert(const E& entity) {
+        constexpr auto inserter = MakeInserter();
+        auto executer = Prepare(inserter);
+        executer.BeginBind().Bind(entity);
+        executer.Execute();
     }
 
 private:

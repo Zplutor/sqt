@@ -27,16 +27,13 @@ TEST(InserterTest, Test) {
     entity.id = 11;
     entity.name = "test";
 
-    auto inserter = sqt::DataContext<Entity>::MakeInserter(entity);
-    
     sqt::DataContext<Entity> data_context{ db };
-    auto executer = data_context.Prepare(inserter);
-    executer.Execute();
 
     constexpr auto bind_inserter = sqt::DataContext<Entity>::MakeInserter();
     auto bind_executer = data_context.Prepare(bind_inserter);
     bind_executer.BeginBind().Bind(entity);
     bind_executer.Execute();
+
 }
 
 
