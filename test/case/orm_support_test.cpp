@@ -16,16 +16,8 @@ TEST(ORMSupportTest, TableDefinition) {
     //GetInstance should be constexpr
     constexpr const auto& table = Table::GetInstance();
 
-    //GetAbstractPrimaryKey should be constexpr
-    constexpr auto primary_key = table.GetAbstractPrimaryKey();
-    ASSERT_EQ(primary_key, nullptr);
-
-    //GetName should be constexpr
-    constexpr auto table_name = table.GetName();
-    ASSERT_EQ(table_name, "Entity");
-
     //GetColumns should be constexpr
-    constexpr auto columns = table.GetColumns();
+    constexpr auto columns = Table::GetColumns();
     ASSERT_EQ(columns.size(), 6);
     ASSERT_EQ(columns[0], &table.IntColumn);
     ASSERT_EQ(columns[1], &table.FloatColumn);
@@ -33,6 +25,17 @@ TEST(ORMSupportTest, TableDefinition) {
     ASSERT_EQ(columns[3], &table.NullableIntColumn);
     ASSERT_EQ(columns[4], &table.NullableFloatColumn);
     ASSERT_EQ(columns[5], &table.NullableStringColumn);
+
+    constexpr auto pk_columns = Table::GetPrimaryKeyColumns();
+    ASSERT_EQ(pk_columns.size(), 0);
+
+    //GetAbstractPrimaryKey should be constexpr
+    constexpr auto primary_key = table.GetAbstractPrimaryKey();
+    ASSERT_EQ(primary_key, nullptr);
+
+    //GetName should be constexpr
+    constexpr auto table_name = table.GetName();
+    ASSERT_EQ(table_name, "Entity");
 
     auto abstract_columns = table.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 6);
@@ -180,9 +183,17 @@ TEST(ORMSupportTest, SingleColumnPrimaryKey) {
     constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
     ASSERT_FALSE(auto_inc);
 
-    auto columns = table.PrimaryKey.GetAbstractColumns();
-    ASSERT_EQ(columns.size(), 1);
-    ASSERT_EQ(columns[0]->GetName(), "id0");
+    constexpr auto table_pk_columns = Table::GetPrimaryKeyColumns();
+    ASSERT_EQ(table_pk_columns.size(), 1);
+    ASSERT_EQ(table_pk_columns[0], &table.id0);
+
+    constexpr auto pk_columns = table.PrimaryKey.GetColumns();
+    ASSERT_EQ(pk_columns.size(), 1);
+    ASSERT_EQ(pk_columns[0], &table.id0);
+
+    auto abstract_columns = table.PrimaryKey.GetAbstractColumns();
+    ASSERT_EQ(abstract_columns.size(), 1);
+    ASSERT_EQ(abstract_columns[0], &table.id0);
 }
 
 
@@ -202,10 +213,20 @@ TEST(ORMSupportTest, TwoColumnPrimaryKey) {
     constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
     ASSERT_FALSE(auto_inc);
 
-    auto columns = table.PrimaryKey.GetAbstractColumns();
-    ASSERT_EQ(columns.size(), 2);
-    ASSERT_EQ(columns[0]->GetName(), "id0");
-    ASSERT_EQ(columns[1]->GetName(), "id1");
+    constexpr auto table_pk_columns = Table::GetPrimaryKeyColumns();
+    ASSERT_EQ(table_pk_columns.size(), 2);
+    ASSERT_EQ(table_pk_columns[0], &table.id0);
+    ASSERT_EQ(table_pk_columns[1], &table.id1);
+
+    constexpr auto pk_columns = table.PrimaryKey.GetColumns();
+    ASSERT_EQ(pk_columns.size(), 2);
+    ASSERT_EQ(pk_columns[0], &table.id0);
+    ASSERT_EQ(pk_columns[1], &table.id1);
+
+    auto abstract_columns = table.PrimaryKey.GetAbstractColumns();
+    ASSERT_EQ(abstract_columns.size(), 2);
+    ASSERT_EQ(abstract_columns[0], &table.id0);
+    ASSERT_EQ(abstract_columns[1], &table.id1);
 }
 
 

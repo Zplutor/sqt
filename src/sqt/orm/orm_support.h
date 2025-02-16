@@ -3,6 +3,7 @@
 #include <array>
 #include <sqt/orm/expression/expression_support.h>
 #include <sqt/orm/internal/linked_list.h>
+#include <sqt/orm/internal/primary_key_helper.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
@@ -23,10 +24,11 @@ class TableType : public sqt::AbstractTable { \
 public: \
     using EntityType = UserEntityType; \
     static constexpr const TableType& GetInstance() noexcept; \
+    static constexpr sqt::ColumnsView<EntityType> GetColumns() noexcept; \
+    static constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() noexcept; \
     constexpr std::string_view GetName() const noexcept override { \
         return UserTableName; \
     } \
-    constexpr sqt::ColumnsView<EntityType> GetColumns() const noexcept; \
     sqt::AbstractColumnsView GetAbstractColumns() const noexcept override; \
     sqt::AbstractIndexesView GetAbstractIndexes() const noexcept override; \
 private: \
@@ -128,8 +130,11 @@ public: \
 constexpr const TableType& TableType::GetInstance() noexcept { \
     return Insider::TableInstance; \
 } \
-constexpr sqt::ColumnsView<UserEntityType> TableType::GetColumns() const noexcept { \
+constexpr sqt::ColumnsView<UserEntityType> TableType::GetColumns() noexcept { \
     return TableType::Insider::Columns; \
+} \
+constexpr sqt::ColumnsView<UserEntityType> TableType::GetPrimaryKeyColumns() noexcept { \
+    return sqt::internal::PrimaryKeyHelper<TableType>::GetPrimaryKeyColumns(); \
 } \
 inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept { \
     return { \

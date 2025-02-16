@@ -19,6 +19,8 @@ public:
     using EntityType = typename First::EntityType;
     using ValueType = std::tuple<typename First::ValueType, typename Rest::ValueType...>;
 
+    static constexpr std::size_t ColumnCount = 1 + sizeof...(Rest);
+
     static void BindValueToStatement(
         Statement& statement,
         int parameter_index,
@@ -37,6 +39,10 @@ public:
 
     }
 
+    constexpr ColumnsView<EntityType> GetColumns() const noexcept {
+        return columns_;
+    }
+
     AbstractColumnsView GetAbstractColumns() const noexcept {
         return {
             reinterpret_cast<const AbstractColumn* const*>(columns_.data()),
@@ -45,7 +51,7 @@ public:
     }
 
 private:
-    std::array<const Column<EntityType>*, 1 + sizeof...(Rest)> columns_;
+    std::array<const Column<EntityType>*, ColumnCount> columns_;
 };
 
 
@@ -54,6 +60,8 @@ class CompositeColumn<Single> {
 public:
     using EntityType = typename Single::EntityType;
     using ValueType = typename Single::ValueType;
+
+    static constexpr std::size_t ColumnCount = 1;
 
     static void BindValueToStatement(
         Statement& statement,
@@ -70,6 +78,10 @@ public:
 public:
     constexpr explicit CompositeColumn(const Single& single) noexcept : column_(&single) {
 
+    }
+
+    constexpr ColumnsView<EntityType> GetColumns() const noexcept {
+        return ColumnsView<EntityType>{ &column_, 1 };
     }
 
     AbstractColumnsView GetAbstractColumns() const noexcept {

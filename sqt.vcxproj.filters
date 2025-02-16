@@ -263,5 +263,20 @@
     <ClInclude Include="src\sqt\orm\value_type\entity_value_type.h">
       <Filter>src\sqt\orm\value_type</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\value_type\value_traits_like.h">
+      <Filter>src\sqt\orm\value_type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value_type\entire_entity_value_traits.h">
+      <Filter>src\sqt\orm\value_type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value_type\entity_value_like.h">
+      <Filter>src\sqt\orm\value_type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value_type\auto_inc_entity_value_traits.h">
+      <Filter>src\sqt\orm\value_type</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h">
+      <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
