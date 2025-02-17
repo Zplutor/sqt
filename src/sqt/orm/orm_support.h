@@ -26,6 +26,7 @@ public: \
     static constexpr const TableType& GetInstance() noexcept; \
     static constexpr sqt::ColumnsView<EntityType> GetColumns() noexcept; \
     static constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() noexcept; \
+    static constexpr sqt::ColumnsView<EntityType> GetNonPrimaryKeyColumns() noexcept; \
     constexpr std::string_view GetName() const noexcept override { \
         return UserTableName; \
     } \
@@ -118,11 +119,21 @@ public: \
     class Insider; \
 }; \
 class TableType::Insider { \
+private: \
+    template<std::size_t Count> \
+    using ColumnArray = std::array<const sqt::Column<UserEntityType>*, Count>; \
+    using PKShim = sqt::internal::PrimaryKeyShim<TableType>; \
+    using PKHelper = sqt::internal::PrimaryKeyHelper<TableType>; \
 public: \
     static constexpr TableType TableInstance; \
     static constexpr std::size_t ColumnCount = TableInstance.column_linked_list_.Count(); \
-    static constexpr std::array<const sqt::Column<UserEntityType>*, ColumnCount> Columns = \
+    static constexpr ColumnArray<ColumnCount> Columns = \
         TableInstance.column_linked_list_.ToNodeBaseArray<ColumnCount>(); \
+    static constexpr std::size_t PKColumnCount = PKShim::PKColumnCount; \
+    static constexpr std::size_t NonPKColumnCount = ColumnCount - PKColumnCount; \
+    static constexpr ColumnArray<NonPKColumnCount> NonPKColumns = \
+        PKHelper::MakeNonPKColumns<NonPKColumnCount>( \
+            Columns, PKShim::GetPKColumns(TableInstance)); \
     static constexpr std::size_t IndexCount = TableInstance.index_linked_list_.Count(); \
     static constexpr std::array<const sqt::AbstractIndex*, IndexCount> Indexes = \
         TableInstance.index_linked_list_.ToNodeBaseArray<IndexCount>(); \
@@ -131,10 +142,13 @@ constexpr const TableType& TableType::GetInstance() noexcept { \
     return Insider::TableInstance; \
 } \
 constexpr sqt::ColumnsView<UserEntityType> TableType::GetColumns() noexcept { \
-    return TableType::Insider::Columns; \
+    return Insider::Columns; \
 } \
 constexpr sqt::ColumnsView<UserEntityType> TableType::GetPrimaryKeyColumns() noexcept { \
-    return sqt::internal::PrimaryKeyHelper<TableType>::GetPrimaryKeyColumns(); \
+    return sqt::internal::PrimaryKeyShim<TableType>::GetPKColumns(Insider::TableInstance); \
+} \
+constexpr sqt::ColumnsView<UserEntityType> TableType::GetNonPrimaryKeyColumns() noexcept { \
+    return Insider::NonPKColumns; \
 } \
 inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept { \
     return { \

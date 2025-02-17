@@ -29,6 +29,15 @@ TEST(ORMSupportTest, TableDefinition) {
     constexpr auto pk_columns = Table::GetPrimaryKeyColumns();
     ASSERT_EQ(pk_columns.size(), 0);
 
+    constexpr auto non_pk_columns = Table::GetNonPrimaryKeyColumns();
+    ASSERT_EQ(non_pk_columns.size(), 6);
+    ASSERT_EQ(non_pk_columns[0], &table.IntColumn);
+    ASSERT_EQ(non_pk_columns[1], &table.FloatColumn);
+    ASSERT_EQ(non_pk_columns[2], &table.StringColumn);
+    ASSERT_EQ(non_pk_columns[3], &table.NullableIntColumn);
+    ASSERT_EQ(non_pk_columns[4], &table.NullableFloatColumn);
+    ASSERT_EQ(non_pk_columns[5], &table.NullableStringColumn);
+
     //GetAbstractPrimaryKey should be constexpr
     constexpr auto primary_key = table.GetAbstractPrimaryKey();
     ASSERT_EQ(primary_key, nullptr);
@@ -187,6 +196,10 @@ TEST(ORMSupportTest, SingleColumnPrimaryKey) {
     ASSERT_EQ(table_pk_columns.size(), 1);
     ASSERT_EQ(table_pk_columns[0], &table.id0);
 
+    constexpr auto table_non_pk_columns = Table::GetNonPrimaryKeyColumns();
+    ASSERT_EQ(table_non_pk_columns.size(), 1);
+    ASSERT_EQ(table_non_pk_columns[0], &table.id1);
+
     constexpr auto pk_columns = table.PrimaryKey.GetColumns();
     ASSERT_EQ(pk_columns.size(), 1);
     ASSERT_EQ(pk_columns[0], &table.id0);
@@ -217,6 +230,10 @@ TEST(ORMSupportTest, TwoColumnPrimaryKey) {
     ASSERT_EQ(table_pk_columns.size(), 2);
     ASSERT_EQ(table_pk_columns[0], &table.id0);
     ASSERT_EQ(table_pk_columns[1], &table.id1);
+
+    constexpr auto table_non_pk_columns = Table::GetNonPrimaryKeyColumns();
+    ASSERT_EQ(table_non_pk_columns.size(), 1);
+    ASSERT_EQ(table_non_pk_columns[0], &table.id2);
 
     constexpr auto pk_columns = table.PrimaryKey.GetColumns();
     ASSERT_EQ(pk_columns.size(), 2);
