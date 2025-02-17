@@ -8,19 +8,31 @@ public:
     class Node : public NODE_BASE {
     public:
         constexpr explicit Node(const Node*& last) noexcept : previous_(last) {
+            if (last) {
+                index_ = last->index_ + 1;
+            }
             last = this;
         }
 
-        constexpr const Node* Previous() const noexcept {
+        constexpr const Node* GetPrevious() const noexcept {
             return previous_;
+        }
+
+        constexpr std::size_t GetIndex() const noexcept {
+            return index_;
         }
 
     private:
         const Node* previous_{};
+        std::size_t index_{};
     };
     
 public:
     constexpr LinkedList() noexcept = default;
+
+    constexpr const Node* Last() const noexcept {
+        return last_;
+    }
 
     constexpr const Node*& Last() noexcept {
         return last_;
@@ -31,7 +43,7 @@ public:
         auto current = last_;
         while (current) {
             ++result;
-            current = current->Previous();
+            current = current->GetPrevious();
         }
         return result;
     }
@@ -54,7 +66,10 @@ private:
             return;
         }
         array[SIZE - index - 1] = node_base;
-        FillNodeBaseArray<SIZE>(array, ++index, static_cast<const Node*>(node_base)->Previous());
+        FillNodeBaseArray<SIZE>(
+            array, 
+            ++index, 
+            static_cast<const Node*>(node_base)->GetPrevious());
     }
 
 private:

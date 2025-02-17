@@ -17,6 +17,10 @@ struct PrimaryKeyShim {
     static constexpr ColumnsView<typename T::EntityType> GetPKColumns(const T& table) noexcept {
         return {};
     }
+
+    static constexpr std::span<const std::size_t> GetPKColumnIndexes(const T& table) noexcept {
+        return {};
+    }
 };
 
 
@@ -28,6 +32,10 @@ struct PrimaryKeyShim<T> {
     static constexpr ColumnsView<typename T::EntityType> GetPKColumns(const T& table) noexcept {
         return table.PrimaryKey.GetColumns();
     }
+
+    static constexpr std::span<const std::size_t> GetPKColumnIndexes(const T& table) noexcept {
+        return table.PrimaryKey.GetColumnIndexes();
+    }
 };
 
 
@@ -37,22 +45,23 @@ private:
     using EntityType = typename T::EntityType;
 
 public:
-    template<std::size_t Count>
-    static constexpr std::array<const Column<EntityType>*, Count> MakeNonPKColumns(
-        ColumnsView<EntityType> all_columns,
-        ColumnsView<EntityType> pk_columns) noexcept {
+    template<typename COLUMN_LINKED_LIST, std::size_t COUNT>
+    static constexpr std::array<const Column<EntityType>*, COUNT> MakeNonPKColumns(
+        const COLUMN_LINKED_LIST& column_linked_list,
+        std::span<const std::size_t> pk_column_indexes) noexcept {
 
-        if (Count == 0) {
+        if (COUNT == 0) {
             return {};
         }
 
-        std::array<const Column<EntityType>*, Count> result;
+        std::array<const Column<EntityType>*, COUNT> result{};
         std::size_t index{};
-        for (auto each_column : all_columns) {
+
+        for (auto current = column_linked_list.Last(); current; current = current->GetPrevious()) {
 
             bool is_pk{};
-            for (auto each_pk_column : pk_columns) {
-                if (each_column == each_pk_column) {
+            for (auto pk_index : pk_column_indexes) {
+                if (current->GetIndex() == pk_index) {
                     is_pk = true;
                     break;
                 }
@@ -61,8 +70,8 @@ public:
                 continue;
             }
 
-            if (index < Count) {
-                result[index++] = each_column;
+            if (index < COUNT) {
+                result[COUNT - index++ - 1] = static_cast<const Column<EntityType>*>(current);
             }
         }
 

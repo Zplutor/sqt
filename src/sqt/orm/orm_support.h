@@ -132,8 +132,8 @@ public: \
     static constexpr std::size_t PKColumnCount = PKShim::PKColumnCount; \
     static constexpr std::size_t NonPKColumnCount = ColumnCount - PKColumnCount; \
     static constexpr ColumnArray<NonPKColumnCount> NonPKColumns = \
-        PKHelper::MakeNonPKColumns<NonPKColumnCount>( \
-            Columns, PKShim::GetPKColumns(TableInstance)); \
+        PKHelper::MakeNonPKColumns<TableType::ColumnLinkedList, NonPKColumnCount>( \
+            TableInstance.column_linked_list_, PKShim::GetPKColumnIndexes(TableInstance)); \
     static constexpr std::size_t IndexCount = TableInstance.index_linked_list_.Count(); \
     static constexpr std::array<const sqt::AbstractIndex*, IndexCount> Indexes = \
         TableInstance.index_linked_list_.ToNodeBaseArray<IndexCount>(); \
