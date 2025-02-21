@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-#include <sqt/orm/value_type/composite_value_type.h>
+#include <sqt/orm/value/composite_value_type.h>
+#include <sqt/orm/value/data_type_mapping.h>
 
 using namespace sqt;
 
@@ -32,73 +33,73 @@ TEST(ValueTypeTest, MapToDataType) {
 }
 
 
-TEST(ValueTypeTest, PrimitiveValueLike) {
+TEST(ValueTypeTest, PrimitiveValueType) {
 
-    ASSERT_TRUE(PrimitiveValueLike<bool>);
+    ASSERT_TRUE(PrimitiveValueType<bool>);
 
-    ASSERT_TRUE(PrimitiveValueLike<char>);
-    ASSERT_TRUE(PrimitiveValueLike<signed char>);
-    ASSERT_TRUE(PrimitiveValueLike<unsigned char>);
-    ASSERT_TRUE(PrimitiveValueLike<char8_t>);
-    ASSERT_TRUE(PrimitiveValueLike<char16_t>);
-    ASSERT_TRUE(PrimitiveValueLike<char32_t>);
-    ASSERT_TRUE(PrimitiveValueLike<wchar_t>);
+    ASSERT_TRUE(PrimitiveValueType<char>);
+    ASSERT_TRUE(PrimitiveValueType<signed char>);
+    ASSERT_TRUE(PrimitiveValueType<unsigned char>);
+    ASSERT_TRUE(PrimitiveValueType<char8_t>);
+    ASSERT_TRUE(PrimitiveValueType<char16_t>);
+    ASSERT_TRUE(PrimitiveValueType<char32_t>);
+    ASSERT_TRUE(PrimitiveValueType<wchar_t>);
 
-    ASSERT_TRUE(PrimitiveValueLike<short>);
-    ASSERT_TRUE(PrimitiveValueLike<unsigned short>);
-    ASSERT_TRUE(PrimitiveValueLike<int>);
-    ASSERT_TRUE(PrimitiveValueLike<unsigned int>);
-    ASSERT_TRUE(PrimitiveValueLike<long>);
-    ASSERT_TRUE(PrimitiveValueLike<unsigned long>);
-    ASSERT_TRUE(PrimitiveValueLike<long long>);
-    ASSERT_TRUE(PrimitiveValueLike<unsigned long long>);
+    ASSERT_TRUE(PrimitiveValueType<short>);
+    ASSERT_TRUE(PrimitiveValueType<unsigned short>);
+    ASSERT_TRUE(PrimitiveValueType<int>);
+    ASSERT_TRUE(PrimitiveValueType<unsigned int>);
+    ASSERT_TRUE(PrimitiveValueType<long>);
+    ASSERT_TRUE(PrimitiveValueType<unsigned long>);
+    ASSERT_TRUE(PrimitiveValueType<long long>);
+    ASSERT_TRUE(PrimitiveValueType<unsigned long long>);
 
-    ASSERT_TRUE(PrimitiveValueLike<float>);
-    ASSERT_TRUE(PrimitiveValueLike<double>);
-    ASSERT_TRUE(PrimitiveValueLike<long double>);
+    ASSERT_TRUE(PrimitiveValueType<float>);
+    ASSERT_TRUE(PrimitiveValueType<double>);
+    ASSERT_TRUE(PrimitiveValueType<long double>);
 
-    ASSERT_TRUE(PrimitiveValueLike<std::string>);
+    ASSERT_TRUE(PrimitiveValueType<std::string>);
 }
 
 
-TEST(ValueTypeTest, NullableValueLike) {
+TEST(ValueTypeTest, NullableValueType) {
 
-    ASSERT_TRUE(NullableValueLike<std::optional<bool>>);
+    ASSERT_TRUE(NullableValueType<std::optional<bool>>);
 
-    ASSERT_TRUE(NullableValueLike<std::optional<char>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<signed char>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<unsigned char>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<char8_t>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<char16_t>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<char32_t>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<wchar_t>>);
+    ASSERT_TRUE(NullableValueType<std::optional<char>>);
+    ASSERT_TRUE(NullableValueType<std::optional<signed char>>);
+    ASSERT_TRUE(NullableValueType<std::optional<unsigned char>>);
+    ASSERT_TRUE(NullableValueType<std::optional<char8_t>>);
+    ASSERT_TRUE(NullableValueType<std::optional<char16_t>>);
+    ASSERT_TRUE(NullableValueType<std::optional<char32_t>>);
+    ASSERT_TRUE(NullableValueType<std::optional<wchar_t>>);
 
-    ASSERT_TRUE(NullableValueLike<std::optional<short>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<unsigned short>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<int>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<unsigned int>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<long>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<unsigned long>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<long long>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<unsigned long long>>);
+    ASSERT_TRUE(NullableValueType<std::optional<short>>);
+    ASSERT_TRUE(NullableValueType<std::optional<unsigned short>>);
+    ASSERT_TRUE(NullableValueType<std::optional<int>>);
+    ASSERT_TRUE(NullableValueType<std::optional<unsigned int>>);
+    ASSERT_TRUE(NullableValueType<std::optional<long>>);
+    ASSERT_TRUE(NullableValueType<std::optional<unsigned long>>);
+    ASSERT_TRUE(NullableValueType<std::optional<long long>>);
+    ASSERT_TRUE(NullableValueType<std::optional<unsigned long long>>);
 
-    ASSERT_TRUE(NullableValueLike<std::optional<float>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<double>>);
-    ASSERT_TRUE(NullableValueLike<std::optional<long double>>);
+    ASSERT_TRUE(NullableValueType<std::optional<float>>);
+    ASSERT_TRUE(NullableValueType<std::optional<double>>);
+    ASSERT_TRUE(NullableValueType<std::optional<long double>>);
 
-    ASSERT_TRUE(NullableValueLike<std::optional<std::string>>);
+    ASSERT_TRUE(NullableValueType<std::optional<std::string>>);
 }
 
 
-TEST(ValueTypeTest, CompositeValueLike) {
+TEST(ValueTypeTest, CompositeValueType) {
 
     {
         using Type1 = std::tuple<int>;
-        ASSERT_TRUE(CompositeValueLike<Type1>);
+        ASSERT_TRUE(CompositeValueType<Type1>);
     }
 
     {
         using Type2 = std::tuple<int, std::string>;
-        ASSERT_TRUE(CompositeValueLike<Type2>);
+        ASSERT_TRUE(CompositeValueType<Type2>);
     }
 }

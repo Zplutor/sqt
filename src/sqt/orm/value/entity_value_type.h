@@ -5,7 +5,7 @@
 namespace sqt {
 
 template<typename T>
-concept EntityValueLike = requires {
+concept EntityValueType = requires {
     typename Table<T>::type;
 };
 

@@ -3,12 +3,15 @@
 #include <mutex>
 #include <sqt/foundation/database.h>
 #include <sqt/orm/executor/executor.h>
-#include <sqt/orm/expression/value_operand.h>
+#include <sqt/orm/expression/operand/placeholder_operand.h>
+#include <sqt/orm/expression/operand/value_operand.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/table_initializer.h>
+#include <sqt/orm/value/auto_inc_entity_value_traits.h>
+#include <sqt/orm/value/entire_entity_value_traits.h>
 
 namespace sqt {
 
@@ -17,13 +20,15 @@ class DataContext {
 public:
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeInserter() noexcept {
-        return EntityInserter<CONFLICT_ACTION, Operand<Placeholder<E>>>{
-            Operand<Placeholder<E>>{}
-        };
+        using ValueTraits = EntireEntityValueTraits<E>;
+        using Operand = PlaceholderOperand<ValueTraits>;
+        return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
     static constexpr auto MakeAutoIncInserter() noexcept {
-
+        using ValueTraits = AutoIncEntityValueTraits<E>;
+        using Operand = PlaceholderOperand<ValueTraits>;
+        return EntityInserter<ConflictAction::Abort, Operand>{ Operand{} };
     }
 
     static constexpr auto MakeSelecter() noexcept {

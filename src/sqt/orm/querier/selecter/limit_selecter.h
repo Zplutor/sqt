@@ -4,8 +4,7 @@
 #include <string>
 #include <string_view>
 #include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/operand.h>
-#include <sqt/orm/expression/placeholder.h>
+#include <sqt/orm/expression/operand/placeholder.h>
 #include <sqt/orm/querier/selecter/selecter_like.h>
 
 namespace sqt {

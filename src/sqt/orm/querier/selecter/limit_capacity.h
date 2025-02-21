@@ -1,6 +1,9 @@
 #pragma once
 
+#include <sqt/orm/expression/operand/placeholder_operand.h>
+#include <sqt/orm/expression/operand/value_operand.h>
 #include <sqt/orm/querier/selecter/limit_selecter.h>
+#include <sqt/orm/value/trivial_value_traits.h>
 
 namespace sqt {
 
@@ -8,16 +11,24 @@ template<typename SELECTER>
 class LimitCapacity {
 public:
     constexpr auto Limit(std::size_t limit) const {
-        return LimitSelecter<SELECTER, Operand<std::size_t>>{
-            static_cast<const SELECTER&>(*this),
-                Operand<std::size_t>{ limit }
+
+        using ValueTraits = TrivialValueTraits<std::size_t>;
+        using Operand = ValueOperand<ValueTraits>;
+
+        return LimitSelecter<SELECTER, Operand>{ 
+            static_cast<const SELECTER&>(*this), 
+            Operand{ limit }
         };
     }
 
-    constexpr auto Limit(PlaceholderTag) const {
-        return LimitSelecter<SELECTER, Operand<Placeholder<std::size_t>>> {
+    constexpr auto Limit(Placeholder) const {
+
+        using ValueTraits = TrivialValueTraits<std::size_t>;
+        using Operand = PlaceholderOperand<ValueTraits>;
+
+        return LimitSelecter<SELECTER, Operand> {
             static_cast<const SELECTER&>(*this),
-                Operand<Placeholder<std::size_t>>{},
+            Operand{},
         };
     }
 };

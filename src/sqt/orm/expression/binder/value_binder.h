@@ -1,14 +1,16 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/value_type/bindable_value_type.h>
+#include <sqt/orm/value/trivial_value_traits.h>
+#include <sqt/orm/value/value_traits_type.h>
 
 namespace sqt {
 
-template<BindableValueType V>
+template<ValueTraitsType TRAITS>
 class ValueBinder {
 public:
-    using ValueType = V;
+    using ValueTraits = TRAITS;
+    using ValueType = typename TRAITS::ValueType;
 
 public:
     constexpr ValueBinder(int index) : index_(index) {
@@ -16,7 +18,7 @@ public:
     }
 
     void Bind(Statement& statement, const ValueType& value) const {
-        ValueTypeTraits<V>::BindValueToStatement(statement, index_, value);
+        ValueTraits::BindValueToStatement(statement, index_, value);
     }
 
 private:

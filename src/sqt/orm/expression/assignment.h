@@ -1,11 +1,11 @@
 #pragma once
 
 #include <sqt/orm/expression/identifier_operand_like.h>
-#include <sqt/orm/expression/value_operand_like.h>
+#include <sqt/orm/expression/value_operand_type.h>
 
 namespace sqt {
 
-template<IdentifierOperandLike IDENTIFIER, ValueOperandLike VALUE>
+template<IdentifierOperandLike IDENTIFIER, ValueOperandType VALUE>
 class Assignment {
 public:
     using IdentifierOperandType = IDENTIFIER;

@@ -2,9 +2,9 @@
 
 #include <format>
 #include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/identifier_operand.h>
 #include <sqt/orm/expression/operator.h>
-#include <sqt/orm/expression/value_operand.h>
+#include <sqt/orm/expression/operand/identifier_operand.h>
+#include <sqt/orm/expression/operand/value_operand.h>
 
 namespace sqt {
 
@@ -55,16 +55,5 @@ private:
     LHS lhs_{};
     RHS rhs_{};
 };
-
-
-template<Operator Operator, typename Operand1, typename Operand2>
-constexpr auto MakeExpression(Operand1&& op1, Operand2&& op2) {
-    using LHS = Operand<std::decay_t<Operand1>>;
-    using RHS = Operand<std::decay_t<Operand2>>;
-    return Expression<Operator, LHS, RHS>{
-        LHS{ std::forward<Operand1>(op1) },
-        RHS{ std::forward<Operand2>(op2) },
-    };
-}
 
 }

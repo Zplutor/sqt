@@ -3,7 +3,7 @@
 #include <concepts>
 #include <string>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/binder/binder_chain.h>
+#include <sqt/orm/expression/binder/value_binder_chain.h>
 
 namespace sqt {
 

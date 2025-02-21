@@ -2,23 +2,23 @@
 
 #include <tuple>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/binder/binder_like.h>
+#include <sqt/orm/expression/binder/value_binder_type.h>
 
 namespace sqt {
 
-template<BinderLike... Binders>
-class BinderChain;
+template<ValueBinderType... Binders>
+class ValueBinderChain;
 
 template<>
-class BinderChain<> {
+class ValueBinderChain<> {
 public:
-    BinderChain(Statement& statement, std::tuple<>) noexcept { }
+    ValueBinderChain(Statement& statement, std::tuple<>) noexcept { }
 };
 
-template<BinderLike FirstBinder, BinderLike... RestBinders>
-class BinderChain<FirstBinder, RestBinders...> {
+template<ValueBinderType FirstBinder, ValueBinderType... RestBinders>
+class ValueBinderChain<FirstBinder, RestBinders...> {
 public:
-    BinderChain(Statement& statement, std::tuple<FirstBinder, RestBinders...> binders) :
+    ValueBinderChain(Statement& statement, std::tuple<FirstBinder, RestBinders...> binders) :
         statement_(statement),
         binders_(std::move(binders)) {
 
@@ -33,7 +33,7 @@ public:
         }, 
         binders_);
 
-        return BinderChain<RestBinders...>(statement_, rest_tuple);
+        return ValueBinderChain<RestBinders...>(statement_, rest_tuple);
     }
 
 private:
@@ -42,9 +42,9 @@ private:
 };
 
 
-template<BinderLike... Binders>
+template<ValueBinderType... Binders>
 auto MakeBinderChain(Statement& statement, std::tuple<Binders...> tuple) {
-    return BinderChain<Binders...>(statement, std::move(tuple));
+    return ValueBinderChain<Binders...>(statement, std::move(tuple));
 }
 
 

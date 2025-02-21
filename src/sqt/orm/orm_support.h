@@ -13,8 +13,7 @@
 #include <sqt/orm/table/primary_key_support.h>
 #include <sqt/orm/utility/macro_utility.h>
 #include <sqt/orm/utility/utility.h>
-#include <sqt/orm/value_type/primitive_value_type.h>
-#include <sqt/orm/value_type/nullable_value_type.h>
+#include <sqt/orm/value/trivial_value_traits.h>
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
 namespace __sqt_table_##TABLE_NAME { \
@@ -61,30 +60,30 @@ public: \
         using ThisType = COLUMN_NAME##Type; \
     public: \
         using ValueType = decltype(((EntityType*)nullptr)->CLASS_FIELD); \
-        using ValueTypeTraits = sqt::ValueTypeTraits<ValueType>; \
+        using ValueTraits = sqt::TrivialValueTraits<ValueType>; \
         using Node::Node; \
         static constexpr std::string_view Name = #COLUMN_NAME; \
         constexpr std::string_view GetName() const noexcept override { \
             return Name; \
         } \
         constexpr sqt::DataType GetDataType() const noexcept override { \
-            return ValueTypeTraits::DataType; \
+            return ValueTraits::DataType; \
         } \
         constexpr bool IsNullable() const noexcept override { \
-            return ValueTypeTraits::IsNullable; \
+            return ValueTraits::IsNullable; \
         } \
         void BindValueToStatement( \
             sqt::Statement& statement, \
             int parameter_index, \
             const EntityType& entity) const override { \
-            ValueTypeTraits::BindValueToStatement( \
+            ValueTraits::BindValueToStatement( \
                 statement, parameter_index, entity.CLASS_FIELD); \
         } \
         void GetValueFromStatement( \
             const sqt::Statement& statement, \
             int column_index, \
             EntityType& entity) const override { \
-            entity.CLASS_FIELD = ValueTypeTraits::GetValueFromStatement(statement, column_index); \
+            entity.CLASS_FIELD = ValueTraits::GetValueFromStatement(statement, column_index); \
         } \
         __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
     }; \

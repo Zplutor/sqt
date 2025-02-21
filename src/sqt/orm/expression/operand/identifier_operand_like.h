@@ -2,7 +2,7 @@
 
 #include <type_traits>
 #include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/identifier_operand.h>
+#include <sqt/orm/expression/operand/identifier_operand.h>
 
 namespace sqt {
 

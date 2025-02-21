@@ -13,17 +13,11 @@
     <Filter Include="src\sqt\orm">
       <UniqueIdentifier>{4099a156-4bb9-45a4-8006-3a13c1517cd5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sqt\orm\value_type">
-      <UniqueIdentifier>{9902a23c-7f16-4fd1-a49f-ff2a4150d397}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sqt\orm\utility">
       <UniqueIdentifier>{f81443f2-ead3-4971-874c-acf471aa03a1}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\sqt\orm\executor">
       <UniqueIdentifier>{c4416396-feb8-460f-8c83-c71798422f5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\sqt\orm\binder">
-      <UniqueIdentifier>{3dd9247c-a082-425f-a83f-e1b38df7ee31}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\sqt\orm\expression">
       <UniqueIdentifier>{16a8be46-0029-4a38-9945-0de85d95806b}</UniqueIdentifier>
@@ -45,6 +39,15 @@
     </Filter>
     <Filter Include="src\sqt\orm\querier\inserter">
       <UniqueIdentifier>{6c97785b-d4d2-4f10-98fd-7662e023f41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\expression\operand">
+      <UniqueIdentifier>{dd4d8ab9-1884-4648-b551-8660a4c0b7a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\expression\binder">
+      <UniqueIdentifier>{e62c141f-9f8c-4004-8327-a0f74e65b0b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\value">
+      <UniqueIdentifier>{9902a23c-7f16-4fd1-a49f-ff2a4150d397}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,21 +83,6 @@
     <ClInclude Include="src\sqt\orm\orm_support.h">
       <Filter>src\sqt\orm</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\composite_value_type.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\data_type_mapping.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\nullable_value_type.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\primitive_value_type.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\value_type_traits.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table_mapping.h">
       <Filter>src\sqt\orm</Filter>
     </ClInclude>
@@ -107,29 +95,8 @@
     <ClInclude Include="src\sqt\orm\executor\executor.h">
       <Filter>src\sqt\orm\executor</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\binder\entity_binder.h">
-      <Filter>src\sqt\orm\binder</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\binder\binder_chain.h">
-      <Filter>src\sqt\orm\binder</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\placeholder.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\binder\value_binder.h">
-      <Filter>src\sqt\orm\binder</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operand.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\bindable_value_type.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\querier_like.h">
       <Filter>src\sqt\orm\querier</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\binder\binder_like.h">
-      <Filter>src\sqt\orm\binder</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
@@ -245,38 +212,89 @@
     <ClInclude Include="src\sqt\orm\table\table_like.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\identifier_operand.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\identifier_operand_like.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\value_operand.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\value_operand_like.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\assignment_like.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\entity_value_type.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\value_traits_like.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\entire_entity_value_traits.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\entity_value_like.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value_type\auto_inc_entity_value_traits.h">
-      <Filter>src\sqt\orm\value_type</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h">
       <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\entity_value_operand_type.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\value_operand.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\trivial_value_operand_type.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_like.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\placeholder_operand.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\operand_creation.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\expression_creation.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\operand_type.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h">
+      <Filter>src\sqt\orm\expression\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h">
+      <Filter>src\sqt\orm\expression\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h">
+      <Filter>src\sqt\orm\expression\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\auto_inc_entity_value_traits.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\composite_value_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\data_type_mapping.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\entire_entity_value_traits.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\entity_value_traits_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\entity_value_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\nullable_value_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\primitive_value_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\trivial_value_traits.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\trivial_value_traits_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\trivial_value_type.h">
+      <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\value_traits_type.h">
+      <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

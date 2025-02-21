@@ -3,7 +3,7 @@
 #include <array>
 #include <sqt/orm/table/column.h>
 #include <sqt/orm/table/column_like.h>
-#include <sqt/orm/value_type/composite_value_type.h>
+#include <sqt/orm/value/trivial_value_traits.h>
 
 namespace sqt {
 
@@ -26,11 +26,11 @@ public:
         int parameter_index,
         const ValueType& value) {
 
-        ValueTypeTraits<ValueType>::BindValueToStatement(statement, parameter_index, value);
+        TrivialValueTraits<ValueType>::BindValueToStatement(statement, parameter_index, value);
     }
 
     static ValueType GetValueFromStatement(const Statement& statement, int column_index) {
-        return ValueTypeTraits<ValueType>::GetValueFromStatement(statement, column_index);
+        return TrivialValueTraits<ValueType>::GetValueFromStatement(statement, column_index);
     }
 
 public:
@@ -68,11 +68,11 @@ public:
         int parameter_index,
         const ValueType& value) {
 
-        ValueTypeTraits<ValueType>::BindValueToStatement(statement, parameter_index, value);
+        TrivialValueTraits<ValueType>::BindValueToStatement(statement, parameter_index, value);
     }
 
     static ValueType GetValueFromStatement(const Statement& statement, int column_index) {
-        return ValueTypeTraits<ValueType>::GetValueFromStatement(statement, column_index);
+        return TrivialValueTraits<ValueType>::GetValueFromStatement(statement, column_index);
     }
 
 public:

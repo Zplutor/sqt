@@ -6,7 +6,7 @@
 namespace sqt {
 
 template<typename T>
-concept ValueTraitsLike = 
+concept ValueTraitsType = 
     requires {
         typename T::ValueType;
         { T::ParameterCount } -> std::same_as<const std::size_t&>;

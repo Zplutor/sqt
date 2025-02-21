@@ -1,21 +1,25 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/value_type/entire_entity_value_traits.h>
-#include <sqt/orm/value_type/entity_value_like.h>
+#include <sqt/orm/value/entire_entity_value_traits.h>
+#include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
 
-template<EntityValueLike T>
+template<EntityValueType T>
 class AutoIncEntityValueTraits {
 public:
+    using ValueType = T;
+    using EntityType = T;
+    using TableType = TableT<T>;
+
     static constexpr std::size_t ParameterCount = 
-        TableT<T>::GetColumns().size() - TableT<T>::PrimaryKeyType::ColumnCount;
+        TableType::GetColumns().size() - TableType::PrimaryKeyType::ColumnCount;
 
     static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
-        for (auto each_column : TableT<T>.GetColumns()) {
+        for (auto each_column : TableType::GetNonPrimaryKeyColumns()) {
             each_column->BindValueToStatement(statement, index++, value);
         }
     }
