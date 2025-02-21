@@ -3,32 +3,11 @@
 #include <sqt/foundation/database.h>
 #include <sqt/orm/orm_support.h>
 #include <sqt/orm/table/table_initializer.h>
+#include "db_test_fixture.h"
 
-namespace {
+class TableInitializerTest : public DBTestFixture {
 
-class TableInitializerTestFixture {
-public:
-    TableInitializerTestFixture() {
-        
-        auto db_path = "test_data\\table_initializer_test.db";
-        std::filesystem::remove(db_path);
-
-        database_ = std::make_shared<sqt::Database>(sqt::Database::Open(db_path));
-    }
-
-    ~TableInitializerTestFixture() {
-        database_.reset();
-    }
-
-    sqt::Database& DB() {
-        return *database_;
-    }
-
-private:
-    std::shared_ptr<sqt::Database> database_;
 };
-
-}
 
 namespace table_initializer_test {
 struct EntityNoPK {
@@ -46,15 +25,13 @@ SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test, EntityNoPK)
 
-TEST(TableInitializerTest, NewTableNoPK) {
-
-    TableInitializerTestFixture fixture;
+TEST_F(TableInitializerTest, NewTableNoPK) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityNoPK>, 
-        fixture.DB());
+        DB());
 
-    auto table_info = fixture.DB().GetTableInfo("EntityNoPK");
+    auto table_info = DB().GetTableInfo("EntityNoPK");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 4);
 
@@ -105,15 +82,13 @@ SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test, EntityPK1)
 
-TEST(TableInitializerTest, NewTablePK1) {
-
-    TableInitializerTestFixture fixture;
+TEST_F(TableInitializerTest, NewTablePK1) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityPK1>,
-        fixture.DB());
+        DB());
 
-    auto table_info = fixture.DB().GetTableInfo("EntityPK1");
+    auto table_info = DB().GetTableInfo("EntityPK1");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 2);
 
@@ -140,15 +115,13 @@ SQT_TABLE_END;
 }
 SQT_REGISTER(table_initializer_test, EntityPK1AutoInc)
 
-TEST(TableInitializerTest, NewTablePK1AutoInc) {
-
-    TableInitializerTestFixture fixture;
+TEST_F(TableInitializerTest, NewTablePK1AutoInc) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityPK1AutoInc>,
-        fixture.DB());
+        DB());
 
-    auto table_info = fixture.DB().GetTableInfo("EntityPK1AutoInc");
+    auto table_info = DB().GetTableInfo("EntityPK1AutoInc");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 2);
 
@@ -160,10 +133,10 @@ TEST(TableInitializerTest, NewTablePK1AutoInc) {
         ASSERT_EQ(column0.is_primary_key, true);
     }
 
-    fixture.DB().ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('1')");
-    ASSERT_EQ(fixture.DB().LastInsertRowID(), 1);
-    fixture.DB().ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('2')");
-    ASSERT_EQ(fixture.DB().LastInsertRowID(), 2);
+    DB().ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('1')");
+    ASSERT_EQ(DB().LastInsertRowID(), 1);
+    DB().ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('2')");
+    ASSERT_EQ(DB().LastInsertRowID(), 2);
 }
 
 
@@ -180,15 +153,13 @@ SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test, EntityPK2)
 
-TEST(TableInitializerTest, NewTablePK2) {
-
-    TableInitializerTestFixture fixture;
+TEST_F(TableInitializerTest, NewTablePK2) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityPK2>, 
-        fixture.DB());
+        DB());
 
-    auto table_info = fixture.DB().GetTableInfo("EntityPK2");
+    auto table_info = DB().GetTableInfo("EntityPK2");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 2);
 
@@ -233,21 +204,19 @@ SQT_TABLE_END
 SQT_REGISTER(table_initializer_test::old_table, AlterTable)
 SQT_REGISTER(table_initializer_test::new_table, AlterTable)
 
-TEST(TableInitializerTest, AlterTable) {
-
-    TableInitializerTestFixture fixture;
+TEST_F(TableInitializerTest, AlterTable) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::old_table::OldTable>, 
-        fixture.DB());
-    auto old_table_info = fixture.DB().GetTableInfo("AlterTable");
+        DB());
+    auto old_table_info = DB().GetTableInfo("AlterTable");
     ASSERT_TRUE(old_table_info.has_value());
     ASSERT_EQ(old_table_info->columns.size(), 1);
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::new_table::NewTable>, 
-        fixture.DB());
-    auto new_table_info = fixture.DB().GetTableInfo("AlterTable");
+        DB());
+    auto new_table_info = DB().GetTableInfo("AlterTable");
     ASSERT_TRUE(new_table_info.has_value());
     ASSERT_EQ(new_table_info->columns.size(), 2);
 
@@ -271,7 +240,7 @@ TEST(TableInitializerTest, AlterTable) {
     ASSERT_NO_THROW(
         sqt::TableInitializer::Initialize(
             sqt::TableV<table_initializer_test::new_table::NewTable>,
-            fixture.DB()));
+            DB()));
 }
 
 
@@ -292,25 +261,24 @@ SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test, EntityWithIndex)
 
-TEST(TableInitializerTest, CreateIndex) {
+TEST_F(TableInitializerTest, CreateIndex) {
 
     auto& table = sqt::TableV<table_initializer_test::EntityWithIndex>;
 
-    TableInitializerTestFixture fixture;
-    sqt::TableInitializer::Initialize(table, fixture.DB());
+    sqt::TableInitializer::Initialize(table, DB());
 
-    auto index_info = fixture.DB().GetIndexInfo("EntityWithIndex_Index_id");
+    auto index_info = DB().GetIndexInfo("EntityWithIndex_Index_id");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 1);
     ASSERT_EQ(index_info->columns[0], "id");
 
-    index_info = fixture.DB().GetIndexInfo("EntityWithIndex_Index_idname");
+    index_info = DB().GetIndexInfo("EntityWithIndex_Index_idname");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 2);
     ASSERT_EQ(index_info->columns[0], "id");
     ASSERT_EQ(index_info->columns[1], "name");
 
-    index_info = fixture.DB().GetIndexInfo("EntityWithIndex_Index_idnameage");
+    index_info = DB().GetIndexInfo("EntityWithIndex_Index_idnameage");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 3);
     ASSERT_EQ(index_info->columns[0], "id");
