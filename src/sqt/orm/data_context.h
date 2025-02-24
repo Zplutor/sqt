@@ -25,10 +25,19 @@ public:
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
+    static constexpr auto MakeReplacer() noexcept {
+        return MakeInserter<ConflictAction::Replace>();
+    }
+
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeAutoIncInserter() noexcept requires AutoIncEntityValueType<E> {
         using ValueTraits = AutoIncEntityValueTraits<E>;
         using Operand = PlaceholderOperand<ValueTraits>;
-        return EntityInserter<ConflictAction::Abort, Operand>{ Operand{} };
+        return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
+    }
+
+    static constexpr auto MakeAutoIncReplacer() noexcept requires AutoIncEntityValueType<E> {
+        return MakeAutoIncInserter<ConflictAction::Replace>();
     }
 
     static constexpr auto MakeSelecter() noexcept {
