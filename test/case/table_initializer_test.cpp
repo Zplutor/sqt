@@ -29,9 +29,9 @@ TEST_F(TableInitializerTest, NewTableNoPK) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityNoPK>, 
-        DB());
+        *DB());
 
-    auto table_info = DB().GetTableInfo("EntityNoPK");
+    auto table_info = DB()->GetTableInfo("EntityNoPK");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 4);
 
@@ -86,9 +86,9 @@ TEST_F(TableInitializerTest, NewTablePK1) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityPK1>,
-        DB());
+        *DB());
 
-    auto table_info = DB().GetTableInfo("EntityPK1");
+    auto table_info = DB()->GetTableInfo("EntityPK1");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 2);
 
@@ -119,9 +119,9 @@ TEST_F(TableInitializerTest, NewTablePK1AutoInc) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityPK1AutoInc>,
-        DB());
+        *DB());
 
-    auto table_info = DB().GetTableInfo("EntityPK1AutoInc");
+    auto table_info = DB()->GetTableInfo("EntityPK1AutoInc");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 2);
 
@@ -133,10 +133,10 @@ TEST_F(TableInitializerTest, NewTablePK1AutoInc) {
         ASSERT_EQ(column0.is_primary_key, true);
     }
 
-    DB().ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('1')");
-    ASSERT_EQ(DB().LastInsertRowID(), 1);
-    DB().ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('2')");
-    ASSERT_EQ(DB().LastInsertRowID(), 2);
+    DB()->ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('1')");
+    ASSERT_EQ(DB()->LastInsertRowID(), 1);
+    DB()->ExecuteSQL("insert into EntityPK1AutoInc (StringField) values ('2')");
+    ASSERT_EQ(DB()->LastInsertRowID(), 2);
 }
 
 
@@ -157,9 +157,9 @@ TEST_F(TableInitializerTest, NewTablePK2) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::EntityPK2>, 
-        DB());
+        *DB());
 
-    auto table_info = DB().GetTableInfo("EntityPK2");
+    auto table_info = DB()->GetTableInfo("EntityPK2");
     ASSERT_TRUE(table_info.has_value());
     ASSERT_EQ(table_info->columns.size(), 2);
 
@@ -208,15 +208,15 @@ TEST_F(TableInitializerTest, AlterTable) {
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::old_table::OldTable>, 
-        DB());
-    auto old_table_info = DB().GetTableInfo("AlterTable");
+        *DB());
+    auto old_table_info = DB()->GetTableInfo("AlterTable");
     ASSERT_TRUE(old_table_info.has_value());
     ASSERT_EQ(old_table_info->columns.size(), 1);
 
     sqt::TableInitializer::Initialize(
         sqt::TableV<table_initializer_test::new_table::NewTable>, 
-        DB());
-    auto new_table_info = DB().GetTableInfo("AlterTable");
+        *DB());
+    auto new_table_info = DB()->GetTableInfo("AlterTable");
     ASSERT_TRUE(new_table_info.has_value());
     ASSERT_EQ(new_table_info->columns.size(), 2);
 
@@ -240,7 +240,7 @@ TEST_F(TableInitializerTest, AlterTable) {
     ASSERT_NO_THROW(
         sqt::TableInitializer::Initialize(
             sqt::TableV<table_initializer_test::new_table::NewTable>,
-            DB()));
+            *DB()));
 }
 
 
@@ -265,20 +265,20 @@ TEST_F(TableInitializerTest, CreateIndex) {
 
     auto& table = sqt::TableV<table_initializer_test::EntityWithIndex>;
 
-    sqt::TableInitializer::Initialize(table, DB());
+    sqt::TableInitializer::Initialize(table, *DB());
 
-    auto index_info = DB().GetIndexInfo("EntityWithIndex_Index_id");
+    auto index_info = DB()->GetIndexInfo("EntityWithIndex_Index_id");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 1);
     ASSERT_EQ(index_info->columns[0], "id");
 
-    index_info = DB().GetIndexInfo("EntityWithIndex_Index_idname");
+    index_info = DB()->GetIndexInfo("EntityWithIndex_Index_idname");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 2);
     ASSERT_EQ(index_info->columns[0], "id");
     ASSERT_EQ(index_info->columns[1], "name");
 
-    index_info = DB().GetIndexInfo("EntityWithIndex_Index_idnameage");
+    index_info = DB()->GetIndexInfo("EntityWithIndex_Index_idnameage");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 3);
     ASSERT_EQ(index_info->columns[0], "id");

@@ -8,8 +8,8 @@ class DBTestFixture : public testing::Test {
 protected:
     void SetUp() override;
 
-    sqt::Database& DB() {
-        return *db_;
+    const std::shared_ptr<sqt::Database>& DB() const {
+        return db_;
     }
 
 private:

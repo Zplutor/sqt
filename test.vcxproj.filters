@@ -33,6 +33,9 @@
     <ClCompile Include="test\case\db_test_fixture.cpp">
       <Filter>test\case</Filter>
     </ClCompile>
+    <ClCompile Include="test\case\inserter_test.cpp">
+      <Filter>test\case</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test\case\orm_support_test.h">

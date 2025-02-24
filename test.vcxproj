@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="test\case\composite_column_test.cpp" />
     <ClCompile Include="test\case\db_test_fixture.cpp" />
+    <ClCompile Include="test\case\inserter_test.cpp" />
     <ClCompile Include="test\case\orm_support_test.cpp" />
     <ClCompile Include="test\case\orm_support_test2.cpp" />
     <ClCompile Include="test\case\selecter_test.cpp" />

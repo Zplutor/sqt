@@ -16,27 +16,6 @@ SQT_TABLE_END
 SQT_REGISTER(, Entity)
 
 
-TEST(InserterTest, Test) {
-
-    auto db_path = "Test.db";
-    auto db = std::make_shared<sqt::Database>(sqt::Database::Open(db_path));
-
-    constexpr auto& table = sqt::TableV<Entity>;
-
-    Entity entity;
-    entity.id = 11;
-    entity.name = "test";
-
-    sqt::DataContext<Entity> data_context{ db };
-
-    constexpr auto bind_inserter = sqt::DataContext<Entity>::MakeInserter();
-    auto bind_executer = data_context.Prepare(bind_inserter);
-    bind_executer.BeginBind().Bind(entity);
-    bind_executer.Execute();
-
-}
-
-
 TEST(SelecterTest, Test) {
 
     auto db_path = "Test.db";
