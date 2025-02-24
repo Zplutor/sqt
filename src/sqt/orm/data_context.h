@@ -8,14 +8,14 @@
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/table/abstract_table.h>
-#include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/table_initializer.h>
 #include <sqt/orm/value/auto_inc_entity_value_traits.h>
 #include <sqt/orm/value/entire_entity_value_traits.h>
+#include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
 
-template<typename E>
+template<EntityValueType E>
 class DataContext {
 public:
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
@@ -25,7 +25,7 @@ public:
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
-    static constexpr auto MakeAutoIncInserter() noexcept {
+    static constexpr auto MakeAutoIncInserter() noexcept requires AutoIncEntityValueType<E> {
         using ValueTraits = AutoIncEntityValueTraits<E>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityInserter<ConflictAction::Abort, Operand>{ Operand{} };

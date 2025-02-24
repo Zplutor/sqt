@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
+#include <sqt/orm/table/column.h>
 #include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
@@ -12,12 +13,14 @@ public:
     using EntityType = T;
     using TableType = TableT<T>;
 
-    static constexpr std::size_t ParameterCount = TableType::GetColumns().size();
+    static constexpr ColumnsView<EntityType> InsertingColumns = TableType::GetColumns();
+
+    static constexpr std::size_t ParameterCount = InsertingColumns.size();
 
     static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
-        for (auto each_column : TableType::GetColumns()) {
+        for (auto each_column : InsertingColumns) {
             each_column->BindValueToStatement(statement, index++, value);
         }
     }
@@ -26,7 +29,7 @@ public:
 
         T result{};
         int index = column_index;
-        for (auto each_column : TableType::GetColumns()) {
+        for (auto each_column : InsertingColumns) {
             each_column->GetValueFromStatement(statement, index++, result);
         }
         return result;

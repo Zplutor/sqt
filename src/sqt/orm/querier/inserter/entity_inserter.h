@@ -2,14 +2,14 @@
 
 #include <tuple>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/expression/operand/value_operand_type.h>
+#include <sqt/orm/expression/operand/entity_value_operand_type.h>
 #include <sqt/orm/querier/inserter/conflict_action.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/utility/utility.h>
 
 namespace sqt {
 
-template<ConflictAction CONFLICT_ACTION, ValueOperandType VALUE_OPERAND>
+template<ConflictAction CONFLICT_ACTION, EntityValueOperandType VALUE_OPERAND>
 class EntityInserter {
 public:
     static constexpr std::size_t ParameterIndex = 1;
@@ -28,7 +28,7 @@ public:
                 "insert or {} into {} ({}) values ({})", 
                 conflict_action, 
                 table_name, 
-                JoinColumnNames(table.GetAbstractColumns()),
+                JoinColumnNames(VALUE_OPERAND::ValueTraits::InsertingColumns),
                 VALUE_OPERAND::BuildSQL());
         }();
         return sql;

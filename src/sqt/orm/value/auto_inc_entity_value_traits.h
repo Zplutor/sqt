@@ -6,20 +6,22 @@
 
 namespace sqt {
 
-template<EntityValueType T>
+template<AutoIncEntityValueType T>
 class AutoIncEntityValueTraits {
 public:
     using ValueType = T;
     using EntityType = T;
     using TableType = TableT<T>;
 
-    static constexpr std::size_t ParameterCount = 
-        TableType::GetColumns().size() - TableType::PrimaryKeyType::ColumnCount;
+    static constexpr ColumnsView<EntityType> InsertingColumns = 
+        TableType::GetNonPrimaryKeyColumns();
+
+    static constexpr std::size_t ParameterCount = InsertingColumns.size();
 
     static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
-        for (auto each_column : TableType::GetNonPrimaryKeyColumns()) {
+        for (auto each_column : InsertingColumns) {
             each_column->BindValueToStatement(statement, index++, value);
         }
     }

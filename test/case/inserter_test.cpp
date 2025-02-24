@@ -16,6 +16,7 @@ public:
 SQT_TABLE_BEGIN(Entity, Entity)
 SQT_COLUMN(id, id)
 SQT_COLUMN(name, name)
+SQT_PRIMARY_KEY_AUTO_INC(id)
 SQT_TABLE_END
 }
 SQT_REGISTER(inserter_test, Entity)
@@ -24,7 +25,6 @@ TEST_F(InserterTest, InsertEntireEntity) {
 
     {
         using Context = sqt::DataContext<inserter_test::Entity>;
-
         constexpr auto inserter = Context::MakeInserter();
 
         Context context{ DB() };
@@ -39,4 +39,29 @@ TEST_F(InserterTest, InsertEntireEntity) {
     ASSERT_TRUE(statement.Step());
     ASSERT_EQ(statement.GetColumnInt(0), 89);
     ASSERT_EQ(statement.GetColumnText(1), "yyx");
+}
+
+
+TEST_F(InserterTest, InsertAutoIncEntity) {
+
+    {
+        using Context = sqt::DataContext<inserter_test::Entity>;
+        constexpr auto inserter = Context::MakeAutoIncInserter();
+
+        Context context{ DB() };
+        auto executor = context.Prepare(inserter);
+
+        inserter_test::Entity entity{ 1, "inc" };
+        executor.BeginBind().Bind(entity);
+        executor.Execute();
+        executor.Execute();
+        executor.Execute();
+    }
+
+    auto statement = DB()->PrepareStatement(std::format("select * from Entity"));
+    for (int index = 1; index <= 3; ++index) {
+        ASSERT_TRUE(statement.Step());
+        ASSERT_EQ(statement.GetColumnInt(0), index);
+        ASSERT_EQ(statement.GetColumnText(1), "inc");
+    }
 }
