@@ -110,7 +110,7 @@ struct EntityPK1AutoInc {
 SQT_TABLE_BEGIN(EntityPK1AutoInc, EntityPK1AutoInc)
 SQT_COLUMN(IntegerField, integer_field)
 SQT_COLUMN(StringField, string_field)
-SQT_PRIMARY_KEY_AUTOINCREMENT(IntegerField)
+SQT_PRIMARY_KEY_AUTO_INC(IntegerField)
 SQT_TABLE_END;
 }
 SQT_REGISTER(table_initializer_test, EntityPK1AutoInc)

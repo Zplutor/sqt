@@ -12,7 +12,7 @@ public:
     AbstractPrimaryKey& operator=(const AbstractPrimaryKey&) = delete;
 
     virtual AbstractColumnsView GetAbstractColumns() const noexcept = 0;
-    virtual bool IsAutoincrement() const noexcept = 0;
+    virtual bool IsAutoInc() const noexcept = 0;
 };
 
 }

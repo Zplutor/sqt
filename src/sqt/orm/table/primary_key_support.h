@@ -9,7 +9,7 @@ public: \
     class PrimaryKeyType : public PrimaryKeyBaseType { \
     public: \
         using PrimaryKeyBaseType::PrimaryKeyBaseType; \
-        constexpr bool IsAutoincrement() const noexcept override { \
+        constexpr bool IsAutoInc() const noexcept override { \
             return AUTO_INC; \
         } \
     }; \

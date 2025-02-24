@@ -189,7 +189,7 @@ TEST(ORMSupportTest, SingleColumnPrimaryKey) {
     constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
     ASSERT_EQ(abstract_pk, &table.PrimaryKey);
 
-    constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
+    constexpr bool auto_inc = table.PrimaryKey.IsAutoInc();
     ASSERT_FALSE(auto_inc);
 
     constexpr auto table_pk_columns = Table::GetPrimaryKeyColumns();
@@ -223,7 +223,7 @@ TEST(ORMSupportTest, TwoColumnPrimaryKey) {
     constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
     ASSERT_EQ(abstract_pk, &table.PrimaryKey);
 
-    constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
+    constexpr bool auto_inc = table.PrimaryKey.IsAutoInc();
     ASSERT_FALSE(auto_inc);
 
     constexpr auto table_pk_columns = Table::GetPrimaryKeyColumns();
@@ -250,7 +250,7 @@ TEST(ORMSupportTest, TwoColumnPrimaryKey) {
 TEST(ORMSupportTest, AutoIncrementPrimaryKey) {
 
     constexpr auto& table = sqt::TableV<EntityPKAutoInc>;
-    constexpr bool auto_inc = table.PrimaryKey.IsAutoincrement();
+    constexpr bool auto_inc = table.PrimaryKey.IsAutoInc();
     ASSERT_TRUE(auto_inc);
 
     auto columns = table.PrimaryKey.GetAbstractColumns();

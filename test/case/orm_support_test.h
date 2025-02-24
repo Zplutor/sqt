@@ -67,7 +67,7 @@ struct EntityPKAutoInc {
 };
 SQT_TABLE_BEGIN(EntityPKAutoInc, EntityPKAutoInc)
 SQT_COLUMN(id, id)
-SQT_PRIMARY_KEY_AUTOINCREMENT(id)
+SQT_PRIMARY_KEY_AUTO_INC(id)
 SQT_TABLE_END
 
 

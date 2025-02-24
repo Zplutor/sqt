@@ -27,7 +27,7 @@ void TableInitializer::CreateTable(const AbstractTable& table, Database& db) {
 
     const AbstractColumn* inline_pk_column{};
     auto pk = table.GetAbstractPrimaryKey();
-    if (pk && pk->IsAutoincrement()) {
+    if (pk && pk->IsAutoInc()) {
         inline_pk_column = pk->GetAbstractColumns().front();
     }
 
