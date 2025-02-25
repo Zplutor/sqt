@@ -94,24 +94,8 @@ public: \
 #define SQT_PRIMARY_KEY_AUTO_INC(COLUMN_NAME) SQT_DEFINE_PRIMARY_KEY(true, COLUMN_NAME)
 
 
-#define SQT_INDEX(...) \
-private: \
-    using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) = decltype(MakeBaseIndex(__VA_ARGS__)); \
-public: \
-    class SQT_INDEX_TYPE_NAME(__VA_ARGS__) : public SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) { \
-    private: \
-        static constexpr std::string_view IndexName = SQT_INDEX_NAME_STRING(__VA_ARGS__); \
-        static constexpr std::size_t FullNameLength = UserTableName.size() + IndexName.size() + 1;\
-        static constexpr std::array<char, FullNameLength> FullName = \
-            sqt::MakeIndexFullName<FullNameLength>(UserTableName, IndexName); \
-    public: \
-        using SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__)::SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__); \
-        std::string_view GetName() const noexcept override { \
-            return std::string_view{ FullName.data(), FullName.size() }; \
-        } \
-    }; \
-    SQT_INDEX_TYPE_NAME(__VA_ARGS__) SQT_INDEX_NAME(__VA_ARGS__){ \
-        index_linked_list_.Last(), __VA_ARGS__ };
+#define SQT_INDEX(...) SQT_DEFINE_INDEX(false, __VA_ARGS__)
+#define SQT_INDEX_UNIQUE(...) SQT_DEFINE_INDEX(true, __VA_ARGS__)
 
 
 #define SQT_TABLE_END \

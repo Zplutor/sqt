@@ -118,6 +118,17 @@ SQT_COLUMN(id7, id7)
 SQT_INDEX(id0, id1, id2, id3, id4, id5, id6, id7)
 SQT_TABLE_END
 
+
+struct EntityUniqueIndex {
+    int id0{};
+    int id1{};
+};
+SQT_TABLE_BEGIN(EntityUniqueIndex, EntityUniqueIndex)
+SQT_COLUMN(id0, id0)
+SQT_COLUMN(id1, id1)
+SQT_INDEX_UNIQUE(id0)
+SQT_TABLE_END
+
 }
 
 
@@ -130,3 +141,4 @@ SQT_REGISTER(orm_support, EntityPKAutoInc)
 SQT_REGISTER(orm_support, Entity1Index)
 SQT_REGISTER(orm_support, Entity2Index)
 SQT_REGISTER(orm_support, Entity8Index)
+SQT_REGISTER(orm_support, EntityUniqueIndex)

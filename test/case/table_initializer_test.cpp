@@ -257,6 +257,7 @@ SQT_COLUMN(age, age)
 SQT_INDEX(id)
 SQT_INDEX(id, name)
 SQT_INDEX(id, name, age)
+SQT_INDEX_UNIQUE(id, age)
 SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test, EntityWithIndex)
@@ -284,4 +285,10 @@ TEST_F(TableInitializerTest, CreateIndex) {
     ASSERT_EQ(index_info->columns[0], "id");
     ASSERT_EQ(index_info->columns[1], "name");
     ASSERT_EQ(index_info->columns[2], "age");
+
+    index_info = DB()->GetIndexInfo("EntityWithIndex_index_idage");
+    ASSERT_TRUE(index_info.has_value());
+    ASSERT_EQ(index_info->columns.size(), 2);
+    ASSERT_EQ(index_info->columns[0], "id");
+    ASSERT_EQ(index_info->columns[1], "age");
 }

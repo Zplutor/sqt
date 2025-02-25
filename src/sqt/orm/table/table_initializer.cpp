@@ -157,7 +157,8 @@ void TableInitializer::CreateIndex(
     Database& db) {
 
     auto sql = std::format(
-        "create index if not exists {} on {} ({})",
+        "create {} index if not exists {} on {} ({})",
+        index.IsUnique() ? "unique" : "",
         index.GetName(),
         table.GetName(),
         JoinColumnNames(index.GetAbstractColumns()));
