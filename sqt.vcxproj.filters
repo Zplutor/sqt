@@ -98,7 +98,7 @@
     <ClInclude Include="src\sqt\orm\executor\executor.h">
       <Filter>src\sqt\orm\executor</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\querier_like.h">
+    <ClInclude Include="src\sqt\orm\querier\querier_type.h">
       <Filter>src\sqt\orm\querier</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h">

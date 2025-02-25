@@ -4,7 +4,7 @@
 
 namespace sqt {
 
-template<QuerierLike UPDATER, ExpressionLike EXPRESSION>
+template<QuerierType UPDATER, ExpressionLike EXPRESSION>
 class WhereUpdater : public WhereQuerier<UPDATER, EXPRESSION> {
 
 };

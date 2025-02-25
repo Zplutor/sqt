@@ -3,11 +3,11 @@
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/binder/value_binder_chain.h>
 #include <sqt/orm/executor/result.h>
-#include <sqt/orm/querier/querier_like.h>
+#include <sqt/orm/querier/querier_type.h>
 
 namespace sqt {
 
-template<QuerierLike QUERIER>
+template<QuerierType QUERIER>
 class Executor {
 public:
     Executor(const QUERIER& querier, Statement statement) noexcept :

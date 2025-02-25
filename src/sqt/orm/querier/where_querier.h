@@ -1,11 +1,11 @@
 #pragma once
 
 #include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/querier/querier_like.h>
+#include <sqt/orm/querier/querier_type.h>
 
 namespace sqt {
 
-template<QuerierLike QUERIER, ExpressionLike EXPRESSION>
+template<QuerierType QUERIER, ExpressionLike EXPRESSION>
 class WhereQuerier {
 public:
     static constexpr std::size_t ParameterIndex =

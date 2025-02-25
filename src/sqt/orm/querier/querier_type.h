@@ -7,7 +7,7 @@
 namespace sqt {
 
 template<typename T>
-concept QuerierLike = 
+concept QuerierType = 
     requires {
         { T::ParameterIndex } -> std::same_as<const std::size_t&>;
         requires T::ParameterIndex >= 1;
