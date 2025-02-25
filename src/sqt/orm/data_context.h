@@ -61,6 +61,27 @@ public:
 
     void Insert(const E& entity) {
         constexpr auto inserter = MakeInserter();
+        ExecuteEntityInserter(inserter, entity);
+    }
+
+    void AutoIncInsert(const E& entity) {
+        constexpr auto inserter = MakeAutoIncInserter();
+        ExecuteEntityInserter(inserter, entity);
+    }
+
+    void Replace(const E& entity) {
+        constexpr auto replacer = MakeReplacer();
+        ExecuteEntityInserter(replacer, entity);
+    }
+
+    void AutoIncReplace(const E& entity) {
+        constexpr auto replacer = MakeAutoIncReplacer();
+        ExecuteEntityInserter(replacer, entity);
+    }
+
+private:
+    template<typename INSERTER>
+    void ExecuteEntityInserter(const INSERTER& inserter, const E& entity) {
         auto executer = Prepare(inserter);
         executer.BeginBind().Bind(entity);
         executer.Execute();

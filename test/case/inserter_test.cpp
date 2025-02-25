@@ -69,6 +69,40 @@ TEST_F(InserterTest, ReplaceEntireEntity) {
 }
 
 
+TEST_F(InserterTest, DataContextInsert) {
+
+    sqt::DataContext<inserter_test::Entity> context{ DB() };
+    inserter_test::Entity entity{ 89, "yyx" };
+    context.Insert(entity);
+
+    //Inserting the same entity again will cause a conflict
+    ASSERT_THROW(context.Insert(entity), sqt::SQLError);
+
+    auto statement = DB()->PrepareStatement(std::format("select * from Entity"));
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 89);
+    ASSERT_EQ(statement.GetColumnText(1), "yyx");
+
+    ASSERT_FALSE(statement.Step());
+}
+
+
+TEST_F(InserterTest, DataContextReplace) {
+
+    sqt::DataContext<inserter_test::Entity> context{ DB() };
+    inserter_test::Entity entity{ 890, "replacer" };
+    context.Replace(entity);
+    //This will replace the previous entity
+    context.Replace(entity);
+
+    auto statement = DB()->PrepareStatement(std::format("select * from Entity"));
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 890);
+    ASSERT_EQ(statement.GetColumnText(1), "replacer");
+    ASSERT_FALSE(statement.Step());
+}
+
+
 namespace inserter_test {
 class EntityWithUniqueIndex {
 public:
@@ -133,5 +167,48 @@ TEST_F(InserterTest, ReplaceAutoIncEntity) {
     ASSERT_EQ(statement.GetColumnInt(0), 3);
     ASSERT_EQ(statement.GetColumnText(1), "replace");
 
+    ASSERT_FALSE(statement.Step());
+}
+
+
+TEST_F(InserterTest, DataContextAutoIncInsert) {
+
+    sqt::DataContext<inserter_test::EntityWithUniqueIndex> context{ DB() };
+
+    inserter_test::EntityWithUniqueIndex entity1{ 89, "yyx" };
+    context.AutoIncInsert(entity1);
+
+    inserter_test::EntityWithUniqueIndex entity2{ 89, "yyy" };
+    context.AutoIncInsert(entity2);
+
+    //Insert the same entity again will cause a conflict
+    ASSERT_THROW(context.AutoIncInsert(entity2), sqt::SQLError);
+
+    auto statement = DB()->PrepareStatement(std::format("select * from EntityWithUniqueIndex"));
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 1);
+    ASSERT_EQ(statement.GetColumnText(1), "yyx");
+
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 2);
+    ASSERT_EQ(statement.GetColumnText(1), "yyy");
+
+    ASSERT_FALSE(statement.Step());
+}
+
+
+TEST_F(InserterTest, DataContextAutoIncReplace) {
+
+    sqt::DataContext<inserter_test::EntityWithUniqueIndex> context{ DB() };
+
+    inserter_test::EntityWithUniqueIndex entity{ 89, "yyx" };
+    context.AutoIncReplace(entity);
+    //This will replace the previous entity
+    context.AutoIncReplace(entity);
+
+    auto statement = DB()->PrepareStatement(std::format("select * from EntityWithUniqueIndex"));
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 2);
+    ASSERT_EQ(statement.GetColumnText(1), "yyx");
     ASSERT_FALSE(statement.Step());
 }
