@@ -79,7 +79,7 @@ void Statement::BindParameter(int parameter_index, std::string_view value) {
         parameter_index, 
         value.data(),
         static_cast<int>(value.length()),
-        SQLITE_STATIC);
+        SQLITE_TRANSIENT);
 
     SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);
 }

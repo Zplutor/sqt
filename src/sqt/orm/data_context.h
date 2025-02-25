@@ -7,6 +7,7 @@
 #include <sqt/orm/expression/operand/value_operand.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
+#include <sqt/orm/querier/updater/entity_updater.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/table_initializer.h>
 #include <sqt/orm/value/auto_inc_entity_value_traits.h>
@@ -38,6 +39,12 @@ public:
 
     static constexpr auto MakeAutoIncReplacer() noexcept requires AutoIncEntityValueType<E> {
         return MakeAutoIncInserter<ConflictAction::Replace>();
+    }
+
+    static constexpr auto MakeUpdater() noexcept {
+        using ValueTraits = EntireEntityValueTraits<E>;
+        using Operand = PlaceholderOperand<ValueTraits>;
+        return EntityUpdater<Operand>{ Operand{} };
     }
 
     static constexpr auto MakeSelecter() noexcept {

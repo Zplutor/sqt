@@ -4,14 +4,12 @@
 #include <string>
 #include <string_view>
 #include <sqt/orm/querier/selecter/limit_capacity.h>
-#include <sqt/orm/querier/selecter/where_capacity.h>
 #include <sqt/orm/table_mapping.h>
 
 namespace sqt {
 
 template<typename SELECTER>
 class PrimitiveSelecter : 
-    public WhereCapacity<SELECTER>, 
     public LimitCapacity<SELECTER> {
 
 public:

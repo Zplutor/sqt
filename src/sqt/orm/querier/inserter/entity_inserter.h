@@ -39,7 +39,7 @@ public:
     }
 
 public:
-    constexpr EntityInserter(VALUE_OPERAND value) : value_(std::move(value)) {
+    constexpr explicit EntityInserter(VALUE_OPERAND value) : value_(std::move(value)) {
 
     }
 

@@ -49,6 +49,9 @@
     <Filter Include="src\sqt\orm\value">
       <UniqueIdentifier>{9902a23c-7f16-4fd1-a49f-ff2a4150d397}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\querier\updater">
+      <UniqueIdentifier>{fe84c8cc-fb88-48bd-a184-5ff9846e12b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -129,9 +132,6 @@
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\limit_capacity.h">
-      <Filter>src\sqt\orm\querier\selecter</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\selecter\where_capacity.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\executor\iterator.h">
@@ -295,6 +295,18 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\value_traits_type.h">
       <Filter>src\sqt\orm\value</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h">
+      <Filter>src\sqt\orm\querier\updater</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\updater\where_updater.h">
+      <Filter>src\sqt\orm\querier\updater</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\where_querier.h">
+      <Filter>src\sqt\orm\querier</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\where_capacity.h">
+      <Filter>src\sqt\orm\querier</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
