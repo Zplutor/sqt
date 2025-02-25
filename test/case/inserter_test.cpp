@@ -33,6 +33,7 @@ TEST_F(InserterTest, InsertEntireEntity) {
     inserter_test::Entity entity{ 89, "yyx" };
     executor.BeginBind().Bind(entity);
     executor.Execute();
+    executor.Reset();
 
     {
         auto statement = DB()->PrepareStatement(std::format("select * from Entity"));
@@ -56,6 +57,7 @@ TEST_F(InserterTest, ReplaceEntireEntity) {
     inserter_test::Entity entity{ 890, "replacer" };
     executor.BeginBind().Bind(entity);
     executor.Execute();
+    executor.Reset();
 
     //This will replace the previous entity
     executor.Execute();
@@ -67,26 +69,69 @@ TEST_F(InserterTest, ReplaceEntireEntity) {
 }
 
 
+namespace inserter_test {
+class EntityWithUniqueIndex {
+public:
+    int id{};
+    std::string name;
+};
+SQT_TABLE_BEGIN(EntityWithUniqueIndex, EntityWithUniqueIndex)
+SQT_COLUMN(id, id)
+SQT_COLUMN(name, name)
+SQT_PRIMARY_KEY_AUTO_INC(id)
+SQT_INDEX_UNIQUE(name)
+SQT_TABLE_END
+}
+SQT_REGISTER(inserter_test, EntityWithUniqueIndex)
+
 TEST_F(InserterTest, InsertAutoIncEntity) {
 
-    {
-        using Context = sqt::DataContext<inserter_test::Entity>;
-        constexpr auto inserter = Context::MakeAutoIncInserter();
+    using Context = sqt::DataContext<inserter_test::EntityWithUniqueIndex>;
+    constexpr auto inserter = Context::MakeAutoIncInserter();
 
-        Context context{ DB() };
-        auto executor = context.Prepare(inserter);
+    Context context{ DB() };
+    auto executor = context.Prepare(inserter);
 
-        inserter_test::Entity entity{ 1, "inc" };
+    for (int index = 1; index <= 3; ++index) {
+        inserter_test::EntityWithUniqueIndex entity{ 1, std::to_string(index) };
         executor.BeginBind().Bind(entity);
         executor.Execute();
-        executor.Execute();
-        executor.Execute();
+        executor.Reset();
     }
+    inserter_test::EntityWithUniqueIndex entity{ 1, "1" };
+    executor.BeginBind().Bind(entity);
+    //This will cause a conflict
+    ASSERT_THROW(executor.Execute(), sqt::SQLError);
 
-    auto statement = DB()->PrepareStatement(std::format("select * from Entity"));
+    auto statement = DB()->PrepareStatement(std::format("select * from EntityWithUniqueIndex"));
     for (int index = 1; index <= 3; ++index) {
         ASSERT_TRUE(statement.Step());
         ASSERT_EQ(statement.GetColumnInt(0), index);
-        ASSERT_EQ(statement.GetColumnText(1), "inc");
+        ASSERT_EQ(statement.GetColumnText(1), std::to_string(index));
     }
+    ASSERT_FALSE(statement.Step());
+}
+
+
+TEST_F(InserterTest, ReplaceAutoIncEntity) {
+
+    using Context = sqt::DataContext<inserter_test::EntityWithUniqueIndex>;
+    constexpr auto replacer = Context::MakeAutoIncReplacer();
+
+    Context context{ DB() };
+    auto executor = context.Prepare(replacer);
+
+    for (int index = 1; index <= 3; ++index) {
+        inserter_test::EntityWithUniqueIndex entity{ 1, "replace"};
+        executor.BeginBind().Bind(entity);
+        executor.Execute();
+        executor.Reset();
+    }
+
+    auto statement = DB()->PrepareStatement(std::format("select * from EntityWithUniqueIndex"));
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 3);
+    ASSERT_EQ(statement.GetColumnText(1), "replace");
+
+    ASSERT_FALSE(statement.Step());
 }
