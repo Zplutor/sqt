@@ -7,6 +7,7 @@
 #include <sqt/orm/expression/operand/value_operand.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
+#include <sqt/orm/querier/updater/column_updater.h>
 #include <sqt/orm/querier/updater/entity_updater.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/table_initializer.h>
@@ -47,6 +48,11 @@ public:
         return EntityUpdater<Operand>{ Operand{} };
     }
 
+    template<AssignmentType... ASSIGNMENT>
+    static constexpr auto MakeUpdater(ASSIGNMENT... assignments) noexcept {
+        return ColumnUpdater<ASSIGNMENT...>{ std::move(assignments)... };
+    }
+
     static constexpr auto MakeSelecter() noexcept {
         return EntitySelecter<E>{};
     }
@@ -59,8 +65,8 @@ public:
     DataContext(const DataContext&) = delete;
     DataContext& operator=(const DataContext&) = delete;
 
-    template<typename Q>
-    auto Prepare(const Q& querier) {
+    template<QuerierType QUERIER>
+    auto Prepare(const QUERIER& querier) {
         auto statement = init_once_guard_.DB().PrepareStatement(querier.BuildSQL());
         querier.BindInlineParameters(statement);
         return Executor{ querier, std::move(statement) };

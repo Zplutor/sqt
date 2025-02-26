@@ -212,7 +212,7 @@
     <ClInclude Include="src\sqt\orm\table\table_like.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\assignment_like.h">
+    <ClInclude Include="src\sqt\orm\expression\assignment_type.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h">
@@ -233,7 +233,7 @@
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_like.h">
+    <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_type.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h">
@@ -307,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\where_capacity.h">
       <Filter>src\sqt\orm\querier</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h">
+      <Filter>src\sqt\orm\querier\updater</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

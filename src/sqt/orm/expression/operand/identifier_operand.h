@@ -8,6 +8,7 @@ namespace sqt {
 template<ColumnLike T>
 class IdentifierOperand {
 public:
+    using IdentifierType = T;
     using EntityType = typename T::EntityType;
 
     static constexpr std::size_t ParameterCount = 0;

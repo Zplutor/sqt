@@ -4,6 +4,9 @@
 #include <sqt/orm/expression/expression_creation.h>
 
 #define __SQT_EXPRESSION_OPERATORS(COLUMN_TYPE, VALUE_TYPE) \
+constexpr auto operator=(const VALUE_TYPE& value) const { \
+    return sqt::MakeAssignment(*this, value); \
+} \
 friend constexpr auto operator==(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
     return sqt::MakeExpression<sqt::Operator::Equal>(column, value); \
 } \

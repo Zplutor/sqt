@@ -4,6 +4,11 @@
 
 namespace sqt {
 
+enum class AssignmentOperator {
+    Assign,
+};
+
+
 enum class Operator {
     Equal,
     NotEqual,

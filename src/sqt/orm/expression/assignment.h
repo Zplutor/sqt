@@ -1,20 +1,28 @@
 #pragma once
 
-#include <sqt/orm/expression/identifier_operand_like.h>
-#include <sqt/orm/expression/value_operand_type.h>
+#include <format>
+#include <sqt/orm/expression/operand/identifier_operand_type.h>
+#include <sqt/orm/expression/operand/value_operand_type.h>
+#include <sqt/orm/expression/operator.h>
 
 namespace sqt {
 
-template<IdentifierOperandLike IDENTIFIER, ValueOperandType VALUE>
+template<IdentifierOperandType IDENTIFIER, ValueOperandType VALUE>
 class Assignment {
 public:
-    using IdentifierOperandType = IDENTIFIER;
-    using ValueOperandType = VALUE;
+    using LHSOperand = IDENTIFIER;
+    using RHSOperand = VALUE;
+
+    static constexpr AssignmentOperator Operator = AssignmentOperator::Assign;
 
     static constexpr std::size_t ParameterCount = VALUE::ParameterCount;
 
     static constexpr auto BuildPlaceholderBinders(int parameter_index) {
         return VALUE::BuildPlaceholderBinders(parameter_index);
+    }
+
+    static std::string BuildSQL() {
+        return std::format("{}={}", LHSOperand::BuildSQL(), RHSOperand::BuildSQL());
     }
 
 public:

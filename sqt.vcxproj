@@ -34,7 +34,7 @@
     <ClInclude Include="src\sqt\orm\executor\iterator.h" />
     <ClInclude Include="src\sqt\orm\executor\result.h" />
     <ClInclude Include="src\sqt\orm\expression\assignment.h" />
-    <ClInclude Include="src\sqt\orm\expression\assignment_like.h" />
+    <ClInclude Include="src\sqt\orm\expression\assignment_type.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h" />
@@ -44,7 +44,7 @@
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\entity_value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h" />
-    <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_like.h" />
+    <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\operand_creation.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h" />
@@ -66,6 +66,7 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\primitive_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_like.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\where_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\where_capacity.h" />
