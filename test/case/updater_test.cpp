@@ -124,3 +124,27 @@ TEST_F(UpdaterTest, ColumnUpdater_TwoColumns) {
     }
     ASSERT_FALSE(statement.Step());
 }
+
+
+TEST_F(UpdaterTest, ColumnUpdater_Where) {
+
+    constexpr auto updater = NoPKContext::MakeUpdater(NoPKTable.id = 10).Where(NoPKTable.id = 1);
+
+    auto executor = GetNoPKContext().Prepare(updater);
+    executor.Execute();
+
+    auto statement = DB()->PrepareStatement("select * from EntityNoPK");
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 10);
+    ASSERT_EQ(statement.GetColumnText(1), "name1");
+
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 2);
+    ASSERT_EQ(statement.GetColumnText(1), "name2");
+
+    ASSERT_TRUE(statement.Step());
+    ASSERT_EQ(statement.GetColumnInt(0), 3);
+    ASSERT_EQ(statement.GetColumnText(1), "name3");
+
+    ASSERT_FALSE(statement.Step());
+}

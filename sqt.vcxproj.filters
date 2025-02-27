@@ -299,13 +299,10 @@
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h">
       <Filter>src\sqt\orm\querier\updater</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\updater\where_updater.h">
-      <Filter>src\sqt\orm\querier\updater</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\where_querier.h">
+    <ClInclude Include="src\sqt\orm\querier\where_decorator.h">
       <Filter>src\sqt\orm\querier</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\where_capacity.h">
+    <ClInclude Include="src\sqt\orm\querier\where_capability.h">
       <Filter>src\sqt\orm\querier</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h">

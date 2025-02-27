@@ -68,9 +68,8 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h" />
-    <ClInclude Include="src\sqt\orm\querier\updater\where_updater.h" />
-    <ClInclude Include="src\sqt\orm\querier\where_capacity.h" />
-    <ClInclude Include="src\sqt\orm\querier\where_querier.h" />
+    <ClInclude Include="src\sqt\orm\querier\where_capability.h" />
+    <ClInclude Include="src\sqt\orm\querier\where_decorator.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_column.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_index.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h" />

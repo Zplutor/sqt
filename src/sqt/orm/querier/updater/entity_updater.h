@@ -1,12 +1,12 @@
 #pragma once
 
 #include <sqt/orm/expression/operand/entity_value_operand_type.h>
-#include <sqt/orm/querier/where_capacity.h>
+#include <sqt/orm/querier/where_capability.h>
 
 namespace sqt {
 
 template<EntityValueOperandType VALUE_OPERAND>
-class EntityUpdater : public WhereCapacity<EntityUpdater<VALUE_OPERAND>> {
+class EntityUpdater : public WhereCapability<EntityUpdater<VALUE_OPERAND>> {
 public:
     static constexpr std::size_t ParameterIndex = 1;
     static constexpr std::size_t ParameterCount = VALUE_OPERAND::ParameterCount;

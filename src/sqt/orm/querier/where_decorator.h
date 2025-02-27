@@ -6,7 +6,7 @@
 namespace sqt {
 
 template<QuerierType QUERIER, ExpressionLike EXPRESSION>
-class WhereQuerier {
+class WhereDecorator {
 public:
     static constexpr std::size_t ParameterIndex =
         QUERIER::ParameterIndex + QUERIER::ParameterCount;
@@ -27,7 +27,7 @@ public:
     }
 
 public:
-    constexpr WhereQuerier(QUERIER QUERIER, EXPRESSION expression) :
+    constexpr WhereDecorator(QUERIER QUERIER, EXPRESSION expression) :
         querier_(std::move(QUERIER)),
         expression_(std::move(expression)) {
 

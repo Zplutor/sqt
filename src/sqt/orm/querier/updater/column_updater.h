@@ -2,12 +2,13 @@
 
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/assignment_type.h>
+#include <sqt/orm/querier/where_capability.h>
 #include <sqt/orm/table_mapping.h>
 
 namespace sqt {
 
 template<AssignmentType... ASSIGNMENT>
-class ColumnUpdater {
+class ColumnUpdater : public WhereCapability<ColumnUpdater<ASSIGNMENT...>> {
 public:
     static constexpr std::size_t ParameterIndex = 1;
     static constexpr std::size_t ParameterCount = (ASSIGNMENT::ParameterCount + ... + 0);
