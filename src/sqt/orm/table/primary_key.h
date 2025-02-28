@@ -5,7 +5,7 @@
 
 namespace sqt {
 
-template<ColumnLike... Columns>
+template<ColumnType... Columns>
 class PrimaryKey : public CompositeColumn<Columns...>, public AbstractPrimaryKey {
     static_assert(
         !(Columns::ValueTraits::IsNullable && ...),
@@ -31,7 +31,7 @@ private:
 };
 
 
-template<ColumnLike... Columns>
+template<ColumnType... Columns>
 PrimaryKey<Columns...> MakePrimaryKey(const Columns&... columns) {}
 
 }

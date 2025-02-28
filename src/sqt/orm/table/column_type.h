@@ -6,9 +6,10 @@
 namespace sqt {
 
 template<typename T>
-concept ColumnLike = std::is_base_of_v<AbstractColumn, T> && requires {
+concept ColumnType = std::is_base_of_v<AbstractColumn, T> && requires {
     typename T::EntityType;
     typename T::ValueType;
+    { T::Name } -> std::same_as<const std::string_view&>;
 };
 
 }

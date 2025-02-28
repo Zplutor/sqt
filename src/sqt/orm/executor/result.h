@@ -8,6 +8,7 @@ namespace sqt {
 template<SelecterType SELECTER>
 class Result {
 public:
+    using ValueType = SELECTER::ResultElementType;
     using iterator = Iterator<SELECTER>;
     using const_iterator = iterator;
 

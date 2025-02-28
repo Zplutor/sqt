@@ -2,16 +2,16 @@
 
 #include <array>
 #include <sqt/orm/table/column.h>
-#include <sqt/orm/table/column_like.h>
+#include <sqt/orm/table/column_type.h>
 #include <sqt/orm/value/trivial_value_traits.h>
 
 namespace sqt {
 
-template<ColumnLike... Columns>
+template<ColumnType... Columns>
 class CompositeColumn;
 
 
-template<ColumnLike First, ColumnLike... Rest>
+template<ColumnType First, ColumnType... Rest>
 class CompositeColumn<First, Rest...> {
 public:
     static_assert((std::is_same_v<typename First::EntityType, typename Rest::EntityType> && ...));
@@ -55,7 +55,7 @@ private:
 };
 
 
-template<ColumnLike Single>
+template<ColumnType Single>
 class CompositeColumn<Single> {
 public:
     using EntityType = typename Single::EntityType;
@@ -96,7 +96,7 @@ private:
 };
 
 
-template<ColumnLike... Columns>
+template<ColumnType... Columns>
 constexpr auto MakeCompositeColumn(const Columns&... columns) { 
     return CompositeColumn<Columns...>{ columns... };
 }

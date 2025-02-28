@@ -1,11 +1,11 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/table/column_like.h>
+#include <sqt/orm/table/column_type.h>
 
 namespace sqt {
 
-template<ColumnLike T>
+template<ColumnType T>
 class IdentifierOperand {
 public:
     using IdentifierType = T;

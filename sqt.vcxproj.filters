@@ -182,7 +182,7 @@
     <ClInclude Include="src\sqt\orm\table\column.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column_like.h">
+    <ClInclude Include="src\sqt\orm\table\column_type.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\composite_column.h">

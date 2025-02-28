@@ -7,7 +7,7 @@
 
 namespace sqt {
 
-template<ColumnLike T>
+template<ColumnType T>
 constexpr auto MakeOperand(const T&) {
     return IdentifierOperand<T>{};
 }

@@ -7,6 +7,7 @@
 #include <sqt/orm/expression/operand/value_operand.h>
 #include <sqt/orm/querier/deleter/deleter.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
+#include <sqt/orm/querier/selecter/column_selecter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/querier/updater/column_updater.h>
 #include <sqt/orm/querier/updater/entity_updater.h>
@@ -60,6 +61,11 @@ public:
 
     static constexpr auto MakeSelecter() noexcept {
         return EntitySelecter<E>{};
+    }
+
+    template<ColumnType... COLUMN>
+    static constexpr auto MakeSelecter(const COLUMN&... columns) noexcept {
+        return ColumnSelecter<COLUMN...>{};
     }
 
 public:
