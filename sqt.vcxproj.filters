@@ -113,13 +113,13 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\limit_selecter.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\selecter\primitive_selecter.h">
+    <ClInclude Include="src\sqt\orm\querier\selecter\base_selecter.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\selecter\selecter_like.h">
+    <ClInclude Include="src\sqt\orm\querier\selecter\selecter_type.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\expression.h">

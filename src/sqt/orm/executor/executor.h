@@ -27,11 +27,12 @@ public:
         return MakeBinderChain(statement_, binders);
     }
 
-    void Execute() requires !SelecterLike<QUERIER> {
+    void Execute() requires !SelecterType<QUERIER> {
         statement_.Step();
     }
-
-    auto Result() requires SelecterLike<QUERIER> {
+    
+    [[nodiscard]]
+    auto Execute() requires SelecterType<QUERIER> {
         return sqt::Result<QUERIER>{ statement_ };
     }
 

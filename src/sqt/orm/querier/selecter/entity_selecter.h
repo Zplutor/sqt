@@ -1,29 +1,31 @@
 #pragma once
 
-#include <sqt/orm/querier/selecter/primitive_selecter.h>
+#include <sqt/orm/querier/selecter/base_selecter.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/utility/utility.h>
+#include <sqt/orm/value/entire_entity_value_traits.h>
+#include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
 
-template<typename E>
-class EntitySelecter : public PrimitiveSelecter<EntitySelecter<E>> {
+template<EntityValueType ENTITY>
+class EntitySelecter : public BaseSelecter<EntitySelecter<ENTITY>> {
 public:
-    using EntityType = E;
-    using ResultElementType = E;
+    using EntityType = ENTITY;
+    using ResultElementType = ENTITY;
 
-    static E GetResultElement(Statement& statement) {
-        return {};
+    static ENTITY GetResultElement(Statement& statement) {
+        return EntireEntityValueTraits<ENTITY>::GetValueFromStatement(statement, 0);
     }
 
 public:
     constexpr EntitySelecter() noexcept = default;
 
 private:
-    friend class PrimitiveSelecter<EntitySelecter<E>>;
+    friend class BaseSelecter<EntitySelecter<ENTITY>>;
 
     static std::string BuildColumnNames() {
-        return JoinColumnNames(TableV<EntityType>.GetAbstractColumns());
+        return JoinColumnNames(EntireEntityValueTraits<ENTITY>::SelectingColumns);
     }
 };
 

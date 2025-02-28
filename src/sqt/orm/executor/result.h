@@ -1,11 +1,11 @@
 #pragma once
 
 #include <sqt/orm/executor/iterator.h>
-#include <sqt/orm/querier/selecter/selecter_like.h>
+#include <sqt/orm/querier/selecter/selecter_type.h>
 
 namespace sqt {
 
-template<SelecterLike SELECTER>
+template<SelecterType SELECTER>
 class Result {
 public:
     using iterator = Iterator<SELECTER>;
@@ -16,19 +16,19 @@ public:
 
     }
 
-    iterator begin() {
+    iterator begin() const {
         return iterator{ &statement_ };
     }
 
-    iterator end() const {
-        return iterator{ nullptr };
+    iterator end() const noexcept {
+        return iterator{};
     }
 
-    const_iterator cbegin() {
+    const_iterator cbegin() const {
         return begin();
     }
 
-    const_iterator cend() const {
+    const_iterator cend() const noexcept {
         return end();
     }
 

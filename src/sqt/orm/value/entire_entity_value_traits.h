@@ -14,6 +14,7 @@ public:
     using TableType = TableT<T>;
 
     static constexpr ColumnsView<EntityType> InsertingColumns = TableType::GetColumns();
+    static constexpr ColumnsView<EntityType> SelectingColumns = TableType::GetColumns();
 
     static constexpr std::size_t ParameterCount = InsertingColumns.size();
 
@@ -29,7 +30,7 @@ public:
 
         T result{};
         int index = column_index;
-        for (auto each_column : InsertingColumns) {
+        for (auto each_column : SelectingColumns) {
             each_column->GetValueFromStatement(statement, index++, result);
         }
         return result;

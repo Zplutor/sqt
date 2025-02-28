@@ -1,21 +1,46 @@
-#include <gtest/gtest.h>
-#include <sqt/orm/data_context.h>
-#include <sqt/orm/orm_support.h>
-#include <sqt/foundation/database.h>
+#include "data_context_test_fixture.h"
 
-struct Entity {
-    int id{};
-    std::string name;
+class SelecterTest : public DataContextTestFixture {
+
 };
 
-SQT_TABLE_BEGIN(Entity, Entity)
-SQT_COLUMN(ID, id)
-SQT_COLUMN(Name, name)
-SQT_TABLE_END
 
-SQT_REGISTER(, Entity)
+template<typename RESULT>
+bool CheckResult(
+    const RESULT& result, 
+    const std::vector<data_context_test::EntityNoPK>& expected) {
+
+    auto result_iterator = result.begin();
+    auto expected_iterator = expected.begin();
+
+    while (result_iterator != result.end() && 
+           expected_iterator != expected.end()) {
+
+        if (*result_iterator != *expected_iterator) {
+            return false;
+        }
+
+        result_iterator++;
+        expected_iterator++;
+    }
+
+    if (result_iterator != result.end() || expected_iterator != expected.end()) {
+        return false;
+    }
+    return true;
+}
 
 
-TEST(SelecterTest, Test) {
+TEST_F(SelecterTest, SelectEntity) {
 
+    constexpr auto selecter = NoPKContext::MakeSelecter();
+
+    auto executor = GetNoPKContext().Prepare(selecter);
+    auto result = executor.Execute();
+
+    ASSERT_TRUE(CheckResult(result, {
+        data_context_test::EntityNoPK{ 1, "1" },
+        data_context_test::EntityNoPK{ 2, "2" },
+        data_context_test::EntityNoPK{ 3, "3" },
+    }));
 }

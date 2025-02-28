@@ -9,7 +9,7 @@
 namespace sqt {
 
 template<typename SELECTER>
-class PrimitiveSelecter : 
+class BaseSelecter : 
     public LimitCapacity<SELECTER> {
 
 public:
@@ -17,19 +17,21 @@ public:
     static constexpr std::size_t ParameterCount = 0;
 
     static std::string_view BuildSQL() {
+
         static const std::string sql = std::format(
             "select {} from {}",
             SELECTER::BuildColumnNames(),
             TableV<SELECTER::EntityType>.GetName());
+
         return sql;
     }
 
-    static constexpr std::tuple<> BuildPlaceholderBinders() {
+    static constexpr auto BuildPlaceholderBinders() noexcept {
         return std::tuple<>{};
     }
 
 public:
-    void BindInlineParameters(Statement&) const {
+    constexpr void BindInlineParameters(Statement&) const noexcept {
 
     }
 };

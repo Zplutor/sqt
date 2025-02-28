@@ -2,11 +2,11 @@
 
 #include <sqt/orm/expression/expression_like.h>
 #include <sqt/orm/querier/selecter/limit_capacity.h>
-#include <sqt/orm/querier/selecter/selecter_like.h>
+#include <sqt/orm/querier/selecter/selecter_type.h>
 
 namespace sqt {
 
-template<SelecterLike INNER, ExpressionLike EXPR>
+template<SelecterType INNER, ExpressionLike EXPR>
 class WhereSelecter : 
     public LimitCapacity<WhereSelecter<INNER, EXPR>> {
 

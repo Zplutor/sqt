@@ -1,11 +1,11 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/querier/selecter/selecter_like.h>
+#include <sqt/orm/querier/selecter/selecter_type.h>
 
 namespace sqt {
 
-template<SelecterLike SELECTER>
+template<SelecterType SELECTER>
 class Iterator {
 public:
     using iterator_category = std::input_iterator_tag;
