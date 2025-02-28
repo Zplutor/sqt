@@ -5,6 +5,7 @@
 #include <sqt/orm/executor/executor.h>
 #include <sqt/orm/expression/operand/placeholder_operand.h>
 #include <sqt/orm/expression/operand/value_operand.h>
+#include <sqt/orm/querier/deleter/deleter.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
 #include <sqt/orm/querier/updater/column_updater.h>
@@ -53,6 +54,10 @@ public:
         return ColumnUpdater<ASSIGNMENT...>{ std::move(assignments)... };
     }
 
+    static constexpr auto MakeDeleter() noexcept {
+        return Deleter<E>{};
+    }
+
     static constexpr auto MakeSelecter() noexcept {
         return EntitySelecter<E>{};
     }
@@ -90,6 +95,10 @@ public:
     void AutoIncReplace(const E& entity) {
         constexpr auto replacer = MakeAutoIncReplacer();
         ExecuteEntityInserter(replacer, entity);
+    }
+
+    void InitializeTable() {
+        init_once_guard_.DB();
     }
 
 private:

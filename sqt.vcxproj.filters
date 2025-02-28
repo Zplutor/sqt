@@ -52,6 +52,9 @@
     <Filter Include="src\sqt\orm\querier\updater">
       <UniqueIdentifier>{fe84c8cc-fb88-48bd-a184-5ff9846e12b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\querier\deleter">
+      <UniqueIdentifier>{72ff51d6-055f-49bf-808c-cc9e447c3b0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -307,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h">
       <Filter>src\sqt\orm\querier\updater</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\deleter\deleter.h">
+      <Filter>src\sqt\orm\querier\deleter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

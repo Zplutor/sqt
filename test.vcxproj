@@ -12,7 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\case\composite_column_test.cpp" />
+    <ClCompile Include="test\case\data_context_test_fixture.cpp" />
     <ClCompile Include="test\case\db_test_fixture.cpp" />
+    <ClCompile Include="test\case\deleter_test.cpp" />
     <ClCompile Include="test\case\inserter_test.cpp" />
     <ClCompile Include="test\case\orm_support_test.cpp" />
     <ClCompile Include="test\case\orm_support_test2.cpp" />
@@ -23,6 +25,7 @@
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="test\case\data_context_test_fixture.h" />
     <ClInclude Include="test\case\db_test_fixture.h" />
     <ClInclude Include="test\case\orm_support_test.h" />
   </ItemGroup>
