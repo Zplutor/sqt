@@ -29,18 +29,18 @@ public:
 public:
     constexpr WhereDecorator(QUERIER QUERIER, EXPRESSION expression) :
         querier_(std::move(QUERIER)),
-        expression_(std::move(expression)) {
+        operand_(std::move(expression)) {
 
     }
 
     void BindInlineParameters(Statement& statement) const {
         querier_.BindInlineParameters(statement);
-        expression_.BindInlineParameters(statement, ParameterIndex);
+        operand_.BindInlineParameters(statement, ParameterIndex);
     }
 
 private:
     QUERIER querier_;
-    EXPRESSION expression_;
+    EXPRESSION operand_;
 };
 
 }

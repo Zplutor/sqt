@@ -62,11 +62,11 @@
     <ClInclude Include="src\sqt\orm\querier\querier_type.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\column_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h" />
-    <ClInclude Include="src\sqt\orm\querier\selecter\limit_capacity.h" />
-    <ClInclude Include="src\sqt\orm\querier\selecter\limit_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_select_capability.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_select_decorator.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\base_selecter.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_type.h" />
-    <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\where_select_decorator.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\where_capability.h" />

@@ -110,13 +110,13 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\entity_selecter.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\selecter\limit_selecter.h">
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_select_decorator.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\base_selecter.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\selecter\where_selecter.h">
+    <ClInclude Include="src\sqt\orm\querier\selecter\where_select_decorator.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_type.h">
@@ -134,7 +134,7 @@
     <ClInclude Include="src\sqt\orm\expression\expression_like.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\selecter\limit_capacity.h">
+    <ClInclude Include="src\sqt\orm\querier\selecter\limit_select_capability.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\executor\iterator.h">

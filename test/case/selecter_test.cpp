@@ -44,3 +44,43 @@ TEST_F(SelecterTest, SelectEntity) {
         data_context_test::EntityNoPK{ 3, "3" },
     }));
 }
+
+
+TEST_F(SelecterTest, SelectEntity_Where) {
+
+    constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID == 2);
+
+    auto executor = GetNoPKContext().Prepare(selecter);
+    auto result = executor.Execute();
+
+    ASSERT_TRUE(CheckResult(result, {
+        data_context_test::EntityNoPK{ 2, "2" },
+    }));
+}
+
+
+TEST_F(SelecterTest, SelectEntity_Where_Limit) {
+
+    constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID < 5).Limit(2);
+
+    auto executor = GetNoPKContext().Prepare(selecter);
+    auto result = executor.Execute();
+
+    ASSERT_TRUE(CheckResult(result, {
+        data_context_test::EntityNoPK{ 1, "1" },
+        data_context_test::EntityNoPK{ 2, "2" },
+    }));
+}
+
+
+TEST_F(SelecterTest, SelectEntity_Limit) {
+
+    constexpr auto selecter = NoPKContext::MakeSelecter().Limit(1);
+
+    auto executor = GetNoPKContext().Prepare(selecter);
+    auto result = executor.Execute();
+
+    ASSERT_TRUE(CheckResult(result, {
+        data_context_test::EntityNoPK{ 1, "1" },
+    }));
+}
