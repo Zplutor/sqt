@@ -125,14 +125,51 @@ TEST_F(SelecterTest, SelectOneColumn) {
 
 TEST_F(SelecterTest, SelectTwoColumn) {
 
-    constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name);
+    //All
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 1, "1" },
+            std::tuple{ 2, "2" },
+            std::tuple{ 3, "3" },
+        }));
+    }
 
-    auto executor = GetNoPKContext().Prepare(selecter);
-    auto result = executor.Execute();
+    //Where
+    {
+        constexpr auto selecter = 
+            NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name).Where(NoPKTable.ID == 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 2, "2" },
+        }));
+    }
 
-    ASSERT_TRUE(CheckResult(result, { 
-        std::tuple{ 1, "1" },
-        std::tuple{ 2, "2" },
-        std::tuple{ 3, "3" },
-    }));
+    //Where + Limit
+    {
+        constexpr auto selecter =
+            NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name)
+            .Where(NoPKTable.ID < 5)
+            .Limit(2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 1, "1" },
+            std::tuple{ 2, "2" },
+        }));
+    }
+
+    //Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name).Limit(2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 1, "1" },
+            std::tuple{ 2, "2" },
+        }));
+    }
 }
