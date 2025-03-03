@@ -13,38 +13,38 @@ constexpr auto operator=(const VALUE_TYPE& value) const { \
     return sqt::MakeAssignment(*this, value); \
 } \
 friend constexpr auto operator==(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
-    return sqt::MakeExpression<sqt::Operator::Equal>(column, value); \
+    return sqt::MakePredicate<sqt::PredicateOperator::Equal>(column, value); \
 } \
 friend constexpr auto operator==(const VALUE_TYPE& value, const COLUMN_TYPE& column) { \
-    return sqt::MakeExpression<sqt::Operator::Equal>(value, column); \
+    return sqt::MakePredicate<sqt::PredicateOperator::Equal>(value, column); \
 } \
 friend constexpr auto operator!=(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
-    return sqt::MakeExpression<sqt::Operator::NotEqual>(column, value); \
+    return sqt::MakePredicate<sqt::PredicateOperator::NotEqual>(column, value); \
 } \
 friend constexpr auto operator!=(const VALUE_TYPE& value, const COLUMN_TYPE& column) { \
-    return sqt::MakeExpression<sqt::Operator::NotEqual>(value, column); \
+    return sqt::MakePredicate<sqt::PredicateOperator::NotEqual>(value, column); \
 } \
 friend constexpr auto operator<(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
-    return sqt::MakeExpression<sqt::Operator::Less>(column, value); \
+    return sqt::MakePredicate<sqt::PredicateOperator::Less>(column, value); \
 } \
 friend constexpr auto operator<(const VALUE_TYPE& value, const COLUMN_TYPE& column) { \
-    return sqt::MakeExpression<sqt::Operator::Less>(value, column); \
+    return sqt::MakePredicate<sqt::PredicateOperator::Less>(value, column); \
 } \
 friend constexpr auto operator<=(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
-    return sqt::MakeExpression<sqt::Operator::LessEqual>(column, value); \
+    return sqt::MakePredicate<sqt::PredicateOperator::LessEqual>(column, value); \
 } \
 friend constexpr auto operator<=(const VALUE_TYPE& value, const COLUMN_TYPE& column) { \
-    return sqt::MakeExpression<sqt::Operator::LessEqual>(value, column); \
+    return sqt::MakePredicate<sqt::PredicateOperator::LessEqual>(value, column); \
 } \
 friend constexpr auto operator>(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
-    return sqt::MakeExpression<sqt::Operator::Greater>(column, value); \
+    return sqt::MakePredicate<sqt::PredicateOperator::Greater>(column, value); \
 } \
 friend constexpr auto operator>(const VALUE_TYPE& value, const COLUMN_TYPE& column) { \
-    return sqt::MakeExpression<sqt::Operator::Greater>(value, column); \
+    return sqt::MakePredicate<sqt::PredicateOperator::Greater>(value, column); \
 } \
 friend constexpr auto operator>=(const COLUMN_TYPE& column, const VALUE_TYPE& value) { \
-    return sqt::MakeExpression<sqt::Operator::GreaterEqual>(column, value); \
+    return sqt::MakePredicate<sqt::PredicateOperator::GreaterEqual>(column, value); \
 } \
 friend constexpr auto operator>=(const VALUE_TYPE& value, const COLUMN_TYPE& column) { \
-    return sqt::MakeExpression<sqt::Operator::GreaterEqual>(value, column); \
+    return sqt::MakePredicate<sqt::PredicateOperator::GreaterEqual>(value, column); \
 }

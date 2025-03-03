@@ -1,6 +1,5 @@
 #pragma once
 
-#include <sqt/orm/expression/expression_like.h>
 #include <sqt/orm/querier/selecter/limit_select_capability.h>
 #include <sqt/orm/querier/selecter/order_by_select_capability.h>
 #include <sqt/orm/querier/selecter/selecter_type.h>
@@ -8,11 +7,11 @@
 
 namespace sqt {
 
-template<SelecterType SELECTER, ExpressionLike EXPRESSION>
+template<SelecterType SELECTER, PredicateType PREDICATE>
 class WhereSelectDecorator : 
-    public WhereDecorator<SELECTER, EXPRESSION>,
-    public OrderBySelectCapability<WhereSelectDecorator<SELECTER, EXPRESSION>>,
-    public LimitSelectCapability<WhereSelectDecorator<SELECTER, EXPRESSION>> {
+    public WhereDecorator<SELECTER, PREDICATE>,
+    public OrderBySelectCapability<WhereSelectDecorator<SELECTER, PREDICATE>>,
+    public LimitSelectCapability<WhereSelectDecorator<SELECTER, PREDICATE>> {
 
 public:
     using ResultElementType = SELECTER::ResultElementType;
@@ -22,7 +21,7 @@ public:
     }
 
 public:
-    using WhereDecorator<SELECTER, EXPRESSION>::WhereDecorator;
+    using WhereDecorator<SELECTER, PREDICATE>::WhereDecorator;
 };
 
 }

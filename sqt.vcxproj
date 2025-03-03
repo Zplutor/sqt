@@ -16,7 +16,6 @@
     <ClCompile Include="src\sqt\foundation\data_type.cpp" />
     <ClCompile Include="src\sqt\foundation\statement.cpp" />
     <ClCompile Include="src\sqt\foundation\transaction.cpp" />
-    <ClCompile Include="src\sqt\orm\expression\operator.cpp" />
     <ClCompile Include="src\sqt\orm\table\table_initializer.cpp" />
     <ClCompile Include="src\sqt\orm\utility\utility.cpp" />
   </ItemGroup>
@@ -34,11 +33,11 @@
     <ClInclude Include="src\sqt\orm\executor\iterator.h" />
     <ClInclude Include="src\sqt\orm\executor\result.h" />
     <ClInclude Include="src\sqt\orm\expression\assignment.h" />
+    <ClInclude Include="src\sqt\orm\expression\assignment_operator.h" />
     <ClInclude Include="src\sqt\orm\expression\assignment_type.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\expression.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_creation.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
@@ -52,10 +51,12 @@
     <ClInclude Include="src\sqt\orm\expression\operand\trivial_value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\operator.h" />
     <ClInclude Include="src\sqt\orm\expression\ordering.h" />
     <ClInclude Include="src\sqt\orm\expression\ordering_term.h" />
     <ClInclude Include="src\sqt\orm\expression\ordering_term_type.h" />
+    <ClInclude Include="src\sqt\orm\expression\predicate.h" />
+    <ClInclude Include="src\sqt\orm\expression\predicate_operator.h" />
+    <ClInclude Include="src\sqt\orm\expression\predicate_type.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />

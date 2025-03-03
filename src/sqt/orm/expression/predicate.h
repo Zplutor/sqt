@@ -1,23 +1,24 @@
 #pragma once
 
 #include <format>
-#include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/operator.h>
-#include <sqt/orm/expression/operand/identifier_operand.h>
-#include <sqt/orm/expression/operand/value_operand.h>
+#include <sqt/orm/expression/operand/operand_type.h>
+#include <sqt/orm/expression/predicate_operator.h>
+#include <sqt/orm/expression/predicate_type.h>
 
 namespace sqt {
 
-template<Operator OP, ExpressionLike LHS, ExpressionLike RHS>
-class Expression {
+template<PredicateOperator OPERATOR, OperandType LHS, OperandType RHS>
+class Predicate {
 public:
+    static constexpr PredicateOperator Operator = OPERATOR;
+
     static constexpr std::size_t ParameterCount = LHS::ParameterCount + RHS::ParameterCount;
 
     static std::string BuildSQL() {
         return std::format(
             "({}{}{})",
             LHS::BuildSQL(),
-            ConvertOperatorToString(OP),
+            ConvertPredicateOperatorToString(OPERATOR),
             RHS::BuildSQL());
     }
 
@@ -28,21 +29,21 @@ public:
     }
 
 public:
-    constexpr Expression(LHS lhs, RHS rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)) {
+    constexpr Predicate(LHS lhs, RHS rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)) {
 
     }
 
-    template<ExpressionLike Other>
-    constexpr auto operator&&(Other other) const {
-        using ThisType = Expression<OP, LHS, RHS>;
-        using ResultType = Expression<Operator::And, ThisType, Other>;
+    template<PredicateType OTHER>
+    constexpr auto operator&&(OTHER other) const {
+        using ThisType = Predicate<OPERATOR, LHS, RHS>;
+        using ResultType = Predicate<PredicateOperator::And, ThisType, OTHER>;
         return ResultType{ *this, std::move(other) };
     }
 
-    template<ExpressionLike Other>
-    constexpr auto operator||(Other other) const {
-        using ThisType = Expression<OP, LHS, RHS>;
-        using ResultType = Expression<Operator::Or, ThisType, Other>;
+    template<PredicateType OTHER>
+    constexpr auto operator||(OTHER other) const {
+        using ThisType = Predicate<OPERATOR, LHS, RHS>;
+        using ResultType = Predicate<PredicateOperator::Or, ThisType, OTHER>;
         return ResultType{ *this, std::move(other) };
     }
 

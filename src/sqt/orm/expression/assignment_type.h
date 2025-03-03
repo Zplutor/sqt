@@ -1,7 +1,7 @@
 #pragma once
 
+#include <sqt/orm/expression/assignment_operator.h>
 #include <sqt/orm/expression/expression_like.h>
-#include <sqt/orm/expression/operator.h>
 
 namespace sqt {
 

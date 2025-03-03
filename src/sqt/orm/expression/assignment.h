@@ -1,9 +1,9 @@
 #pragma once
 
 #include <format>
+#include <sqt/orm/expression/assignment_operator.h>
 #include <sqt/orm/expression/operand/identifier_operand_type.h>
 #include <sqt/orm/expression/operand/value_operand_type.h>
-#include <sqt/orm/expression/operator.h>
 
 namespace sqt {
 

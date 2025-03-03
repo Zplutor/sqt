@@ -71,7 +71,7 @@ TEST_F(UpdaterTest, ColumnUpdater_TwoColumns) {
 
 TEST_F(UpdaterTest, ColumnUpdater_Where) {
 
-    constexpr auto updater = NoPKContext::MakeUpdater(NoPKTable.ID = 10).Where(NoPKTable.ID = 1);
+    constexpr auto updater = NoPKContext::MakeUpdater(NoPKTable.ID = 10).Where(NoPKTable.ID == 1);
 
     auto executor = GetNoPKContext().Prepare(updater);
     executor.Execute();

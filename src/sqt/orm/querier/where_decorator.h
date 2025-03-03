@@ -1,21 +1,21 @@
 #pragma once
 
-#include <sqt/orm/expression/expression_like.h>
+#include <sqt/orm/expression/predicate_type.h>
 #include <sqt/orm/querier/querier_type.h>
 
 namespace sqt {
 
-template<QuerierType QUERIER, ExpressionLike EXPRESSION>
+template<QuerierType QUERIER, PredicateType PREDICATE>
 class WhereDecorator {
 public:
     static constexpr std::size_t ParameterIndex =
         QUERIER::ParameterIndex + QUERIER::ParameterCount;
 
-    static constexpr std::size_t ParameterCount = EXPRESSION::ParameterCount;
+    static constexpr std::size_t ParameterCount = PREDICATE::ParameterCount;
 
     static std::string_view BuildSQL() {
         static const std::string sql = []() {
-            return std::format("{} where {}", QUERIER::BuildSQL(), EXPRESSION::BuildSQL());
+            return std::format("{} where {}", QUERIER::BuildSQL(), PREDICATE::BuildSQL());
         }();
         return sql;
     }
@@ -23,24 +23,24 @@ public:
     static constexpr auto BuildPlaceholderBinders() {
         return std::tuple_cat(
             QUERIER::BuildPlaceholderBinders(),
-            EXPRESSION::BuildPlaceholderBinders(ParameterIndex));
+            PREDICATE::BuildPlaceholderBinders(ParameterIndex));
     }
 
 public:
-    constexpr WhereDecorator(QUERIER QUERIER, EXPRESSION expression) :
+    constexpr WhereDecorator(QUERIER QUERIER, PREDICATE predicate) :
         querier_(std::move(QUERIER)),
-        operand_(std::move(expression)) {
+        predicate_(std::move(predicate)) {
 
     }
 
     void BindInlineParameters(Statement& statement) const {
         querier_.BindInlineParameters(statement);
-        operand_.BindInlineParameters(statement, ParameterIndex);
+        predicate_.BindInlineParameters(statement, ParameterIndex);
     }
 
 private:
     QUERIER querier_;
-    EXPRESSION operand_;
+    PREDICATE predicate_;
 };
 
 }

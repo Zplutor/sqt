@@ -7,12 +7,12 @@ namespace sqt {
 template<typename QUERIER, template<typename, typename> typename DECORATOR = WhereDecorator>
 class WhereCapability {
 public:
-    template<ExpressionLike EXPRESSION>
-    constexpr auto Where(EXPRESSION expression) const {
+    template<PredicateType PREDICATE>
+    constexpr auto Where(PREDICATE predicate) const {
 
-        return DECORATOR<QUERIER, EXPRESSION>{
+        return DECORATOR<QUERIER, PREDICATE>{
             static_cast<const QUERIER&>(*this),
-            std::move(expression)
+            std::move(predicate)
         };
     }
 };

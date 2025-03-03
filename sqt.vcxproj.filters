@@ -63,9 +63,6 @@
     <ClCompile Include="src\sqt\orm\utility\utility.cpp">
       <Filter>src\sqt\orm\utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\sqt\orm\expression\operator.cpp">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClCompile>
     <ClCompile Include="src\sqt\foundation\data_type.cpp">
       <Filter>src\sqt\foundation</Filter>
     </ClCompile>
@@ -122,13 +119,7 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_type.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\expression.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\expression_support.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operator.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\expression_like.h">
@@ -328,6 +319,18 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\selecter\order_by_select_capability.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\predicate.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\predicate_operator.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\assignment_operator.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\predicate_type.h">
+      <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
