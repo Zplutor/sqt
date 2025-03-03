@@ -332,5 +332,8 @@
     <ClInclude Include="src\sqt\orm\expression\predicate_type.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\predicate_term_type.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

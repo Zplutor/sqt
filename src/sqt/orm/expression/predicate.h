@@ -1,13 +1,12 @@
 #pragma once
 
 #include <format>
-#include <sqt/orm/expression/operand/operand_type.h>
 #include <sqt/orm/expression/predicate_operator.h>
-#include <sqt/orm/expression/predicate_type.h>
+#include <sqt/orm/expression/predicate_term_type.h>
 
 namespace sqt {
 
-template<PredicateOperator OPERATOR, OperandType LHS, OperandType RHS>
+template<PredicateOperator OPERATOR, PredicateTermType LHS, PredicateTermType RHS>
 class Predicate {
 public:
     static constexpr PredicateOperator Operator = OPERATOR;
