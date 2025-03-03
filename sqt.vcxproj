@@ -53,6 +53,9 @@
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operator.h" />
+    <ClInclude Include="src\sqt\orm\expression\ordering.h" />
+    <ClInclude Include="src\sqt\orm\expression\ordering_term.h" />
+    <ClInclude Include="src\sqt\orm\expression\ordering_term_type.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
     <ClInclude Include="src\sqt\orm\orm_support.h" />
@@ -65,6 +68,8 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\limit_select_capability.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\limit_select_decorator.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\base_selecter.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\order_by_select_capability.h" />
+    <ClInclude Include="src\sqt\orm\querier\selecter\order_by_select_decorator.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_type.h" />
     <ClInclude Include="src\sqt\orm\querier\selecter\where_select_decorator.h" />
     <ClInclude Include="src\sqt\orm\querier\updater\column_updater.h" />

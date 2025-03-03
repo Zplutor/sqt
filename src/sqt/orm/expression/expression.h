@@ -33,14 +33,14 @@ public:
     }
 
     template<ExpressionLike Other>
-    auto operator&&(Other other) const {
+    constexpr auto operator&&(Other other) const {
         using ThisType = Expression<OP, LHS, RHS>;
         using ResultType = Expression<Operator::And, ThisType, Other>;
         return ResultType{ *this, std::move(other) };
     }
 
     template<ExpressionLike Other>
-    auto operator||(Other other) const {
+    constexpr auto operator||(Other other) const {
         using ThisType = Expression<OP, LHS, RHS>;
         using ResultType = Expression<Operator::Or, ThisType, Other>;
         return ResultType{ *this, std::move(other) };

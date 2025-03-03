@@ -4,6 +4,8 @@
 #include <sqt/orm/expression/expression.h>
 #include <sqt/orm/expression/operand/operand_creation.h>
 #include <sqt/orm/expression/operator.h>
+#include <sqt/orm/expression/ordering.h>
+#include <sqt/orm/expression/ordering_term.h>
 
 namespace sqt {
 
@@ -22,6 +24,12 @@ constexpr auto MakeAssignment(LHS&& lhs, RHS&& rhs) {
 
     auto value = MakeOperand(rhs);
     return Assignment<decltype(MakeOperand(lhs)), decltype(value)>{ std::move(value) };
+}
+
+
+template<Ordering ORDERING, typename IDENTIFIER>
+constexpr auto MakeOrderingTerm(IDENTIFIER&& identifier) {
+    return OrderingTerm<ORDERING, decltype(MakeOperand(identifier))>{};
 }
 
 }

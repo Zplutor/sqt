@@ -33,56 +33,99 @@ bool CheckResult(
 
 TEST_F(SelecterTest, SelectEntity) {
 
-    constexpr auto selecter = NoPKContext::MakeSelecter();
+    //All
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter();
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+            data_context_test::EntityNoPK{ 2, "2" },
+            data_context_test::EntityNoPK{ 3, "3" },
+        }));
+    }
 
-    auto executor = GetNoPKContext().Prepare(selecter);
-    auto result = executor.Execute();
+    //Where + OrderBy + Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter()
+            .Where(NoPKTable.ID == 1 || NoPKTable.ID == 3)
+            .OrderBy(NoPKTable.ID.Desc())
+            .Limit(1);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 3, "3" },
+        }));
+    }
 
-    ASSERT_TRUE(CheckResult(result, {
-        data_context_test::EntityNoPK{ 1, "1" },
-        data_context_test::EntityNoPK{ 2, "2" },
-        data_context_test::EntityNoPK{ 3, "3" },
-    }));
-}
+    //Where + OrderBy
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter()
+            .Where(NoPKTable.ID == 1 || NoPKTable.ID == 3)
+            .OrderBy(NoPKTable.ID.Desc());
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 3, "3" },
+            data_context_test::EntityNoPK{ 1, "1" },
+        }));
+    }
 
+    //Where + Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID < 5).Limit(2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+            data_context_test::EntityNoPK{ 2, "2" },
+        }));
+    }
 
-TEST_F(SelecterTest, SelectEntity_Where) {
+    //Where
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID == 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 2, "2" },
+        }));
+    }
 
-    constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID == 2);
+    //OrderBy + Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter()
+            .OrderBy(NoPKTable.ID.Desc())
+            .Limit(2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 3, "3" },
+            data_context_test::EntityNoPK{ 2, "2" },
+        }));
+    }
 
-    auto executor = GetNoPKContext().Prepare(selecter);
-    auto result = executor.Execute();
+    //OrderBy
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().OrderBy(NoPKTable.ID.Desc());
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 3, "3" },
+            data_context_test::EntityNoPK{ 2, "2" },
+            data_context_test::EntityNoPK{ 1, "1" },
+        }));
+    }
 
-    ASSERT_TRUE(CheckResult(result, {
-        data_context_test::EntityNoPK{ 2, "2" },
-    }));
-}
-
-
-TEST_F(SelecterTest, SelectEntity_Where_Limit) {
-
-    constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID < 5).Limit(2);
-
-    auto executor = GetNoPKContext().Prepare(selecter);
-    auto result = executor.Execute();
-
-    ASSERT_TRUE(CheckResult(result, {
-        data_context_test::EntityNoPK{ 1, "1" },
-        data_context_test::EntityNoPK{ 2, "2" },
-    }));
-}
-
-
-TEST_F(SelecterTest, SelectEntity_Limit) {
-
-    constexpr auto selecter = NoPKContext::MakeSelecter().Limit(1);
-
-    auto executor = GetNoPKContext().Prepare(selecter);
-    auto result = executor.Execute();
-
-    ASSERT_TRUE(CheckResult(result, {
-        data_context_test::EntityNoPK{ 1, "1" },
-    }));
+    //Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Limit(1);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+        }));
+    }
 }
 
 
@@ -96,6 +139,36 @@ TEST_F(SelecterTest, SelectOneColumn) {
         ASSERT_TRUE(CheckResult(result, { 1, 2, 3 }));
     }
 
+    //Where + OrderBy + Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID)
+            .Where(NoPKTable.ID == 1 || NoPKTable.ID == 3)
+            .OrderBy(NoPKTable.ID.Desc())
+            .Limit(1);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, { 3 }));
+    }
+
+    //Where + OrderBy
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID)
+            .Where(NoPKTable.ID == 1 || NoPKTable.ID == 3)
+            .OrderBy(NoPKTable.ID.Desc());
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, { 3, 1 }));
+    }
+
+    //Where + Limit
+    {
+        constexpr auto selecter =
+            NoPKContext::MakeSelecter(NoPKTable.ID).Where(NoPKTable.ID < 3).Limit(1);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, { 1 }));
+    }
+
     //Where
     {
         constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID).Where(NoPKTable.ID == 3);
@@ -104,13 +177,23 @@ TEST_F(SelecterTest, SelectOneColumn) {
         ASSERT_TRUE(CheckResult(result, { 3 }));
     }
 
-    //Where + Limit
+    //OrderBy + Limit
     {
-        constexpr auto selecter = 
-            NoPKContext::MakeSelecter(NoPKTable.ID).Where(NoPKTable.ID < 3).Limit(1);
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID)
+            .OrderBy(NoPKTable.ID.Desc())
+            .Limit(2);
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
-        ASSERT_TRUE(CheckResult(result, { 1 }));
+        ASSERT_TRUE(CheckResult(result, { 3, 2 }));
+    }
+
+    //OrderBy
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID)
+            .OrderBy(NoPKTable.ID.Desc());
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, { 3, 2, 1 }));
     }
 
     //Limit
@@ -137,14 +220,29 @@ TEST_F(SelecterTest, SelectTwoColumn) {
         }));
     }
 
-    //Where
+    //Where + OrderBy + Limit
     {
-        constexpr auto selecter = 
-            NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name).Where(NoPKTable.ID == 2);
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name)
+            .Where(NoPKTable.ID == 1 || NoPKTable.ID == 3)
+            .OrderBy(NoPKTable.ID.Desc())
+            .Limit(1);
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            std::tuple{ 2, "2" },
+            std::tuple{ 3, "3" },
+        }));
+    }
+
+    //Where + OrderBy
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name)
+            .Where(NoPKTable.ID == 1 || NoPKTable.ID == 3)
+            .OrderBy(NoPKTable.ID.Desc());
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 3, "3" },
+            std::tuple{ 1, "1" },
         }));
     }
 
@@ -159,6 +257,43 @@ TEST_F(SelecterTest, SelectTwoColumn) {
         ASSERT_TRUE(CheckResult(result, {
             std::tuple{ 1, "1" },
             std::tuple{ 2, "2" },
+        }));
+    }
+
+    //Where
+    {
+        constexpr auto selecter = 
+            NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name).Where(NoPKTable.ID == 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 2, "2" },
+        }));
+    }
+
+    //OrderBy + Limit
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name)
+            .OrderBy(NoPKTable.ID.Desc())
+            .Limit(2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 3, "3" },
+            std::tuple{ 2, "2" },
+        }));
+    }
+
+    //OrderBy
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter(NoPKTable.ID, NoPKTable.Name)
+            .OrderBy(NoPKTable.ID.Desc());
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            std::tuple{ 3, "3" },
+            std::tuple{ 2, "2" },
+            std::tuple{ 1, "1" },
         }));
     }
 

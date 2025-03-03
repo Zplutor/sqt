@@ -4,6 +4,7 @@
 #include <string>
 #include <string_view>
 #include <sqt/orm/querier/selecter/limit_select_capability.h>
+#include <sqt/orm/querier/selecter/order_by_select_capability.h>
 #include <sqt/orm/querier/selecter/where_select_decorator.h>
 #include <sqt/orm/querier/where_capability.h>
 #include <sqt/orm/table_mapping.h>
@@ -13,6 +14,7 @@ namespace sqt {
 template<typename SELECTER>
 class BaseSelecter : 
     public WhereCapability<SELECTER, WhereSelectDecorator>,
+    public OrderBySelectCapability<SELECTER>,
     public LimitSelectCapability<SELECTER> {
 
 public:

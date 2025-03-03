@@ -1,9 +1,14 @@
 #pragma once
 
-//#include <sqt/orm/expression/assignment.h>
 #include <sqt/orm/expression/expression_creation.h>
 
 #define __SQT_EXPRESSION_OPERATORS(COLUMN_TYPE, VALUE_TYPE) \
+constexpr auto Asc() const { \
+    return sqt::MakeOrderingTerm<sqt::Ordering::Ascending>(*this); \
+} \
+constexpr auto Desc() const { \
+    return sqt::MakeOrderingTerm<sqt::Ordering::Descending>(*this); \
+} \
 constexpr auto operator=(const VALUE_TYPE& value) const { \
     return sqt::MakeAssignment(*this, value); \
 } \

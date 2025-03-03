@@ -314,5 +314,20 @@
     <ClInclude Include="src\sqt\orm\querier\deleter\deleter.h">
       <Filter>src\sqt\orm\querier\deleter</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\ordering.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\ordering_term.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\order_by_select_decorator.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\ordering_term_type.h">
+      <Filter>src\sqt\orm\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\selecter\order_by_select_capability.h">
+      <Filter>src\sqt\orm\querier\selecter</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
