@@ -308,3 +308,10 @@ TEST_F(SelecterTest, SelectTwoColumn) {
         }));
     }
 }
+
+
+TEST_F(SelecterTest, DataContext_SelectAll) {
+
+    auto result = GetNoPKContext().SelectAll();
+    ASSERT_TRUE(CheckData(result));
+}

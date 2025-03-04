@@ -85,6 +85,7 @@
     <ClInclude Include="src\sqt\orm\table\column.h" />
     <ClInclude Include="src\sqt\orm\table\column_type.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
+    <ClInclude Include="src\sqt\orm\table\composite_column_type.h" />
     <ClInclude Include="src\sqt\orm\table\index_support.h" />
     <ClInclude Include="src\sqt\orm\table\table_like.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key.h" />

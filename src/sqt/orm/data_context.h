@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mutex>
+#include <vector>
 #include <sqt/foundation/database.h>
 #include <sqt/orm/executor/executor.h>
 #include <sqt/orm/expression/operand/placeholder_operand.h>
@@ -101,6 +102,13 @@ public:
     void AutoIncReplace(const E& entity) {
         constexpr auto replacer = MakeAutoIncReplacer();
         ExecuteEntityInserter(replacer, entity);
+    }
+
+    std::vector<E> SelectAll() {
+        constexpr auto selecter = MakeSelecter();
+        auto executor = Prepare(selecter);
+        auto result = executor.Execute();
+        return std::vector<E>{ result.begin(), result.end() };
     }
 
     void InitializeTable() {
