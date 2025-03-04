@@ -13,6 +13,12 @@ constexpr auto MakeOperand(const T&) {
 }
 
 
+template<CompositeColumnType T>
+constexpr auto MakeOperand(const T&) {
+    return IdentifierOperand<T>{};
+}
+
+
 template<TrivialValueType T>
 constexpr auto MakeOperand(const T& value) {
     using Traits = TrivialValueTraits<T>;

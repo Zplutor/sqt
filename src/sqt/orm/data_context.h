@@ -79,7 +79,8 @@ public:
 
     template<QuerierType QUERIER>
     auto Prepare(const QUERIER& querier) {
-        auto statement = init_once_guard_.DB().PrepareStatement(querier.BuildSQL());
+        auto sql = querier.BuildSQL();
+        auto statement = init_once_guard_.DB().PrepareStatement(sql);
         querier.BindInlineParameters(statement);
         return Executor{ querier, std::move(statement) };
     }

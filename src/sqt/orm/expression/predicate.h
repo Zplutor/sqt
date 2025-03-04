@@ -15,7 +15,7 @@ public:
 
     static std::string BuildSQL() {
         return std::format(
-            "({}{}{})",
+            "({}){}({})",
             LHS::BuildSQL(),
             ConvertPredicateOperatorToString(OPERATOR),
             RHS::BuildSQL());

@@ -310,6 +310,121 @@ TEST_F(SelecterTest, SelectTwoColumn) {
 }
 
 
+TEST_F(SelecterTest, WhereSelecter_Column) {
+
+    //Equal
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID == 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 2, "2" },
+        }));
+    }
+
+    //Not equal
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID != 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+            data_context_test::EntityNoPK{ 3, "3" },
+        }));
+    }
+
+    //Less
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID < 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+        }));
+    }
+
+    //Less equal
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID <= 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+            data_context_test::EntityNoPK{ 2, "2" },
+        }));
+    }
+
+    //Greater
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID > 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 3, "3" },
+        }));
+    }
+
+    //Greater equal
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter().Where(NoPKTable.ID >= 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 2, "2" },
+            data_context_test::EntityNoPK{ 3, "3" },
+        }));
+    }
+
+    //And
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter()
+            .Where(NoPKTable.ID > 1 && NoPKTable.ID < 3);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 2, "2" },
+        }));
+    }
+
+    //Or
+    {
+        constexpr auto selecter = NoPKContext::MakeSelecter()
+            .Where(NoPKTable.ID < 2 || NoPKTable.ID > 2);
+        auto executor = GetNoPKContext().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityNoPK{ 1, "1" },
+            data_context_test::EntityNoPK{ 3, "3" },
+        }));
+    }
+}
+
+
+TEST_F(SelecterTest, WhereSelecter_PrimaryKey) {
+
+    //Use with single column primary key
+    {
+        constexpr auto selecter = PK1Context::MakeSelecter().Where(PK1Table.PrimaryKey == 1);
+        auto executor = GetPK1Context().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityPK1{ 1, "1" },
+        }));
+    }
+
+    //Use with multiple columns primary key
+    {
+        auto selecter = PK2Context::MakeSelecter()
+            .Where(PK2Table.PrimaryKey == std::make_tuple(2, "2"));
+        auto executor = GetPK2Context().Prepare(selecter);
+        auto result = executor.Execute();
+        ASSERT_TRUE(CheckResult(result, {
+            data_context_test::EntityPK2{ 2, "2", 20 },
+        }));
+    }
+}
+
+
 TEST_F(SelecterTest, DataContext_SelectAll) {
 
     auto result = GetNoPKContext().SelectAll();

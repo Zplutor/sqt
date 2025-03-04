@@ -12,7 +12,7 @@ TEST_F(DeleterTest, DeleteAll) {
     auto executor = GetNoPKContext().Prepare(deleter);
     executor.Execute();
 
-    ASSERT_TRUE(CheckData({}));
+    ASSERT_TRUE(CheckData(std::vector<data_context_test::EntityNoPK>{}));
 }
 
 

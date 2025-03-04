@@ -1,6 +1,7 @@
 #pragma once
 
 #include <concepts>
+#include <string>
 
 namespace sqt {
 
@@ -10,6 +11,7 @@ concept CompositeColumnType = requires {
     typename T::ValueType;
     { T::ColumnCount } -> std::same_as<const std::size_t&>;
     requires T::ColumnCount > 0;
+    { T::BuildColumnNames() } -> std::same_as<std::string>;
 };
 
 }

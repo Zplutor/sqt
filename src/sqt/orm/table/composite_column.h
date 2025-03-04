@@ -18,8 +18,14 @@ public:
 
     using EntityType = typename First::EntityType;
     using ValueType = std::tuple<typename First::ValueType, typename Rest::ValueType...>;
-
+    
     static constexpr std::size_t ColumnCount = 1 + sizeof...(Rest);
+
+    static std::string BuildColumnNames() {
+        std::string result{ First::Name };
+        ((result.append(1, ',').append(Rest::Name)), ...);
+        return result;
+    }
 
     static void BindValueToStatement(
         Statement& statement,
@@ -62,6 +68,10 @@ public:
     using ValueType = typename Single::ValueType;
 
     static constexpr std::size_t ColumnCount = 1;
+
+    static std::string BuildColumnNames() {
+        return std::string{ Single::Name };
+    }
 
     static void BindValueToStatement(
         Statement& statement,
