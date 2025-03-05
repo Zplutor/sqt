@@ -1,8 +1,9 @@
 #pragma once
 
+#include <sqt/foundation/database.h>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/expression/binder/value_binder_chain.h>
 #include <sqt/orm/executor/result.h>
+#include <sqt/orm/expression/binder/value_binder_chain.h>
 #include <sqt/orm/querier/querier_type.h>
 
 namespace sqt {
@@ -10,8 +11,13 @@ namespace sqt {
 template<QuerierType QUERIER>
 class Executor {
 public:
-    Executor(const QUERIER& querier, Statement statement) noexcept :
+    Executor(
+        const QUERIER& querier, 
+        std::shared_ptr<Database> database, 
+        Statement statement) noexcept 
+        :
         querier_(querier),
+        database_(std::move(database)),
         statement_(std::move(statement)) {
 
     }
@@ -27,8 +33,9 @@ public:
         return MakeBinderChain(statement_, binders);
     }
 
-    void Execute() requires !SelecterType<QUERIER> {
+    std::size_t Execute() requires !SelecterType<QUERIER> {
         statement_.Step();
+        return database_->LastChanges();
     }
     
     [[nodiscard]]
@@ -42,6 +49,7 @@ public:
 
 private:
     const QUERIER& querier_;
+    std::shared_ptr<Database> database_;
     Statement statement_;
 };
 

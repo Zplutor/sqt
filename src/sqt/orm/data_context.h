@@ -80,10 +80,11 @@ public:
 
     template<QuerierType QUERIER>
     auto Prepare(const QUERIER& querier) {
+        auto db = init_once_guard_.DB();
         auto sql = querier.BuildSQL();
-        auto statement = init_once_guard_.DB().PrepareStatement(sql);
+        auto statement = db->PrepareStatement(sql);
         querier.BindInlineParameters(statement);
-        return Executor{ querier, std::move(statement) };
+        return Executor{ querier, std::move(db), std::move(statement) };
     }
 
     void Insert(const ENTITY& entity) {
@@ -104,6 +105,16 @@ public:
     void AutoIncReplace(const ENTITY& entity) {
         constexpr auto replacer = MakeAutoIncReplacer();
         ExecuteEntityInserter(replacer, entity);
+    }
+
+    template<typename E = ENTITY>
+    bool Delete(const typename TableT<E>::PrimaryKeyType::ValueType& primary_key) 
+        requires PrimaryKeyEntityValueType<E> {
+
+        constexpr auto deleter = MakeDeleter().Where(TableV<E>.PrimaryKey == sqt::_);
+        auto executor = Prepare(deleter);
+        executor.BeginBind().Bind(primary_key);
+        return executor.Execute() > 0;
     }
 
     std::vector<ENTITY> SelectAll() {
@@ -150,11 +161,11 @@ private:
         InitOnceGuard(const InitOnceGuard&) = delete;
         InitOnceGuard& operator=(const InitOnceGuard&) = delete;
 
-        Database& DB() {
+        std::shared_ptr<Database> DB() {
             std::call_once(init_once_flag_, [this]() {
                 TableInitializer::Initialize(TableV<ENTITY>, *db_);
             });
-            return *db_;
+            return db_;
         }
 
     private:
