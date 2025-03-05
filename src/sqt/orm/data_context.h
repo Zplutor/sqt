@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mutex>
+#include <optional>
 #include <vector>
 #include <sqt/foundation/database.h>
 #include <sqt/orm/executor/executor.h>
@@ -20,12 +21,12 @@
 
 namespace sqt {
 
-template<EntityValueType E>
+template<EntityValueType ENTITY>
 class DataContext {
 public:
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeInserter() noexcept {
-        using ValueTraits = EntireEntityValueTraits<E>;
+        using ValueTraits = EntireEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
@@ -35,18 +36,18 @@ public:
     }
 
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
-    static constexpr auto MakeAutoIncInserter() noexcept requires AutoIncEntityValueType<E> {
-        using ValueTraits = AutoIncEntityValueTraits<E>;
+    static constexpr auto MakeAutoIncInserter() noexcept requires AutoIncEntityValueType<ENTITY> {
+        using ValueTraits = AutoIncEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
-    static constexpr auto MakeAutoIncReplacer() noexcept requires AutoIncEntityValueType<E> {
+    static constexpr auto MakeAutoIncReplacer() noexcept requires AutoIncEntityValueType<ENTITY> {
         return MakeAutoIncInserter<ConflictAction::Replace>();
     }
 
     static constexpr auto MakeUpdater() noexcept {
-        using ValueTraits = EntireEntityValueTraits<E>;
+        using ValueTraits = EntireEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityUpdater<Operand>{ Operand{} };
     }
@@ -57,11 +58,11 @@ public:
     }
 
     static constexpr auto MakeDeleter() noexcept {
-        return Deleter<E>{};
+        return Deleter<ENTITY>{};
     }
 
     static constexpr auto MakeSelecter() noexcept {
-        return EntitySelecter<E>{};
+        return EntitySelecter<ENTITY>{};
     }
 
     template<ColumnType... COLUMN>
@@ -85,31 +86,46 @@ public:
         return Executor{ querier, std::move(statement) };
     }
 
-    void Insert(const E& entity) {
+    void Insert(const ENTITY& entity) {
         constexpr auto inserter = MakeInserter();
         ExecuteEntityInserter(inserter, entity);
     }
 
-    void AutoIncInsert(const E& entity) {
+    void AutoIncInsert(const ENTITY& entity) {
         constexpr auto inserter = MakeAutoIncInserter();
         ExecuteEntityInserter(inserter, entity);
     }
 
-    void Replace(const E& entity) {
+    void Replace(const ENTITY& entity) {
         constexpr auto replacer = MakeReplacer();
         ExecuteEntityInserter(replacer, entity);
     }
 
-    void AutoIncReplace(const E& entity) {
+    void AutoIncReplace(const ENTITY& entity) {
         constexpr auto replacer = MakeAutoIncReplacer();
         ExecuteEntityInserter(replacer, entity);
     }
 
-    std::vector<E> SelectAll() {
+    std::vector<ENTITY> SelectAll() {
         constexpr auto selecter = MakeSelecter();
         auto executor = Prepare(selecter);
         auto result = executor.Execute();
-        return std::vector<E>{ result.begin(), result.end() };
+        return std::vector<ENTITY>{ result.begin(), result.end() };
+    }
+
+    template<typename E = ENTITY>
+    std::optional<E> Select(const typename TableT<E>::PrimaryKeyType::ValueType& primary_key) 
+        requires PrimaryKeyEntityValueType<E> {
+
+        constexpr auto selecter = MakeSelecter().Where(TableV<E>.PrimaryKey == sqt::_);
+        auto executor = Prepare(selecter);
+        executor.BeginBind().Bind(primary_key);
+        auto result = executor.Execute();
+        auto begin = result.begin();
+        if (begin != result.end()) {
+            return *begin;
+        }
+        return std::nullopt;
     }
 
     void InitializeTable() {
@@ -118,7 +134,7 @@ public:
 
 private:
     template<typename INSERTER>
-    void ExecuteEntityInserter(const INSERTER& inserter, const E& entity) {
+    void ExecuteEntityInserter(const INSERTER& inserter, const ENTITY& entity) {
         auto executer = Prepare(inserter);
         executer.BeginBind().Bind(entity);
         executer.Execute();
@@ -136,7 +152,7 @@ private:
 
         Database& DB() {
             std::call_once(init_once_flag_, [this]() {
-                TableInitializer::Initialize(TableV<E>, *db_);
+                TableInitializer::Initialize(TableV<ENTITY>, *db_);
             });
             return *db_;
         }

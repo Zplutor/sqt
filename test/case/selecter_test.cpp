@@ -430,3 +430,27 @@ TEST_F(SelecterTest, DataContext_SelectAll) {
     auto result = GetNoPKContext().SelectAll();
     ASSERT_TRUE(CheckData(result));
 }
+
+
+TEST_F(SelecterTest, DataContext_Select) {
+
+    //Single column primary key
+    {
+        auto result = GetPK1Context().Select(4);
+        ASSERT_FALSE(result.has_value());
+
+        result = GetPK1Context().Select(2);
+        ASSERT_TRUE(result.has_value());
+        ASSERT_EQ(*result, (data_context_test::EntityPK1{ 2, "2" }));
+    }
+
+    //Multiple column primary key
+    {
+        auto result = GetPK2Context().Select(std::make_tuple(5, "5"));
+        ASSERT_FALSE(result.has_value());
+
+        result = GetPK2Context().Select(std::make_tuple(3, "3"));
+        ASSERT_TRUE(result.has_value());
+        ASSERT_EQ(*result, (data_context_test::EntityPK2{ 3, "3", 30 }));
+    }
+}
