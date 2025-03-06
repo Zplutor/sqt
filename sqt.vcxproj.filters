@@ -215,7 +215,7 @@
     <ClInclude Include="src\sqt\orm\expression\operand\entity_value_operand_type.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operand\value_operand.h">
+    <ClInclude Include="src\sqt\orm\expression\operand\constant_operand.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h">

@@ -49,7 +49,7 @@
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\trivial_value_operand_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\operand\value_operand.h" />
+    <ClInclude Include="src\sqt\orm\expression\operand\constant_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\ordering.h" />
     <ClInclude Include="src\sqt\orm\expression\ordering_term.h" />

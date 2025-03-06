@@ -6,7 +6,7 @@
 namespace sqt {
 
 template<ValueTraitsType TRAITS>
-class ValueOperand {
+class ConstantOperand {
 public:
     using ValueTraits = TRAITS;
     using ValueType = typename TRAITS::ValueType;
@@ -22,7 +22,7 @@ public:
     }
 
 public:
-    constexpr explicit ValueOperand(ValueType value) : value_(std::move(value)) {
+    constexpr explicit ConstantOperand(ValueType value) : value_(std::move(value)) {
 
     }
 

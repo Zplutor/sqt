@@ -6,7 +6,6 @@
 #include <sqt/foundation/database.h>
 #include <sqt/orm/executor/executor.h>
 #include <sqt/orm/expression/operand/placeholder_operand.h>
-#include <sqt/orm/expression/operand/value_operand.h>
 #include <sqt/orm/querier/deleter/deleter.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/column_selecter.h>
