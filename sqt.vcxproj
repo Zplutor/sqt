@@ -86,6 +86,7 @@
     <ClInclude Include="src\sqt\orm\table\column_type.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column_type.h" />
+    <ClInclude Include="src\sqt\orm\table\identifier_type.h" />
     <ClInclude Include="src\sqt\orm\table\index_support.h" />
     <ClInclude Include="src\sqt\orm\table\table_like.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key.h" />
@@ -102,6 +103,8 @@
     <ClInclude Include="src\sqt\orm\value\traits\auto_inc_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entity_value_traits_type.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\traits\value_traits_type.h" />

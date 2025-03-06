@@ -85,7 +85,7 @@ public: \
             EntityType& entity) const override { \
             entity.CLASS_FIELD = ValueTraits::RetrieveValue(statement, column_index); \
         } \
-        __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
+        __SQT_EXPRESSION_OPERATORS(ThisType) \
     }; \
     COLUMN_NAME##Type COLUMN_NAME{ column_linked_list_.Last() };
 

@@ -341,5 +341,14 @@
     <ClInclude Include="src\sqt\orm\value\traits\value_traits_type.h">
       <Filter>src\sqt\orm\value\traits</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits_type.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\identifier_type.h">
+      <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,7 +13,7 @@ public: \
         constexpr bool IsAutoInc() const noexcept override { \
             return AUTO_INC; \
         } \
-        __SQT_EXPRESSION_OPERATORS(PrimaryKeyType, PrimaryKeyType::ValueType) \
+        __SQT_EXPRESSION_OPERATORS(PrimaryKeyType) \
     }; \
     PrimaryKeyType PrimaryKey{ __VA_ARGS__ }; \
     constexpr const sqt::AbstractPrimaryKey* GetAbstractPrimaryKey() const noexcept override { \

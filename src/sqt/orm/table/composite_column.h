@@ -18,6 +18,7 @@ public:
 
     using EntityType = typename First::EntityType;
     using ValueType = std::tuple<typename First::ValueType, typename Rest::ValueType...>;
+    using ValueTraits = TrivialValueTraits<ValueType>;
     
     static constexpr std::size_t ColumnCount = 1 + sizeof...(Rest);
 
@@ -25,18 +26,6 @@ public:
         std::string result{ First::Name };
         ((result.append(1, ',').append(Rest::Name)), ...);
         return result;
-    }
-
-    static void BindValue(
-        Statement& statement,
-        int parameter_index,
-        const ValueType& value) {
-
-        TrivialValueTraits<ValueType>::BindValue(statement, parameter_index, value);
-    }
-
-    static ValueType RetrieveValue(const Statement& statement, int column_index) {
-        return TrivialValueTraits<ValueType>::RetrieveValue(statement, column_index);
     }
 
 public:
@@ -66,23 +55,12 @@ class CompositeColumn<Single> {
 public:
     using EntityType = typename Single::EntityType;
     using ValueType = typename Single::ValueType;
+    using ValueTraits = TrivialValueTraits<ValueType>;
 
     static constexpr std::size_t ColumnCount = 1;
 
     static std::string BuildColumnNames() {
         return std::string{ Single::Name };
-    }
-
-    static void BindValue(
-        Statement& statement,
-        int parameter_index,
-        const ValueType& value) {
-
-        TrivialValueTraits<ValueType>::BindValue(statement, parameter_index, value);
-    }
-
-    static ValueType RetrieveValue(const Statement& statement, int column_index) {
-        return TrivialValueTraits<ValueType>::RetrieveValue(statement, column_index);
     }
 
 public:
