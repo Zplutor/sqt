@@ -15,7 +15,7 @@ public:
     using ResultElementType = typename CompositeColumnType::ValueType;
 
     static ResultElementType GetResultElement(Statement& statement) {
-        return TrivialValueTraits<ResultElementType>::GetValueFromStatement(statement, 0);
+        return TrivialValueTraits<ResultElementType>::RetrieveValue(statement, 0);
     }
 
 public:

@@ -27,16 +27,16 @@ public:
         return result;
     }
 
-    static void BindValueToStatement(
+    static void BindValue(
         Statement& statement,
         int parameter_index,
         const ValueType& value) {
 
-        TrivialValueTraits<ValueType>::BindValueToStatement(statement, parameter_index, value);
+        TrivialValueTraits<ValueType>::BindValue(statement, parameter_index, value);
     }
 
-    static ValueType GetValueFromStatement(const Statement& statement, int column_index) {
-        return TrivialValueTraits<ValueType>::GetValueFromStatement(statement, column_index);
+    static ValueType RetrieveValue(const Statement& statement, int column_index) {
+        return TrivialValueTraits<ValueType>::RetrieveValue(statement, column_index);
     }
 
 public:
@@ -73,16 +73,16 @@ public:
         return std::string{ Single::Name };
     }
 
-    static void BindValueToStatement(
+    static void BindValue(
         Statement& statement,
         int parameter_index,
         const ValueType& value) {
 
-        TrivialValueTraits<ValueType>::BindValueToStatement(statement, parameter_index, value);
+        TrivialValueTraits<ValueType>::BindValue(statement, parameter_index, value);
     }
 
-    static ValueType GetValueFromStatement(const Statement& statement, int column_index) {
-        return TrivialValueTraits<ValueType>::GetValueFromStatement(statement, column_index);
+    static ValueType RetrieveValue(const Statement& statement, int column_index) {
+        return TrivialValueTraits<ValueType>::RetrieveValue(statement, column_index);
     }
 
 public:

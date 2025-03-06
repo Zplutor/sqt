@@ -15,7 +15,7 @@ public:
     using ResultElementType = ENTITY;
 
     static ENTITY GetResultElement(Statement& statement) {
-        return EntireEntityValueTraits<ENTITY>::GetValueFromStatement(statement, 0);
+        return EntireEntityValueTraits<ENTITY>::RetrieveValue(statement, 0);
     }
 
 public:

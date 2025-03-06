@@ -27,7 +27,7 @@ public:
     }
 
     void BindInlineParameters(Statement& statement, int parameter_index) const {
-        ValueTraits::BindValueToStatement(statement, parameter_index, value_);
+        ValueTraits::BindValue(statement, parameter_index, value_);
     }
 
 private:

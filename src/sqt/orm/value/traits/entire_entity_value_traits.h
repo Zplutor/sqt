@@ -18,20 +18,20 @@ public:
 
     static constexpr std::size_t ParameterCount = InsertingColumns.size();
 
-    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValue(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
         for (auto each_column : InsertingColumns) {
-            each_column->BindValueToStatement(statement, index++, value);
+            each_column->BindValueFromEntity(statement, index++, value);
         }
     }
 
-    static T GetValueFromStatement(const Statement& statement, int column_index) {
+    static T RetrieveValue(const Statement& statement, int column_index) {
 
         T result{};
         int index = column_index;
         for (auto each_column : SelectingColumns) {
-            each_column->GetValueFromStatement(statement, index++, result);
+            each_column->RetrieveValueToEntity(statement, index++, result);
         }
         return result;
     }

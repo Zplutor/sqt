@@ -18,7 +18,7 @@ public:
     }
 
     void Bind(Statement& statement, const ValueType& value) const {
-        ValueTraits::BindValueToStatement(statement, index_, value);
+        ValueTraits::BindValue(statement, index_, value);
     }
 
 private:

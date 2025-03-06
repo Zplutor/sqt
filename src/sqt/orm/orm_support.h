@@ -72,18 +72,18 @@ public: \
         constexpr bool IsNullable() const noexcept override { \
             return ValueTraits::IsNullable; \
         } \
-        void BindValueToStatement( \
+        void BindValueFromEntity( \
             sqt::Statement& statement, \
             int parameter_index, \
             const EntityType& entity) const override { \
-            ValueTraits::BindValueToStatement( \
+            ValueTraits::BindValue( \
                 statement, parameter_index, entity.CLASS_FIELD); \
         } \
-        void GetValueFromStatement( \
+        void RetrieveValueToEntity( \
             const sqt::Statement& statement, \
             int column_index, \
             EntityType& entity) const override { \
-            entity.CLASS_FIELD = ValueTraits::GetValueFromStatement(statement, column_index); \
+            entity.CLASS_FIELD = ValueTraits::RetrieveValue(statement, column_index); \
         } \
         __SQT_EXPRESSION_OPERATORS(ThisType, ValueType) \
     }; \

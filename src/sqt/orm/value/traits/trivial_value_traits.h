@@ -22,11 +22,11 @@ struct TrivialValueTraits<T> {
 
     static constexpr std::size_t ParameterCount = 1;
 
-    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValue(Statement& statement, int parameter_index, const T& value) {
         statement.BindParameter(parameter_index, value);
     }
 
-    static T GetValueFromStatement(const Statement& statement, int column_index) {
+    static T RetrieveValue(const Statement& statement, int column_index) {
 
         if constexpr (std::is_integral_v<T>) {
             if constexpr (sizeof(T) >= sizeof(std::int64_t)) {
@@ -56,20 +56,20 @@ struct TrivialValueTraits<T> {
 
     static constexpr std::size_t ParameterCount = 1;
 
-    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValue(Statement& statement, int parameter_index, const T& value) {
         if (value.has_value()) {
             statement.BindParameter(parameter_index, *value);
         }
     }
 
-    static T GetValueFromStatement(const Statement& statement, int column_index) {
+    static T RetrieveValue(const Statement& statement, int column_index) {
 
         auto column_type = statement.GetColumnType(column_index);
         if (column_type == DataType::Null) {
             return std::nullopt;
         }
 
-        return TrivialValueTraits<GetOptionalValueTypeT<T>>::GetValueFromStatement(
+        return TrivialValueTraits<GetOptionalValueTypeT<T>>::RetrieveValue(
             statement,
             column_index);
     }
@@ -83,11 +83,11 @@ struct TrivialValueTraits<T> {
 
     static constexpr std::size_t ParameterCount = std::tuple_size<T>::value;
 
-    static void BindValueToStatement(Statement& statement, int parameter_index, const T& value) {
+    static void BindValue(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
         auto binder = [&statement, &index](const auto& value) {
-            TrivialValueTraits<std::decay_t<decltype(value)>>::BindValueToStatement(
+            TrivialValueTraits<std::decay_t<decltype(value)>>::BindValue(
                 statement,
                 index,
                 value);
@@ -101,11 +101,11 @@ struct TrivialValueTraits<T> {
             value);
     }
 
-    static T GetValueFromStatement(const Statement& statement, int column_index) {
+    static T RetrieveValue(const Statement& statement, int column_index) {
 
         int index = column_index;
         auto getter = [&statement, &index](auto& value) {
-            value = TrivialValueTraits<std::decay_t<decltype(value)>>::GetValueFromStatement(
+            value = TrivialValueTraits<std::decay_t<decltype(value)>>::RetrieveValue(
                 statement,
                 index);
             ++index;
