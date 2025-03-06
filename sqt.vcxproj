@@ -94,18 +94,18 @@
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
-    <ClInclude Include="src\sqt\orm\value\auto_inc_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\composite_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\data_type_mapping.h" />
-    <ClInclude Include="src\sqt\orm\value\entire_entity_value_traits.h" />
-    <ClInclude Include="src\sqt\orm\value\entity_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\entity_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\nullable_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\primitive_value_type.h" />
-    <ClInclude Include="src\sqt\orm\value\trivial_value_traits.h" />
-    <ClInclude Include="src\sqt\orm\value\trivial_value_traits_type.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\auto_inc_entity_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\entity_value_traits_type.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits_type.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\trivial_value_type.h" />
-    <ClInclude Include="src\sqt\orm\value\value_traits_type.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

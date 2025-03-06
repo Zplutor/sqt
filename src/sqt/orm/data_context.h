@@ -14,8 +14,8 @@
 #include <sqt/orm/querier/updater/entity_updater.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/table_initializer.h>
-#include <sqt/orm/value/auto_inc_entity_value_traits.h>
-#include <sqt/orm/value/entire_entity_value_traits.h>
+#include <sqt/orm/value/traits/auto_inc_entity_value_traits.h>
+#include <sqt/orm/value/traits/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {

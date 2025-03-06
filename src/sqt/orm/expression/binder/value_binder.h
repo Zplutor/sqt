@@ -1,8 +1,8 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/value/trivial_value_traits.h>
-#include <sqt/orm/value/value_traits_type.h>
+#include <sqt/orm/value/traits/trivial_value_traits.h>
+#include <sqt/orm/value/traits/value_traits_type.h>
 
 namespace sqt {
 

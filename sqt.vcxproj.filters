@@ -55,6 +55,9 @@
     <Filter Include="src\sqt\orm\querier\deleter">
       <UniqueIdentifier>{72ff51d6-055f-49bf-808c-cc9e447c3b0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\value\traits">
+      <UniqueIdentifier>{6ddb38d0-902d-4410-b276-c7ef8a2395a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -254,19 +257,10 @@
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h">
       <Filter>src\sqt\orm\expression\binder</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\auto_inc_entity_value_traits.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\value\composite_value_type.h">
       <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\data_type_mapping.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\entire_entity_value_traits.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\entity_value_traits_type.h">
       <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\entity_value_type.h">
@@ -278,16 +272,7 @@
     <ClInclude Include="src\sqt\orm\value\primitive_value_type.h">
       <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\trivial_value_traits.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\trivial_value_traits_type.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\value\trivial_value_type.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\value_traits_type.h">
       <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h">
@@ -337,6 +322,24 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\composite_column_type.h">
       <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\auto_inc_entity_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\entity_value_traits_type.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits_type.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\value_traits_type.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

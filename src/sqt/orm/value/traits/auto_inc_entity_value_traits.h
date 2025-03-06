@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/value/entire_entity_value_traits.h>
+#include <sqt/orm/value/traits/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {

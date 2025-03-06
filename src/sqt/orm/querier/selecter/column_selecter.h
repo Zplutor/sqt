@@ -3,7 +3,7 @@
 #include <sqt/orm/querier/selecter/base_selecter.h>
 #include <sqt/orm/table/column_type.h>
 #include <sqt/orm/table/composite_column.h>
-#include <sqt/orm/value/trivial_value_traits.h>
+#include <sqt/orm/value/traits/trivial_value_traits.h>
 
 namespace sqt {
 

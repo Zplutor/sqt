@@ -13,7 +13,7 @@
 #include <sqt/orm/table/primary_key_support.h>
 #include <sqt/orm/utility/macro_utility.h>
 #include <sqt/orm/utility/utility.h>
-#include <sqt/orm/value/trivial_value_traits.h>
+#include <sqt/orm/value/traits/trivial_value_traits.h>
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
 namespace __sqt_table_##TABLE_NAME { \

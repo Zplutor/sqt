@@ -3,7 +3,7 @@
 #include <array>
 #include <sqt/orm/table/column.h>
 #include <sqt/orm/table/column_type.h>
-#include <sqt/orm/value/trivial_value_traits.h>
+#include <sqt/orm/value/traits/trivial_value_traits.h>
 
 namespace sqt {
 

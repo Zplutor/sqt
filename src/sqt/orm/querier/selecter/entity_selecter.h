@@ -3,7 +3,7 @@
 #include <sqt/orm/querier/selecter/base_selecter.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/utility/utility.h>
-#include <sqt/orm/value/entire_entity_value_traits.h>
+#include <sqt/orm/value/traits/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
