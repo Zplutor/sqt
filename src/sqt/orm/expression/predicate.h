@@ -9,6 +9,9 @@ namespace sqt {
 template<PredicateOperator OPERATOR, PredicateTermType LHS, PredicateTermType RHS>
 class Predicate {
 public:
+    using LHSOperand = LHS;
+    using RHSOperand = RHS;
+
     static constexpr PredicateOperator Operator = OPERATOR;
 
     static constexpr std::size_t ParameterCount = LHS::ParameterCount + RHS::ParameterCount;

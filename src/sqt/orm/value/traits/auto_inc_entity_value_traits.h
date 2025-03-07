@@ -22,7 +22,7 @@ public:
 
         int index = parameter_index;
         for (auto each_column : InsertingColumns) {
-            each_column->BindValueFromEntity(statement, index++, value);
+            each_column->VirtualBindValueFromEntity(statement, index++, value);
         }
     }
 

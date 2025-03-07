@@ -23,6 +23,7 @@ public:
         int parameter_index, 
         const EntityType& entity) {
 
+        IDENTIFIER::BindValueFromEntity(statement, parameter_index, entity);
     }
 
     static ValueType RetrieveValue(const Statement& statement, int column_index) {
@@ -34,6 +35,7 @@ public:
         int column_index,
         EntityType& entity) {
 
+        IDENTIFIER::RetrieveValueToEntity(statement, column_index, entity);
     }
 };
 

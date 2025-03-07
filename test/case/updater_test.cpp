@@ -82,3 +82,42 @@ TEST_F(UpdaterTest, ColumnUpdater_Where) {
         data_context_test::EntityNoPK{ 3, "3" },
     }));
 }
+
+
+TEST_F(UpdaterTest, DataContext_Update) {
+
+    //Single column primary key
+    {
+        data_context_test::EntityPK1 entity{ 4, "updated" };
+        auto updated = GetPK1Context().Update(entity);
+        ASSERT_FALSE(updated);
+
+        entity.id = 1;
+        updated = GetPK1Context().Update(entity);
+        ASSERT_TRUE(updated);
+        ASSERT_TRUE(CheckData({
+            data_context_test::EntityPK1{ 1, "updated" },
+            data_context_test::EntityPK1{ 2, "2" },
+            data_context_test::EntityPK1{ 3, "3" },
+        }));
+    }
+
+    //Multiple columns primary key
+    {
+        data_context_test::EntityPK2 entity{ 1, "2", 40 };
+
+        auto updated = GetPK2Context().Update(entity);
+        ASSERT_FALSE(updated);
+
+        entity.id = 1;
+        entity.name = "1";
+        entity.age = 40;
+        updated = GetPK2Context().Update(entity);
+        ASSERT_TRUE(updated);
+        ASSERT_TRUE(CheckData({
+            data_context_test::EntityPK2{ 1, "1", 40 },
+            data_context_test::EntityPK2{ 2, "2", 20 },
+            data_context_test::EntityPK2{ 3, "3", 30 },
+        }));
+    }
+}

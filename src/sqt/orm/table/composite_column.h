@@ -28,6 +28,28 @@ public:
         return result;
     }
 
+    static void BindValueFromEntity(
+        Statement& statement, 
+        int parameter_index, 
+        const EntityType& entity) {
+
+        First::BindValueFromEntity(statement, parameter_index, entity);
+
+        int index = parameter_index + 1;
+        ((Rest::BindValueFromEntity(statement, index++, entity)), ...);
+    }
+
+    static void RetrieveValueToEntity(
+        const Statement& statement,
+        int column_index,
+        EntityType& entity) {
+
+        First::RetrieveValueToEntity(statement, column_index, entity);
+
+        int index = column_index + 1;
+        ((Rest::RetrieveValueToEntity(statement, index++, entity)), ...);
+    }
+
 public:
     constexpr CompositeColumn(const First& first, const Rest&... rest) noexcept : 
         columns_({ &first, &rest... }) {
@@ -61,6 +83,22 @@ public:
 
     static std::string BuildColumnNames() {
         return std::string{ Single::Name };
+    }
+
+    static void BindValueFromEntity(
+        Statement& statement,
+        int parameter_index,
+        const EntityType& entity) {
+
+        Single::BindValueFromEntity(statement, parameter_index, entity);
+    }
+
+    static void RetrieveValueToEntity(
+        const Statement& statement,
+        int column_index,
+        EntityType& entity) {
+
+        Single::RetrieveValueToEntity(statement, column_index, entity);
     }
 
 public:

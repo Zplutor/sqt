@@ -107,6 +107,14 @@ public:
     }
 
     template<typename E = ENTITY>
+    bool Update(const E& entity) requires PrimaryKeyEntityValueType<E> {
+        constexpr auto updater = MakeUpdater().Where(TableV<E>.PrimaryKey == sqt::_);
+        auto executor = Prepare(updater);
+        executor.BeginBind().Bind(entity).BindFromEntity(entity);
+        return executor.Execute() > 0;
+    }
+
+    template<typename E = ENTITY>
     bool Delete(const typename TableT<E>::PrimaryKeyType::ValueType& primary_key) 
         requires PrimaryKeyEntityValueType<E> {
 

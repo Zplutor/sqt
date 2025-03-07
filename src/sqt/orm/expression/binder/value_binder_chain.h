@@ -3,11 +3,13 @@
 #include <tuple>
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/binder/value_binder_type.h>
+#include <sqt/orm/value/traits/identifier_value_traits_type.h>
 
 namespace sqt {
 
-template<ValueBinderType... Binders>
+template<ValueBinderType... BINDER>
 class ValueBinderChain;
+
 
 template<>
 class ValueBinderChain<> {
@@ -15,36 +17,54 @@ public:
     ValueBinderChain(Statement& statement, std::tuple<>) noexcept { }
 };
 
-template<ValueBinderType FirstBinder, ValueBinderType... RestBinders>
-class ValueBinderChain<FirstBinder, RestBinders...> {
+
+template<ValueBinderType FIRST, ValueBinderType... REST>
+class ValueBinderChain<FIRST, REST...> {
 public:
-    ValueBinderChain(Statement& statement, std::tuple<FirstBinder, RestBinders...> binders) :
+    ValueBinderChain(Statement& statement, std::tuple<FIRST, REST...> binders) :
         statement_(statement),
         binders_(std::move(binders)) {
 
     }
 
-    auto Bind(const typename FirstBinder::ValueType& value) {
+    auto Bind(const typename FIRST::ValueType& value) {
 
-        std::get<0>(binders_).Bind(statement_, value);
+        const auto& binder = std::get<0>(binders_);
+        FIRST::ValueTraits::BindValue(statement_, binder.GetIndex(), value);
 
-        auto rest_tuple = std::apply([](auto, auto... rest) {
-            return std::make_tuple(rest...);
-        }, 
-        binders_);
+        return MakeNextChain();
+    }
 
-        return ValueBinderChain<RestBinders...>(statement_, rest_tuple);
+    template<typename TRAITS = FIRST::ValueTraits>
+    auto BindFromEntity(const typename TRAITS::EntityType& entity) const
+        requires IdentifierValueTraitsType<TRAITS> {
+
+        const auto& binder = std::get<0>(binders_);
+        TRAITS::BindValueFromEntity(statement_, binder.GetIndex(), entity);
+
+        return MakeNextChain();
     }
 
 private:
-    std::tuple<FirstBinder, RestBinders...> binders_;
+    auto MakeNextChain() const {
+
+        auto rest_tuple = std::apply([](auto, auto... rest) {
+                return std::make_tuple(rest...);
+            },
+            binders_);
+
+        return ValueBinderChain<REST...>(statement_, std::move(rest_tuple));
+    }
+
+private:
+    std::tuple<FIRST, REST...> binders_;
     Statement& statement_;
 };
 
 
-template<ValueBinderType... Binders>
-auto MakeBinderChain(Statement& statement, std::tuple<Binders...> tuple) {
-    return ValueBinderChain<Binders...>(statement, std::move(tuple));
+template<ValueBinderType... BINDER>
+auto MakeBinderChain(Statement& statement, std::tuple<BINDER...> tuple) {
+    return ValueBinderChain<BINDER...>(statement, std::move(tuple));
 }
 
 

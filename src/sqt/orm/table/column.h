@@ -14,12 +14,12 @@ public:
 public:
     constexpr Column() noexcept = default;
 
-    virtual void BindValueFromEntity(
+    virtual void VirtualBindValueFromEntity(
         Statement& statement,
         int parameter_index,
         const E& entity) const = 0;
 
-    virtual void RetrieveValueToEntity(
+    virtual void VirtualRetrieveValueToEntity(
         const Statement& statement,
         int index,
         E& entity) const = 0;
