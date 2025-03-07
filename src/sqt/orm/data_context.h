@@ -14,8 +14,8 @@
 #include <sqt/orm/querier/updater/entity_updater.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/table_initializer.h>
-#include <sqt/orm/value/traits/auto_inc_entity_value_traits.h>
 #include <sqt/orm/value/traits/entire_entity_value_traits.h>
+#include <sqt/orm/value/traits/no_primary_key_entity_value_traits.h>
 #include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
@@ -36,7 +36,7 @@ public:
 
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeAutoIncInserter() noexcept requires AutoIncEntityValueType<ENTITY> {
-        using ValueTraits = AutoIncEntityValueTraits<ENTITY>;
+        using ValueTraits = NoPrimaryKeyEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
@@ -47,6 +47,14 @@ public:
 
     static constexpr auto MakeUpdater() noexcept {
         using ValueTraits = EntireEntityValueTraits<ENTITY>;
+        using Operand = PlaceholderOperand<ValueTraits>;
+        return EntityUpdater<Operand>{ Operand{} };
+    }
+
+    static constexpr auto MakeNoPrimaryKeyUpdater() noexcept
+        requires PrimaryKeyEntityValueType<ENTITY> {
+
+        using ValueTraits = NoPrimaryKeyEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityUpdater<Operand>{ Operand{} };
     }
@@ -108,7 +116,7 @@ public:
 
     template<typename E = ENTITY>
     bool Update(const E& entity) requires PrimaryKeyEntityValueType<E> {
-        constexpr auto updater = MakeUpdater().Where(TableV<E>.PrimaryKey == sqt::_);
+        constexpr auto updater = MakeNoPrimaryKeyUpdater().Where(TableV<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(updater);
         executor.BeginBind().Bind(entity).BindFromEntity(entity);
         return executor.Execute() > 0;

@@ -1,13 +1,12 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/value/traits/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity_value_type.h>
 
 namespace sqt {
 
-template<AutoIncEntityValueType T>
-class AutoIncEntityValueTraits {
+template<PrimaryKeyEntityValueType T>
+class NoPrimaryKeyEntityValueTraits {
 public:
     using ValueType = T;
     using EntityType = T;
@@ -15,6 +14,8 @@ public:
 
     static constexpr ColumnsView<EntityType> InsertingColumns = 
         TableType::GetNonPrimaryKeyColumns();
+
+    static constexpr ColumnsView<EntityType> SelectingColumns = InsertingColumns;
 
     static constexpr std::size_t ParameterCount = InsertingColumns.size();
 
@@ -27,8 +28,13 @@ public:
     }
 
     static T RetrieveValue(const Statement& statement, int column_index) {
-        // Forwards to EntireEntityValueTraits.
-        return EntireEntityValueTraits<T>::RetrieveValue(statement, column_index);
+
+        T entity;
+        int index = column_index;
+        for (auto each_column : SelectingColumns) {
+            each_column->VirtualRetrieveValueToEntity(statement, index++, entity);
+        }
+        return entity;
     }
 };
 

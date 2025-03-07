@@ -100,7 +100,7 @@
     <ClInclude Include="src\sqt\orm\value\entity_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\nullable_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\primitive_value_type.h" />
-    <ClInclude Include="src\sqt\orm\value\traits\auto_inc_entity_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\no_primary_key_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entity_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits.h" />

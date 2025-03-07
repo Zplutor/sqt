@@ -39,6 +39,40 @@ TEST_F(UpdaterTest, EntityUpdater_Where) {
 }
 
 
+TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
+
+    //Single column primary key
+    {
+        constexpr auto updater = PK1Context::MakeNoPrimaryKeyUpdater();
+        auto executer = GetPK1Context().Prepare(updater);
+
+        executer.BeginBind().Bind(data_context_test::EntityPK1{ 1, "5" });
+        auto changes = executer.Execute();
+        ASSERT_EQ(changes, 3);
+        ASSERT_TRUE(CheckData({
+            data_context_test::EntityPK1{ 1, "5" },
+            data_context_test::EntityPK1{ 2, "5" },
+            data_context_test::EntityPK1{ 3, "5" },
+        }));
+    }
+
+    //Multiple column primary key
+    {
+        constexpr auto updater = PK2Context::MakeNoPrimaryKeyUpdater();
+        auto executer = GetPK2Context().Prepare(updater);
+
+        executer.BeginBind().Bind(data_context_test::EntityPK2{ 1, "1", 50 });
+        auto changes = executer.Execute();
+        ASSERT_EQ(changes, 3);
+        ASSERT_TRUE(CheckData({
+            data_context_test::EntityPK2{ 1, "1", 50 },
+            data_context_test::EntityPK2{ 2, "2", 50 },
+            data_context_test::EntityPK2{ 3, "3", 50 },
+        }));
+    }
+}
+
+
 TEST_F(UpdaterTest, ColumnUpdater_OneColumn) {
 
     constexpr auto updater = NoPKContext::MakeUpdater(NoPKTable.ID = 9);

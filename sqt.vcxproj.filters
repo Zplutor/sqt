@@ -323,7 +323,7 @@
     <ClInclude Include="src\sqt\orm\table\composite_column_type.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\traits\auto_inc_entity_value_traits.h">
+    <ClInclude Include="src\sqt\orm\value\traits\no_primary_key_entity_value_traits.h">
       <Filter>src\sqt\orm\value\traits</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h">
