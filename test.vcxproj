@@ -14,6 +14,7 @@
     <ClCompile Include="test\main.cpp" />
     <ClCompile Include="test\test_environment.cpp" />
     <ClCompile Include="test\unit_test\composite_column_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context_delete_test.cpp" />
     <ClCompile Include="test\unit_test\data_context_insert_test.cpp" />
     <ClCompile Include="test\unit_test\data_context_select_test.cpp" />
     <ClCompile Include="test\unit_test\data_context_test_fixture.cpp" />

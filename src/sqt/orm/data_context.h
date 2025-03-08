@@ -123,6 +123,13 @@ public:
         return executor.LastChanges() > 0;
     }
 
+    std::size_t DeleteAll() {
+        constexpr auto deleter = MakeDeleter();
+        auto executor = Prepare(deleter);
+        executor.Execute();
+        return executor.LastChanges();
+    }
+
     template<typename E = ENTITY>
     bool Delete(const typename TableT<E>::PrimaryKeyType::ValueType& primary_key) 
         requires PrimaryKeyEntityValueType<E> {
