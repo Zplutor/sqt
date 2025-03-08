@@ -94,24 +94,24 @@ public:
         return Executor{ querier, std::move(db), std::move(statement) };
     }
 
-    void Insert(const ENTITY& entity) {
+    std::int64_t Insert(const ENTITY& entity) {
         constexpr auto inserter = MakeInserter();
-        ExecuteEntityInserter(inserter, entity);
+        return ExecuteEntityInserter(inserter, entity);
     }
 
-    void AutoIncInsert(const ENTITY& entity) {
+    std::int64_t AutoIncInsert(const ENTITY& entity) {
         constexpr auto inserter = MakeAutoIncInserter();
-        ExecuteEntityInserter(inserter, entity);
+        return ExecuteEntityInserter(inserter, entity);
     }
 
-    void Replace(const ENTITY& entity) {
+    std::int64_t Replace(const ENTITY& entity) {
         constexpr auto replacer = MakeReplacer();
-        ExecuteEntityInserter(replacer, entity);
+        return ExecuteEntityInserter(replacer, entity);
     }
 
-    void AutoIncReplace(const ENTITY& entity) {
+    std::int64_t AutoIncReplace(const ENTITY& entity) {
         constexpr auto replacer = MakeAutoIncReplacer();
-        ExecuteEntityInserter(replacer, entity);
+        return ExecuteEntityInserter(replacer, entity);
     }
 
     template<typename E = ENTITY>
@@ -119,7 +119,8 @@ public:
         constexpr auto updater = MakeNoPrimaryKeyUpdater().Where(TableV<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(updater);
         executor.BeginBind().Bind(entity).BindFromEntity(entity);
-        return executor.Execute() > 0;
+        executor.Execute();
+        return executor.LastChanges() > 0;
     }
 
     template<typename E = ENTITY>
@@ -129,7 +130,8 @@ public:
         constexpr auto deleter = MakeDeleter().Where(TableV<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(deleter);
         executor.BeginBind().Bind(primary_key);
-        return executor.Execute() > 0;
+        executor.Execute();
+        return executor.LastChanges() > 0;
     }
 
     std::vector<ENTITY> SelectAll() {
@@ -160,10 +162,11 @@ public:
 
 private:
     template<typename INSERTER>
-    void ExecuteEntityInserter(const INSERTER& inserter, const ENTITY& entity) {
-        auto executer = Prepare(inserter);
-        executer.BeginBind().Bind(entity);
-        executer.Execute();
+    std::int64_t ExecuteEntityInserter(const INSERTER& inserter, const ENTITY& entity) {
+        auto executor = Prepare(inserter);
+        executor.BeginBind().Bind(entity);
+        executor.Execute();
+        return executor.LastInsertRowID();
     }
 
 private:
@@ -176,7 +179,7 @@ private:
         InitOnceGuard(const InitOnceGuard&) = delete;
         InitOnceGuard& operator=(const InitOnceGuard&) = delete;
 
-        std::shared_ptr<Database> DB() {
+        const std::shared_ptr<Database>& DB() {
             std::call_once(init_once_flag_, [this]() {
                 TableInitializer::Initialize(TableV<ENTITY>, *db_);
             });

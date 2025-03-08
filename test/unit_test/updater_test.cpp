@@ -44,11 +44,11 @@ TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
     //Single column primary key
     {
         constexpr auto updater = PK1Context::MakeNoPrimaryKeyUpdater();
-        auto executer = GetPK1Context().Prepare(updater);
+        auto executor = GetPK1Context().Prepare(updater);
 
-        executer.BeginBind().Bind(test_entities::EntityPK1{ 1, "5" });
-        auto changes = executer.Execute();
-        ASSERT_EQ(changes, 3);
+        executor.BeginBind().Bind(test_entities::EntityPK1{ 1, "5" });
+        executor.Execute();
+        ASSERT_EQ(executor.LastChanges(), 3);
         ASSERT_TRUE(CheckData({
             test_entities::EntityPK1{ 1, "5" },
             test_entities::EntityPK1{ 2, "5" },
@@ -59,11 +59,11 @@ TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
     //Multiple column primary key
     {
         constexpr auto updater = PK2Context::MakeNoPrimaryKeyUpdater();
-        auto executer = GetPK2Context().Prepare(updater);
+        auto executor = GetPK2Context().Prepare(updater);
 
-        executer.BeginBind().Bind(test_entities::EntityPK2{ 1, "1", 50 });
-        auto changes = executer.Execute();
-        ASSERT_EQ(changes, 3);
+        executor.BeginBind().Bind(test_entities::EntityPK2{ 1, "1", 50 });
+        executor.Execute();
+        ASSERT_EQ(executor.LastChanges(), 3);
         ASSERT_TRUE(CheckData({
             test_entities::EntityPK2{ 1, "1", 50 },
             test_entities::EntityPK2{ 2, "2", 50 },

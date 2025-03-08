@@ -1,6 +1,5 @@
 #pragma once
 
-#include <sqt/foundation/database.h>
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/executor/result.h>
 #include <sqt/orm/expression/binder/value_binder_chain.h>
@@ -33,9 +32,16 @@ public:
         return MakeBinderChain(statement_, binders);
     }
 
-    std::size_t Execute() requires !SelecterType<QUERIER> {
+    void Execute() requires !SelecterType<QUERIER> {
         statement_.Step();
+    }
+
+    std::size_t LastChanges() const requires !SelecterType<QUERIER> {
         return database_->LastChanges();
+    }
+
+    std::int64_t LastInsertRowID() const requires !SelecterType<QUERIER> {
+        return database_->LastInsertRowID();
     }
     
     [[nodiscard]]
