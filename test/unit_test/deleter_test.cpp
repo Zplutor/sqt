@@ -12,7 +12,7 @@ TEST_F(DeleterTest, DeleteAll) {
     auto executor = GetNoPKContext().Prepare(deleter);
     auto changes = executor.Execute();
     ASSERT_EQ(changes, 3);
-    ASSERT_TRUE(CheckData(std::vector<data_context_test::EntityNoPK>{}));
+    ASSERT_TRUE(CheckData(std::vector<test_entities::EntityNoPK>{}));
 }
 
 
@@ -23,8 +23,8 @@ TEST_F(DeleterTest, Delete_Where) {
     ASSERT_EQ(changes, 1);
 
     ASSERT_TRUE(CheckData({
-        data_context_test::EntityNoPK{ 1, "1" },
-        data_context_test::EntityNoPK{ 2, "2" },
+        test_entities::EntityNoPK{ 1, "1" },
+        test_entities::EntityNoPK{ 2, "2" },
     }));
 }
 
@@ -39,8 +39,8 @@ TEST_F(DeleterTest, DataContext_Delete) {
         deleted = GetPK1Context().Delete(3);
         ASSERT_TRUE(deleted);
         ASSERT_TRUE(CheckData({
-            data_context_test::EntityPK1{ 1, "1" },
-            data_context_test::EntityPK1{ 2, "2" },
+            test_entities::EntityPK1{ 1, "1" },
+            test_entities::EntityPK1{ 2, "2" },
         }));
     }
 
@@ -52,8 +52,8 @@ TEST_F(DeleterTest, DataContext_Delete) {
         deleted = GetPK2Context().Delete({ 3, "3" });
         ASSERT_TRUE(deleted);
         ASSERT_TRUE(CheckData({
-            data_context_test::EntityPK2{ 1, "1", 10 },
-            data_context_test::EntityPK2{ 2, "2", 20 },
+            test_entities::EntityPK2{ 1, "1", 10 },
+            test_entities::EntityPK2{ 2, "2", 20 },
         }));
     }
 }

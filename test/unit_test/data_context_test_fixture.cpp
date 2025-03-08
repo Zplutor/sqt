@@ -13,9 +13,13 @@ void DataContextTestFixture::SetUp() {
     pk2_context_.emplace(DB());
     pk2_context_->InitializeTable();
 
+    auto_inc_context_.emplace(DB());
+    auto_inc_context_->InitializeTable();
+
     FillNoPKContextData();
     FillPK1ContextData();
     FillPK2ContextData();
+    FillAutoIncContextData();
 }
 
 
@@ -63,8 +67,21 @@ void DataContextTestFixture::FillPK2ContextData() {
 }
 
 
+void DataContextTestFixture::FillAutoIncContextData() {
+
+    auto statement = DB()->PrepareStatement("insert into EntityAutoInc(id, name) values(?, ?)");
+
+    for (int index = 1; index <= 3; ++index) {
+        statement.BindParameter(1, index);
+        statement.BindParameter(2, std::to_string(index));
+        statement.Step();
+        statement.Reset();
+    }
+}
+
+
 bool DataContextTestFixture::CheckData(
-    const std::vector<data_context_test::EntityNoPK>& entities) const {
+    const std::vector<test_entities::EntityNoPK>& entities) const {
 
     auto statement = DB()->PrepareStatement("select * from EntityNoPK");
     for (const auto& each_entity : entities) {
@@ -84,7 +101,7 @@ bool DataContextTestFixture::CheckData(
 
 
 bool DataContextTestFixture::CheckData(
-    const std::vector<data_context_test::EntityPK1>& entities) const {
+    const std::vector<test_entities::EntityPK1>& entities) const {
 
     auto statement = DB()->PrepareStatement("select * from EntityPK1");
     for (const auto& each_entity : entities) {
@@ -104,7 +121,7 @@ bool DataContextTestFixture::CheckData(
 
 
 bool DataContextTestFixture::CheckData(
-    const std::vector<data_context_test::EntityPK2>& entities) const {
+    const std::vector<test_entities::EntityPK2>& entities) const {
 
     auto statement = DB()->PrepareStatement("select * from EntityPK2");
 
@@ -117,6 +134,27 @@ bool DataContextTestFixture::CheckData(
         if ((statement.GetColumnInt(0) != each_entity.id) ||
             (statement.GetColumnText(1) != each_entity.name) ||
             (statement.GetColumnInt(2) != each_entity.age)) {
+            return false;
+        }
+    }
+
+    return !statement.Step();
+}
+
+
+bool DataContextTestFixture::CheckData(
+    const std::vector<test_entities::EntityAutoInc>& entities) const {
+
+    auto statement = DB()->PrepareStatement("select * from EntityAutoInc");
+
+    for (const auto& each_entity : entities) {
+
+        if (!statement.Step()) {
+            return false;
+        }
+
+        if ((statement.GetColumnInt(0) != each_entity.id) ||
+            (statement.GetColumnText(1) != each_entity.name)) {
             return false;
         }
     }

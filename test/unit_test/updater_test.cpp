@@ -12,13 +12,13 @@ TEST_F(UpdaterTest, EntityUpdater) {
 
     constexpr auto updater = NoPKContext::MakeUpdater();
     auto executer = GetNoPKContext().Prepare(updater);
-    executer.BeginBind().Bind(data_context_test::EntityNoPK{ 3, "name3" });
+    executer.BeginBind().Bind(test_entities::EntityNoPK{ 3, "name3" });
     executer.Execute();
 
     ASSERT_TRUE(CheckData({
-        data_context_test::EntityNoPK{ 3, "name3" },
-        data_context_test::EntityNoPK{ 3, "name3" },
-        data_context_test::EntityNoPK{ 3, "name3" },
+        test_entities::EntityNoPK{ 3, "name3" },
+        test_entities::EntityNoPK{ 3, "name3" },
+        test_entities::EntityNoPK{ 3, "name3" },
     }));
 }
 
@@ -28,13 +28,13 @@ TEST_F(UpdaterTest, EntityUpdater_Where) {
     constexpr auto updater = NoPKContext::MakeUpdater().Where(NoPKTable.ID == 2);
 
     auto executer = GetNoPKContext().Prepare(updater);
-    executer.BeginBind().Bind(data_context_test::EntityNoPK{ 4, "name4" });
+    executer.BeginBind().Bind(test_entities::EntityNoPK{ 4, "name4" });
     executer.Execute();
 
     ASSERT_TRUE(CheckData({
-        data_context_test::EntityNoPK{ 1, "1" },
-        data_context_test::EntityNoPK{ 4, "name4" },
-        data_context_test::EntityNoPK{ 3, "3" },
+        test_entities::EntityNoPK{ 1, "1" },
+        test_entities::EntityNoPK{ 4, "name4" },
+        test_entities::EntityNoPK{ 3, "3" },
     }));
 }
 
@@ -46,13 +46,13 @@ TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
         constexpr auto updater = PK1Context::MakeNoPrimaryKeyUpdater();
         auto executer = GetPK1Context().Prepare(updater);
 
-        executer.BeginBind().Bind(data_context_test::EntityPK1{ 1, "5" });
+        executer.BeginBind().Bind(test_entities::EntityPK1{ 1, "5" });
         auto changes = executer.Execute();
         ASSERT_EQ(changes, 3);
         ASSERT_TRUE(CheckData({
-            data_context_test::EntityPK1{ 1, "5" },
-            data_context_test::EntityPK1{ 2, "5" },
-            data_context_test::EntityPK1{ 3, "5" },
+            test_entities::EntityPK1{ 1, "5" },
+            test_entities::EntityPK1{ 2, "5" },
+            test_entities::EntityPK1{ 3, "5" },
         }));
     }
 
@@ -61,13 +61,13 @@ TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
         constexpr auto updater = PK2Context::MakeNoPrimaryKeyUpdater();
         auto executer = GetPK2Context().Prepare(updater);
 
-        executer.BeginBind().Bind(data_context_test::EntityPK2{ 1, "1", 50 });
+        executer.BeginBind().Bind(test_entities::EntityPK2{ 1, "1", 50 });
         auto changes = executer.Execute();
         ASSERT_EQ(changes, 3);
         ASSERT_TRUE(CheckData({
-            data_context_test::EntityPK2{ 1, "1", 50 },
-            data_context_test::EntityPK2{ 2, "2", 50 },
-            data_context_test::EntityPK2{ 3, "3", 50 },
+            test_entities::EntityPK2{ 1, "1", 50 },
+            test_entities::EntityPK2{ 2, "2", 50 },
+            test_entities::EntityPK2{ 3, "3", 50 },
         }));
     }
 }
@@ -81,9 +81,9 @@ TEST_F(UpdaterTest, ColumnUpdater_OneColumn) {
     executor.Execute();
 
     ASSERT_TRUE(CheckData({
-        data_context_test::EntityNoPK{ 9, "1" },
-        data_context_test::EntityNoPK{ 9, "2" },
-        data_context_test::EntityNoPK{ 9, "3" },
+        test_entities::EntityNoPK{ 9, "1" },
+        test_entities::EntityNoPK{ 9, "2" },
+        test_entities::EntityNoPK{ 9, "3" },
     }));
 }
 
@@ -96,9 +96,9 @@ TEST_F(UpdaterTest, ColumnUpdater_TwoColumns) {
     executor.Execute();
 
     ASSERT_TRUE(CheckData({
-        data_context_test::EntityNoPK{ 8, "name8" },
-        data_context_test::EntityNoPK{ 8, "name8" },
-        data_context_test::EntityNoPK{ 8, "name8" },
+        test_entities::EntityNoPK{ 8, "name8" },
+        test_entities::EntityNoPK{ 8, "name8" },
+        test_entities::EntityNoPK{ 8, "name8" },
     }));
 }
 
@@ -111,9 +111,9 @@ TEST_F(UpdaterTest, ColumnUpdater_Where) {
     executor.Execute();
 
     ASSERT_TRUE(CheckData({
-        data_context_test::EntityNoPK{ 10, "1" },
-        data_context_test::EntityNoPK{ 2, "2" },
-        data_context_test::EntityNoPK{ 3, "3" },
+        test_entities::EntityNoPK{ 10, "1" },
+        test_entities::EntityNoPK{ 2, "2" },
+        test_entities::EntityNoPK{ 3, "3" },
     }));
 }
 
@@ -122,7 +122,7 @@ TEST_F(UpdaterTest, DataContext_Update) {
 
     //Single column primary key
     {
-        data_context_test::EntityPK1 entity{ 4, "updated" };
+        test_entities::EntityPK1 entity{ 4, "updated" };
         auto updated = GetPK1Context().Update(entity);
         ASSERT_FALSE(updated);
 
@@ -130,15 +130,15 @@ TEST_F(UpdaterTest, DataContext_Update) {
         updated = GetPK1Context().Update(entity);
         ASSERT_TRUE(updated);
         ASSERT_TRUE(CheckData({
-            data_context_test::EntityPK1{ 1, "updated" },
-            data_context_test::EntityPK1{ 2, "2" },
-            data_context_test::EntityPK1{ 3, "3" },
+            test_entities::EntityPK1{ 1, "updated" },
+            test_entities::EntityPK1{ 2, "2" },
+            test_entities::EntityPK1{ 3, "3" },
         }));
     }
 
     //Multiple columns primary key
     {
-        data_context_test::EntityPK2 entity{ 1, "2", 40 };
+        test_entities::EntityPK2 entity{ 1, "2", 40 };
 
         auto updated = GetPK2Context().Update(entity);
         ASSERT_FALSE(updated);
@@ -149,9 +149,9 @@ TEST_F(UpdaterTest, DataContext_Update) {
         updated = GetPK2Context().Update(entity);
         ASSERT_TRUE(updated);
         ASSERT_TRUE(CheckData({
-            data_context_test::EntityPK2{ 1, "1", 40 },
-            data_context_test::EntityPK2{ 2, "2", 20 },
-            data_context_test::EntityPK2{ 3, "3", 30 },
+            test_entities::EntityPK2{ 1, "1", 40 },
+            test_entities::EntityPK2{ 2, "2", 20 },
+            test_entities::EntityPK2{ 3, "3", 30 },
         }));
     }
 }

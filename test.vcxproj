@@ -11,26 +11,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test\case\composite_column_test.cpp" />
-    <ClCompile Include="test\case\data_context_test_fixture.cpp" />
-    <ClCompile Include="test\case\db_test_fixture.cpp" />
-    <ClCompile Include="test\case\deleter_test.cpp" />
-    <ClCompile Include="test\case\inserter_test.cpp" />
-    <ClCompile Include="test\case\orm_support_test.cpp" />
-    <ClCompile Include="test\case\orm_support_test2.cpp" />
-    <ClCompile Include="test\case\selecter_test.cpp" />
-    <ClCompile Include="test\case\table_initializer_test.cpp" />
-    <ClCompile Include="test\case\updater_test.cpp" />
-    <ClCompile Include="test\case\value_type_test.cpp" />
     <ClCompile Include="test\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="test\case\data_context_test_fixture.h" />
-    <ClInclude Include="test\case\db_test_fixture.h" />
-    <ClInclude Include="test\case\orm_support_test.h" />
+    <ClCompile Include="test\test_environment.cpp" />
+    <ClCompile Include="test\unit_test\composite_column_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context_insert_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context_select_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context_test_fixture.cpp" />
+    <ClCompile Include="test\unit_test\db_test_fixture.cpp" />
+    <ClCompile Include="test\unit_test\deleter_test.cpp" />
+    <ClCompile Include="test\unit_test\inserter_test.cpp" />
+    <ClCompile Include="test\unit_test\orm_support_test.cpp" />
+    <ClCompile Include="test\unit_test\orm_support_test2.cpp" />
+    <ClCompile Include="test\unit_test\selecter_test.cpp" />
+    <ClCompile Include="test\unit_test\table_initializer_test.cpp" />
+    <ClCompile Include="test\unit_test\updater_test.cpp" />
+    <ClCompile Include="test\unit_test\value_type_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test\test_environment.h" />
+    <ClInclude Include="test\unit_test\data_context_test_fixture.h" />
+    <ClInclude Include="test\unit_test\db_test_fixture.h" />
+    <ClInclude Include="test\unit_test\orm_support_test.h" />
+    <ClInclude Include="test\unit_test\test_entities.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -70,9 +75,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)test;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)test;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

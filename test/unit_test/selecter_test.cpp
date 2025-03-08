@@ -1,4 +1,4 @@
-#include "data_context_test_fixture.h"
+#include "unit_test/data_context_test_fixture.h"
 
 class SelecterTest : public DataContextTestFixture {
 
@@ -39,9 +39,9 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
-            data_context_test::EntityNoPK{ 2, "2" },
-            data_context_test::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 3, "3" },
         }));
     }
 
@@ -54,7 +54,7 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 3, "3" },
         }));
     }
 
@@ -66,8 +66,8 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 3, "3" },
-            data_context_test::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 1, "1" },
         }));
     }
 
@@ -77,8 +77,8 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
-            data_context_test::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 2, "2" },
         }));
     }
 
@@ -88,7 +88,7 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 2, "2" },
         }));
     }
 
@@ -100,8 +100,8 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 3, "3" },
-            data_context_test::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 2, "2" },
         }));
     }
 
@@ -111,9 +111,9 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 3, "3" },
-            data_context_test::EntityNoPK{ 2, "2" },
-            data_context_test::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 1, "1" },
         }));
     }
 
@@ -123,7 +123,7 @@ TEST_F(SelecterTest, SelectEntity) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 1, "1" },
         }));
     }
 }
@@ -318,7 +318,7 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 2, "2" },
         }));
     }
 
@@ -328,8 +328,8 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
-            data_context_test::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 3, "3" },
         }));
     }
 
@@ -339,7 +339,7 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 1, "1" },
         }));
     }
 
@@ -349,8 +349,8 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
-            data_context_test::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 2, "2" },
         }));
     }
 
@@ -360,7 +360,7 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 3, "3" },
         }));
     }
 
@@ -370,8 +370,8 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 2, "2" },
-            data_context_test::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 3, "3" },
         }));
     }
 
@@ -382,7 +382,7 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 2, "2" },
+            test_entities::EntityNoPK{ 2, "2" },
         }));
     }
 
@@ -393,8 +393,8 @@ TEST_F(SelecterTest, WhereSelecter_Column) {
         auto executor = GetNoPKContext().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityNoPK{ 1, "1" },
-            data_context_test::EntityNoPK{ 3, "3" },
+            test_entities::EntityNoPK{ 1, "1" },
+            test_entities::EntityNoPK{ 3, "3" },
         }));
     }
 }
@@ -408,7 +408,7 @@ TEST_F(SelecterTest, WhereSelecter_PrimaryKey) {
         auto executor = GetPK1Context().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityPK1{ 1, "1" },
+            test_entities::EntityPK1{ 1, "1" },
         }));
     }
 
@@ -419,38 +419,9 @@ TEST_F(SelecterTest, WhereSelecter_PrimaryKey) {
         auto executor = GetPK2Context().Prepare(selecter);
         auto result = executor.Execute();
         ASSERT_TRUE(CheckResult(result, {
-            data_context_test::EntityPK2{ 2, "2", 20 },
+            test_entities::EntityPK2{ 2, "2", 20 },
         }));
     }
 }
 
 
-TEST_F(SelecterTest, DataContext_SelectAll) {
-
-    auto result = GetNoPKContext().SelectAll();
-    ASSERT_TRUE(CheckData(result));
-}
-
-
-TEST_F(SelecterTest, DataContext_Select) {
-
-    //Single column primary key
-    {
-        auto result = GetPK1Context().Select(4);
-        ASSERT_FALSE(result.has_value());
-
-        result = GetPK1Context().Select(2);
-        ASSERT_TRUE(result.has_value());
-        ASSERT_EQ(*result, (data_context_test::EntityPK1{ 2, "2" }));
-    }
-
-    //Multiple column primary key
-    {
-        auto result = GetPK2Context().Select(std::make_tuple(5, "5"));
-        ASSERT_FALSE(result.has_value());
-
-        result = GetPK2Context().Select(std::make_tuple(3, "3"));
-        ASSERT_TRUE(result.has_value());
-        ASSERT_EQ(*result, (data_context_test::EntityPK2{ 3, "3", 30 }));
-    }
-}

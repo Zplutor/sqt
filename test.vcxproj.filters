@@ -4,60 +4,75 @@
     <Filter Include="test">
       <UniqueIdentifier>{95192bad-e7be-4329-9310-359055f2ec7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="test\case">
-      <UniqueIdentifier>{a5d3d1de-d26f-4263-baa5-8f1452564172}</UniqueIdentifier>
+    <Filter Include="test\unit_test">
+      <UniqueIdentifier>{53d4b860-5f36-474f-a9b0-fd8e4254d388}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
       <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\orm_support_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\composite_column_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\orm_support_test2.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\data_context_test_fixture.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\value_type_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\db_test_fixture.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\selecter_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\deleter_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\composite_column_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\inserter_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\table_initializer_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\orm_support_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\db_test_fixture.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\orm_support_test2.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\inserter_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\selecter_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\updater_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\table_initializer_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\data_context_test_fixture.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\updater_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\case\deleter_test.cpp">
-      <Filter>test\case</Filter>
+    <ClCompile Include="test\unit_test\value_type_test.cpp">
+      <Filter>test\unit_test</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="test\case\orm_support_test.h">
-      <Filter>test\case</Filter>
-    </ClInclude>
-    <ClInclude Include="test\case\db_test_fixture.h">
-      <Filter>test\case</Filter>
-    </ClInclude>
-    <ClInclude Include="test\case\data_context_test_fixture.h">
-      <Filter>test\case</Filter>
-    </ClInclude>
+    <ClCompile Include="test\test_environment.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context_select_test.cpp">
+      <Filter>test\unit_test</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context_insert_test.cpp">
+      <Filter>test\unit_test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test\unit_test\data_context_test_fixture.h">
+      <Filter>test\unit_test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\unit_test\db_test_fixture.h">
+      <Filter>test\unit_test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\unit_test\orm_support_test.h">
+      <Filter>test\unit_test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\test_environment.h">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="test\unit_test\test_entities.h">
+      <Filter>test\unit_test</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
