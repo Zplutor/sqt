@@ -78,7 +78,13 @@ public:
     }
 
 public:
-    explicit DataContext(std::shared_ptr<Database> db) noexcept : init_once_guard_(std::move(db)) {
+    explicit DataContext(sqt::Database database) : 
+        DataContext(std::make_shared<sqt::Database>(std::move(database))) {
+
+    }
+
+    explicit DataContext(std::shared_ptr<sqt::Database> database) noexcept :
+        init_once_guard_(std::move(database)) {
 
     }
 
@@ -167,6 +173,10 @@ public:
         init_once_guard_.DB();
     }
 
+    const std::shared_ptr<sqt::Database>& Database() const noexcept {
+        return init_once_guard_.DB();
+    }
+
 private:
     template<typename INSERTER>
     std::int64_t ExecuteEntityInserter(const INSERTER& inserter, const ENTITY& entity) {
@@ -179,14 +189,18 @@ private:
 private:
     class InitOnceGuard {
     public:
-        InitOnceGuard(std::shared_ptr<Database> db) noexcept : db_(std::move(db)) {
+        InitOnceGuard(std::shared_ptr<sqt::Database> db) noexcept : db_(std::move(db)) {
 
         }
 
         InitOnceGuard(const InitOnceGuard&) = delete;
         InitOnceGuard& operator=(const InitOnceGuard&) = delete;
 
-        const std::shared_ptr<Database>& DB() {
+        const std::shared_ptr<sqt::Database>& DB() const {
+            return db_;
+        }
+
+        const std::shared_ptr<sqt::Database>& DB() {
             std::call_once(init_once_flag_, [this]() {
                 TableInitializer::Initialize(TableV<ENTITY>, *db_);
             });
@@ -194,7 +208,7 @@ private:
         }
 
     private:
-        std::shared_ptr<Database> db_;
+        std::shared_ptr<sqt::Database> db_;
         std::once_flag init_once_flag_;
     };
 

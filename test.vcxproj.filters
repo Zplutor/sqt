@@ -7,6 +7,9 @@
     <Filter Include="test\unit_test">
       <UniqueIdentifier>{53d4b860-5f36-474f-a9b0-fd8e4254d388}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\data_context">
+      <UniqueIdentifier>{8c9aea6b-d688-46ec-ba17-216a3c96483b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -48,17 +51,20 @@
     <ClCompile Include="test\test_environment.cpp">
       <Filter>test</Filter>
     </ClCompile>
-    <ClCompile Include="test\unit_test\data_context_select_test.cpp">
-      <Filter>test\unit_test</Filter>
+    <ClCompile Include="test\unit_test\data_context\data_context_delete_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
     </ClCompile>
-    <ClCompile Include="test\unit_test\data_context_insert_test.cpp">
-      <Filter>test\unit_test</Filter>
+    <ClCompile Include="test\unit_test\data_context\data_context_insert_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
     </ClCompile>
-    <ClCompile Include="test\unit_test\data_context_delete_test.cpp">
-      <Filter>test\unit_test</Filter>
+    <ClCompile Include="test\unit_test\data_context\data_context_select_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
     </ClCompile>
-    <ClCompile Include="test\unit_test\data_context_update_test.cpp">
-      <Filter>test\unit_test</Filter>
+    <ClCompile Include="test\unit_test\data_context\data_context_update_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context\data_context_basic_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

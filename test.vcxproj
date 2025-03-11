@@ -14,11 +14,12 @@
     <ClCompile Include="test\main.cpp" />
     <ClCompile Include="test\test_environment.cpp" />
     <ClCompile Include="test\unit_test\composite_column_test.cpp" />
-    <ClCompile Include="test\unit_test\data_context_delete_test.cpp" />
-    <ClCompile Include="test\unit_test\data_context_insert_test.cpp" />
-    <ClCompile Include="test\unit_test\data_context_select_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context\data_context_basic_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context\data_context_delete_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context\data_context_insert_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context\data_context_select_test.cpp" />
+    <ClCompile Include="test\unit_test\data_context\data_context_update_test.cpp" />
     <ClCompile Include="test\unit_test\data_context_test_fixture.cpp" />
-    <ClCompile Include="test\unit_test\data_context_update_test.cpp" />
     <ClCompile Include="test\unit_test\db_test_fixture.cpp" />
     <ClCompile Include="test\unit_test\deleter_test.cpp" />
     <ClCompile Include="test\unit_test\inserter_test.cpp" />
