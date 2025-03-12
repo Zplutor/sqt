@@ -8,6 +8,7 @@
 #include <sqt/orm/table/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/column.h>
+#include <sqt/orm/table/column/column_support.h>
 #include <sqt/orm/table/composite_column.h>
 #include <sqt/orm/table/index_support.h>
 #include <sqt/orm/table/primary_key_support.h>
@@ -54,51 +55,9 @@ private: \
 
 
 #define SQT_COLUMN(COLUMN_NAME, CLASS_FIELD) \
-public: \
-    class COLUMN_NAME##Type : public ColumnLinkedList::Node { \
-    private: \
-        using ThisType = COLUMN_NAME##Type; \
-    public: \
-        using ValueType = decltype(((EntityType*)nullptr)->CLASS_FIELD); \
-        using ValueTraits = sqt::TrivialValueTraits<ValueType>; \
-        using Node::Node; \
-        static constexpr std::string_view Name = #COLUMN_NAME; \
-        static void BindValueFromEntity( \
-            sqt::Statement& statement, \
-            int parameter_index, \
-            const EntityType& entity) { \
-            ValueTraits::BindValue(statement, parameter_index, entity.CLASS_FIELD); \
-        } \
-        static void RetrieveValueToEntity( \
-            const sqt::Statement& statement, \
-            int column_index, \
-            EntityType& entity) { \
-            entity.CLASS_FIELD = ValueTraits::RetrieveValue(statement, column_index); \
-        } \
-        constexpr std::string_view GetName() const noexcept override { \
-            return Name; \
-        } \
-        constexpr sqt::DataType GetDataType() const noexcept override { \
-            return ValueTraits::DataType; \
-        } \
-        constexpr bool IsNullable() const noexcept override { \
-            return ValueTraits::IsNullable; \
-        } \
-        void VirtualBindValueFromEntity( \
-            sqt::Statement& statement, \
-            int parameter_index, \
-            const EntityType& entity) const override { \
-            BindValueFromEntity(statement, parameter_index, entity); \
-        } \
-        void VirtualRetrieveValueToEntity( \
-            const sqt::Statement& statement, \
-            int column_index, \
-            EntityType& entity) const override { \
-            RetrieveValueToEntity(statement, column_index, entity); \
-        } \
-        __SQT_EXPRESSION_OPERATORS(ThisType) \
-    }; \
-    COLUMN_NAME##Type COLUMN_NAME{ column_linked_list_.Last() };
+__SQT_COLUMN_BEGIN(COLUMN_NAME) \
+__SQT_COLUMN_DESCRIPTOR_FIELD(CLASS_FIELD) \
+__SQT_COLUMN_END(COLUMN_NAME)
 
 
 #define SQT_PRIMARY_KEY(...) SQT_DEFINE_PRIMARY_KEY(false, __VA_ARGS__)

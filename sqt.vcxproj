@@ -83,6 +83,9 @@
     <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\table\column.h" />
+    <ClInclude Include="src\sqt\orm\table\column\column_descriptor_type.h" />
+    <ClInclude Include="src\sqt\orm\table\column\column_support.h" />
+    <ClInclude Include="src\sqt\orm\table\column\default_column_descriptor.h" />
     <ClInclude Include="src\sqt\orm\table\column_type.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column_type.h" />

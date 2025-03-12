@@ -58,6 +58,9 @@
     <Filter Include="src\sqt\orm\value\traits">
       <UniqueIdentifier>{6ddb38d0-902d-4410-b276-c7ef8a2395a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\table\column">
+      <UniqueIdentifier>{f5527c64-5b4d-467b-ac0d-58dde6c7d9fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -349,6 +352,15 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\identifier_type.h">
       <Filter>src\sqt\orm\table</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\column_descriptor_type.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\default_column_descriptor.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\column_support.h">
+      <Filter>src\sqt\orm\table\column</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

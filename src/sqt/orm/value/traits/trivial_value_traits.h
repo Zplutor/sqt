@@ -17,9 +17,6 @@ struct TrivialValueTraits<T> {
 
     using ValueType = T;
 
-    static constexpr sqt::DataType DataType = MapToDataTypeV<T>;
-    static constexpr bool IsNullable = false;
-
     static constexpr std::size_t ParameterCount = 1;
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
@@ -50,9 +47,6 @@ template<NullableValueType T>
 struct TrivialValueTraits<T> {
 
     using ValueType = T;
-
-    static constexpr sqt::DataType DataType = MapToDataTypeV<GetOptionalValueTypeT<T>>;
-    static constexpr bool IsNullable = true;
 
     static constexpr std::size_t ParameterCount = 1;
 
