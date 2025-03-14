@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include <sqt/orm/value/composite_value_type.h>
 #include <sqt/orm/value/data_type_mapping.h>
+#include <sqt/orm/value/nullable_value_type.h>
+#include <sqt/orm/value/primitive_value_type.h>
 
 using namespace sqt;
 

@@ -10,7 +10,7 @@ template<typename T>
 class BaseIdentifierOperand {
 public:
     using IdentifierType = T;
-    using EntityType = typename T::EntityType;
+    using EntityType = typename T::Descriptor::EntityType;
 
     static constexpr std::size_t ParameterCount = 0;
 

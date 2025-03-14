@@ -27,8 +27,10 @@ constexpr auto& TableV = sqt::TableV<composite_column_test::Entity>;
 TEST(CompositeColumnTest, SingleColumn) {
 
     using CompositeColumnType = sqt::CompositeColumn<TableT::idType>;
-    static_assert(std::is_same_v<CompositeColumnType::EntityType, composite_column_test::Entity>);
-    static_assert(std::is_same_v<CompositeColumnType::ValueType, int>);
+    static_assert(std::is_same_v<
+        CompositeColumnType::Descriptor::EntityType, 
+        composite_column_test::Entity>);
+    static_assert(std::is_same_v<CompositeColumnType::Descriptor::ValueType, int>);
 
     constexpr CompositeColumnType composite{ TableV.id };
 
@@ -41,8 +43,12 @@ TEST(CompositeColumnTest, SingleColumn) {
 TEST(CompositeColumnTest, TwoColumns) {
 
     using CompositeColumnType = sqt::CompositeColumn<TableT::idType, TableT::nameType>;
-    static_assert(std::is_same_v<CompositeColumnType::EntityType, composite_column_test::Entity>);
-    static_assert(std::is_same_v<CompositeColumnType::ValueType, std::tuple<int, std::string>>);
+    static_assert(std::is_same_v<
+        CompositeColumnType::Descriptor::EntityType, 
+        composite_column_test::Entity>);
+    static_assert(std::is_same_v<
+        CompositeColumnType::Descriptor::ValueType, 
+        std::tuple<int, std::string>>);
 
     constexpr CompositeColumnType composite{
         TableV.id, 
@@ -61,9 +67,11 @@ TEST(CompositeColumnTest, ThreeColumns) {
     using CompositeColumnType = 
         sqt::CompositeColumn<TableT::idType, TableT::nameType, TableT::ageType>;
 
-    static_assert(std::is_same_v<CompositeColumnType::EntityType, composite_column_test::Entity>);
-    static_assert(
-        std::is_same_v<CompositeColumnType::ValueType, 
+    static_assert(std::is_same_v<
+        CompositeColumnType::Descriptor::EntityType, 
+        composite_column_test::Entity>);
+    static_assert(std::is_same_v<
+        CompositeColumnType::Descriptor::ValueType,
         std::tuple<int, std::string, int>>);
 
     constexpr CompositeColumnType composite{

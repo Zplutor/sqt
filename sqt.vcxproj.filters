@@ -242,12 +242,6 @@
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder_operand.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operand\operand_creation.h">
-      <Filter>src\sqt\orm\expression\operand</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\expression_creation.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\operand\operand_type.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
@@ -335,9 +329,6 @@
     <ClInclude Include="src\sqt\orm\value\traits\entity_value_traits_type.h">
       <Filter>src\sqt\orm\value\traits</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits.h">
-      <Filter>src\sqt\orm\value\traits</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits_type.h">
       <Filter>src\sqt\orm\value\traits</Filter>
     </ClInclude>
@@ -360,6 +351,18 @@
       <Filter>src\sqt\orm\table\column</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\column\column_support.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\primitive_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\nullable_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\composite_value_traits.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\identifier_descriptor_type.h">
       <Filter>src\sqt\orm\table\column</Filter>
     </ClInclude>
   </ItemGroup>

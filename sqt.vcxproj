@@ -38,13 +38,11 @@
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\expression_creation.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\entity_value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\operand\operand_creation.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder_operand.h" />
@@ -86,6 +84,7 @@
     <ClInclude Include="src\sqt\orm\table\column\column_descriptor_type.h" />
     <ClInclude Include="src\sqt\orm\table\column\column_support.h" />
     <ClInclude Include="src\sqt\orm\table\column\default_column_descriptor.h" />
+    <ClInclude Include="src\sqt\orm\table\column\identifier_descriptor_type.h" />
     <ClInclude Include="src\sqt\orm\table\column_type.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column_type.h" />
@@ -103,12 +102,14 @@
     <ClInclude Include="src\sqt\orm\value\entity_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\nullable_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\primitive_value_type.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\composite_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\no_primary_key_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entity_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\identifier_value_traits_type.h" />
-    <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\nullable_value_traits.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\primitive_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\trivial_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\traits\value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\trivial_value_type.h" />

@@ -3,7 +3,7 @@
 #include <array>
 #include <sqt/orm/table/column.h>
 #include <sqt/orm/table/column_type.h>
-#include <sqt/orm/value/traits/trivial_value_traits.h>
+#include <sqt/orm/value/traits/composite_value_traits.h>
 
 namespace sqt {
 
@@ -11,52 +11,77 @@ template<ColumnType... Columns>
 class CompositeColumn;
 
 
-template<ColumnType First, ColumnType... Rest>
-class CompositeColumn<First, Rest...> {
+template<ColumnType FIRST, ColumnType... REST>
+class CompositeColumn<FIRST, REST...> {
 public:
-    static_assert((std::is_same_v<typename First::EntityType, typename Rest::EntityType> && ...));
+    static_assert(
+        (std::is_same_v<
+            typename FIRST::Descriptor::EntityType, 
+            typename REST::Descriptor::EntityType> && ...));
 
-    using EntityType = typename First::EntityType;
-    using ValueType = std::tuple<typename First::ValueType, typename Rest::ValueType...>;
-    using ValueTraits = TrivialValueTraits<ValueType>;
-    
-    static constexpr std::size_t ColumnCount = 1 + sizeof...(Rest);
+    class Descriptor {
+    public:
+        using EntityType = typename FIRST::Descriptor::EntityType;
+        using ValueTraits = CompositeValueTraits<
+            typename FIRST::Descriptor::ValueTraits, 
+            typename REST::Descriptor::ValueTraits...
+        >;
+        using ValueType = typename ValueTraits::ValueType;
+        
+        static ValueType GetValueFromEntity(const EntityType& entity) {
+            return ValueType{
+                FIRST::Descriptor::GetValueFromEntity(entity),
+                REST::Descriptor::GetValueFromEntity(entity)...
+            };
+        }
+
+        static void SetValueToEntity(EntityType& entity, ValueType&& value) {
+            std::apply(
+                [&entity](auto&&... values) {
+                    FIRST::Descriptor::SetValueToEntity(entity, std::move(values));
+                    (REST::Descriptor::SetValueToEntity(entity, std::move(values)), ...);
+                },
+                std::move(value));
+        }
+    };
+
+    static constexpr std::size_t ColumnCount = 1 + sizeof...(REST);
 
     static std::string BuildColumnNames() {
-        std::string result{ First::Name };
-        ((result.append(1, ',').append(Rest::Name)), ...);
+        std::string result{ FIRST::Name };
+        ((result.append(1, ',').append(REST::Name)), ...);
         return result;
     }
 
     static void BindValueFromEntity(
         Statement& statement, 
         int parameter_index, 
-        const EntityType& entity) {
+        const typename Descriptor::EntityType& entity) {
 
-        First::BindValueFromEntity(statement, parameter_index, entity);
+        FIRST::BindValueFromEntity(statement, parameter_index, entity);
 
         int index = parameter_index + 1;
-        ((Rest::BindValueFromEntity(statement, index++, entity)), ...);
+        ((REST::BindValueFromEntity(statement, index++, entity)), ...);
     }
 
     static void RetrieveValueToEntity(
         const Statement& statement,
         int column_index,
-        EntityType& entity) {
+        typename Descriptor::EntityType& entity) {
 
-        First::RetrieveValueToEntity(statement, column_index, entity);
+        FIRST::RetrieveValueToEntity(statement, column_index, entity);
 
         int index = column_index + 1;
-        ((Rest::RetrieveValueToEntity(statement, index++, entity)), ...);
+        ((REST::RetrieveValueToEntity(statement, index++, entity)), ...);
     }
 
 public:
-    constexpr CompositeColumn(const First& first, const Rest&... rest) noexcept : 
+    constexpr CompositeColumn(const FIRST& first, const REST&... rest) noexcept : 
         columns_({ &first, &rest... }) {
 
     }
 
-    constexpr ColumnsView<EntityType> GetColumns() const noexcept {
+    constexpr ColumnsView<typename Descriptor::EntityType> GetColumns() const noexcept {
         return columns_;
     }
 
@@ -68,16 +93,27 @@ public:
     }
 
 private:
-    std::array<const Column<EntityType>*, ColumnCount> columns_;
+    std::array<const Column<typename Descriptor::EntityType>*, ColumnCount> columns_;
 };
 
 
 template<ColumnType Single>
 class CompositeColumn<Single> {
 public:
-    using EntityType = typename Single::EntityType;
-    using ValueType = typename Single::ValueType;
-    using ValueTraits = TrivialValueTraits<ValueType>;
+    class Descriptor {
+    public:
+        using EntityType = typename Single::Descriptor::EntityType;
+        using ValueTraits = typename Single::Descriptor::ValueTraits;
+        using ValueType = typename ValueTraits::ValueType;
+
+        static ValueType GetValueFromEntity(const EntityType& entity) {
+            return Single::Descriptor::GetValueFromEntity(entity);
+        }
+
+        static void SetValueToEntity(EntityType& entity, ValueType&& value) {
+            Single::Descriptor::SetValueToEntity(entity, std::move(value));
+        }
+    };
 
     static constexpr std::size_t ColumnCount = 1;
 
@@ -88,7 +124,7 @@ public:
     static void BindValueFromEntity(
         Statement& statement,
         int parameter_index,
-        const EntityType& entity) {
+        const typename Descriptor::EntityType& entity) {
 
         Single::BindValueFromEntity(statement, parameter_index, entity);
     }
@@ -96,7 +132,7 @@ public:
     static void RetrieveValueToEntity(
         const Statement& statement,
         int column_index,
-        EntityType& entity) {
+        typename Descriptor::EntityType& entity) {
 
         Single::RetrieveValueToEntity(statement, column_index, entity);
     }
@@ -106,8 +142,8 @@ public:
 
     }
 
-    constexpr ColumnsView<EntityType> GetColumns() const noexcept {
-        return ColumnsView<EntityType>{ &column_, 1 };
+    constexpr ColumnsView<typename Descriptor::EntityType> GetColumns() const noexcept {
+        return ColumnsView<typename Descriptor::EntityType>{ &column_, 1 };
     }
 
     AbstractColumnsView GetAbstractColumns() const noexcept {
@@ -118,7 +154,7 @@ public:
     }
 
 private:
-    const Column<EntityType>* column_{};
+    const Column<typename Descriptor::EntityType>* column_{};
 };
 
 

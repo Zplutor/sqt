@@ -1,44 +1,54 @@
 #pragma once
 
-#include <sqt/orm/expression/expression_creation.h>
+#include <sqt/orm/expression/assignment.h>
+#include <sqt/orm/expression/operand/constant_operand.h>
+#include <sqt/orm/expression/operand/identifier_operand.h>
 #include <sqt/orm/expression/operand/placeholder.h>
+#include <sqt/orm/expression/operand/placeholder_operand.h>
+#include <sqt/orm/expression/ordering.h>
+#include <sqt/orm/expression/ordering_term.h>
+#include <sqt/orm/expression/predicate.h>
+#include <sqt/orm/value/traits/identifier_value_traits.h>
 
 #define SQT_PREDICATE_OPERATOR(OP_LITERAL, OP_VALUE, COLUMN_TYPE) \
 friend constexpr auto operator##OP_LITERAL( \
     const COLUMN_TYPE& column, \
-    const typename COLUMN_TYPE::ValueType& value) { \
-    return sqt::MakePredicate<sqt::PredicateOperator::OP_VALUE>(column, value); \
+    const typename COLUMN_TYPE::Descriptor::ValueTraits::ValueType& value) { \
+    using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
+    using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::Descriptor::ValueTraits>; \
+    return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{ value } }; \
 } \
 friend constexpr auto operator##OP_LITERAL( \
-    const typename COLUMN_TYPE::ValueType& value, \
+    const typename COLUMN_TYPE::Descriptor::ValueTraits::ValueType& value, \
     const COLUMN_TYPE& column) { \
-    return sqt::MakePredicate<sqt::PredicateOperator::OP_VALUE>(value, column); \
+    using LHS = sqt::ConstantOperand<typename COLUMN_TYPE::Descriptor::ValueTraits>; \
+    using RHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
+    return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{ value }, RHS{} }; \
 } \
 friend constexpr auto operator##OP_LITERAL(const COLUMN_TYPE& column, sqt::Placeholder) { \
-    auto op1 = sqt::MakeOperand(column); \
-    auto op2 = sqt::MakePlaceholderOperand<COLUMN_TYPE>(); \
-    return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, decltype(op1), decltype(op2)>{ \
-        std::move(op1), std::move(op2) \
-    }; \
+    using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
+    using RHS = sqt::PlaceholderOperand<sqt::IdentifierValueTraits<COLUMN_TYPE>>; \
+    return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{} }; \
 } \
 friend constexpr auto operator##OP_LITERAL(sqt::Placeholder, const COLUMN_TYPE& column) { \
-    auto op1 = sqt::MakePlaceholderOperand<COLUMN_TYPE>(); \
-    auto op2 = sqt::MakeOperand(column); \
-    return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, decltype(op1), decltype(op2)>{ \
-        std::move(op1), std::move(op2) \
-    }; \
+    using LHS = sqt::PlaceholderOperand<sqt::IdentifierValueTraits<COLUMN_TYPE>>; \
+    using RHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
+    return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{} }; \
 }
 
 
 #define __SQT_EXPRESSION_OPERATORS(COLUMN_TYPE) \
 constexpr auto Asc() const { \
-    return sqt::MakeOrderingTerm<sqt::Ordering::Ascending>(*this); \
+    return sqt::OrderingTerm<sqt::Ordering::Ascending, sqt::IdentifierOperand<COLUMN_TYPE>>{}; \
 } \
 constexpr auto Desc() const { \
-    return sqt::MakeOrderingTerm<sqt::Ordering::Descending>(*this); \
+    return sqt::OrderingTerm<sqt::Ordering::Descending, sqt::IdentifierOperand<COLUMN_TYPE>>{}; \
 } \
-constexpr auto operator=(const typename COLUMN_TYPE::ValueType& value) const { \
-    return sqt::MakeAssignment(*this, value); \
+constexpr auto operator=( \
+    const typename COLUMN_TYPE::Descriptor::ValueTraits::ValueType& value) const { \
+    using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
+    using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::Descriptor::ValueTraits>; \
+    return sqt::Assignment<LHS, RHS>{ RHS{ value } }; \
 } \
 SQT_PREDICATE_OPERATOR(==, Equal, COLUMN_TYPE) \
 SQT_PREDICATE_OPERATOR(!=, NotEqual, COLUMN_TYPE) \

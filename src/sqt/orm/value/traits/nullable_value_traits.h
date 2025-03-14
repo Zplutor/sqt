@@ -1,0 +1,34 @@
+#pragma once
+
+#include <sqt/orm/value/nullable_value_type.h>
+#include <sqt/orm/value/traits/primitive_value_traits.h>
+
+namespace sqt {
+
+template<NullableValueType T>
+class NullableValueTraits {
+public:
+    using ValueType = T;
+
+    static constexpr std::size_t ParameterCount = 1;
+
+    static void BindValue(Statement& statement, int parameter_index, const T& value) {
+        if (value.has_value()) {
+            statement.BindParameter(parameter_index, *value);
+        }
+    }
+
+    static T RetrieveValue(const Statement& statement, int column_index) {
+
+        auto column_type = statement.GetColumnType(column_index);
+        if (column_type == DataType::Null) {
+            return std::nullopt;
+        }
+
+        return PrimitiveValueTraits<GetOptionalValueTypeT<T>>::RetrieveValue(
+            statement,
+            column_index);
+    }
+};
+
+}
