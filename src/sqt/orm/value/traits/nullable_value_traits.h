@@ -9,7 +9,10 @@ template<NullableValueType T>
 class NullableValueTraits {
 public:
     using ValueType = T;
+    using InnerValueTriats = PrimitiveValueTraits<GetOptionalValueTypeT<T>>;
 
+    static constexpr DataType DataType = InnerValueTriats::DataType;
+    static constexpr bool IsNullable = true;
     static constexpr std::size_t ParameterCount = 1;
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
@@ -25,9 +28,7 @@ public:
             return std::nullopt;
         }
 
-        return PrimitiveValueTraits<GetOptionalValueTypeT<T>>::RetrieveValue(
-            statement,
-            column_index);
+        return InnerValueTriats::RetrieveValue(statement, column_index);
     }
 };
 

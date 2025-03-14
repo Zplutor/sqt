@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <sqt/orm/value/primitive_value_type.h>
+#include <sqt/orm/value/traits/basic_value_traits_type.h>
 
 TEST(PrimitiveValueTest, PrimitiveValueType) {
 
@@ -76,4 +77,29 @@ TEST(PrimitiveValueTest, IsNullable) {
     ASSERT_FALSE(sqt::PrimitiveValueTraits<double>::IsNullable);
     ASSERT_FALSE(sqt::PrimitiveValueTraits<long double>::IsNullable);
     ASSERT_FALSE(sqt::PrimitiveValueTraits<std::string>::IsNullable);
+}
+
+
+TEST(PrimitiveValueTest, BasicValueTraitsType) {
+
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<bool>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<signed char>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned char>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char8_t>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char16_t>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char32_t>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<wchar_t>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<short>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned short>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<int>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned int>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned long>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long long>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned long long>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<float>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<double>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long double>>);
+    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<std::string>>);
 }

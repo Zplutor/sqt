@@ -72,6 +72,9 @@
     <ClCompile Include="test\unit_test\value\primitive_value_test.cpp">
       <Filter>test\unit_test\value</Filter>
     </ClCompile>
+    <ClCompile Include="test\unit_test\value\nullable_value_test.cpp">
+      <Filter>test\unit_test\value</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
