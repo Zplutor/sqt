@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/value/composite_value_type.h>
+#include <sqt/orm/value/trivial/composite/composite_value_type.h>
 
 namespace sqt {
 

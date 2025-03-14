@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/value/traits/primitive_value_traits.h>
+#include <sqt/orm/value/trivial/basic/primitive_value_traits.h>
 
 namespace sqt {
 

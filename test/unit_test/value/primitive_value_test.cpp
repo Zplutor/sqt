@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <sqt/orm/value/primitive_value_type.h>
-#include <sqt/orm/value/traits/basic_value_traits_type.h>
+#include <sqt/orm/value/trivial/basic/basic_value_traits_type.h>
+#include <sqt/orm/value/trivial/basic/primitive_value_type.h>
 
 TEST(PrimitiveValueTest, PrimitiveValueType) {
 

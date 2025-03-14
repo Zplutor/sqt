@@ -1,7 +1,7 @@
 #pragma once
 
-#include <sqt/orm/value/trivial_value_type.h>
-#include <sqt/orm/value/traits/value_traits_type.h>
+#include <sqt/orm/value/trivial/trivial_value_type.h>
+#include <sqt/orm/value/value_traits_type.h>
 
 namespace sqt {
 

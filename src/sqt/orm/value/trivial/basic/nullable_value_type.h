@@ -1,7 +1,7 @@
 #pragma once
 
 #include <optional>
-#include <sqt/orm/value/primitive_value_type.h>
+#include <sqt/orm/value/trivial/basic/primitive_value_type.h>
 
 namespace sqt {
 

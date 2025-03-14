@@ -4,7 +4,7 @@
 #include <sqt/orm/expression/operand/placeholder_operand.h>
 #include <sqt/orm/expression/operand/constant_operand.h>
 #include <sqt/orm/querier/selecter/limit_select_decorator.h>
-#include <sqt/orm/value/traits/primitive_value_traits.h>
+#include <sqt/orm/value/trivial/basic/primitive_value_traits.h>
 
 namespace sqt {
 

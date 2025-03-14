@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include <sqt/orm/value/nullable_value_type.h>
-#include <sqt/orm/value/traits/basic_value_traits_type.h>
-#include <sqt/orm/value/traits/nullable_value_traits.h>
+#include <sqt/orm/value/trivial/basic/nullable_value_type.h>
+#include <sqt/orm/value/trivial/basic/basic_value_traits_type.h>
+#include <sqt/orm/value/trivial/basic/nullable_value_traits.h>
 
 TEST(NullableValueTest, NullableValueType) {
 

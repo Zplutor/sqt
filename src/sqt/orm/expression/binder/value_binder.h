@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/value/traits/value_traits_type.h>
+#include <sqt/orm/value/value_traits_type.h>
 
 namespace sqt {
 

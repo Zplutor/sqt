@@ -5,7 +5,7 @@
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/querier/where_capability.h>
 #include <sqt/orm/table_mapping.h>
-#include <sqt/orm/value/entity_value_type.h>
+#include <sqt/orm/value/entity/entity_value_type.h>
 
 namespace sqt {
 

@@ -8,7 +8,7 @@
 #include <sqt/orm/expression/ordering.h>
 #include <sqt/orm/expression/ordering_term.h>
 #include <sqt/orm/expression/predicate.h>
-#include <sqt/orm/value/traits/identifier_value_traits.h>
+#include <sqt/orm/value/identifier/identifier_value_traits.h>
 
 #define SQT_PREDICATE_OPERATOR(OP_LITERAL, OP_VALUE, COLUMN_TYPE) \
 friend constexpr auto operator##OP_LITERAL( \

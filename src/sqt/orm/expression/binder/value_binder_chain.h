@@ -3,7 +3,7 @@
 #include <tuple>
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/binder/value_binder_type.h>
-#include <sqt/orm/value/traits/identifier_value_traits_type.h>
+#include <sqt/orm/value/identifier/identifier_value_traits_type.h>
 
 namespace sqt {
 

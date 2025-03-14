@@ -1,8 +1,8 @@
 #pragma once
 
 #include <sqt/orm/table/column.h>
-#include <sqt/orm/value/entity_value_type.h>
-#include <sqt/orm/value/traits/value_traits_type.h>
+#include <sqt/orm/value/entity/entity_value_type.h>
+#include <sqt/orm/value/value_traits_type.h>
 
 namespace sqt {
 

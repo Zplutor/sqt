@@ -2,7 +2,7 @@
 
 #include <sqt/orm/expression/binder/value_binder.h>
 #include <sqt/orm/utility/utility.h>
-#include <sqt/orm/value/traits/value_traits_type.h>
+#include <sqt/orm/value/value_traits_type.h>
 
 namespace sqt {
 
