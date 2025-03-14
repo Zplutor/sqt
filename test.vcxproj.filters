@@ -10,6 +10,9 @@
     <Filter Include="test\unit_test\data_context">
       <UniqueIdentifier>{8c9aea6b-d688-46ec-ba17-216a3c96483b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\value">
+      <UniqueIdentifier>{22691689-b09e-4b70-acfc-858e1913dbbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\data_context\data_context_basic_test.cpp">
       <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\value\primitive_value_test.cpp">
+      <Filter>test\unit_test\value</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

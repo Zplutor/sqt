@@ -1,12 +1,12 @@
 #pragma once
 
-#include <sqt/orm/value/data_type_mapping.h>
+#include <sqt/orm/value/traits/primitive_value_traits.h>
 
 namespace sqt {
 
 template<typename T>
 concept PrimitiveValueType = requires {
-    { MapToDataType<T>::value } -> std::same_as<const DataType&>;
+    { PrimitiveValueTraits<T>::DataType };
 };
 
 }

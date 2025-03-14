@@ -16,7 +16,7 @@ class DefaultColumnDescriptor<VALUE> {
 public:
     using ValueTraits = PrimitiveValueTraits<VALUE>;
 
-    static constexpr sqt::DataType DataType = MapToDataTypeV<VALUE>;
+    static constexpr sqt::DataType DataType = PrimitiveValueTraits<VALUE>::DataType;
     static constexpr bool IsNullable = false;
 };
 
@@ -26,7 +26,8 @@ class DefaultColumnDescriptor<VALUE> {
 public:
     using ValueTraits = NullableValueTraits<VALUE>;
 
-    static constexpr sqt::DataType DataType = MapToDataTypeV<GetOptionalValueTypeT<VALUE>>;
+    static constexpr sqt::DataType DataType = 
+        PrimitiveValueTraits<GetOptionalValueTypeT<VALUE>>::DataType;
     static constexpr bool IsNullable = true;
 };
 

@@ -257,9 +257,6 @@
     <ClInclude Include="src\sqt\orm\value\composite_value_type.h">
       <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\data_type_mapping.h">
-      <Filter>src\sqt\orm\value</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\value\entity_value_type.h">
       <Filter>src\sqt\orm\value</Filter>
     </ClInclude>
@@ -364,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\column\identifier_descriptor_type.h">
       <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\traits\basic_value_traits_type.h">
+      <Filter>src\sqt\orm\value\traits</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

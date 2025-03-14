@@ -98,10 +98,10 @@
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
     <ClInclude Include="src\sqt\orm\value\composite_value_type.h" />
-    <ClInclude Include="src\sqt\orm\value\data_type_mapping.h" />
     <ClInclude Include="src\sqt\orm\value\entity_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\nullable_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\primitive_value_type.h" />
+    <ClInclude Include="src\sqt\orm\value\traits\basic_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\traits\composite_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\no_primary_key_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\traits\entire_entity_value_traits.h" />
