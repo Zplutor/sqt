@@ -38,7 +38,6 @@
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h" />
     <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\expression_support.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\entity_value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h" />
@@ -81,15 +80,16 @@
     <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\table\column.h" />
-    <ClInclude Include="src\sqt\orm\table\column\column_support.h" />
     <ClInclude Include="src\sqt\orm\table\column_type.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column.h" />
     <ClInclude Include="src\sqt\orm\table\composite_column_type.h" />
+    <ClInclude Include="src\sqt\orm\table\definition\column_definition.h" />
+    <ClInclude Include="src\sqt\orm\table\definition\expression_definition.h" />
+    <ClInclude Include="src\sqt\orm\table\definition\index_definition.h" />
+    <ClInclude Include="src\sqt\orm\table\definition\primary_key_definition.h" />
     <ClInclude Include="src\sqt\orm\table\identifier_type.h" />
-    <ClInclude Include="src\sqt\orm\table\index_support.h" />
     <ClInclude Include="src\sqt\orm\table\table_like.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key.h" />
-    <ClInclude Include="src\sqt\orm\table\primary_key_support.h" />
     <ClInclude Include="src\sqt\orm\table\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />

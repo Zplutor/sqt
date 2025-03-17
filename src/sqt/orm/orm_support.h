@@ -1,17 +1,17 @@
 #pragma once
 
 #include <array>
-#include <sqt/orm/expression/expression_support.h>
+#include <sqt/orm/table/definition/expression_definition.h>
 #include <sqt/orm/internal/linked_list.h>
 #include <sqt/orm/internal/primary_key_helper.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/column.h>
-#include <sqt/orm/table/column/column_support.h>
+#include <sqt/orm/table/definition/column_definition.h>
 #include <sqt/orm/table/composite_column.h>
-#include <sqt/orm/table/index_support.h>
-#include <sqt/orm/table/primary_key_support.h>
+#include <sqt/orm/table/definition/index_definition.h>
+#include <sqt/orm/table/definition/primary_key_definition.h>
 #include <sqt/orm/utility/macro_utility.h>
 #include <sqt/orm/utility/utility.h>
 

@@ -73,6 +73,9 @@
     <Filter Include="src\sqt\orm\value\identifier">
       <UniqueIdentifier>{416bbc45-a0fe-4034-8e44-29d63ae2feb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\table\definition">
+      <UniqueIdentifier>{2ffe08ba-dad1-43ec-945a-458e7a5e4a0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -137,9 +140,6 @@
     <ClInclude Include="src\sqt\orm\querier\selecter\selecter_type.h">
       <Filter>src\sqt\orm\querier\selecter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\expression_support.h">
-      <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\expression_like.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
@@ -197,9 +197,6 @@
     <ClInclude Include="src\sqt\orm\table\composite_column.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\index_support.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table\table_initializer.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
@@ -207,9 +204,6 @@
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\primary_key_support.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h">
@@ -317,9 +311,6 @@
     <ClInclude Include="src\sqt\orm\table\identifier_type.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column\column_support.h">
-      <Filter>src\sqt\orm\table\column</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\value\entity\entire_entity_value_traits.h">
       <Filter>src\sqt\orm\value\entity</Filter>
     </ClInclude>
@@ -370,6 +361,18 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\trivial\basic\basic_value_traits_mapping.h">
       <Filter>src\sqt\orm\value\trivial\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\definition\column_definition.h">
+      <Filter>src\sqt\orm\table\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\definition\index_definition.h">
+      <Filter>src\sqt\orm\table\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\definition\primary_key_definition.h">
+      <Filter>src\sqt\orm\table\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\definition\expression_definition.h">
+      <Filter>src\sqt\orm\table\definition</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
