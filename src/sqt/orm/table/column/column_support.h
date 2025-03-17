@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/table/column/default_column_descriptor.h>
+#include <sqt/orm/value/trivial/basic/basic_value_traits_mapping.h>
 
 #define __SQT_COLUMN_BEGIN(COLUMN_NAME) \
 public: \
@@ -15,27 +15,27 @@ public: \
         }
 
 
-#define __SQT_COLUMN_DESCRIPTOR_FIELD(FIELD) \
-        using ValueType = decltype(((UserEntityType*)nullptr)->FIELD); \
-        class Descriptor : public sqt::DefaultColumnDescriptor<ValueType> { \
+#define __SQT_VALUE_SOURCE_FIELD(FIELD) \
+        class ValueSource { \
         public: \
-            using EntityType = UserEntityType; \
-            static const ValueType& GetValueFromEntity(const EntityType& entity) {\
+            using ValueType = decltype(((UserEntityType*)nullptr)->FIELD); \
+            static const ValueType& GetValueFromEntity(const EntityType& entity) { \
                 return entity.FIELD; \
             } \
-            static void SetValueToEntity(EntityType& entity, ValueType&& value) {\
+            static void SetValueToEntity(EntityType& entity, ValueType&& value) { \
                 entity.FIELD = std::move(value); \
             } \
-        }; \
+        };
 
 
 #define __SQT_COLUMN_END(COLUMN_NAME) \
-        using ValueTraits = typename Descriptor::ValueTraits; \
+        using ValueType = typename ValueSource::ValueType; \
+        using ValueTraits = sqt::BasicValueTraitsForT<ValueType>; \
         static void BindValueFromEntity( \
             sqt::Statement& statement, \
             int parameter_index, \
             const EntityType& entity) { \
-            const auto& value = Descriptor::GetValueFromEntity(entity); \
+            const auto& value = ValueSource::GetValueFromEntity(entity); \
             ValueTraits::BindValue(statement, parameter_index, value); \
         } \
         static void RetrieveValueToEntity( \
@@ -43,13 +43,13 @@ public: \
             int column_index, \
             EntityType& entity) { \
             auto value = ValueTraits::RetrieveValue(statement, column_index); \
-            Descriptor::SetValueToEntity(entity, std::move(value)); \
+            ValueSource::SetValueToEntity(entity, std::move(value)); \
         } \
         constexpr sqt::DataType GetDataType() const noexcept override { \
-            return Descriptor::DataType; \
+            return ValueTraits::DataType; \
         } \
         constexpr bool IsNullable() const noexcept override { \
-            return Descriptor::IsNullable; \
+            return ValueTraits::IsNullable; \
         } \
         void VirtualBindValueFromEntity( \
             sqt::Statement& statement, \

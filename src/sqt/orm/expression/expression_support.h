@@ -13,15 +13,15 @@
 #define SQT_PREDICATE_OPERATOR(OP_LITERAL, OP_VALUE, COLUMN_TYPE) \
 friend constexpr auto operator##OP_LITERAL( \
     const COLUMN_TYPE& column, \
-    const typename COLUMN_TYPE::Descriptor::ValueTraits::ValueType& value) { \
+    const typename COLUMN_TYPE::ValueType& value) { \
     using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
-    using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::Descriptor::ValueTraits>; \
+    using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::ValueTraits>; \
     return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{ value } }; \
 } \
 friend constexpr auto operator##OP_LITERAL( \
-    const typename COLUMN_TYPE::Descriptor::ValueTraits::ValueType& value, \
+    const typename COLUMN_TYPE::ValueType& value, \
     const COLUMN_TYPE& column) { \
-    using LHS = sqt::ConstantOperand<typename COLUMN_TYPE::Descriptor::ValueTraits>; \
+    using LHS = sqt::ConstantOperand<typename COLUMN_TYPE::ValueTraits>; \
     using RHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
     return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{ value }, RHS{} }; \
 } \
@@ -45,9 +45,9 @@ constexpr auto Desc() const { \
     return sqt::OrderingTerm<sqt::Ordering::Descending, sqt::IdentifierOperand<COLUMN_TYPE>>{}; \
 } \
 constexpr auto operator=( \
-    const typename COLUMN_TYPE::Descriptor::ValueTraits::ValueType& value) const { \
+    const typename COLUMN_TYPE::ValueType& value) const { \
     using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
-    using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::Descriptor::ValueTraits>; \
+    using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::ValueTraits>; \
     return sqt::Assignment<LHS, RHS>{ RHS{ value } }; \
 } \
 SQT_PREDICATE_OPERATOR(==, Equal, COLUMN_TYPE) \

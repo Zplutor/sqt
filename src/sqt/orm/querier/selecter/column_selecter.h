@@ -9,10 +9,10 @@ namespace sqt {
 template<ColumnType... COLUMN>
 class ColumnSelecter : public BaseSelecter<ColumnSelecter<COLUMN...>> {
 public:
-    using ColumnsDescriptor = typename CompositeColumn<COLUMN...>::Descriptor;
-    using ColumnsValueTraits = typename ColumnsDescriptor::ValueTraits;
+    using CompositeColumnType = CompositeColumn<COLUMN...>;
+    using ColumnsValueTraits = typename CompositeColumnType::ValueTraits;
 
-    using EntityType = typename ColumnsDescriptor::EntityType;
+    using EntityType = typename CompositeColumnType::EntityType;
     using ResultElementType = typename ColumnsValueTraits::ValueType;
 
     static ResultElementType GetResultElement(Statement& statement) {

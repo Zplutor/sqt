@@ -8,7 +8,7 @@ namespace sqt {
 template<ColumnType... Columns>
 class PrimaryKey : public CompositeColumn<Columns...>, public AbstractPrimaryKey {
     static_assert(
-        !(Columns::Descriptor::IsNullable && ...),
+        !(Columns::ValueTraits::IsNullable && ...),
         "Primary key columns cannot be nullable.");
 
 public:

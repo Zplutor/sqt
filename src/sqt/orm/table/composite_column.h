@@ -14,32 +14,31 @@ class CompositeColumn;
 template<ColumnType FIRST, ColumnType... REST>
 class CompositeColumn<FIRST, REST...> {
 public:
-    static_assert(
-        (std::is_same_v<
-            typename FIRST::Descriptor::EntityType, 
-            typename REST::Descriptor::EntityType> && ...));
+    static_assert((std::is_same_v<typename FIRST::EntityType, typename REST::EntityType> && ...));
 
-    class Descriptor {
+    using EntityType = typename FIRST::EntityType;
+
+    using ValueTraits = CompositeValueTraits<
+        typename FIRST::ValueTraits, 
+        typename REST::ValueTraits...
+    >;
+
+    using ValueType = typename ValueTraits::ValueType;
+
+    class ValueSource {
     public:
-        using EntityType = typename FIRST::Descriptor::EntityType;
-        using ValueTraits = CompositeValueTraits<
-            typename FIRST::Descriptor::ValueTraits, 
-            typename REST::Descriptor::ValueTraits...
-        >;
-        using ValueType = typename ValueTraits::ValueType;
-        
         static ValueType GetValueFromEntity(const EntityType& entity) {
             return ValueType{
-                FIRST::Descriptor::GetValueFromEntity(entity),
-                REST::Descriptor::GetValueFromEntity(entity)...
+                FIRST::ValueSource::GetValueFromEntity(entity),
+                REST::ValueSource::GetValueFromEntity(entity)...
             };
         }
 
         static void SetValueToEntity(EntityType& entity, ValueType&& value) {
             std::apply(
                 [&entity](auto&&... values) {
-                    FIRST::Descriptor::SetValueToEntity(entity, std::move(values));
-                    (REST::Descriptor::SetValueToEntity(entity, std::move(values)), ...);
+                    FIRST::ValueSource::SetValueToEntity(entity, std::move(values));
+                    (REST::ValueSource::SetValueToEntity(entity, std::move(values)), ...);
                 },
                 std::move(value));
         }
@@ -56,7 +55,7 @@ public:
     static void BindValueFromEntity(
         Statement& statement, 
         int parameter_index, 
-        const typename Descriptor::EntityType& entity) {
+        const EntityType& entity) {
 
         FIRST::BindValueFromEntity(statement, parameter_index, entity);
 
@@ -67,7 +66,7 @@ public:
     static void RetrieveValueToEntity(
         const Statement& statement,
         int column_index,
-        typename Descriptor::EntityType& entity) {
+        EntityType& entity) {
 
         FIRST::RetrieveValueToEntity(statement, column_index, entity);
 
@@ -81,7 +80,7 @@ public:
 
     }
 
-    constexpr ColumnsView<typename Descriptor::EntityType> GetColumns() const noexcept {
+    constexpr ColumnsView<EntityType> GetColumns() const noexcept {
         return columns_;
     }
 
@@ -93,27 +92,17 @@ public:
     }
 
 private:
-    std::array<const Column<typename Descriptor::EntityType>*, ColumnCount> columns_;
+    std::array<const Column<EntityType>*, ColumnCount> columns_;
 };
 
 
 template<ColumnType Single>
 class CompositeColumn<Single> {
 public:
-    class Descriptor {
-    public:
-        using EntityType = typename Single::Descriptor::EntityType;
-        using ValueTraits = typename Single::Descriptor::ValueTraits;
-        using ValueType = typename ValueTraits::ValueType;
-
-        static ValueType GetValueFromEntity(const EntityType& entity) {
-            return Single::Descriptor::GetValueFromEntity(entity);
-        }
-
-        static void SetValueToEntity(EntityType& entity, ValueType&& value) {
-            Single::Descriptor::SetValueToEntity(entity, std::move(value));
-        }
-    };
+    using EntityType = typename Single::EntityType;
+    using ValueTraits = typename Single::ValueTraits;
+    using ValueType = typename Single::ValueType;
+    using ValueSource = typename Single::ValueSource;
 
     static constexpr std::size_t ColumnCount = 1;
 
@@ -124,7 +113,7 @@ public:
     static void BindValueFromEntity(
         Statement& statement,
         int parameter_index,
-        const typename Descriptor::EntityType& entity) {
+        const EntityType& entity) {
 
         Single::BindValueFromEntity(statement, parameter_index, entity);
     }
@@ -132,7 +121,7 @@ public:
     static void RetrieveValueToEntity(
         const Statement& statement,
         int column_index,
-        typename Descriptor::EntityType& entity) {
+        EntityType& entity) {
 
         Single::RetrieveValueToEntity(statement, column_index, entity);
     }
@@ -142,8 +131,8 @@ public:
 
     }
 
-    constexpr ColumnsView<typename Descriptor::EntityType> GetColumns() const noexcept {
-        return ColumnsView<typename Descriptor::EntityType>{ &column_, 1 };
+    constexpr ColumnsView<EntityType> GetColumns() const noexcept {
+        return ColumnsView<EntityType>{ &column_, 1 };
     }
 
     AbstractColumnsView GetAbstractColumns() const noexcept {
@@ -154,7 +143,7 @@ public:
     }
 
 private:
-    const Column<typename Descriptor::EntityType>* column_{};
+    const Column<EntityType>* column_{};
 };
 
 

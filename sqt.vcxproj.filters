@@ -317,16 +317,7 @@
     <ClInclude Include="src\sqt\orm\table\identifier_type.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column\column_descriptor_type.h">
-      <Filter>src\sqt\orm\table\column</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column\default_column_descriptor.h">
-      <Filter>src\sqt\orm\table\column</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table\column\column_support.h">
-      <Filter>src\sqt\orm\table\column</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column\identifier_descriptor_type.h">
       <Filter>src\sqt\orm\table\column</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\entity\entire_entity_value_traits.h">
