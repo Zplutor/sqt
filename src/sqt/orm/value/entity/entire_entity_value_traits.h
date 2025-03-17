@@ -19,7 +19,7 @@ public:
 
         int index = parameter_index;
         for (auto each_column : ManipulatingColumns) {
-            each_column->VirtualBindValueFromEntity(statement, index++, value);
+            each_column->BindValueFromEntity(statement, index++, value);
         }
     }
 
@@ -28,7 +28,7 @@ public:
         T result{};
         int index = column_index;
         for (auto each_column : ManipulatingColumns) {
-            each_column->VirtualRetrieveValueToEntity(statement, index++, result);
+            each_column->RetrieveValueToEntity(statement, index++, result);
         }
         return result;
     }

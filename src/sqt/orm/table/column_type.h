@@ -1,8 +1,8 @@
 #pragma once
 
 #include <concepts>
-#include <sqt/foundation/statement.h>
 #include <sqt/orm/table/abstract_column.h>
+#include <sqt/orm/table/column/value_source_type.h>
 
 namespace sqt {
 
@@ -16,10 +16,5 @@ concept ColumnType =
         typename T::ValueSource;
         { T::Name } -> std::same_as<const std::string_view&>;
     } && 
-    requires(Statement& statement, int index, const typename T::EntityType& entity) {
-        { T::BindValueFromEntity(statement, index, entity) } -> std::same_as<void>;
-    } &&
-    requires(const Statement& statement, int index, typename T::EntityType& entity) {
-        { T::RetrieveValueToEntity(statement, index, entity) } -> std::same_as<void>;
-    };
+    ValueSourceType<typename T::ValueSource, typename T::EntityType>;
 }

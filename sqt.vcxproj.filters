@@ -389,5 +389,8 @@
     <ClInclude Include="src\sqt\orm\value\trivial\basic\basic_value_type.h">
       <Filter>src\sqt\orm\value\trivial\basic</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\value_source_type.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

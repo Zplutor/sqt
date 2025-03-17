@@ -2,6 +2,7 @@
 
 #include <concepts>
 #include <string>
+#include <sqt/orm/table/column/value_source_type.h>
 
 namespace sqt {
 
@@ -16,11 +17,6 @@ concept CompositeColumnType =
         requires T::ColumnCount > 0;
         { T::BuildColumnNames() } -> std::same_as<std::string>;
     } && 
-    requires (Statement& statement, int index, const typename T::EntityType& entity) {
-        { T::BindValueFromEntity(statement, index, entity) } -> std::same_as<void>;
-    } &&
-    requires (const Statement& statement, int index, typename T::EntityType& entity) {
-        { T::RetrieveValueToEntity(statement, index, entity) } -> std::same_as<void>;
-    };
+    ValueSourceType<typename T::ValueSource, typename T::EntityType>;
 
 }

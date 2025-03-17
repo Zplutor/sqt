@@ -13,6 +13,9 @@
     <Filter Include="test\unit_test\value">
       <UniqueIdentifier>{22691689-b09e-4b70-acfc-858e1913dbbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\table">
+      <UniqueIdentifier>{ae67d36d-87b5-4078-bf81-003e2f67299b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">

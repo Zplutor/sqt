@@ -27,6 +27,8 @@ public:
 
     class ValueSource {
     public:
+        using ValueType = ValueType;
+
         static ValueType GetValueFromEntity(const EntityType& entity) {
             return ValueType{
                 FIRST::ValueSource::GetValueFromEntity(entity),
@@ -50,28 +52,6 @@ public:
         std::string result{ FIRST::Name };
         ((result.append(1, ',').append(REST::Name)), ...);
         return result;
-    }
-
-    static void BindValueFromEntity(
-        Statement& statement, 
-        int parameter_index, 
-        const EntityType& entity) {
-
-        FIRST::BindValueFromEntity(statement, parameter_index, entity);
-
-        int index = parameter_index + 1;
-        ((REST::BindValueFromEntity(statement, index++, entity)), ...);
-    }
-
-    static void RetrieveValueToEntity(
-        const Statement& statement,
-        int column_index,
-        EntityType& entity) {
-
-        FIRST::RetrieveValueToEntity(statement, column_index, entity);
-
-        int index = column_index + 1;
-        ((REST::RetrieveValueToEntity(statement, index++, entity)), ...);
     }
 
 public:
@@ -110,22 +90,6 @@ public:
         return std::string{ Single::Name };
     }
 
-    static void BindValueFromEntity(
-        Statement& statement,
-        int parameter_index,
-        const EntityType& entity) {
-
-        Single::BindValueFromEntity(statement, parameter_index, entity);
-    }
-
-    static void RetrieveValueToEntity(
-        const Statement& statement,
-        int column_index,
-        EntityType& entity) {
-
-        Single::RetrieveValueToEntity(statement, column_index, entity);
-    }
-
 public:
     constexpr explicit CompositeColumn(const Single& single) noexcept : column_(&single) {
 
@@ -145,32 +109,5 @@ public:
 private:
     const Column<EntityType>* column_{};
 };
-
-
-template<ColumnType... Columns>
-constexpr auto MakeCompositeColumn(const Columns&... columns) { 
-    return CompositeColumn<Columns...>{ columns... };
-}
-
-
-template<typename T>
-struct IsCompositeColumnBased {
-private:
-    template<typename K, typename E, typename... Columns>
-    static constexpr bool Test(CompositeColumn<E, Columns...>*) {
-        return true;
-    }
-
-    template<typename K>
-    static constexpr bool Test(...) {
-        return false;
-    }
-
-public:
-    static constexpr bool value = Test<T>((T*)nullptr);
-};
-
-template<typename T>
-constexpr bool IsCompositeColumnBasedV = IsCompositeColumnBased<T>::value;
 
 }

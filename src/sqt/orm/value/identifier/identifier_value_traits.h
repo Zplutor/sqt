@@ -21,7 +21,8 @@ public:
         int parameter_index, 
         const EntityType& entity) {
 
-        IDENTIFIER::BindValueFromEntity(statement, parameter_index, entity);
+        const auto& value = IDENTIFIER::ValueSource::GetValueFromEntity(entity);
+        BindValue(statement, parameter_index, value);
     }
 
     static ValueType RetrieveValue(const Statement& statement, int column_index) {
@@ -33,7 +34,8 @@ public:
         int column_index,
         EntityType& entity) {
 
-        IDENTIFIER::RetrieveValueToEntity(statement, column_index, entity);
+        auto value = RetrieveValue(statement, column_index);
+        IDENTIFIER::ValueSource::SetValueToEntity(entity, std::move(value));
     }
 };
 

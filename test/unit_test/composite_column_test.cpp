@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <sqt/orm/orm_support.h>
+#include <sqt/orm/table/column/value_source_type.h>
 #include <sqt/orm/table/composite_column.h>
 
 namespace composite_column_test {
@@ -26,11 +27,12 @@ constexpr auto& TableV = sqt::TableV<composite_column_test::Entity>;
 
 TEST(CompositeColumnTest, SingleColumn) {
 
-    using CompositeColumnType = sqt::CompositeColumn<TableT::idType>;
-    static_assert(std::is_same_v<CompositeColumnType::EntityType, composite_column_test::Entity>);
-    static_assert(std::is_same_v<CompositeColumnType::ValueType, int>);
+    using TestType = sqt::CompositeColumn<TableT::idType>;
+    static_assert(std::is_same_v<TestType::EntityType, composite_column_test::Entity>);
+    static_assert(std::is_same_v<TestType::ValueType, int>);
+    static_assert(sqt::CompositeColumnType<TestType>);
 
-    constexpr CompositeColumnType composite{ TableV.id };
+    constexpr TestType composite{ TableV.id };
 
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 1);
@@ -40,11 +42,12 @@ TEST(CompositeColumnTest, SingleColumn) {
 
 TEST(CompositeColumnTest, TwoColumns) {
 
-    using CompositeColumnType = sqt::CompositeColumn<TableT::idType, TableT::nameType>;
-    static_assert(std::is_same_v<CompositeColumnType::EntityType, composite_column_test::Entity>);
-    static_assert(std::is_same_v<CompositeColumnType::ValueType, std::tuple<int, std::string>>);
+    using TestType = sqt::CompositeColumn<TableT::idType, TableT::nameType>;
+    static_assert(std::is_same_v<TestType::EntityType, composite_column_test::Entity>);
+    static_assert(std::is_same_v<TestType::ValueType, std::tuple<int, std::string>>);
+    static_assert(sqt::CompositeColumnType<TestType>);
 
-    constexpr CompositeColumnType composite{
+    constexpr TestType composite{
         TableV.id, 
         TableV.name,
     };
@@ -58,15 +61,15 @@ TEST(CompositeColumnTest, TwoColumns) {
 
 TEST(CompositeColumnTest, ThreeColumns) {
 
-    using CompositeColumnType = 
-        sqt::CompositeColumn<TableT::idType, TableT::nameType, TableT::ageType>;
+    using TestType = sqt::CompositeColumn<TableT::idType, TableT::nameType, TableT::ageType>;
 
-    static_assert(std::is_same_v<CompositeColumnType::EntityType, composite_column_test::Entity>);
+    static_assert(std::is_same_v<TestType::EntityType, composite_column_test::Entity>);
     static_assert(
-        std::is_same_v<CompositeColumnType::ValueType, 
+        std::is_same_v<TestType::ValueType,
         std::tuple<int, std::string, int>>);
+    static_assert(sqt::CompositeColumnType<TestType>);
 
-    constexpr CompositeColumnType composite{
+    constexpr TestType composite{
         TableV.id,
         TableV.name,
         TableV.age,
@@ -80,18 +83,3 @@ TEST(CompositeColumnTest, ThreeColumns) {
 }
 
 
-TEST(CompositeColumnTest, MakeCompositeColumn) {
-
-    auto single_column = sqt::MakeCompositeColumn(TableV.id);
-    static_assert(std::is_same_v<decltype(single_column), sqt::CompositeColumn<TableT::idType>>);
-
-    auto two_columns = sqt::MakeCompositeColumn(TableV.id, TableV.name);
-    static_assert(
-        std::is_same_v<decltype(two_columns), 
-        sqt::CompositeColumn<TableT::idType, TableT::nameType>>);
-
-    auto three_columns = sqt::MakeCompositeColumn(TableV.id, TableV.name, TableV.age);
-    static_assert(
-        std::is_same_v<decltype(three_columns),
-        sqt::CompositeColumn<TableT::idType, TableT::nameType, TableT::ageType>>);
-}
