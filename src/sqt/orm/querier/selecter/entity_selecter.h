@@ -25,7 +25,7 @@ private:
     friend class BaseSelecter<EntitySelecter<ENTITY>>;
 
     static std::string BuildColumnNames() {
-        return JoinColumnNames(EntireEntityValueTraits<ENTITY>::SelectingColumns);
+        return JoinColumnNames(EntireEntityValueTraits<ENTITY>::ManipulatingColumns);
     }
 };
 

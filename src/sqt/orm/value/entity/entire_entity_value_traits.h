@@ -13,15 +13,12 @@ public:
     using EntityType = T;
     using TableType = TableT<T>;
 
-    static constexpr ColumnsView<EntityType> InsertingColumns = TableType::GetColumns();
-    static constexpr ColumnsView<EntityType> SelectingColumns = TableType::GetColumns();
-
-    static constexpr std::size_t ParameterCount = InsertingColumns.size();
+    static constexpr ColumnsView<EntityType> ManipulatingColumns = TableType::GetColumns();
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
 
         int index = parameter_index;
-        for (auto each_column : InsertingColumns) {
+        for (auto each_column : ManipulatingColumns) {
             each_column->VirtualBindValueFromEntity(statement, index++, value);
         }
     }
@@ -30,7 +27,7 @@ public:
 
         T result{};
         int index = column_index;
-        for (auto each_column : SelectingColumns) {
+        for (auto each_column : ManipulatingColumns) {
             each_column->VirtualRetrieveValueToEntity(statement, index++, result);
         }
         return result;

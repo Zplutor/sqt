@@ -12,9 +12,6 @@ public:
     using EntityType = typename IDENTIFIER::EntityType;
     using ValueType = typename IDENTIFIER::ValueType;
 
-    static constexpr std::size_t ParameterCount = 
-        IDENTIFIER::ValueTraits::ParameterCount;
-
     static void BindValue(Statement& statement, int parameter_index, const ValueType& value) {
         IDENTIFIER::ValueTraits::BindValue(statement, parameter_index, value);
     }

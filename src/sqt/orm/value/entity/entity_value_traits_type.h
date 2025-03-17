@@ -13,7 +13,7 @@ concept EntityValueTraitsType =
     requires {
         typename T::EntityType;
         typename T::TableType;
-        { T::InsertingColumns } -> std::same_as<const ColumnsView<typename T::EntityType>&>;
+        { T::ManipulatingColumns } -> std::same_as<const ColumnsView<typename T::EntityType>&>;
     };
 
 }

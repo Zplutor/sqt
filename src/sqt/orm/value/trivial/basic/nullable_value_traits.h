@@ -13,7 +13,6 @@ public:
 
     static constexpr DataType DataType = InnerValueTriats::DataType;
     static constexpr bool IsNullable = true;
-    static constexpr std::size_t ParameterCount = 1;
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
         if (value.has_value()) {

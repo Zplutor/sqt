@@ -8,8 +8,8 @@ namespace sqt {
 template<ValueTraitsType... TRAITS>
 class CompositeValueTraits {
 public:
+    using ValueTraitsTypes = std::tuple<TRAITS...>;
     using ValueType = std::tuple<typename TRAITS::ValueType...>;
-    static constexpr std::size_t ParameterCount = (TRAITS::ParameterCount + ... + 0);
 
     static void BindValue(Statement& statement, int parameter_index, const ValueType& value) {
 

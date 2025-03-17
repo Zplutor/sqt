@@ -17,7 +17,6 @@ public:
 
     static constexpr sqt::DataType DataType = sqt::DataType::Integer;
     static constexpr bool IsNullable = false;
-    static constexpr std::size_t ParameterCount = 1;
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
         statement.BindParameter(parameter_index, value);

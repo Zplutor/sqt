@@ -17,7 +17,7 @@ public:
 
             using TableType = typename VALUE_OPERAND::ValueTraits::TableType;
             constexpr auto& table = TableType::GetInstance();
-            constexpr auto columns = VALUE_OPERAND::ValueTraits::InsertingColumns;
+            constexpr auto columns = VALUE_OPERAND::ValueTraits::ManipulatingColumns;
 
             std::string set_clause;
             for (std::size_t index = 0; index < columns.size(); ++index) {

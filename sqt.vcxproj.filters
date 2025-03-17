@@ -374,5 +374,17 @@
     <ClInclude Include="src\sqt\orm\table\definition\expression_definition.h">
       <Filter>src\sqt\orm\table\definition</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\trivial\basic\custom_value_traits.h">
+      <Filter>src\sqt\orm\value\trivial\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\trivial\basic\custom_value_type.h">
+      <Filter>src\sqt\orm\value\trivial\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\operand\parameter_count_deduction.h">
+      <Filter>src\sqt\orm\expression\operand</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_traits_type.h">
+      <Filter>src\sqt\orm\value\trivial\composite</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

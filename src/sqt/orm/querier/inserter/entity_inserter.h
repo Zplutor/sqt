@@ -28,7 +28,7 @@ public:
                 "insert or {} into {} ({}) values ({})", 
                 conflict_action, 
                 table_name, 
-                JoinColumnNames(VALUE_OPERAND::ValueTraits::InsertingColumns),
+                JoinColumnNames(VALUE_OPERAND::ValueTraits::ManipulatingColumns),
                 VALUE_OPERAND::BuildSQL());
         }();
         return sql;
