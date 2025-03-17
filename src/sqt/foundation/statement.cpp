@@ -91,6 +91,19 @@ void Statement::BindParameter(int parameter_index, std::nullopt_t) {
 }
 
 
+void Statement::BindParameter(int parameter_index, std::span<const std::byte> value) {
+    
+    int error_code = sqlite3_bind_blob64(
+        statement_handle_,
+        parameter_index, 
+        value.data(),
+        value.size(),
+        SQLITE_TRANSIENT);
+
+    SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);
+}
+
+
 void Statement::ClearBindings() {
     int error_code = sqlite3_clear_bindings(statement_handle_);
     SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);
@@ -146,6 +159,18 @@ std::string_view Statement::GetColumnText(int column_index) const noexcept {
     return std::string_view{ 
         reinterpret_cast<const char*>(text), 
         static_cast<std::size_t>(length) 
+    };
+}
+
+
+std::span<const std::byte> Statement::GetColumnBLOB(int column_index) const noexcept {
+
+    int length = sqlite3_column_bytes(statement_handle_, column_index);
+    auto blob = sqlite3_column_blob(statement_handle_, column_index);
+
+    return std::span<const std::byte>{
+        reinterpret_cast<const std::byte*>(blob),
+        static_cast<std::size_t>(length)
     };
 }
 

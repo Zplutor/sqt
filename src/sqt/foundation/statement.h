@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <optional>
+#include <span>
 #include <string_view>
 #include <sqlite3.h>
 #include <sqt/foundation/data_type.h>
@@ -26,6 +27,7 @@ public:
     void BindParameter(int parameter_index, double value);
     void BindParameter(int parameter_index, std::string_view value);
     void BindParameter(int parameter_index, std::nullopt_t);
+    void BindParameter(int parameter_index, std::span<const std::byte> value);
     void ClearBindings();
 
     bool Step();
@@ -36,6 +38,7 @@ public:
     std::int64_t GetColumnInt64(int column_index) const noexcept;
     double GetColumnDouble(int column_index) const noexcept;
     std::string_view GetColumnText(int column_index) const noexcept;
+    std::span<const std::byte> GetColumnBLOB(int column_index) const noexcept;
 
     sqlite3_stmt* Handle() const noexcept {
         return statement_handle_;

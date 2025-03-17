@@ -28,7 +28,7 @@
     <ClCompile Include="test\unit_test\selecter_test.cpp" />
     <ClCompile Include="test\unit_test\table_initializer_test.cpp" />
     <ClCompile Include="test\unit_test\updater_test.cpp" />
-    <ClCompile Include="test\unit_test\value\basic_value_traits_mapping_test.cpp" />
+    <ClCompile Include="test\unit_test\value\custom_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\nullable_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\primitive_value_test.cpp" />
     <ClCompile Include="test\unit_test\value_type_test.cpp" />

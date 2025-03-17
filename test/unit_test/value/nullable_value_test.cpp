@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <sqt/orm/value/trivial/basic/basic_value_traits_mapping.h>
 #include <sqt/orm/value/trivial/basic/nullable_value_type.h>
 #include <sqt/orm/value/trivial/basic/basic_value_traits_type.h>
 #include <sqt/orm/value/trivial/basic/nullable_value_traits.h>
@@ -181,4 +182,21 @@ TEST(NullableValueType, BasicValueTriatsType) {
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<long double>>>);
     ASSERT_TRUE(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<std::string>>>);
+}
+
+
+TEST(NullableValueType, BasicValueTraitsMapping) {
+
+    ASSERT_TRUE((std::is_same_v<
+        sqt::BasicValueTraitsForT<std::optional<bool>>,
+        sqt::NullableValueTraits<std::optional<bool>>>));
+    ASSERT_TRUE((std::is_same_v<
+        sqt::BasicValueTraitsForT<std::optional<int>>,
+        sqt::NullableValueTraits<std::optional<int>>>));
+    ASSERT_TRUE((std::is_same_v<
+        sqt::BasicValueTraitsForT<std::optional<float>>,
+        sqt::NullableValueTraits<std::optional<float>>>));
+    ASSERT_TRUE((std::is_same_v<
+        sqt::BasicValueTraitsForT<std::optional<std::string>>,
+        sqt::NullableValueTraits<std::optional<std::string>>>));
 }
