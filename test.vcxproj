@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -28,6 +28,7 @@
     <ClCompile Include="test\unit_test\selecter_test.cpp" />
     <ClCompile Include="test\unit_test\table_initializer_test.cpp" />
     <ClCompile Include="test\unit_test\updater_test.cpp" />
+    <ClCompile Include="test\unit_test\value\composite_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\custom_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\nullable_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\primitive_value_test.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="test\unit_test\db_test_fixture.h" />
     <ClInclude Include="test\unit_test\orm_support_test.h" />
     <ClInclude Include="test\unit_test\test_entities.h" />
+    <ClInclude Include="test\unit_test\value\test_custom_value.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

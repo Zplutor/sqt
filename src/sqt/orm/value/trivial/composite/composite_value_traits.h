@@ -1,13 +1,15 @@
 #pragma once
 
 #include <tuple>
-#include <sqt/orm/value/value_traits_type.h>
+#include <sqt/orm/value/trivial/basic/basic_value_traits_type.h>
 
 namespace sqt {
 
-template<ValueTraitsType... TRAITS>
+template<BasicValueTraitsType... TRAITS>
 class CompositeValueTraits {
 public:
+    static_assert(sizeof...(TRAITS) > 0);
+
     using ValueTraitsTypes = std::tuple<TRAITS...>;
     using ValueType = std::tuple<typename TRAITS::ValueType...>;
 
