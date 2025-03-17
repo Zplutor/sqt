@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/table/column.h>
+#include <sqt/orm/table/column/column.h>
 
 namespace sqt::internal {
 

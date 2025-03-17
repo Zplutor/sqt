@@ -1,8 +1,8 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/table/column_type.h>
-#include <sqt/orm/table/composite_column_type.h>
+#include <sqt/orm/table/column/column_type.h>
+#include <sqt/orm/table/column/composite_column_type.h>
 
 namespace sqt {
 

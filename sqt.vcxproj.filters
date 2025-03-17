@@ -182,19 +182,7 @@
     <ClInclude Include="src\sqt\orm\internal\linked_list.h">
       <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\abstract_column.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table\abstract_index.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\column_type.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\composite_column.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\table_initializer.h">
@@ -305,9 +293,6 @@
     <ClInclude Include="src\sqt\orm\expression\predicate_term_type.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\composite_column_type.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table\identifier_type.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
@@ -390,6 +375,21 @@
       <Filter>src\sqt\orm\value\trivial\basic</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\column\value_source_type.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\abstract_column.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\column.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\column_type.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\composite_column.h">
+      <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\column\composite_column_type.h">
       <Filter>src\sqt\orm\table\column</Filter>
     </ClInclude>
   </ItemGroup>

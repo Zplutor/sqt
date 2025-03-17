@@ -1,7 +1,7 @@
 #pragma once
 
 #include <concepts>
-#include <sqt/orm/table/abstract_column.h>
+#include <sqt/orm/table/column/abstract_column.h>
 #include <sqt/orm/table/column/value_source_type.h>
 
 namespace sqt {

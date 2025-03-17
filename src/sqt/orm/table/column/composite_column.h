@@ -1,8 +1,8 @@
 #pragma once
 
 #include <array>
-#include <sqt/orm/table/column.h>
-#include <sqt/orm/table/column_type.h>
+#include <sqt/orm/table/column/column.h>
+#include <sqt/orm/table/column/column_type.h>
 #include <sqt/orm/value/trivial/composite/composite_value_traits.h>
 
 namespace sqt {

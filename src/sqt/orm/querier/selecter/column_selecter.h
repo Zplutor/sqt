@@ -1,8 +1,8 @@
 #pragma once
 
 #include <sqt/orm/querier/selecter/base_selecter.h>
-#include <sqt/orm/table/column_type.h>
-#include <sqt/orm/table/composite_column.h>
+#include <sqt/orm/table/column/column_type.h>
+#include <sqt/orm/table/column/composite_column.h>
 
 namespace sqt {
 

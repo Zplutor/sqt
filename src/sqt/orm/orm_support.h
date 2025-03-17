@@ -7,9 +7,9 @@
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
-#include <sqt/orm/table/column.h>
+#include <sqt/orm/table/column/column.h>
 #include <sqt/orm/table/definition/column_definition.h>
-#include <sqt/orm/table/composite_column.h>
+#include <sqt/orm/table/column/composite_column.h>
 #include <sqt/orm/table/definition/index_definition.h>
 #include <sqt/orm/table/definition/primary_key_definition.h>
 #include <sqt/orm/utility/macro_utility.h>

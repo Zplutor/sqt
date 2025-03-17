@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string_view>
-#include <sqt/orm/table/abstract_column.h>
+#include <sqt/orm/table/column/abstract_column.h>
 #include <sqt/orm/table/abstract_index.h>
 #include <sqt/orm/table/abstract_primary_key.h>
 

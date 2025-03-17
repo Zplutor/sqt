@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/table/column.h>
+#include <sqt/orm/table/column/column.h>
 #include <sqt/orm/value/entity/entity_value_type.h>
 #include <sqt/orm/value/value_traits_type.h>
 

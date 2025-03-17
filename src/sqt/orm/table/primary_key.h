@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sqt/orm/table/abstract_primary_key.h>
-#include <sqt/orm/table/composite_column.h>
+#include <sqt/orm/table/column/composite_column.h>
 
 namespace sqt {
 

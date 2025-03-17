@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sqt/orm/orm_support.h>
 #include <sqt/orm/table/column/value_source_type.h>
-#include <sqt/orm/table/composite_column.h>
+#include <sqt/orm/table/column/composite_column.h>
 
 namespace composite_column_test {
 
