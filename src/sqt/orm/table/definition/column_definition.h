@@ -43,6 +43,10 @@ public: \
         };
 
 
+#define __SQT_VALUE_SOURCE_CUSTOM(CLASS) \
+        using ValueSource = CLASS;
+
+
 #define __SQT_COLUMN_END(COLUMN_NAME) \
         using ValueType = typename ValueSource::ValueType; \
         using ValueTraits = sqt::BasicValueTraitsForT<ValueType>; \

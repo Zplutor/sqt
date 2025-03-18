@@ -140,3 +140,66 @@ TEST(ValueSourceTest, DefaultValueSource_Accessor) {
         ASSERT_EQ(entity.value, "value3");
     }
 }
+
+
+namespace value_source_test {
+struct EntityCustom {
+    std::string value;
+};
+class CustomValueSource {
+public:
+    using ValueType = std::string;
+    static const std::string& GetValueFromEntity(const EntityCustom& entity) {
+        return entity.value;
+    }
+    static void SetValueToEntity(EntityCustom& entity, std::string value) {
+        entity.value = std::move(value);
+    }
+};
+SQT_TABLE_BEGIN(EntityCustom, EntityCustom)
+//Defines a column with a custom value source.
+SQT_COLUMN_CUSTOM(CustomValue, CustomValueSource)
+//Defines a column with an inline custom value source.
+SQT_COLUMN_CUSTOM(InlineValue, struct ValueSource {
+    using ValueType = std::string;
+    static const std::string& GetValueFromEntity(const EntityCustom& entity) {
+        return entity.value;
+    }
+    static void SetValueToEntity(EntityCustom& entity, std::string value) {
+        entity.value = std::move(value);
+    }
+});
+SQT_TABLE_END
+}
+SQT_REGISTER(value_source_test, EntityCustom)
+
+TEST(ValueSourceTest, CustomValueSource) {
+
+    using TableType = sqt::TableT<value_source_test::EntityCustom>;
+    value_source_test::EntityCustom entity;
+    entity.value = "value";
+
+    //Custom value source
+    {
+        using ValueSource = typename TableType::CustomValueType::ValueSource;
+        static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityCustom>);
+
+        const auto& value = ValueSource::GetValueFromEntity(entity);
+        ASSERT_EQ(value, "value");
+
+        ValueSource::SetValueToEntity(entity, "value2");
+        ASSERT_EQ(entity.value, "value2");
+    }
+
+    //Inline value source
+    {
+        using ValueSource = typename TableType::InlineValueType::ValueSource;
+        static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityCustom>);
+
+        const auto& value = ValueSource::GetValueFromEntity(entity);
+        ASSERT_EQ(value, "value2");
+
+        ValueSource::SetValueToEntity(entity, "value3");
+        ASSERT_EQ(entity.value, "value3");
+    }
+}
