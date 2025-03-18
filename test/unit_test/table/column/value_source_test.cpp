@@ -4,7 +4,6 @@
 #include "unit_test/fixture/blob.h"
 
 namespace value_source_test {
-
 struct EntityWithField {
     std::string primitive;
     std::optional<int> nullable;
@@ -15,11 +14,8 @@ SQT_COLUMN_FIELD(Primitive, primitive)
 SQT_COLUMN_FIELD(Nullable, nullable)
 SQT_COLUMN_FIELD(Custom, custom)
 SQT_TABLE_END
-
 }
-
 SQT_REGISTER(value_source_test, EntityWithField)
-
 
 TEST(ValueSourceTest, DefaultValueSource_Field) {
 
@@ -35,8 +31,11 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
         using ValueSource = typename TableType::PrimitiveType::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithField>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, std::string>);
+        static_assert(std::is_same_v<
+            decltype(ValueSource::GetValueFromEntity(entity)),
+            const std::string&>);
 
-        const std::string& value = ValueSource::GetValueFromEntity(entity);
+        const auto& value = ValueSource::GetValueFromEntity(entity);
         ASSERT_EQ(value, "primitive");
 
         ValueSource::SetValueToEntity(entity, "primitive2");
@@ -48,8 +47,11 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
         using ValueSource = typename TableType::NullableType::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithField>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, std::optional<int>>);
+        static_assert(std::is_same_v<
+            decltype(ValueSource::GetValueFromEntity(entity)),
+            const std::optional<int>&>);
 
-        const std::optional<int>& value = ValueSource::GetValueFromEntity(entity);
+        const auto& value = ValueSource::GetValueFromEntity(entity);
         ASSERT_EQ(value, 101);
 
         ValueSource::SetValueToEntity(entity, 102);
@@ -61,6 +63,9 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
         using ValueSource = typename TableType::CustomType::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithField>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, BLOB>);
+        static_assert(std::is_same_v<
+            decltype(ValueSource::GetValueFromEntity(entity)),
+            const BLOB&>);
 
         const BLOB& value = ValueSource::GetValueFromEntity(entity);
         ASSERT_EQ(
@@ -73,5 +78,65 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
         ASSERT_EQ(
             entity.custom.data, 
             std::vector<std::byte>({ std::byte(0x1), std::byte(0x2), std::byte(0x3) }));
+    }
+}
+
+
+namespace value_source_test {
+struct EntityWithAccessor {
+    const std::string& GetValueRef() const {
+        return value;
+    }
+    std::string GetValueCopy() const {
+        return value;
+    }
+    void SetValue(std::string value) {
+        this->value = std::move(value);
+    }
+    std::string value;
+};
+SQT_TABLE_BEGIN(EntityWithAccessor, EntityWithAccessor)
+SQT_COLUMN_ACCESSOR(ValueRef, GetValueRef, SetValue)
+SQT_COLUMN_ACCESSOR(ValueCopy, GetValueCopy, SetValue)
+SQT_TABLE_END
+}
+SQT_REGISTER(value_source_test, EntityWithAccessor)
+
+TEST(ValueSourceTest, DefaultValueSource_Accessor) {
+
+    using TableType = sqt::TableT<value_source_test::EntityWithAccessor>;
+    value_source_test::EntityWithAccessor entity;
+    entity.value = "value";
+
+    //ValueRef
+    {
+        using ValueSource = typename TableType::ValueRefType::ValueSource;
+        static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithAccessor>);
+        static_assert(std::is_same_v<typename ValueSource::ValueType, std::string>);
+        static_assert(std::is_same_v<
+            decltype(ValueSource::GetValueFromEntity(entity)), 
+            const std::string&>);
+
+        const std::string& value = ValueSource::GetValueFromEntity(entity);
+        ASSERT_EQ(value, "value");
+
+        ValueSource::SetValueToEntity(entity, "value2");
+        ASSERT_EQ(entity.value, "value2");
+    }
+
+    //ValueCopy
+    {
+        using ValueSource = typename TableType::ValueCopyType::ValueSource;
+        static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithAccessor>);
+        static_assert(std::is_same_v<typename ValueSource::ValueType, std::string>);
+        static_assert(std::is_same_v<
+            decltype(ValueSource::GetValueFromEntity(entity)),
+            std::string>);
+
+        auto value = ValueSource::GetValueFromEntity(entity);
+        ASSERT_EQ(value, "value2");
+
+        ValueSource::SetValueToEntity(entity, "value3");
+        ASSERT_EQ(entity.value, "value3");
     }
 }
