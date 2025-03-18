@@ -4,8 +4,7 @@
 #include <sqt/orm/value/trivial/composite/composite_value_traits.h>
 #include <sqt/orm/value/trivial/composite/composite_value_traits_type.h>
 #include <sqt/orm/value/trivial/composite/composite_value_type.h>
-
-#include "unit_test/value/test_custom_value.h"
+#include "unit_test/fixture/blob.h"
 
 TEST(CompositeValueTest, CompositeValueType) {
 
@@ -54,13 +53,12 @@ TEST(CompositeValueTest, CompositeValueType) {
     ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<std::string>>>);
 
     //Custom type
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<test_custom_value::BLOB>>);
+    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<BLOB>>);
 
     //Composition
     ASSERT_TRUE((sqt::CompositeValueType<std::tuple<int, std::string>>));
     ASSERT_TRUE((sqt::CompositeValueType<std::tuple<int, std::optional<int>>>));
-    ASSERT_TRUE((
-        sqt::CompositeValueType<std::tuple<int, std::optional<int>, test_custom_value::BLOB>>));
+    ASSERT_TRUE((sqt::CompositeValueType<std::tuple<int, std::optional<int>, BLOB>>));
 
     //Non-composite types
     ASSERT_FALSE(sqt::CompositeValueType<std::vector<int>>);
@@ -96,14 +94,11 @@ TEST(CompositeValueTest, CompositeValueTriats) {
 
     //Custom value traits
     {
-        using ValueTraits =
-            sqt::CompositeValueTraits<sqt::CustomValueTraits<test_custom_value::BLOB>>;
-        ASSERT_TRUE((std::is_same_v<
-            typename ValueTraits::ValueType,
-            std::tuple<test_custom_value::BLOB>>));
+        using ValueTraits = sqt::CompositeValueTraits<sqt::CustomValueTraits<BLOB>>;
+        ASSERT_TRUE((std::is_same_v<typename ValueTraits::ValueType, std::tuple<BLOB>>));
         ASSERT_TRUE((std::is_same_v<
             typename ValueTraits::ValueTraitsTypes,
-            std::tuple<sqt::CustomValueTraits<test_custom_value::BLOB>>>));
+            std::tuple<sqt::CustomValueTraits<BLOB>>>));
         ASSERT_TRUE(sqt::CompositeValueTraitsType<ValueTraits>);
     }
 
@@ -112,17 +107,17 @@ TEST(CompositeValueTest, CompositeValueTriats) {
         using ValueTraits = sqt::CompositeValueTraits<
             sqt::PrimitiveValueTraits<int>,
             sqt::NullableValueTraits<std::optional<std::string>>,
-            sqt::CustomValueTraits<test_custom_value::BLOB>
+            sqt::CustomValueTraits<BLOB>
         >;
         ASSERT_TRUE((std::is_same_v<
             typename ValueTraits::ValueType,
-            std::tuple<int, std::optional<std::string>, test_custom_value::BLOB>>));
+            std::tuple<int, std::optional<std::string>, BLOB>>));
         ASSERT_TRUE((std::is_same_v<
             typename ValueTraits::ValueTraitsTypes,
             std::tuple<
                 sqt::PrimitiveValueTraits<int>,
                 sqt::NullableValueTraits<std::optional<std::string>>,
-                sqt::CustomValueTraits<test_custom_value::BLOB>
+                sqt::CustomValueTraits<BLOB>
             >>));
         ASSERT_TRUE(sqt::CompositeValueTraitsType<ValueTraits>);
     }

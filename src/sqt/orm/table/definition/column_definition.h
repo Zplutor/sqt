@@ -19,7 +19,7 @@ public: \
 #define __SQT_VALUE_SOURCE_FIELD(FIELD) \
         class ValueSource { \
         public: \
-            using ValueType = decltype(((UserEntityType*)nullptr)->FIELD); \
+            using ValueType = decltype(((TableEntityType*)nullptr)->FIELD); \
             static const ValueType& GetValueFromEntity(const EntityType& entity) { \
                 return entity.FIELD; \
             } \

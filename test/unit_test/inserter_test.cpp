@@ -3,7 +3,7 @@
 #include <sqt/orm/data_context.h>
 #include <sqt/orm/orm_support.h>
 #include "db_test_fixture.h"
-#include "unit_test/test_entities.h"
+#include "unit_test/fixture/test_entities.h"
 
 class InserterTest : public DBTestFixture {
 };

@@ -16,6 +16,9 @@
     <Filter Include="test\unit_test\table">
       <UniqueIdentifier>{ae67d36d-87b5-4078-bf81-003e2f67299b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\fixture">
+      <UniqueIdentifier>{ab31d570-b663-44b8-91ca-cfef047a2327}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -49,9 +52,6 @@
       <Filter>test\unit_test</Filter>
     </ClCompile>
     <ClCompile Include="test\unit_test\updater_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\unit_test\value_type_test.cpp">
       <Filter>test\unit_test</Filter>
     </ClCompile>
     <ClCompile Include="test\test_environment.cpp">
@@ -101,11 +101,11 @@
     <ClInclude Include="test\test_environment.h">
       <Filter>test</Filter>
     </ClInclude>
-    <ClInclude Include="test\unit_test\test_entities.h">
-      <Filter>test\unit_test</Filter>
+    <ClInclude Include="test\unit_test\fixture\blob.h">
+      <Filter>test\unit_test\fixture</Filter>
     </ClInclude>
-    <ClInclude Include="test\unit_test\value\test_custom_value.h">
-      <Filter>test\unit_test\value</Filter>
+    <ClInclude Include="test\unit_test\fixture\test_entities.h">
+      <Filter>test\unit_test\fixture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

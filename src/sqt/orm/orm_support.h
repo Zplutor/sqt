@@ -17,11 +17,11 @@
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
 namespace __sqt_table_##TABLE_NAME { \
-using UserEntityType = ENTITY_CLASS; \
+using TableEntityType = ENTITY_CLASS; \
 constexpr std::string_view UserTableName = #TABLE_NAME; \
 class TableType : public sqt::AbstractTable { \
 public: \
-    using EntityType = UserEntityType; \
+    using EntityType = TableEntityType; \
     static constexpr const TableType& GetInstance() noexcept; \
     static constexpr sqt::ColumnsView<EntityType> GetColumns() noexcept; \
     static constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() noexcept; \
@@ -73,7 +73,7 @@ __SQT_COLUMN_END(COLUMN_NAME)
 class TableType::Insider { \
 private: \
     template<std::size_t Count> \
-    using ColumnArray = std::array<const sqt::Column<UserEntityType>*, Count>; \
+    using ColumnArray = std::array<const sqt::Column<TableEntityType>*, Count>; \
     using PKShim = sqt::internal::PrimaryKeyShim<TableType>; \
     using PKHelper = sqt::internal::PrimaryKeyHelper<TableType>; \
 public: \
@@ -93,13 +93,13 @@ public: \
 constexpr const TableType& TableType::GetInstance() noexcept { \
     return Insider::TableInstance; \
 } \
-constexpr sqt::ColumnsView<UserEntityType> TableType::GetColumns() noexcept { \
+constexpr sqt::ColumnsView<TableEntityType> TableType::GetColumns() noexcept { \
     return Insider::Columns; \
 } \
-constexpr sqt::ColumnsView<UserEntityType> TableType::GetPrimaryKeyColumns() noexcept { \
+constexpr sqt::ColumnsView<TableEntityType> TableType::GetPrimaryKeyColumns() noexcept { \
     return sqt::internal::PrimaryKeyShim<TableType>::GetPKColumns(Insider::TableInstance); \
 } \
-constexpr sqt::ColumnsView<UserEntityType> TableType::GetNonPrimaryKeyColumns() noexcept { \
+constexpr sqt::ColumnsView<TableEntityType> TableType::GetNonPrimaryKeyColumns() noexcept { \
     return Insider::NonPKColumns; \
 } \
 inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept { \
@@ -117,7 +117,7 @@ inline sqt::AbstractIndexesView TableType::GetAbstractIndexes() const noexcept {
 #define SQT_REGISTER(NAMESPACE, TABLE_NAME) \
 namespace sqt { \
 template<> \
-struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::UserEntityType> { \
+struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::TableEntityType> { \
     using type = NAMESPACE::__sqt_table_##TABLE_NAME::TableType; \
 }; \
 }

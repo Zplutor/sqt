@@ -32,7 +32,6 @@
     <ClCompile Include="test\unit_test\value\custom_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\nullable_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\primitive_value_test.cpp" />
-    <ClCompile Include="test\unit_test\value_type_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -41,9 +40,9 @@
     <ClInclude Include="test\test_environment.h" />
     <ClInclude Include="test\unit_test\data_context_test_fixture.h" />
     <ClInclude Include="test\unit_test\db_test_fixture.h" />
+    <ClInclude Include="test\unit_test\fixture\blob.h" />
+    <ClInclude Include="test\unit_test\fixture\test_entities.h" />
     <ClInclude Include="test\unit_test\orm_support_test.h" />
-    <ClInclude Include="test\unit_test\test_entities.h" />
-    <ClInclude Include="test\unit_test\value\test_custom_value.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

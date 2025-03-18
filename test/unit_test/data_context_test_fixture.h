@@ -4,7 +4,7 @@
 #include <sqt/orm/data_context.h>
 #include <sqt/orm/table_mapping.h>
 #include "unit_test/db_test_fixture.h"
-#include "unit_test/test_entities.h"
+#include "unit_test/fixture/test_entities.h"
 
 class DataContextTestFixture : public DBTestFixture {
 protected:
