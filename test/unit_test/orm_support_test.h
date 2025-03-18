@@ -15,12 +15,12 @@ struct Entity {
     std::optional<std::string> nullable_string_value;
 };
 SQT_TABLE_BEGIN(Entity, Entity)
-SQT_COLUMN(IntColumn, int_value)
-SQT_COLUMN(FloatColumn, float_value)
-SQT_COLUMN(StringColumn, string_value)
-SQT_COLUMN(NullableIntColumn, nullable_int_value)
-SQT_COLUMN(NullableFloatColumn, nullable_float_value)
-SQT_COLUMN(NullableStringColumn, nullable_string_value)
+SQT_COLUMN_FIELD(IntColumn, int_value)
+SQT_COLUMN_FIELD(FloatColumn, float_value)
+SQT_COLUMN_FIELD(StringColumn, string_value)
+SQT_COLUMN_FIELD(NullableIntColumn, nullable_int_value)
+SQT_COLUMN_FIELD(NullableFloatColumn, nullable_float_value)
+SQT_COLUMN_FIELD(NullableStringColumn, nullable_string_value)
 SQT_TABLE_END
 
 
@@ -34,7 +34,7 @@ struct Entity1Column {
     int id{};
 };
 SQT_TABLE_BEGIN(Entity1Column, Entity1Column)
-SQT_COLUMN(id, id)
+SQT_COLUMN_FIELD(id, id)
 SQT_TABLE_END
 
 
@@ -43,8 +43,8 @@ struct EntityPK1 {
     int id1{};
 };
 SQT_TABLE_BEGIN(EntityPK1, EntityPK1)
-SQT_COLUMN(id0, id0)
-SQT_COLUMN(id1, id1)
+SQT_COLUMN_FIELD(id0, id0)
+SQT_COLUMN_FIELD(id1, id1)
 SQT_PRIMARY_KEY(id0)
 SQT_TABLE_END
 
@@ -55,9 +55,9 @@ struct EntityPK2 {
     int id2{};
 };
 SQT_TABLE_BEGIN(EntityPK2, EntityPK2)
-SQT_COLUMN(id0, id0)
-SQT_COLUMN(id1, id1)
-SQT_COLUMN(id2, id2)
+SQT_COLUMN_FIELD(id0, id0)
+SQT_COLUMN_FIELD(id1, id1)
+SQT_COLUMN_FIELD(id2, id2)
 SQT_PRIMARY_KEY(id0, id1)
 SQT_TABLE_END
 
@@ -66,7 +66,7 @@ struct EntityPKAutoInc {
     int id{};
 };
 SQT_TABLE_BEGIN(EntityPKAutoInc, EntityPKAutoInc)
-SQT_COLUMN(id, id)
+SQT_COLUMN_FIELD(id, id)
 SQT_PRIMARY_KEY_AUTO_INC(id)
 SQT_TABLE_END
 
@@ -76,8 +76,8 @@ struct Entity1Index {
     int id1{};
 };
 SQT_TABLE_BEGIN(Entity1Index, Entity1Index)
-SQT_COLUMN(id0, id0)
-SQT_COLUMN(id1, id1)
+SQT_COLUMN_FIELD(id0, id0)
+SQT_COLUMN_FIELD(id1, id1)
 SQT_INDEX(id0)
 SQT_TABLE_END
 
@@ -88,9 +88,9 @@ struct Entity2Index {
     int id2{};
 };
 SQT_TABLE_BEGIN(Entity2Index, Entity2Index)
-SQT_COLUMN(id0, id0)
-SQT_COLUMN(id1, id1)
-SQT_COLUMN(id2, id2)
+SQT_COLUMN_FIELD(id0, id0)
+SQT_COLUMN_FIELD(id1, id1)
+SQT_COLUMN_FIELD(id2, id2)
 SQT_INDEX(id0, id1)
 SQT_TABLE_END
 
@@ -107,14 +107,14 @@ struct Entity8Index {
     int id8{};
 };
 SQT_TABLE_BEGIN(Entity8Index, Entity8Index)
-SQT_COLUMN(id0, id0)
-SQT_COLUMN(id1, id1)
-SQT_COLUMN(id2, id2)
-SQT_COLUMN(id3, id3)
-SQT_COLUMN(id4, id4)
-SQT_COLUMN(id5, id5)
-SQT_COLUMN(id6, id6)
-SQT_COLUMN(id7, id7)
+SQT_COLUMN_FIELD(id0, id0)
+SQT_COLUMN_FIELD(id1, id1)
+SQT_COLUMN_FIELD(id2, id2)
+SQT_COLUMN_FIELD(id3, id3)
+SQT_COLUMN_FIELD(id4, id4)
+SQT_COLUMN_FIELD(id5, id5)
+SQT_COLUMN_FIELD(id6, id6)
+SQT_COLUMN_FIELD(id7, id7)
 SQT_INDEX(id0, id1, id2, id3, id4, id5, id6, id7)
 SQT_TABLE_END
 
@@ -124,8 +124,8 @@ struct EntityUniqueIndex {
     int id1{};
 };
 SQT_TABLE_BEGIN(EntityUniqueIndex, EntityUniqueIndex)
-SQT_COLUMN(id0, id0)
-SQT_COLUMN(id1, id1)
+SQT_COLUMN_FIELD(id0, id0)
+SQT_COLUMN_FIELD(id1, id1)
 SQT_INDEX_UNIQUE(id0)
 SQT_TABLE_END
 

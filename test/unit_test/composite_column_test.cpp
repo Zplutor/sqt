@@ -12,9 +12,9 @@ struct Entity {
 };
 
 SQT_TABLE_BEGIN(Entity, Entity)
-SQT_COLUMN(id, id)
-SQT_COLUMN(name, name)
-SQT_COLUMN(age, age)
+SQT_COLUMN_FIELD(id, id)
+SQT_COLUMN_FIELD(name, name)
+SQT_COLUMN_FIELD(age, age)
 SQT_TABLE_END
 
 }

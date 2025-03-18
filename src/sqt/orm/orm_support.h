@@ -53,7 +53,7 @@ private: \
     static constexpr BaseIndex<Columns...> MakeBaseIndex(const Columns&...) { } \
 
 
-#define SQT_COLUMN(COLUMN_NAME, CLASS_FIELD) \
+#define SQT_COLUMN_FIELD(COLUMN_NAME, CLASS_FIELD) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME) \
 __SQT_VALUE_SOURCE_FIELD(CLASS_FIELD) \
 __SQT_COLUMN_END(COLUMN_NAME)

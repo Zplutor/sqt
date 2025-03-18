@@ -383,7 +383,7 @@ struct ScopedEntity {
 
 namespace orm {
 SQT_TABLE_BEGIN(ScopedEntity, entity::ScopedEntity)
-SQT_COLUMN(ID, id)
+SQT_COLUMN_FIELD(ID, id)
 SQT_TABLE_END
 }
 

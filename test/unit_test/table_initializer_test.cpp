@@ -17,10 +17,10 @@ struct EntityNoPK {
     std::optional<std::string> nullable_string_field;
 };
 SQT_TABLE_BEGIN(EntityNoPK, EntityNoPK)
-SQT_COLUMN(IntegerField, integer_field)
-SQT_COLUMN(StringField, string_field)
-SQT_COLUMN(NullableIntegerField, nullable_integer_field)
-SQT_COLUMN(NullableStringField, nullable_string_field)
+SQT_COLUMN_FIELD(IntegerField, integer_field)
+SQT_COLUMN_FIELD(StringField, string_field)
+SQT_COLUMN_FIELD(NullableIntegerField, nullable_integer_field)
+SQT_COLUMN_FIELD(NullableStringField, nullable_string_field)
 SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test, EntityNoPK)
@@ -75,8 +75,8 @@ struct EntityPK1 {
     std::string string_field;
 };
 SQT_TABLE_BEGIN(EntityPK1, EntityPK1)
-SQT_COLUMN(IntegerField, integer_field)
-SQT_COLUMN(StringField, string_field)
+SQT_COLUMN_FIELD(IntegerField, integer_field)
+SQT_COLUMN_FIELD(StringField, string_field)
 SQT_PRIMARY_KEY(IntegerField)
 SQT_TABLE_END
 }
@@ -108,8 +108,8 @@ struct EntityPK1AutoInc {
     std::string string_field;
 };
 SQT_TABLE_BEGIN(EntityPK1AutoInc, EntityPK1AutoInc)
-SQT_COLUMN(IntegerField, integer_field)
-SQT_COLUMN(StringField, string_field)
+SQT_COLUMN_FIELD(IntegerField, integer_field)
+SQT_COLUMN_FIELD(StringField, string_field)
 SQT_PRIMARY_KEY_AUTO_INC(IntegerField)
 SQT_TABLE_END;
 }
@@ -146,8 +146,8 @@ struct EntityPK2 {
     std::string string_field;
 };
 SQT_TABLE_BEGIN(EntityPK2, EntityPK2)
-SQT_COLUMN(IntegerField, integer_field)
-SQT_COLUMN(StringField, string_field)
+SQT_COLUMN_FIELD(IntegerField, integer_field)
+SQT_COLUMN_FIELD(StringField, string_field)
 SQT_PRIMARY_KEY(IntegerField, StringField)
 SQT_TABLE_END
 }
@@ -187,7 +187,7 @@ struct OldTable {
     int integer_field{};
 };
 SQT_TABLE_BEGIN(AlterTable, OldTable)
-SQT_COLUMN(IntField, integer_field)
+SQT_COLUMN_FIELD(IntField, integer_field)
 SQT_TABLE_END
 }
 namespace new_table {
@@ -196,8 +196,8 @@ struct NewTable {
     std::string string_field;
 };
 SQT_TABLE_BEGIN(AlterTable, NewTable)
-SQT_COLUMN(IntField, integer_field)
-SQT_COLUMN(StringField, string_field)
+SQT_COLUMN_FIELD(IntField, integer_field)
+SQT_COLUMN_FIELD(StringField, string_field)
 SQT_TABLE_END
 }
 }
@@ -251,9 +251,9 @@ struct EntityWithIndex {
     int age{};
 };
 SQT_TABLE_BEGIN(EntityWithIndex, EntityWithIndex)
-SQT_COLUMN(id, id)
-SQT_COLUMN(name, name)
-SQT_COLUMN(age, age)
+SQT_COLUMN_FIELD(id, id)
+SQT_COLUMN_FIELD(name, name)
+SQT_COLUMN_FIELD(age, age)
 SQT_INDEX(id)
 SQT_INDEX(id, name)
 SQT_INDEX(id, name, age)

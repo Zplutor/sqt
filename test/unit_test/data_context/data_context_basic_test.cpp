@@ -8,7 +8,7 @@ struct DataContextBasicTestEntity {
     int id{};
 };
 SQT_TABLE_BEGIN(DataContextBasicTestEntity, DataContextBasicTestEntity)
-SQT_COLUMN(ID, id)
+SQT_COLUMN_FIELD(ID, id)
 SQT_TABLE_END
 SQT_REGISTER(, DataContextBasicTestEntity)
 

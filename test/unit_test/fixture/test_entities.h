@@ -13,8 +13,8 @@ struct EntityNoPK {
     friend auto operator<=>(const EntityNoPK&, const EntityNoPK&) = default;
 };
 SQT_TABLE_BEGIN(EntityNoPK, EntityNoPK)
-SQT_COLUMN(ID, id)
-SQT_COLUMN(Name, name)
+SQT_COLUMN_FIELD(ID, id)
+SQT_COLUMN_FIELD(Name, name)
 SQT_TABLE_END
 
 
@@ -27,8 +27,8 @@ struct EntityPK1 {
     friend auto operator<=>(const EntityPK1&, const EntityPK1&) = default;
 };
 SQT_TABLE_BEGIN(EntityPK1, EntityPK1)
-SQT_COLUMN(ID, id)
-SQT_COLUMN(Name, name)
+SQT_COLUMN_FIELD(ID, id)
+SQT_COLUMN_FIELD(Name, name)
 SQT_PRIMARY_KEY(ID)
 SQT_TABLE_END
 
@@ -43,9 +43,9 @@ struct EntityPK2 {
     friend auto operator<=>(const EntityPK2&, const EntityPK2&) = default;
 };
 SQT_TABLE_BEGIN(EntityPK2, EntityPK2)
-SQT_COLUMN(ID, id)
-SQT_COLUMN(Name, name)
-SQT_COLUMN(Age, age)
+SQT_COLUMN_FIELD(ID, id)
+SQT_COLUMN_FIELD(Name, name)
+SQT_COLUMN_FIELD(Age, age)
 SQT_PRIMARY_KEY(ID, Name)
 SQT_TABLE_END
 
@@ -59,8 +59,8 @@ struct EntityAutoInc {
     friend auto operator<=>(const EntityAutoInc&, const EntityAutoInc&) = default;
 };
 SQT_TABLE_BEGIN(EntityAutoInc, EntityAutoInc)
-SQT_COLUMN(id, id)
-SQT_COLUMN(name, name)
+SQT_COLUMN_FIELD(id, id)
+SQT_COLUMN_FIELD(name, name)
 SQT_PRIMARY_KEY_AUTO_INC(id)
 SQT_INDEX_UNIQUE(name)
 SQT_TABLE_END
