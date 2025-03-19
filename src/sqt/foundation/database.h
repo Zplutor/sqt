@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the class `sqt::Database`.
+*/
+
 #include <filesystem>
 #include <sqlite3.h>
 #include <sqt/foundation/index_info.h>
@@ -9,8 +14,23 @@
 
 namespace sqt {
 
+/**
+A wrapper class for SQLite database.
+*/
 class Database {
 public:
+    /**
+    Opens a SQLite database at the specified file path.
+
+    @param path
+        The file path at which the database opens. The file will be created if it doesn't exist.
+
+    @return
+        An opened `sqt::Database` instance.
+
+    @throws sqt::SQLError
+        Thrown if fails to open the database.
+    */
     static Database Open(const std::filesystem::path& path);
 
 public:

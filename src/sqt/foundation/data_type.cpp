@@ -17,7 +17,7 @@ bool AreEqualCaseInsensitive(std::string_view string1, std::string_view string2)
 
 }
 
-std::string_view DataTypeTraits::ToString(DataType data_type) {
+std::string_view DataTypeTraits::ToString(DataType data_type) noexcept {
     switch (data_type) {
     case DataType::Integer:
         return "integer";
@@ -34,7 +34,7 @@ std::string_view DataTypeTraits::ToString(DataType data_type) {
 }
 
 
-DataType DataTypeTraits::FromString(std::string_view string) {
+DataType DataTypeTraits::FromString(std::string_view string) noexcept {
 
     if (AreEqualCaseInsensitive("integer", string)) {
         return DataType::Integer;
