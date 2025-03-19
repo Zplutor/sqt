@@ -23,7 +23,7 @@ SQT_COLUMN_FIELD(NullableIntegerField, nullable_integer_field)
 SQT_COLUMN_FIELD(NullableStringField, nullable_string_field)
 SQT_TABLE_END
 }
-SQT_REGISTER(table_initializer_test, EntityNoPK)
+SQT_REGISTER(table_initializer_test::EntityNoPK)
 
 TEST_F(TableInitializerTest, NewTableNoPK) {
 
@@ -80,7 +80,7 @@ SQT_COLUMN_FIELD(StringField, string_field)
 SQT_PRIMARY_KEY(IntegerField)
 SQT_TABLE_END
 }
-SQT_REGISTER(table_initializer_test, EntityPK1)
+SQT_REGISTER(table_initializer_test::EntityPK1)
 
 TEST_F(TableInitializerTest, NewTablePK1) {
 
@@ -113,7 +113,7 @@ SQT_COLUMN_FIELD(StringField, string_field)
 SQT_PRIMARY_KEY_AUTO_INC(IntegerField)
 SQT_TABLE_END;
 }
-SQT_REGISTER(table_initializer_test, EntityPK1AutoInc)
+SQT_REGISTER(table_initializer_test::EntityPK1AutoInc)
 
 TEST_F(TableInitializerTest, NewTablePK1AutoInc) {
 
@@ -151,7 +151,7 @@ SQT_COLUMN_FIELD(StringField, string_field)
 SQT_PRIMARY_KEY(IntegerField, StringField)
 SQT_TABLE_END
 }
-SQT_REGISTER(table_initializer_test, EntityPK2)
+SQT_REGISTER(table_initializer_test::EntityPK2)
 
 TEST_F(TableInitializerTest, NewTablePK2) {
 
@@ -201,8 +201,8 @@ SQT_COLUMN_FIELD(StringField, string_field)
 SQT_TABLE_END
 }
 }
-SQT_REGISTER(table_initializer_test::old_table, AlterTable)
-SQT_REGISTER(table_initializer_test::new_table, AlterTable)
+SQT_REGISTER(table_initializer_test::old_table::AlterTable)
+SQT_REGISTER(table_initializer_test::new_table::AlterTable)
 
 TEST_F(TableInitializerTest, AlterTable) {
 
@@ -260,7 +260,7 @@ SQT_INDEX(id, name, age)
 SQT_INDEX_UNIQUE(id, age)
 SQT_TABLE_END
 }
-SQT_REGISTER(table_initializer_test, EntityWithIndex)
+SQT_REGISTER(table_initializer_test::EntityWithIndex)
 
 TEST_F(TableInitializerTest, CreateIndex) {
 

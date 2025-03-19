@@ -67,7 +67,7 @@ SQT_TABLE_END
 
 }
 
-SQT_REGISTER(test_entities, EntityNoPK)
-SQT_REGISTER(test_entities, EntityPK1)
-SQT_REGISTER(test_entities, EntityPK2)
-SQT_REGISTER(test_entities, EntityAutoInc)
+SQT_REGISTER(test_entities::EntityNoPK)
+SQT_REGISTER(test_entities::EntityPK1)
+SQT_REGISTER(test_entities::EntityPK2)
+SQT_REGISTER(test_entities::EntityAutoInc)

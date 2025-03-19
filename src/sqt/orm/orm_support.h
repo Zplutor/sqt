@@ -16,9 +16,9 @@
 #include <sqt/orm/utility/utility.h>
 
 #define SQT_TABLE_BEGIN(TABLE_NAME, ENTITY_CLASS) \
-namespace __sqt_table_##TABLE_NAME { \
+namespace TABLE_NAME##_definition { \
 using TableEntityType = ENTITY_CLASS; \
-constexpr std::string_view UserTableName = #TABLE_NAME; \
+constexpr std::string_view TableName = #TABLE_NAME; \
 class TableType : public sqt::AbstractTable { \
 public: \
     using EntityType = TableEntityType; \
@@ -27,7 +27,7 @@ public: \
     static constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() noexcept; \
     static constexpr sqt::ColumnsView<EntityType> GetNonPrimaryKeyColumns() noexcept; \
     constexpr std::string_view GetName() const noexcept override { \
-        return UserTableName; \
+        return TableName; \
     } \
     sqt::AbstractColumnsView GetAbstractColumns() const noexcept override; \
     sqt::AbstractIndexesView GetAbstractIndexes() const noexcept override; \
@@ -126,10 +126,10 @@ inline sqt::AbstractIndexesView TableType::GetAbstractIndexes() const noexcept {
 };
 
 
-#define SQT_REGISTER(NAMESPACE, TABLE_NAME) \
+#define SQT_REGISTER(QUALIFIED_TABLE_NAME) \
 namespace sqt { \
 template<> \
-struct Table<NAMESPACE::__sqt_table_##TABLE_NAME::TableEntityType> { \
-    using type = NAMESPACE::__sqt_table_##TABLE_NAME::TableType; \
+struct Table<QUALIFIED_TABLE_NAME##_definition::TableEntityType> { \
+    using type = QUALIFIED_TABLE_NAME##_definition::TableType; \
 }; \
 }

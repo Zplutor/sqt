@@ -132,13 +132,13 @@ SQT_TABLE_END
 }
 
 
-SQT_REGISTER(orm_support, Entity)
-SQT_REGISTER(orm_support, Entity0Column)
-SQT_REGISTER(orm_support, Entity1Column)
-SQT_REGISTER(orm_support, EntityPK1)
-SQT_REGISTER(orm_support, EntityPK2)
-SQT_REGISTER(orm_support, EntityPKAutoInc)
-SQT_REGISTER(orm_support, Entity1Index)
-SQT_REGISTER(orm_support, Entity2Index)
-SQT_REGISTER(orm_support, Entity8Index)
-SQT_REGISTER(orm_support, EntityUniqueIndex)
+SQT_REGISTER(orm_support::Entity)
+SQT_REGISTER(orm_support::Entity0Column)
+SQT_REGISTER(orm_support::Entity1Column)
+SQT_REGISTER(orm_support::EntityPK1)
+SQT_REGISTER(orm_support::EntityPK2)
+SQT_REGISTER(orm_support::EntityPKAutoInc)
+SQT_REGISTER(orm_support::Entity1Index)
+SQT_REGISTER(orm_support::Entity2Index)
+SQT_REGISTER(orm_support::Entity8Index)
+SQT_REGISTER(orm_support::EntityUniqueIndex)

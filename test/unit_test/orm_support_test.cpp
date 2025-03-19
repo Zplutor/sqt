@@ -387,7 +387,7 @@ SQT_COLUMN_FIELD(ID, id)
 SQT_TABLE_END
 }
 
-SQT_REGISTER(orm, ScopedEntity)
+SQT_REGISTER(orm::ScopedEntity)
 
 TEST(ORMSupportTest, DifferentNamespace) {
 

@@ -15,7 +15,7 @@ SQT_COLUMN_FIELD(Nullable, nullable)
 SQT_COLUMN_FIELD(Custom, custom)
 SQT_TABLE_END
 }
-SQT_REGISTER(value_source_test, EntityWithField)
+SQT_REGISTER(value_source_test::EntityWithField)
 
 TEST(ValueSourceTest, DefaultValueSource_Field) {
 
@@ -100,7 +100,7 @@ SQT_COLUMN_ACCESSOR(ValueRef, GetValueRef, SetValue)
 SQT_COLUMN_ACCESSOR(ValueCopy, GetValueCopy, SetValue)
 SQT_TABLE_END
 }
-SQT_REGISTER(value_source_test, EntityWithAccessor)
+SQT_REGISTER(value_source_test::EntityWithAccessor)
 
 TEST(ValueSourceTest, DefaultValueSource_Accessor) {
 
@@ -171,7 +171,7 @@ SQT_COLUMN_CUSTOM(InlineValue, struct ValueSource {
 });
 SQT_TABLE_END
 }
-SQT_REGISTER(value_source_test, EntityCustom)
+SQT_REGISTER(value_source_test::EntityCustom)
 
 TEST(ValueSourceTest, CustomValueSource) {
 

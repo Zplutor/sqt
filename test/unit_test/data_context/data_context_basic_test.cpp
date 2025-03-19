@@ -10,7 +10,7 @@ struct DataContextBasicTestEntity {
 SQT_TABLE_BEGIN(DataContextBasicTestEntity, DataContextBasicTestEntity)
 SQT_COLUMN_FIELD(ID, id)
 SQT_TABLE_END
-SQT_REGISTER(, DataContextBasicTestEntity)
+SQT_REGISTER(DataContextBasicTestEntity)
 
 using TestDataContext = sqt::DataContext<DataContextBasicTestEntity>;
 static_assert(!std::copyable<TestDataContext>);

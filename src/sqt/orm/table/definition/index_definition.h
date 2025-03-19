@@ -25,9 +25,9 @@ public: \
     class __SQT_INDEX_TYPE_NAME(__VA_ARGS__) : public __SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__) { \
     private: \
         static constexpr std::string_view IndexName = __SQT_INDEX_NAME_STRING(__VA_ARGS__); \
-        static constexpr std::size_t FullNameLength = UserTableName.size() + IndexName.size() + 1;\
+        static constexpr std::size_t FullNameLength = TableName.size() + IndexName.size() + 1;\
         static constexpr std::array<char, FullNameLength> FullName = \
-            sqt::MakeIndexFullName<FullNameLength>(UserTableName, IndexName); \
+            sqt::MakeIndexFullName<FullNameLength>(TableName, IndexName); \
     public: \
         using __SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__)::__SQT_INDEX_BASE_TYPE_NAME(__VA_ARGS__); \
         std::string_view GetName() const noexcept override { \
