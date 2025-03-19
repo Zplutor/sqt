@@ -56,13 +56,6 @@ void Database::Reset() noexcept {
 }
 
 
-void Database::ExecuteSQL(std::string_view sql) {
-
-    auto statement = PrepareStatement(sql);
-    statement.Step();
-}
-
-
 Statement Database::PrepareStatement(std::string_view sql) {
 
     sqlite3_stmt* statement_handle{};
@@ -79,12 +72,19 @@ Statement Database::PrepareStatement(std::string_view sql) {
 }
 
 
-std::int64_t Database::LastInsertRowID() const {
+void Database::ExecuteSQL(std::string_view sql) {
+
+    auto statement = PrepareStatement(sql);
+    statement.Step();
+}
+
+
+std::int64_t Database::LastInsertRowID() const noexcept {
     return sqlite3_last_insert_rowid(handle_);
 }
 
 
-std::size_t Database::LastChanges() const {
+std::size_t Database::LastChanges() const noexcept {
     return sqlite3_changes(handle_);
 }
 
