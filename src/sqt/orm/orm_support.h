@@ -5,7 +5,7 @@
 #include <sqt/orm/internal/linked_list.h>
 #include <sqt/orm/internal/primary_key_helper.h>
 #include <sqt/orm/table_mapping.h>
-#include <sqt/orm/table/abstract_index.h>
+#include <sqt/orm/table/index/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/table/column/column.h>
 #include <sqt/orm/table/definition/column_definition.h>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/table/abstract_primary_key.h>
+#include <sqt/orm/table/primary_key/abstract_primary_key.h>
 #include <sqt/orm/table/column/composite_column.h>
 
 namespace sqt {

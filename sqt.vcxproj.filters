@@ -76,6 +76,12 @@
     <Filter Include="src\sqt\orm\table\definition">
       <UniqueIdentifier>{2ffe08ba-dad1-43ec-945a-458e7a5e4a0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\sqt\orm\table\index">
+      <UniqueIdentifier>{8b4a581e-ecea-416f-83ba-05fd06dafb45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sqt\orm\table\primary_key">
+      <UniqueIdentifier>{719ca51f-0a5e-44a7-b25d-e9d1a88bb0d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sqlite\sqlite3.c">
@@ -182,16 +188,7 @@
     <ClInclude Include="src\sqt\orm\internal\linked_list.h">
       <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\abstract_index.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table\table_initializer.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\primary_key.h">
-      <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h">
       <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h">
@@ -202,9 +199,6 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\assignment.h">
       <Filter>src\sqt\orm\expression</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\table_like.h">
-      <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\assignment_type.h">
       <Filter>src\sqt\orm\expression</Filter>
@@ -391,6 +385,15 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\column\composite_column_type.h">
       <Filter>src\sqt\orm\table\column</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\index\abstract_index.h">
+      <Filter>src\sqt\orm\table\index</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\primary_key\abstract_primary_key.h">
+      <Filter>src\sqt\orm\table\primary_key</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\table\primary_key\primary_key.h">
+      <Filter>src\sqt\orm\table\primary_key</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

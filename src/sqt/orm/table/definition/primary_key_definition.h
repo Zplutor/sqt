@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sqt/orm/table/definition/expression_definition.h>
-#include <sqt/orm/table/primary_key.h>
+#include <sqt/orm/table/primary_key/primary_key.h>
 
 #define SQT_DEFINE_PRIMARY_KEY(AUTO_INC, ...) \
 private: \

@@ -2,8 +2,8 @@
 
 #include <string_view>
 #include <sqt/orm/table/column/abstract_column.h>
-#include <sqt/orm/table/abstract_index.h>
-#include <sqt/orm/table/abstract_primary_key.h>
+#include <sqt/orm/table/index/abstract_index.h>
+#include <sqt/orm/table/primary_key/abstract_primary_key.h>
 
 namespace sqt {
 

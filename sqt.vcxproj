@@ -76,8 +76,6 @@
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h" />
     <ClInclude Include="src\sqt\orm\querier\where_capability.h" />
     <ClInclude Include="src\sqt\orm\querier\where_decorator.h" />
-    <ClInclude Include="src\sqt\orm\table\abstract_index.h" />
-    <ClInclude Include="src\sqt\orm\table\abstract_primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\abstract_table.h" />
     <ClInclude Include="src\sqt\orm\table\column\abstract_column.h" />
     <ClInclude Include="src\sqt\orm\table\column\column.h" />
@@ -90,8 +88,9 @@
     <ClInclude Include="src\sqt\orm\table\definition\index_definition.h" />
     <ClInclude Include="src\sqt\orm\table\definition\primary_key_definition.h" />
     <ClInclude Include="src\sqt\orm\table\identifier_type.h" />
-    <ClInclude Include="src\sqt\orm\table\table_like.h" />
-    <ClInclude Include="src\sqt\orm\table\primary_key.h" />
+    <ClInclude Include="src\sqt\orm\table\index\abstract_index.h" />
+    <ClInclude Include="src\sqt\orm\table\primary_key\abstract_primary_key.h" />
+    <ClInclude Include="src\sqt\orm\table\primary_key\primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
