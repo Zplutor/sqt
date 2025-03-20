@@ -3,10 +3,8 @@
 
 namespace sqt {
 
-Transaction::Transaction(Database& database) {
+Transaction::Transaction(Database& database) noexcept : database_(&database) {
 
-    database.ExecuteSQL("begin transaction");
-    database_ = &database;
 }
 
 

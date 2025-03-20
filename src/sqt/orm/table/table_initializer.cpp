@@ -7,7 +7,7 @@ namespace sqt {
 
 void TableInitializer::Initialize(const AbstractTable& table, Database& db) {
 
-    Transaction transaction{ db };
+    Transaction transaction = db.BeginTransaction();
 
     auto table_info = db.GetTableInfo(table.GetName());
     if (!table_info) {

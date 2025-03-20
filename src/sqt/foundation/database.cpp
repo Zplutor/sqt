@@ -79,6 +79,12 @@ void Database::ExecuteSQL(std::string_view sql) {
 }
 
 
+Transaction Database::BeginTransaction() {
+    ExecuteSQL("begin transaction");
+    return Transaction{ *this };
+}
+
+
 std::int64_t Database::LastInsertRowID() const noexcept {
     return sqlite3_last_insert_rowid(handle_);
 }
