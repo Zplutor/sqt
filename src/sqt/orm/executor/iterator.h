@@ -46,7 +46,7 @@ public:
 
 private:
     void MoveNext() {
-        if (!statement_->Step()) {
+        if (!statement_->Step().HasMore()) {
             statement_ = nullptr;
         }
     }

@@ -68,7 +68,7 @@ Statement Database::PrepareStatement(std::string_view sql) {
 
     SQT_THROW_IF_SQL_ERROR(error_code, handle_);
 
-    return Statement{ handle_, statement_handle };
+    return Statement{ statement_handle, handle_ };
 }
 
 
@@ -95,7 +95,7 @@ std::optional<TableInfo> Database::GetTableInfo(std::string_view table_name) {
     auto statement = PrepareStatement(sql);
 
     TableInfo table_info;
-    while (statement.Step()) {
+    while (statement.Step().HasMore()) {
 
         ColumnInfo column_info;
         column_info.name = statement.GetColumnText(1);
@@ -121,7 +121,7 @@ std::optional<IndexInfo> Database::GetIndexInfo(std::string_view index_name) {
     auto statement = PrepareStatement(sql);
 
     IndexInfo result;
-    while (statement.Step()) {
+    while (statement.Step().HasMore()) {
 
         std::string column_name{ statement.GetColumnText(2) };
         result.columns.push_back(std::move(column_name));

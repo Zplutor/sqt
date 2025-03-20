@@ -86,7 +86,7 @@ bool DataContextTestFixture::CheckData(
     auto statement = DB()->PrepareStatement("select * from EntityNoPK");
     for (const auto& each_entity : entities) {
 
-        if (!statement.Step()) {
+        if (!statement.Step().HasMore()) {
             return false;
         }
 
@@ -96,7 +96,7 @@ bool DataContextTestFixture::CheckData(
         }
     }
 
-    return !statement.Step();
+    return !statement.Step().HasMore();
 }
 
 
@@ -106,7 +106,7 @@ bool DataContextTestFixture::CheckData(
     auto statement = DB()->PrepareStatement("select * from EntityPK1");
     for (const auto& each_entity : entities) {
 
-        if (!statement.Step()) {
+        if (!statement.Step().HasMore()) {
             return false;
         }
 
@@ -116,7 +116,7 @@ bool DataContextTestFixture::CheckData(
         }
     }
 
-    return !statement.Step();
+    return !statement.Step().HasMore();
 }
 
 
@@ -127,7 +127,7 @@ bool DataContextTestFixture::CheckData(
 
     for (const auto& each_entity : entities) {
 
-        if (!statement.Step()) {
+        if (!statement.Step().HasMore()) {
             return false;
         }
 
@@ -138,7 +138,7 @@ bool DataContextTestFixture::CheckData(
         }
     }
 
-    return !statement.Step();
+    return !statement.Step().HasMore();
 }
 
 
@@ -149,7 +149,7 @@ bool DataContextTestFixture::CheckData(
 
     for (const auto& each_entity : entities) {
 
-        if (!statement.Step()) {
+        if (!statement.Step().HasMore()) {
             return false;
         }
 
@@ -159,5 +159,5 @@ bool DataContextTestFixture::CheckData(
         }
     }
 
-    return !statement.Step();
+    return !statement.Step().HasMore();
 }

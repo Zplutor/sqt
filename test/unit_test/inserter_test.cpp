@@ -24,7 +24,7 @@ TEST_F(InserterTest, InsertEntireEntity) {
 
     {
         auto statement = DB()->PrepareStatement(std::format("select * from EntityAutoInc"));
-        ASSERT_TRUE(statement.Step());
+        ASSERT_TRUE(statement.Step().HasMore());
         ASSERT_EQ(statement.GetColumnInt(0), 89);
         ASSERT_EQ(statement.GetColumnText(1), "yyx");
     }
@@ -50,7 +50,7 @@ TEST_F(InserterTest, ReplaceEntireEntity) {
     executor.Execute();
 
     auto statement = DB()->PrepareStatement(std::format("select * from EntityAutoInc"));
-    ASSERT_TRUE(statement.Step());
+    ASSERT_TRUE(statement.Step().HasMore());
     ASSERT_EQ(statement.GetColumnInt(0), 890);
     ASSERT_EQ(statement.GetColumnText(1), "replacer");
 }
@@ -65,10 +65,10 @@ TEST_F(InserterTest, DataContextReplace) {
     context.Replace(entity);
 
     auto statement = DB()->PrepareStatement(std::format("select * from EntityAutoInc"));
-    ASSERT_TRUE(statement.Step());
+    ASSERT_TRUE(statement.Step().HasMore());
     ASSERT_EQ(statement.GetColumnInt(0), 890);
     ASSERT_EQ(statement.GetColumnText(1), "replacer");
-    ASSERT_FALSE(statement.Step());
+    ASSERT_FALSE(statement.Step().HasMore());
 }
 
 
@@ -93,9 +93,9 @@ TEST_F(InserterTest, InsertAutoIncEntity) {
 
     auto statement = DB()->PrepareStatement(std::format("select * from EntityAutoInc"));
     for (int index = 1; index <= 3; ++index) {
-        ASSERT_TRUE(statement.Step());
+        ASSERT_TRUE(statement.Step().HasMore());
         ASSERT_EQ(statement.GetColumnInt(0), index);
         ASSERT_EQ(statement.GetColumnText(1), std::to_string(index));
     }
-    ASSERT_FALSE(statement.Step());
+    ASSERT_FALSE(statement.Step().HasMore());
 }

@@ -395,5 +395,8 @@
     <ClInclude Include="src\sqt\orm\table\primary_key\primary_key.h">
       <Filter>src\sqt\orm\table\primary_key</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\foundation\step_result.h">
+      <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,9 +3,9 @@
 
 namespace sqt {
 
-Statement::Statement(sqlite3* database_handle, sqlite3_stmt* statement_handle) noexcept :
-    database_handle_(database_handle),
-    statement_handle_(statement_handle) {
+Statement::Statement(sqlite3_stmt* statement_handle, sqlite3* database_handle) noexcept :
+    statement_handle_(statement_handle),
+    database_handle_(database_handle) {
 
 }
 
@@ -85,21 +85,21 @@ void Statement::BindParameter(int parameter_index, std::string_view value) {
 }
 
 
-void Statement::BindParameter(int parameter_index, std::nullopt_t) {
-    int error_code = sqlite3_bind_null(statement_handle_, parameter_index);
+void Statement::BindParameter(int parameter_index, std::span<const std::byte> bytes) {
+
+    int error_code = sqlite3_bind_blob64(
+        statement_handle_,
+        parameter_index,
+        bytes.data(),
+        bytes.size(),
+        SQLITE_TRANSIENT);
+
     SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);
 }
 
 
-void Statement::BindParameter(int parameter_index, std::span<const std::byte> value) {
-    
-    int error_code = sqlite3_bind_blob64(
-        statement_handle_,
-        parameter_index, 
-        value.data(),
-        value.size(),
-        SQLITE_TRANSIENT);
-
+void Statement::BindParameter(int parameter_index, std::nullopt_t) {
+    int error_code = sqlite3_bind_null(statement_handle_, parameter_index);
     SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);
 }
 
@@ -110,15 +110,15 @@ void Statement::ClearBindings() {
 }
 
 
-bool Statement::Step() {
+StepResult Statement::Step() {
 
     int error_code = sqlite3_step(statement_handle_);
     if (error_code == SQLITE_ROW) {
-        return true;
+        return StepResult{ true };
     }
 
     if (error_code == SQLITE_DONE) {
-        return false;
+        return StepResult{ false };
     }
 
     ThrowSQLError(error_code, database_handle_);

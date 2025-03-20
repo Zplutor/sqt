@@ -26,6 +26,7 @@
     <ClInclude Include="src\sqt\foundation\index_info.h" />
     <ClInclude Include="src\sqt\foundation\sql_error.h" />
     <ClInclude Include="src\sqt\foundation\statement.h" />
+    <ClInclude Include="src\sqt\foundation\step_result.h" />
     <ClInclude Include="src\sqt\foundation\table_info.h" />
     <ClInclude Include="src\sqt\foundation\transaction.h" />
     <ClInclude Include="src\sqt\orm\data_context.h" />
