@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <sqt/orm/orm_support.h>
+#include <sqt/orm/table_definition.h>
 #include <sqt/orm/table/column/value_source_type.h>
 #include "unit_test/fixture/blob.h"
 

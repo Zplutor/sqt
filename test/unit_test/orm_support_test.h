@@ -2,7 +2,7 @@
 
 #include <optional>
 #include <string>
-#include <sqt/orm/orm_support.h>
+#include <sqt/orm/table_definition.h>
 
 namespace orm_support {
 

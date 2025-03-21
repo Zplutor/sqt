@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/orm_support.h>
+#include <sqt/orm/table_definition.h>
 
 namespace test_entities {
 

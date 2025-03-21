@@ -110,7 +110,7 @@
     <ClInclude Include="sqlite\sqlite3.h">
       <Filter>sqlite</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\orm_support.h">
+    <ClInclude Include="src\sqt\orm\table_definition.h">
       <Filter>src\sqt\orm</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table_mapping.h">

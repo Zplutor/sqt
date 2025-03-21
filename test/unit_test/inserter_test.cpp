@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sqt/foundation/sql_error.h>
 #include <sqt/orm/data_context.h>
-#include <sqt/orm/orm_support.h>
+#include <sqt/orm/table_definition.h>
 #include "db_test_fixture.h"
 #include "unit_test/fixture/test_entities.h"
 

@@ -59,7 +59,7 @@
     <ClInclude Include="src\sqt\orm\expression\predicate_type.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
-    <ClInclude Include="src\sqt\orm\orm_support.h" />
+    <ClInclude Include="src\sqt\orm\table_definition.h" />
     <ClInclude Include="src\sqt\orm\querier\deleter\deleter.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h" />

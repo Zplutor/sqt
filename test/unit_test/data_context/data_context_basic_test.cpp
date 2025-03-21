@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sqt/foundation/database.h>
 #include <sqt/orm/data_context.h>
-#include <sqt/orm/orm_support.h>
+#include <sqt/orm/table_definition.h>
 #include "test_environment.h"
 
 struct DataContextBasicTestEntity {

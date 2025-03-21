@@ -104,8 +104,8 @@ public:
     Begins a transaction.
 
     @return
-        A `sqt::Transaction` instance which can be used to commit or roll back the transaction. The
-        instance is valid until the current database is destroyed.
+        A `sqt::Transaction` instance used to commit or roll back the transaction. The instance is
+        valid until the current database is destroyed.
 
     @throw sqt::SQLError
         Thrown if fails to begin the transaction.
