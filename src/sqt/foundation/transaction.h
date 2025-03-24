@@ -21,7 +21,7 @@ public:
     @param database
         The database which has already began a transaction.
 
-    @remark
+    @note
         Don't call this constructor directly. Use `sqt::Database::BeginTransaction` to begin a 
         transaction.
 
