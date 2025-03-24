@@ -19,7 +19,7 @@ SQT_REGISTER(value_source_test::EntityWithField)
 
 TEST(ValueSourceTest, DefaultValueSource_Field) {
 
-    using TableType = sqt::TableT<value_source_test::EntityWithField>;
+    using TableType = sqt::TableType<value_source_test::EntityWithField>;
 
     value_source_test::EntityWithField entity;
     entity.primitive = "primitive";
@@ -104,7 +104,7 @@ SQT_REGISTER(value_source_test::EntityWithAccessor)
 
 TEST(ValueSourceTest, DefaultValueSource_Accessor) {
 
-    using TableType = sqt::TableT<value_source_test::EntityWithAccessor>;
+    using TableType = sqt::TableType<value_source_test::EntityWithAccessor>;
     value_source_test::EntityWithAccessor entity;
     entity.value = "value";
 
@@ -175,7 +175,7 @@ SQT_REGISTER(value_source_test::EntityCustom)
 
 TEST(ValueSourceTest, CustomValueSource) {
 
-    using TableType = sqt::TableT<value_source_test::EntityCustom>;
+    using TableType = sqt::TableType<value_source_test::EntityCustom>;
     value_source_test::EntityCustom entity;
     entity.value = "value";
 

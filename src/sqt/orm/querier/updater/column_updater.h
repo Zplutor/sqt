@@ -28,7 +28,7 @@ public:
             (build_set_clause(ASSIGNMENT::BuildSQL()), ...);
 
             using First = std::tuple_element_t<0, std::tuple<ASSIGNMENT...>>;
-            constexpr auto& table = TableV<typename First::LHSOperand::EntityType>;
+            constexpr auto& table = Table<typename First::LHSOperand::EntityType>;
             return std::format("update {} set {}", table.GetName(), set_clause);
         }();
         return sql;

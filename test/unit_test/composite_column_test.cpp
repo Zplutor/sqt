@@ -21,8 +21,8 @@ SQT_TABLE_END
 
 SQT_REGISTER(composite_column_test::Entity)
 
-using TableT = sqt::TableT<composite_column_test::Entity>;
-constexpr auto& TableV = sqt::TableV<composite_column_test::Entity>;
+using TableT = sqt::TableType<composite_column_test::Entity>;
+constexpr auto& TableV = sqt::Table<composite_column_test::Entity>;
 
 
 TEST(CompositeColumnTest, SingleColumn) {

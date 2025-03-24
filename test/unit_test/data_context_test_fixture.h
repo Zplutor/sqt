@@ -13,10 +13,10 @@ protected:
     using PK2Context = sqt::DataContext<test_entities::EntityPK2>;
     using AutoIncContext = sqt::DataContext<test_entities::EntityAutoInc>;
 
-    static constexpr auto& NoPKTable = sqt::TableV<test_entities::EntityNoPK>;
-    static constexpr auto& PK1Table = sqt::TableV<test_entities::EntityPK1>;
-    static constexpr auto& PK2Table = sqt::TableV<test_entities::EntityPK2>;
-    static constexpr auto& AutoIncTable = sqt::TableV<test_entities::EntityAutoInc>;
+    static constexpr auto& NoPKTable = sqt::Table<test_entities::EntityNoPK>;
+    static constexpr auto& PK1Table = sqt::Table<test_entities::EntityPK1>;
+    static constexpr auto& PK2Table = sqt::Table<test_entities::EntityPK2>;
+    static constexpr auto& AutoIncTable = sqt::Table<test_entities::EntityAutoInc>;
 
     void SetUp() override;
 

@@ -17,7 +17,7 @@ public:
 
     static std::string_view BuildSQL() {
         static const std::string sql = []() {
-            return std::format("delete from {}", TableV<ENTITY>.GetName());
+            return std::format("delete from {}", Table<ENTITY>.GetName());
         }();
         return sql;
     }

@@ -122,7 +122,7 @@ public:
 
     template<typename E = ENTITY>
     bool Update(const E& entity) requires PrimaryKeyEntityValueType<E> {
-        constexpr auto updater = MakeNoPrimaryKeyUpdater().Where(TableV<E>.PrimaryKey == sqt::_);
+        constexpr auto updater = MakeNoPrimaryKeyUpdater().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(updater);
         executor.BeginBind().Bind(entity).BindFromEntity(entity);
         executor.Execute();
@@ -137,10 +137,10 @@ public:
     }
 
     template<typename E = ENTITY>
-    bool Delete(const typename TableT<E>::PrimaryKeyType::ValueType& primary_key) 
+    bool Delete(const typename TableType<E>::PrimaryKeyType::ValueType& primary_key) 
         requires PrimaryKeyEntityValueType<E> {
 
-        constexpr auto deleter = MakeDeleter().Where(TableV<E>.PrimaryKey == sqt::_);
+        constexpr auto deleter = MakeDeleter().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(deleter);
         executor.BeginBind().Bind(primary_key);
         executor.Execute();
@@ -155,10 +155,10 @@ public:
     }
 
     template<typename E = ENTITY>
-    std::optional<E> Select(const typename TableT<E>::PrimaryKeyType::ValueType& primary_key) 
+    std::optional<E> Select(const typename TableType<E>::PrimaryKeyType::ValueType& primary_key) 
         requires PrimaryKeyEntityValueType<E> {
 
-        constexpr auto selecter = MakeSelecter().Where(TableV<E>.PrimaryKey == sqt::_);
+        constexpr auto selecter = MakeSelecter().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(selecter);
         executor.BeginBind().Bind(primary_key);
         auto result = executor.Execute();
@@ -202,7 +202,7 @@ private:
 
         const std::shared_ptr<sqt::Database>& DB() {
             std::call_once(init_once_flag_, [this]() {
-                TableInitializer::Initialize(TableV<ENTITY>, *db_);
+                TableInitializer::Initialize(Table<ENTITY>, *db_);
             });
             return db_;
         }

@@ -6,19 +6,19 @@ namespace sqt {
 
 template<typename T>
 concept EntityValueType = requires {
-    typename Table<T>::type;
+    typename TableMapping<T>::type;
 };
 
 
 template<typename T>
 concept PrimaryKeyEntityValueType = EntityValueType<T> && requires {
-    typename TableT<T>::PrimaryKeyType;
+    typename TableType<T>::PrimaryKeyType;
 };
 
 
 template<typename T>
 concept AutoIncEntityValueType = PrimaryKeyEntityValueType<T> && requires {
-    requires TableV<T>.PrimaryKey.IsAutoInc();
+    requires Table<T>.PrimaryKey.IsAutoInc();
 };
 
 }

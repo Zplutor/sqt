@@ -10,7 +10,7 @@ class NoPrimaryKeyEntityValueTraits {
 public:
     using ValueType = T;
     using EntityType = T;
-    using TableType = TableT<T>;
+    using TableType = TableType<T>;
 
     static constexpr ColumnsView<EntityType> ManipulatingColumns =
         TableType::GetNonPrimaryKeyColumns();

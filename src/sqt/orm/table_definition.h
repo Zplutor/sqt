@@ -129,7 +129,7 @@ inline sqt::AbstractIndexesView TableType::GetAbstractIndexes() const noexcept {
 #define SQT_REGISTER(QUALIFIED_TABLE_NAME) \
 namespace sqt { \
 template<> \
-struct Table<QUALIFIED_TABLE_NAME##_definition::TableEntityType> { \
+struct TableMapping<QUALIFIED_TABLE_NAME##_definition::TableEntityType> { \
     using type = QUALIFIED_TABLE_NAME##_definition::TableType; \
 }; \
 }

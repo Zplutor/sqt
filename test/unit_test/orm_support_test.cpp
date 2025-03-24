@@ -6,7 +6,7 @@ using namespace orm_support;
 
 TEST(ORMSupportTest, TableDefinition) {
 
-    using Table = sqt::TableT<Entity>;
+    using Table = sqt::TableType<Entity>;
 
     static_assert(!std::is_copy_constructible_v<Table>);
     static_assert(!std::is_copy_assignable_v<Table>);
@@ -156,7 +156,7 @@ TEST(ORMSupportTest, TableDefinition) {
 
 TEST(ORMSupportTest, NoColumnTable) {
 
-    constexpr const auto& table = sqt::TableV<Entity0Column>;
+    constexpr const auto& table = sqt::Table<Entity0Column>;
     ASSERT_TRUE(table.GetColumns().empty());
     ASSERT_TRUE(table.GetAbstractColumns().empty());
 }
@@ -164,7 +164,7 @@ TEST(ORMSupportTest, NoColumnTable) {
 
 TEST(ORMSupportTest, SingleColumnTable) {
 
-    constexpr const auto& table = sqt::TableV<Entity1Column>;
+    constexpr const auto& table = sqt::Table<Entity1Column>;
 
     auto columns = table.GetColumns();
     ASSERT_EQ(columns.size(), 1);
@@ -178,13 +178,13 @@ TEST(ORMSupportTest, SingleColumnTable) {
 
 TEST(ORMSupportTest, SingleColumnPrimaryKey) {
 
-    using Table = sqt::TableT<EntityPK1>;
+    using Table = sqt::TableType<EntityPK1>;
     static_assert(!std::is_copy_constructible_v<Table::PrimaryKeyType>);
     static_assert(!std::is_copy_assignable_v<Table::PrimaryKeyType>);
     static_assert(!std::is_move_constructible_v<Table::PrimaryKeyType>);
     static_assert(!std::is_move_assignable_v<Table::PrimaryKeyType>);
 
-    constexpr auto& table = sqt::TableV<EntityPK1>;
+    constexpr auto& table = sqt::Table<EntityPK1>;
 
     constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
     ASSERT_EQ(abstract_pk, &table.PrimaryKey);
@@ -212,13 +212,13 @@ TEST(ORMSupportTest, SingleColumnPrimaryKey) {
 
 TEST(ORMSupportTest, TwoColumnPrimaryKey) {
 
-    using Table = sqt::TableT<EntityPK2>;
+    using Table = sqt::TableType<EntityPK2>;
     static_assert(!std::is_copy_constructible_v<Table::PrimaryKeyType>);
     static_assert(!std::is_copy_assignable_v<Table::PrimaryKeyType>);
     static_assert(!std::is_move_constructible_v<Table::PrimaryKeyType>);
     static_assert(!std::is_move_assignable_v<Table::PrimaryKeyType>);
 
-    constexpr auto& table = sqt::TableV<EntityPK2>;
+    constexpr auto& table = sqt::Table<EntityPK2>;
 
     constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
     ASSERT_EQ(abstract_pk, &table.PrimaryKey);
@@ -249,7 +249,7 @@ TEST(ORMSupportTest, TwoColumnPrimaryKey) {
 
 TEST(ORMSupportTest, AutoIncrementPrimaryKey) {
 
-    constexpr auto& table = sqt::TableV<EntityPKAutoInc>;
+    constexpr auto& table = sqt::Table<EntityPKAutoInc>;
     constexpr bool auto_inc = table.PrimaryKey.IsAutoInc();
     ASSERT_TRUE(auto_inc);
 
@@ -261,14 +261,14 @@ TEST(ORMSupportTest, AutoIncrementPrimaryKey) {
 
 TEST(ORMSupportTest, SingleColumnIndex) {
 
-    using Table = sqt::TableT<Entity1Index>;
+    using Table = sqt::TableType<Entity1Index>;
 
     static_assert(!std::is_copy_constructible_v<Table::IndexType_id0>);
     static_assert(!std::is_copy_assignable_v<Table::IndexType_id0>);
     static_assert(!std::is_move_constructible_v<Table::IndexType_id0>);
     static_assert(!std::is_move_assignable_v<Table::IndexType_id0>);
 
-    constexpr auto& table = sqt::TableV<Entity1Index>;
+    constexpr auto& table = sqt::Table<Entity1Index>;
 
     auto indexes = table.GetAbstractIndexes();
     ASSERT_EQ(indexes.size(), 1);
@@ -288,14 +288,14 @@ TEST(ORMSupportTest, SingleColumnIndex) {
 
 TEST(ORMSupportTest, TwoColumnIndex) {
 
-    using Table = sqt::TableT<Entity2Index>;
+    using Table = sqt::TableType<Entity2Index>;
 
     static_assert(!std::is_copy_constructible_v<Table::IndexType_id0id1>);
     static_assert(!std::is_copy_assignable_v<Table::IndexType_id0id1>);
     static_assert(!std::is_move_constructible_v<Table::IndexType_id0id1>);
     static_assert(!std::is_move_assignable_v<Table::IndexType_id0id1>);
 
-    constexpr auto& table = sqt::TableV<Entity2Index>;
+    constexpr auto& table = sqt::Table<Entity2Index>;
 
     auto indexes = table.GetAbstractIndexes();
     ASSERT_EQ(indexes.size(), 1);
@@ -316,14 +316,14 @@ TEST(ORMSupportTest, TwoColumnIndex) {
 
 TEST(ORMSupportTest, MaxCountColumnIndex) {
 
-    using Table = sqt::TableT<Entity8Index>;
+    using Table = sqt::TableType<Entity8Index>;
 
     static_assert(!std::is_copy_constructible_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
     static_assert(!std::is_copy_assignable_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
     static_assert(!std::is_move_constructible_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
     static_assert(!std::is_move_assignable_v<Table::IndexType_id0id1id2id3id4id5id6id7>);
 
-    constexpr auto& table = sqt::TableV<Entity8Index>;
+    constexpr auto& table = sqt::Table<Entity8Index>;
 
     auto indexes = table.GetAbstractIndexes();
     ASSERT_EQ(indexes.size(), 1);
@@ -350,13 +350,13 @@ TEST(ORMSupportTest, MaxCountColumnIndex) {
 
 TEST(ORMSupportTest, UniqueIndex) {
 
-    using Table = sqt::TableT<EntityUniqueIndex>;
+    using Table = sqt::TableType<EntityUniqueIndex>;
     static_assert(!std::is_copy_constructible_v<Table::IndexType_id0>);
     static_assert(!std::is_copy_assignable_v<Table::IndexType_id0>);
     static_assert(!std::is_move_constructible_v<Table::IndexType_id0>);
     static_assert(!std::is_move_assignable_v<Table::IndexType_id0>);
 
-    constexpr auto& table = sqt::TableV<EntityUniqueIndex>;
+    constexpr auto& table = sqt::Table<EntityUniqueIndex>;
 
     auto indexes = table.GetAbstractIndexes();
     ASSERT_EQ(indexes.size(), 1);
@@ -391,6 +391,6 @@ SQT_REGISTER(orm::ScopedEntity)
 
 TEST(ORMSupportTest, DifferentNamespace) {
 
-    constexpr const auto& table = sqt::TableV<entity::ScopedEntity>;
+    constexpr const auto& table = sqt::Table<entity::ScopedEntity>;
     ASSERT_EQ(table.GetName(), "ScopedEntity");
 }

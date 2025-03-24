@@ -21,7 +21,7 @@ public:
 
             constexpr auto conflict_action = ConvertConflictActionToString(CONFLICT_ACTION);
 
-            constexpr auto& table = TableV<typename VALUE_OPERAND::ValueType>;
+            constexpr auto& table = Table<typename VALUE_OPERAND::ValueType>;
             constexpr auto table_name = table.GetName();
 
             return std::format(

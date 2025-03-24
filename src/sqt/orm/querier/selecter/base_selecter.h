@@ -26,7 +26,7 @@ public:
         static const std::string sql = std::format(
             "select {} from {}",
             SELECTER::BuildColumnNames(),
-            TableV<SELECTER::EntityType>.GetName());
+            Table<SELECTER::EntityType>.GetName());
 
         return sql;
     }
