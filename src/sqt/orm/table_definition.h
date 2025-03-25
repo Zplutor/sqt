@@ -173,7 +173,7 @@ Defines a column that binds to the specified field of the entity type.
 
     A field is a public member variable of the entity type. The framework reads from and writes to 
     the field when performing mapping between entity instances and database rows. The type of the
-    field must satisify the requirements of the `sqt::BasicValueType` concept.
+    field must satisfy the requirements of the `sqt::BasicValueType` concept.
 
     Example usage:
     @code
@@ -346,6 +346,66 @@ __SQT_VALUE_SOURCE_ACCESSOR(GETTER, SETTER) \
 __SQT_COLUMN_END(COLUMN_NAME)
 
 
+/**
+Defines a column that binds to the specified custom value source.
+
+@param COLUMN_NAME
+    The name of the column. It will be the column name in the database.
+
+@param VALUE_SOURCE
+    A type that satisfies the `sqt::ValueSourceType` concept, which defines the value type and 
+    methods for retrieving and setting values in an entity instance.
+
+@details
+    This macro is similar to `SQT_COLUMN_FIELD`, except that it binds to a custom value source. It
+    is useful if the column value is not directly accessible through a field or accessor methods. 
+    For example, the column value may be derived from multiple fields or requires some computation 
+    or transformation before getting or setting it.
+
+    The `sqt::ValueSourceType` concept specifies the interface that a value source must implement:
+    - The value type for the column.
+    - Methods to retrieve and set the value in an entity instance.
+
+    Example usage:
+    @code
+    struct MyEntity {
+        int id{};
+        std::string name;
+    };
+
+    // Define the value source type for the ID column.
+    struct IDValueSource {
+        using ValueType = int;
+        static int GetValueFromEntity(const MyEntity& entity) {
+            return entity.id;
+        }
+        static void SetValueToEntity(MyEntity& entity, int value) {
+            entity.id = value;
+        }
+    };
+
+    SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+
+    // Define the ID column with the custom value source.
+    SQT_COLUMN_CUSTOM(ID, IDValueSource)
+
+    // Define the Name column with an inline custom value source.
+    SQT_COLUMN_CUSTOM(Name, struct NameValueSource {
+        using ValueType = std::string;
+        static const std::string& GetValueFromEntity(const MyEntity& entity) {
+            return entity.name;
+        }
+        static void SetValueToEntity(MyEntity& entity, std::string value) {
+            entity.name = std::move(value);
+        }
+    })
+
+    SQT_TABLE_END
+    @endcode
+
+@see SQT_COLUMN_FIELD
+@see sqt::ValueSourceType
+*/
 #define SQT_COLUMN_CUSTOM(COLUMN_NAME, VALUE_SOURCE) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME) \
 __SQT_VALUE_SOURCE_CUSTOM(VALUE_SOURCE) \
