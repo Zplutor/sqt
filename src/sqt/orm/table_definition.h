@@ -412,7 +412,138 @@ __SQT_VALUE_SOURCE_CUSTOM(VALUE_SOURCE) \
 __SQT_COLUMN_END(COLUMN_NAME)
 
 
+/**
+Defines a primary key with the specified columns.
+
+@param ...
+    The names of the columns that form the primary key. A primary key can be composed of one or 
+    more columns.
+
+@details
+    This macro must be used between the `SQT_TABLE_BEGIN` and `SQT_TABLE_END` macros and must be 
+    placed after all definitions of the columns that are part of the primary key. There can be only
+    one primary key definition in a table type.
+
+    Columns of the primary key must not be nullable.
+
+    To define an autoincrement primary key, use the `SQT_PRIMARY_KEY_AUTO_INC` macro instead.
+
+    Example usage:
+    @code
+    struct MyEntity {
+        int id{};
+        std::string name;
+    };
+
+    SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+    SQT_COLUMN_FIELD(ID, id)
+    SQT_COLUMN_FIELD(Name, name)
+    // Define the primary key with the ID and Name columns.
+    SQT_PRIMARY_KEY(ID, Name)
+    SQT_TABLE_END
+    @endcode
+
+    The following code demonstrates the generated definition of the primary key in the table type:
+    @code
+    class TableType {
+    public:
+        // Column types.
+        class IDType;
+        class NameType;
+
+        // The class name of the primary key type is fixed.
+        class PrimaryKeyType : public sqt::PrimaryKey<IDType, NameType> {
+        public:
+            // Forbids copying.
+            PrimaryKeyType(const PrimaryKeyType&) = delete;
+            PrimaryKeyType& operator=(const PrimaryKeyType&) = delete;
+
+            // Forbids moving.
+            PrimaryKeyType(PrimaryKeyType&&) = delete;
+            PrimaryKeyType& operator=(PrimaryKeyType&&) = delete;
+
+            // Assignment operator that generates an assignment expression which can be used in set
+            // clauses.
+            constexpr auto operator=(const ValueType&) const noexcept;
+
+            // Ordering operator that generates an ordering term expression which can be used in
+            // order by clauses.
+            constexpr auto Asc() const noexcept;
+            constexpr auto Desc() const noexcept;
+
+            // Comparison operators that generate predicate expressions which can be used in
+            // where clauses.
+            friend constexpr auto operator==(const PrimaryKeyType&, const ValueType&) const noexcept;
+            friend constexpr auto operator!=(const PrimaryKeyType&, const ValueType&) const noexcept;
+            friend constexpr auto operator<(const PrimaryKeyType&, const ValueType&) const noexcept;
+            friend constexpr auto operator<=(const PrimaryKeyType&, const ValueType&) const noexcept;
+            friend constexpr auto operator>(const PrimaryKeyType&, const ValueType&) const noexcept;
+            friend constexpr auto operator>=(const PrimaryKeyType&, const ValueType&) const noexcept;
+
+            friend constexpr auto operator==(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
+            friend constexpr auto operator!=(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
+            friend constexpr auto operator<(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
+            friend constexpr auto operator<=(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
+            friend constexpr auto operator>(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
+            friend constexpr auto operator>=(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
+
+            friend constexpr auto operator==(const ValueType&, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator!=(const ValueType&, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator<(const ValueType&, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator<=(const ValueType&, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator>(const ValueType&, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator>=(const ValueType&, const PrimaryKeyType&) const noexcept;
+
+            friend constexpr auto operator==(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator!=(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator<(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator<=(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator>(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
+            friend constexpr auto operator>=(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
+        };
+
+        // The instance of the primary key, which is defined as a public member variable of the 
+        // table type. The name of the variable is fixed.
+        PrimaryKeyType PrimaryKey;
+    };
+    @endcode
+
+@see SQT_TABLE_BEGIN
+@see SQT_COLUMN_FIELD
+@see SQT_PRIMARY_KEY_AUTO_INC
+@see sqt::PrimaryKey<>
+*/
 #define SQT_PRIMARY_KEY(...) __SQT_PRIMARY_KEY(false, __VA_ARGS__)
+
+
+/**
+Defines an autoincrement primary key with the specified column.
+
+@param COLUMN_NAME
+    The name of the column that forms the autoincrement primary key.
+
+@details
+    This macro is similar to `SQT_PRIMARY_KEY`, except that it defines an autoincrement primary 
+    key.
+
+    The column's value type must be an integer type.
+
+    Example usage:
+    @code
+    struct MyEntity {
+        int id{};
+        std::string name;
+    };
+    SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+    SQT_COLUMN_FIELD(ID, id)
+    SQT_COLUMN_FIELD(Name, name)
+    // Define the autoincrement primary key with the ID column.
+    SQT_PRIMARY_KEY_AUTO_INC(ID)
+    SQT_TABLE_END
+    @endcode
+
+@see SQT_PRIMARY_KEY
+*/
 #define SQT_PRIMARY_KEY_AUTO_INC(COLUMN_NAME) __SQT_PRIMARY_KEY(true, COLUMN_NAME)
 
 
