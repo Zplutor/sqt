@@ -22,6 +22,9 @@
     <Filter Include="test\unit_test\table\column">
       <UniqueIdentifier>{df566277-4f4a-4ab2-b714-3f2a9154fbf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\table\definition">
+      <UniqueIdentifier>{579b6e2e-5b31-42bb-a018-7841d9689f10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\table\column\value_source_test.cpp">
       <Filter>test\unit_test\table\column</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\table\definition\table_definition_scope_test.cpp">
+      <Filter>test\unit_test\table\definition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

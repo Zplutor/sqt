@@ -45,9 +45,11 @@ Begins the definition of a table type for the specified entity type.
         - `SQT_INDEX`
         - `SQT_INDEX_UNIQUE`
 
-    This macro can be used in any namespace. If the entity type is defined in a different 
-    namespace, `ENTITY_TYPE` must be prefixed with its namespace to ensure proper resolution.
+    This macro can be used in any namespace, including the anonymous namespace. If the entity type 
+    is defined in a different namespace, `ENTITY_TYPE` must be prefixed with its namespace to 
+    ensure proper resolution.
     
+    @note
     While identical table names can exist in different namespaces, this is discouraged as it may
     cause name conflicts when used within the same database.
 
@@ -67,10 +69,6 @@ Begins the definition of a table type for the specified entity type.
     SQT_TABLE_BEGIN(MyEntityTable2, my_scope::MyEntity)
     SQT_TABLE_END
     @endcode
-
-    After defining a table type, it must be registered in the framework using the `SQT_REGISTER`
-    macro. After registration, the helper templates `sqt::TableType<>` and `sqt::Table<>` allow 
-    access to the table type and its singleton instance.
 
     The following class demonstrates the expected interface of a defined table type:
     @code
@@ -105,6 +103,18 @@ Begins the definition of a table type for the specified entity type.
         constexpr TableType() noexcept;
     };
     @endcode
+
+    @note
+    After defining a table type, it must be registered in the framework using the `SQT_REGISTER`
+    macro.
+
+    After registration, the helper templates `sqt::TableType<>` and `sqt::Table<>` allow
+    access to the table type and its singleton instance.
+
+    @note
+    While it is legal to define multiple table types for the same entity type, only one table type 
+    can be registered for each entity type. Attempting to register multiple table types for the 
+    same entity type will result in a compilation error.
     
 @see SQT_COLUMN_FIELD
 @see SQT_COLUMN_ACCESSOR
