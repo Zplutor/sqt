@@ -399,5 +399,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-test_data/
-doc/
+build/out/
