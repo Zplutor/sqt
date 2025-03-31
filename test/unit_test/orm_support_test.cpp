@@ -372,25 +372,3 @@ TEST(ORMSupportTest, UniqueIndex) {
     constexpr bool is_unique = table.Index_id0.IsUnique();
     ASSERT_TRUE(is_unique);
 }
-
-
-//Define table in different namespace.
-namespace entity {
-struct ScopedEntity {
-    int id{};
-};
-}
-
-namespace orm {
-SQT_TABLE_BEGIN(ScopedEntity, entity::ScopedEntity)
-SQT_COLUMN_FIELD(ID, id)
-SQT_TABLE_END
-}
-
-SQT_REGISTER(orm::ScopedEntity)
-
-TEST(ORMSupportTest, DifferentNamespace) {
-
-    constexpr const auto& table = sqt::Table<entity::ScopedEntity>;
-    ASSERT_EQ(table.GetName(), "ScopedEntity");
-}

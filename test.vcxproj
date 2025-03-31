@@ -24,10 +24,10 @@
     <ClCompile Include="test\unit_test\deleter_test.cpp" />
     <ClCompile Include="test\unit_test\inserter_test.cpp" />
     <ClCompile Include="test\unit_test\orm_support_test.cpp" />
-    <ClCompile Include="test\unit_test\orm_support_test2.cpp" />
     <ClCompile Include="test\unit_test\selecter_test.cpp" />
     <ClCompile Include="test\unit_test\table\column\value_source_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\table_definition_scope_test.cpp" />
+    <ClCompile Include="test\unit_test\table_definition\table_definition_test.cpp" />
     <ClCompile Include="test\unit_test\table_initializer_test.cpp" />
     <ClCompile Include="test\unit_test\updater_test.cpp" />
     <ClCompile Include="test\unit_test\value\composite_value_test.cpp" />

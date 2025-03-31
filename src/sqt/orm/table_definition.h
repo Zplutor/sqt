@@ -23,10 +23,10 @@
 /**
 Begins the definition of a table type for the specified entity type.
 
-@tparam TABLE_NAME
+@param TABLE_NAME
     The name of the table. It will be the table name in the database.
 
-@tparam ENTITY_TYPE
+@param ENTITY_TYPE
     The entity type for which the table type is being defined. If this macro is used in a different
     namespace from the entity type, the namespace must be explicitly specified.
 
