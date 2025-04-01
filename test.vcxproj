@@ -26,6 +26,7 @@
     <ClCompile Include="test\unit_test\orm_support_test.cpp" />
     <ClCompile Include="test\unit_test\selecter_test.cpp" />
     <ClCompile Include="test\unit_test\table\column\value_source_test.cpp" />
+    <ClCompile Include="test\unit_test\table\definition\column_definition_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\table_definition_scope_test.cpp" />
     <ClCompile Include="test\unit_test\table_definition\table_definition_test.cpp" />
     <ClCompile Include="test\unit_test\table_initializer_test.cpp" />

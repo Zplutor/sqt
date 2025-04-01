@@ -19,7 +19,12 @@ public:
     static constexpr bool IsNullable = false;
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
-        statement.BindParameter(parameter_index, value);
+        if constexpr (sizeof(T) >= sizeof(std::int64_t)) {
+            statement.BindParameter(parameter_index, static_cast<std::int64_t>(value));
+        }
+        else {
+            statement.BindParameter(parameter_index, static_cast<int>(value));
+        }
     }
 
     static T RetrieveValue(const Statement& statement, int column_index) {
@@ -31,7 +36,7 @@ public:
 };
 
 
-template<std::floating_point T>
+template<std::floating_point T> requires (!std::same_as<T, long double>)
 class PrimitiveValueTraits<T> {
 public:
     using ValueType = T;

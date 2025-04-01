@@ -75,34 +75,6 @@ public:
     void BindParameter(int parameter_index, std::int64_t value);
 
     /**
-    Binds the specified `std::uint64_t` value to the parameter at the specified index.
-
-    @param parameter_index
-        The index of the parameter at where the value is bound.
-
-    @param value
-        The value to bind.
-
-    @throw sqt::SQLError
-        Thrown if fails to bind the value.
-    */
-    void BindParameter(int parameter_index, std::uint64_t value);
-
-    /**
-    Binds the specified `float` value to the parameter at the specified index.
-
-    @param parameter_index
-        The index of the parameter at where the value is bound.
-
-    @param value
-        The value to bind.
-
-    @throw sqt::SQLError
-        Thrown if fails to bind the value.
-    */
-    void BindParameter(int parameter_index, float value);
-
-    /**
     Binds the specified `double` value to the parameter at the specified index.
 
     @param parameter_index

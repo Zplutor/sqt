@@ -199,21 +199,21 @@ TEST(TableDefinitionTest, GetAbstractPrimaryKey) {
     //No primary key
     {
         constexpr auto& table = sqt::Table<table_def_test::NoPKEntity>;
-        auto abstract_pk = table.GetAbstractPrimaryKey();
+        constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
         ASSERT_EQ(abstract_pk, nullptr);
     }
 
     //All primary key
     {
         constexpr auto& table = sqt::Table<table_def_test::AllPKEntity>;
-        auto abstract_pk = table.GetAbstractPrimaryKey();
+        constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
         ASSERT_EQ(abstract_pk, &table.PrimaryKey);
     }
 
     //Partial primary key
     {
         constexpr auto& table = sqt::Table<table_def_test::PartialPKEntity>;
-        auto abstract_pk = table.GetAbstractPrimaryKey();
+        constexpr auto abstract_pk = table.GetAbstractPrimaryKey();
         ASSERT_EQ(abstract_pk, &table.PrimaryKey);
     }
 }

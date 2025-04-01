@@ -56,16 +56,6 @@ void Statement::BindParameter(int parameter_index, std::int64_t value) {
 }
 
 
-void Statement::BindParameter(int parameter_index, std::uint64_t value) {
-    BindParameter(parameter_index, static_cast<std::int64_t>(value));
-}
-
-
-void Statement::BindParameter(int parameter_index, float value) {
-    BindParameter(parameter_index, static_cast<double>(value));
-}
-
-
 void Statement::BindParameter(int parameter_index, double value) {
     int error_code = sqlite3_bind_double(statement_handle_, parameter_index, value);
     SQT_THROW_IF_SQL_ERROR(error_code, database_handle_);

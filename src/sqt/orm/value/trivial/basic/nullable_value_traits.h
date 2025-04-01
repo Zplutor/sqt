@@ -16,7 +16,10 @@ public:
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
         if (value.has_value()) {
-            statement.BindParameter(parameter_index, *value);
+            InnerValueTriats::BindValue(statement, parameter_index, *value);
+        }
+        else {
+            statement.BindParameter(parameter_index, std::nullopt);
         }
     }
 

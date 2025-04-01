@@ -5,29 +5,29 @@
 
 TEST(PrimitiveValueTest, PrimitiveValueType) {
 
-    ASSERT_TRUE(sqt::PrimitiveValueType<bool>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<char>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<signed char>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<unsigned char>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<char8_t>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<char16_t>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<char32_t>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<wchar_t>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<short>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<unsigned short>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<int>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<unsigned int>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<long>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<unsigned long>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<long long>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<unsigned long long>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<float>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<double>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<long double>);
-    ASSERT_TRUE(sqt::PrimitiveValueType<std::string>);
+    static_assert(sqt::PrimitiveValueType<bool>);
+    static_assert(sqt::PrimitiveValueType<char>);
+    static_assert(sqt::PrimitiveValueType<signed char>);
+    static_assert(sqt::PrimitiveValueType<unsigned char>);
+    static_assert(sqt::PrimitiveValueType<char8_t>);
+    static_assert(sqt::PrimitiveValueType<char16_t>);
+    static_assert(sqt::PrimitiveValueType<char32_t>);
+    static_assert(sqt::PrimitiveValueType<wchar_t>);
+    static_assert(sqt::PrimitiveValueType<short>);
+    static_assert(sqt::PrimitiveValueType<unsigned short>);
+    static_assert(sqt::PrimitiveValueType<int>);
+    static_assert(sqt::PrimitiveValueType<unsigned int>);
+    static_assert(sqt::PrimitiveValueType<long>);
+    static_assert(sqt::PrimitiveValueType<unsigned long>);
+    static_assert(sqt::PrimitiveValueType<long long>);
+    static_assert(sqt::PrimitiveValueType<unsigned long long>);
+    static_assert(sqt::PrimitiveValueType<float>);
+    static_assert(sqt::PrimitiveValueType<double>);
+    static_assert(sqt::PrimitiveValueType<std::string>);
 
-    ASSERT_FALSE(sqt::PrimitiveValueType<std::optional<int>>);
-    ASSERT_FALSE(sqt::PrimitiveValueType<std::vector<int>>);
+    static_assert(!sqt::PrimitiveValueType<long double>);
+    static_assert(!sqt::PrimitiveValueType<std::optional<int>>);
+    static_assert(!sqt::PrimitiveValueType<std::vector<int>>);
 }
 
 
@@ -51,73 +51,70 @@ TEST(PrimitiveValueTest, DataType) {
     ASSERT_EQ(sqt::PrimitiveValueTraits<unsigned long long>::DataType, sqt::DataType::Integer);
     ASSERT_EQ(sqt::PrimitiveValueTraits<float>::DataType, sqt::DataType::Float);
     ASSERT_EQ(sqt::PrimitiveValueTraits<double>::DataType, sqt::DataType::Float);
-    ASSERT_EQ(sqt::PrimitiveValueTraits<long double>::DataType, sqt::DataType::Float);
     ASSERT_EQ(sqt::PrimitiveValueTraits<std::string>::DataType, sqt::DataType::Text);
 }
 
 
 TEST(PrimitiveValueTest, IsNullable) {
 
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<bool>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<char>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<signed char>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<unsigned char>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<char8_t>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<char16_t>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<char32_t>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<wchar_t>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<short>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<unsigned short>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<int>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<unsigned int>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<long>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<unsigned long>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<long long>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<unsigned long long>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<float>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<double>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<long double>::IsNullable);
-    ASSERT_FALSE(sqt::PrimitiveValueTraits<std::string>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<bool>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<char>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<signed char>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<unsigned char>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<char8_t>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<char16_t>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<char32_t>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<wchar_t>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<short>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<unsigned short>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<int>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<unsigned int>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<long>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<unsigned long>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<long long>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<unsigned long long>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<float>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<double>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<std::string>::IsNullable);
 }
 
 
 TEST(PrimitiveValueTest, BasicValueTraitsType) {
 
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<bool>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<signed char>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned char>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char8_t>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char16_t>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char32_t>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<wchar_t>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<short>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned short>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<int>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned int>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned long>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long long>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned long long>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<float>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<double>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long double>>);
-    ASSERT_TRUE(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<std::string>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<bool>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<signed char>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned char>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char8_t>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char16_t>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<char32_t>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<wchar_t>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<short>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned short>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<int>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned int>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned long>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<long long>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<unsigned long long>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<float>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<double>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<std::string>>);
 }
 
 
 TEST(PrimitiveValueTest, BasicValueTraitsMapping) {
 
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<bool>,
         sqt::PrimitiveValueTraits<bool>>));
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<int>,
         sqt::PrimitiveValueTraits<int>>));
-    ASSERT_TRUE((
+    static_assert((
         std::is_same_v<sqt::BasicValueTraitsForT<float>,
         sqt::PrimitiveValueTraits<float>>));
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<std::string>,
         sqt::PrimitiveValueTraits<std::string>>));
 }

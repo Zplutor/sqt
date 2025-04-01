@@ -9,61 +9,61 @@
 TEST(CompositeValueTest, CompositeValueType) {
 
     //Primitive types
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<bool>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<char>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<signed char>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<unsigned char>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<char8_t>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<char16_t>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<char32_t>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<wchar_t>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<short>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<unsigned short>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<int>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<unsigned int>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<long>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<unsigned long>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<long long>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<unsigned long long>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<float>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<double>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<long double>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::string>>);
+    static_assert(sqt::CompositeValueType<std::tuple<bool>>);
+    static_assert(sqt::CompositeValueType<std::tuple<char>>);
+    static_assert(sqt::CompositeValueType<std::tuple<signed char>>);
+    static_assert(sqt::CompositeValueType<std::tuple<unsigned char>>);
+    static_assert(sqt::CompositeValueType<std::tuple<char8_t>>);
+    static_assert(sqt::CompositeValueType<std::tuple<char16_t>>);
+    static_assert(sqt::CompositeValueType<std::tuple<char32_t>>);
+    static_assert(sqt::CompositeValueType<std::tuple<wchar_t>>);
+    static_assert(sqt::CompositeValueType<std::tuple<short>>);
+    static_assert(sqt::CompositeValueType<std::tuple<unsigned short>>);
+    static_assert(sqt::CompositeValueType<std::tuple<int>>);
+    static_assert(sqt::CompositeValueType<std::tuple<unsigned int>>);
+    static_assert(sqt::CompositeValueType<std::tuple<long>>);
+    static_assert(sqt::CompositeValueType<std::tuple<unsigned long>>);
+    static_assert(sqt::CompositeValueType<std::tuple<long long>>);
+    static_assert(sqt::CompositeValueType<std::tuple<unsigned long long>>);
+    static_assert(sqt::CompositeValueType<std::tuple<float>>);
+    static_assert(sqt::CompositeValueType<std::tuple<double>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::string>>);
 
     //Nullable types
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<bool>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<char>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<signed char>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<unsigned char>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<char8_t>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<char16_t>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<char32_t>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<wchar_t>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<short>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<unsigned short>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<int>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<unsigned int>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<long>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<unsigned long>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<long long>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<unsigned long long>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<float>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<double>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<long double>>>);
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<std::optional<std::string>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<bool>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<char>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<signed char>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<unsigned char>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<char8_t>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<char16_t>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<char32_t>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<wchar_t>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<short>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<unsigned short>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<int>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<unsigned int>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<long>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<unsigned long>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<long long>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<unsigned long long>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<float>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<double>>>);
+    static_assert(sqt::CompositeValueType<std::tuple<std::optional<std::string>>>);
 
     //Custom type
-    ASSERT_TRUE(sqt::CompositeValueType<std::tuple<BLOB>>);
+    static_assert(sqt::CompositeValueType<std::tuple<BLOB>>);
 
     //Composition
-    ASSERT_TRUE((sqt::CompositeValueType<std::tuple<int, std::string>>));
-    ASSERT_TRUE((sqt::CompositeValueType<std::tuple<int, std::optional<int>>>));
-    ASSERT_TRUE((sqt::CompositeValueType<std::tuple<int, std::optional<int>, BLOB>>));
+    static_assert((sqt::CompositeValueType<std::tuple<int, std::string>>));
+    static_assert((sqt::CompositeValueType<std::tuple<int, std::optional<int>>>));
+    static_assert((sqt::CompositeValueType<std::tuple<int, std::optional<int>, BLOB>>));
 
     //Non-composite types
-    ASSERT_FALSE(sqt::CompositeValueType<std::vector<int>>);
-    ASSERT_FALSE(sqt::CompositeValueType<std::tuple<std::vector<int>>>);
-    ASSERT_FALSE((sqt::CompositeValueType<std::tuple<int, std::vector<int>>>));
+    static_assert(!sqt::CompositeValueType<std::vector<int>>);
+    static_assert(!sqt::CompositeValueType<std::tuple<std::vector<int>>>);
+    static_assert(!(sqt::CompositeValueType<std::tuple<int, std::vector<int>>>));
+    static_assert(!sqt::CompositeValueType<std::tuple<long double>>);
+    static_assert(!sqt::CompositeValueType<std::tuple<std::optional<long double>>>);
 }
 
 
@@ -72,34 +72,34 @@ TEST(CompositeValueTest, CompositeValueTriats) {
     //Primitive value traits
     {
         using ValueTraits = sqt::CompositeValueTraits<sqt::PrimitiveValueTraits<int>>;
-        ASSERT_TRUE((std::is_same_v<typename ValueTraits::ValueType, std::tuple<int>>));
-        ASSERT_TRUE((std::is_same_v<
+        static_assert((std::is_same_v<typename ValueTraits::ValueType, std::tuple<int>>));
+        static_assert((std::is_same_v<
             typename ValueTraits::ValueTraitsTypes, 
             std::tuple<sqt::PrimitiveValueTraits<int>>>));
-        ASSERT_TRUE(sqt::CompositeValueTraitsType<ValueTraits>);
+        static_assert(sqt::CompositeValueTraitsType<ValueTraits>);
     }
 
     //Nullable value traits
     {
         using ValueTraits = 
             sqt::CompositeValueTraits<sqt::NullableValueTraits<std::optional<int>>>;
-        ASSERT_TRUE((std::is_same_v<
+        static_assert((std::is_same_v<
             typename ValueTraits::ValueType, 
             std::tuple<std::optional<int>>>));
-        ASSERT_TRUE((std::is_same_v<
+        static_assert((std::is_same_v<
             typename ValueTraits::ValueTraitsTypes,
             std::tuple<sqt::NullableValueTraits<std::optional<int>>>>));
-        ASSERT_TRUE(sqt::CompositeValueTraitsType<ValueTraits>);
+        static_assert(sqt::CompositeValueTraitsType<ValueTraits>);
     }
 
     //Custom value traits
     {
         using ValueTraits = sqt::CompositeValueTraits<sqt::CustomValueTraits<BLOB>>;
-        ASSERT_TRUE((std::is_same_v<typename ValueTraits::ValueType, std::tuple<BLOB>>));
-        ASSERT_TRUE((std::is_same_v<
+        static_assert((std::is_same_v<typename ValueTraits::ValueType, std::tuple<BLOB>>));
+        static_assert((std::is_same_v<
             typename ValueTraits::ValueTraitsTypes,
             std::tuple<sqt::CustomValueTraits<BLOB>>>));
-        ASSERT_TRUE(sqt::CompositeValueTraitsType<ValueTraits>);
+        static_assert(sqt::CompositeValueTraitsType<ValueTraits>);
     }
 
     //Composite value traits
@@ -109,16 +109,16 @@ TEST(CompositeValueTest, CompositeValueTriats) {
             sqt::NullableValueTraits<std::optional<std::string>>,
             sqt::CustomValueTraits<BLOB>
         >;
-        ASSERT_TRUE((std::is_same_v<
+        static_assert((std::is_same_v<
             typename ValueTraits::ValueType,
             std::tuple<int, std::optional<std::string>, BLOB>>));
-        ASSERT_TRUE((std::is_same_v<
+        static_assert((std::is_same_v<
             typename ValueTraits::ValueTraitsTypes,
             std::tuple<
                 sqt::PrimitiveValueTraits<int>,
                 sqt::NullableValueTraits<std::optional<std::string>>,
                 sqt::CustomValueTraits<BLOB>
             >>));
-        ASSERT_TRUE(sqt::CompositeValueTraitsType<ValueTraits>);
+        static_assert(sqt::CompositeValueTraitsType<ValueTraits>);
     }
 }

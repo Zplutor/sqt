@@ -6,47 +6,47 @@
 
 TEST(NullableValueTest, NullableValueType) {
 
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<bool>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<char>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<signed char>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<unsigned char>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<char8_t>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<char16_t>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<char32_t>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<wchar_t>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<short>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<unsigned short>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<int>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<unsigned int>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<long>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<unsigned long>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<long long>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<unsigned long long>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<float>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<double>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<long double>>);
-    ASSERT_TRUE(sqt::NullableValueType<std::optional<std::string>>);
+    static_assert(sqt::NullableValueType<std::optional<bool>>);
+    static_assert(sqt::NullableValueType<std::optional<char>>);
+    static_assert(sqt::NullableValueType<std::optional<signed char>>);
+    static_assert(sqt::NullableValueType<std::optional<unsigned char>>);
+    static_assert(sqt::NullableValueType<std::optional<char8_t>>);
+    static_assert(sqt::NullableValueType<std::optional<char16_t>>);
+    static_assert(sqt::NullableValueType<std::optional<char32_t>>);
+    static_assert(sqt::NullableValueType<std::optional<wchar_t>>);
+    static_assert(sqt::NullableValueType<std::optional<short>>);
+    static_assert(sqt::NullableValueType<std::optional<unsigned short>>);
+    static_assert(sqt::NullableValueType<std::optional<int>>);
+    static_assert(sqt::NullableValueType<std::optional<unsigned int>>);
+    static_assert(sqt::NullableValueType<std::optional<long>>);
+    static_assert(sqt::NullableValueType<std::optional<unsigned long>>);
+    static_assert(sqt::NullableValueType<std::optional<long long>>);
+    static_assert(sqt::NullableValueType<std::optional<unsigned long long>>);
+    static_assert(sqt::NullableValueType<std::optional<float>>);
+    static_assert(sqt::NullableValueType<std::optional<double>>);
+    static_assert(sqt::NullableValueType<std::optional<std::string>>);
 
-    ASSERT_FALSE(sqt::NullableValueType<bool>);
-    ASSERT_FALSE(sqt::NullableValueType<char>);
-    ASSERT_FALSE(sqt::NullableValueType<signed char>);
-    ASSERT_FALSE(sqt::NullableValueType<unsigned char>);
-    ASSERT_FALSE(sqt::NullableValueType<char8_t>);
-    ASSERT_FALSE(sqt::NullableValueType<char16_t>);
-    ASSERT_FALSE(sqt::NullableValueType<char32_t>);
-    ASSERT_FALSE(sqt::NullableValueType<wchar_t>);
-    ASSERT_FALSE(sqt::NullableValueType<short>);
-    ASSERT_FALSE(sqt::NullableValueType<unsigned short>);
-    ASSERT_FALSE(sqt::NullableValueType<int>);
-    ASSERT_FALSE(sqt::NullableValueType<unsigned int>);
-    ASSERT_FALSE(sqt::NullableValueType<long>);
-    ASSERT_FALSE(sqt::NullableValueType<unsigned long>);
-    ASSERT_FALSE(sqt::NullableValueType<long long>);
-    ASSERT_FALSE(sqt::NullableValueType<unsigned long long>);
-    ASSERT_FALSE(sqt::NullableValueType<float>);
-    ASSERT_FALSE(sqt::NullableValueType<double>);
-    ASSERT_FALSE(sqt::NullableValueType<long double>);
-    ASSERT_FALSE(sqt::NullableValueType<std::string>);
+    static_assert(!sqt::NullableValueType<std::optional<long double>>);
+    static_assert(!sqt::NullableValueType<bool>);
+    static_assert(!sqt::NullableValueType<char>);
+    static_assert(!sqt::NullableValueType<signed char>);
+    static_assert(!sqt::NullableValueType<unsigned char>);
+    static_assert(!sqt::NullableValueType<char8_t>);
+    static_assert(!sqt::NullableValueType<char16_t>);
+    static_assert(!sqt::NullableValueType<char32_t>);
+    static_assert(!sqt::NullableValueType<wchar_t>);
+    static_assert(!sqt::NullableValueType<short>);
+    static_assert(!sqt::NullableValueType<unsigned short>);
+    static_assert(!sqt::NullableValueType<int>);
+    static_assert(!sqt::NullableValueType<unsigned int>);
+    static_assert(!sqt::NullableValueType<long>);
+    static_assert(!sqt::NullableValueType<unsigned long>);
+    static_assert(!sqt::NullableValueType<long long>);
+    static_assert(!sqt::NullableValueType<unsigned long long>);
+    static_assert(!sqt::NullableValueType<float>);
+    static_assert(!sqt::NullableValueType<double>);
+    static_assert(!sqt::NullableValueType<long double>);
+    static_assert(!sqt::NullableValueType<std::string>);
 }
 
 
@@ -107,9 +107,6 @@ TEST(NullableValueType, DataType) {
         sqt::NullableValueTraits<std::optional<double>>::DataType,
         sqt::DataType::Float);
     ASSERT_EQ(
-        sqt::NullableValueTraits<std::optional<long double>>::DataType,
-        sqt::DataType::Float);
-    ASSERT_EQ(
         sqt::NullableValueTraits<std::optional<std::string>>::DataType,
         sqt::DataType::Text);
 }
@@ -117,86 +114,83 @@ TEST(NullableValueType, DataType) {
 
 TEST(NullableValueType, IsNullable) {
 
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<bool>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<char>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<signed char>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<unsigned char>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<char8_t>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<char16_t>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<char32_t>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<wchar_t>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<short>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<unsigned short>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<int>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<unsigned int>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<long>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<unsigned long>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<long long>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<unsigned long long>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<float>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<double>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<long double>>::IsNullable);
-    ASSERT_TRUE(sqt::NullableValueTraits<std::optional<std::string>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<bool>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<char>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<signed char>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<unsigned char>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<char8_t>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<char16_t>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<char32_t>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<wchar_t>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<short>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<unsigned short>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<int>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<unsigned int>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<long>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<unsigned long>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<long long>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<unsigned long long>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<float>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<double>>::IsNullable);
+    static_assert(sqt::NullableValueTraits<std::optional<std::string>>::IsNullable);
 }
 
 
 TEST(NullableValueType, BasicValueTriatsType) {
 
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<bool>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<char>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<signed char>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<unsigned char>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<char8_t>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<char16_t>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<char32_t>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<wchar_t>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<short>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<unsigned short>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<int>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<unsigned int>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<long>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<unsigned long>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<long long>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<unsigned long long>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<float>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<double>>>);
-    ASSERT_TRUE(
-        sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<long double>>>);
-    ASSERT_TRUE(
+    static_assert(
         sqt::BasicValueTraitsType<sqt::NullableValueTraits<std::optional<std::string>>>);
 }
 
 
 TEST(NullableValueType, BasicValueTraitsMapping) {
 
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<std::optional<bool>>,
         sqt::NullableValueTraits<std::optional<bool>>>));
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<std::optional<int>>,
         sqt::NullableValueTraits<std::optional<int>>>));
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<std::optional<float>>,
         sqt::NullableValueTraits<std::optional<float>>>));
-    ASSERT_TRUE((std::is_same_v<
+    static_assert((std::is_same_v<
         sqt::BasicValueTraitsForT<std::optional<std::string>>,
         sqt::NullableValueTraits<std::optional<std::string>>>));
 }
