@@ -6,10 +6,10 @@
 
 namespace sqt {
 
-template<typename E>
+template<typename ENTITY>
 class Column : public AbstractColumn {
 public:
-    using EntityType = E;
+    using EntityType = ENTITY;
 
 public:
     constexpr Column() noexcept = default;
@@ -17,26 +17,16 @@ public:
     virtual void BindValueFromEntity(
         Statement& statement,
         int parameter_index,
-        const E& entity) const = 0;
+        const ENTITY& entity) const = 0;
 
     virtual void RetrieveValueToEntity(
         const Statement& statement,
         int index,
-        E& entity) const = 0;
+        ENTITY& entity) const = 0;
 };
 
 
-template<typename E>
-using ColumnsView = std::span<const Column<E>* const>;
-
-
-template<typename T, typename = void>
-struct IsColumn : std::false_type {};
-
-template<typename T>
-struct IsColumn<T, std::enable_if_t<std::is_base_of_v<AbstractColumn, T>>> : std::true_type {};
-
-template<typename T>
-constexpr bool IsColumnV = IsColumn<T>::value;
+template<typename ENTITY>
+using ColumnsView = std::span<const Column<ENTITY>* const>;
 
 }

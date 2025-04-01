@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the `sqt::AbstractTable` class.
+    Defines the `sqt::AbstractTable` interface.
 */
 
 #include <string_view>
