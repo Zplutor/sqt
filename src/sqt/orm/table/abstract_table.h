@@ -13,11 +13,11 @@
 namespace sqt {
 
 /**
-An interface to access information of a table.
+An interface that provides access to information about a table.
 
 @details
-    This interface is provided to write non-template code that works with tables. Every table type 
-    defined by the `SQT_TABLE_BEGIN` macro implements this interface.
+    This interface is implemented by all table types defined using the `SQT_TABLE_BEGIN` macro. It 
+    allows the way to interact with table definitions in a non-template manner.
 
 @see SQT_TABLE_BEGIN
 */

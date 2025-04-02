@@ -11,12 +11,12 @@
 namespace sqt {
 
 /**
-An interface to access information of a column in a table.
+An interface that provides access to information about a column of a table.
 
 @details
-    This interface is provided to write non-template code that works with columns. Every column 
-    type defined by the `SQT_COLUMN_FIELD`, `SQT_COLUMN_ACCESSOR` or `SQT_COLUMN_CUSTOM` macro
-    implements this interface.
+    This interface is implemented by all column types defined using the `SQT_COLUMN_FIELD`,
+    `SQT_COLUMN_ACCESSOR` or `SQT_COLUMN_CUSTOM` macros. It allows the way to interact with column 
+    definitions in a non-template manner.
 
 @see SQT_COLUMN_FIELD
 @see SQT_COLUMN_ACCESSOR
