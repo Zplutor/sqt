@@ -102,8 +102,8 @@
     <ClCompile Include="src\sqt\foundation\transaction.cpp">
       <Filter>src\sqt\foundation</Filter>
     </ClCompile>
-    <ClCompile Include="src\sqt\orm\table\table_initializer.cpp">
-      <Filter>src\sqt\orm\table</Filter>
+    <ClCompile Include="src\sqt\orm\internal\table_initializer.cpp">
+      <Filter>src\sqt\orm\internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,9 +187,6 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\linked_list.h">
       <Filter>src\sqt\orm\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\table\table_initializer.h">
-      <Filter>src\sqt\orm\table</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h">
       <Filter>src\sqt\orm\querier\inserter</Filter>
@@ -397,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\foundation\step_result.h">
       <Filter>src\sqt\foundation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\table_initializer.h">
+      <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

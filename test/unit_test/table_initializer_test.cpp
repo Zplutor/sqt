@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <sqt/foundation/database.h>
 #include <sqt/orm/table_definition.h>
-#include <sqt/orm/table/table_initializer.h>
+#include <sqt/orm/internal/table_initializer.h>
 #include "db_test_fixture.h"
 
 class TableInitializerTest : public DBTestFixture {
@@ -27,7 +27,7 @@ SQT_REGISTER(table_initializer_test::EntityNoPK)
 
 TEST_F(TableInitializerTest, NewTableNoPK) {
 
-    sqt::TableInitializer::Initialize(
+    sqt::internal::TableInitializer::Initialize(
         sqt::Table<table_initializer_test::EntityNoPK>, 
         *DB());
 
@@ -84,7 +84,7 @@ SQT_REGISTER(table_initializer_test::EntityPK1)
 
 TEST_F(TableInitializerTest, NewTablePK1) {
 
-    sqt::TableInitializer::Initialize(
+    sqt::internal::TableInitializer::Initialize(
         sqt::Table<table_initializer_test::EntityPK1>,
         *DB());
 
@@ -117,7 +117,7 @@ SQT_REGISTER(table_initializer_test::EntityPK1AutoInc)
 
 TEST_F(TableInitializerTest, NewTablePK1AutoInc) {
 
-    sqt::TableInitializer::Initialize(
+    sqt::internal::TableInitializer::Initialize(
         sqt::Table<table_initializer_test::EntityPK1AutoInc>,
         *DB());
 
@@ -155,7 +155,7 @@ SQT_REGISTER(table_initializer_test::EntityPK2)
 
 TEST_F(TableInitializerTest, NewTablePK2) {
 
-    sqt::TableInitializer::Initialize(
+    sqt::internal::TableInitializer::Initialize(
         sqt::Table<table_initializer_test::EntityPK2>, 
         *DB());
 
@@ -206,14 +206,14 @@ SQT_REGISTER(table_initializer_test::new_table::AlterTable)
 
 TEST_F(TableInitializerTest, AlterTable) {
 
-    sqt::TableInitializer::Initialize(
+    sqt::internal::TableInitializer::Initialize(
         sqt::Table<table_initializer_test::old_table::OldTable>, 
         *DB());
     auto old_table_info = DB()->GetTableInfo("AlterTable");
     ASSERT_TRUE(old_table_info.has_value());
     ASSERT_EQ(old_table_info->columns.size(), 1);
 
-    sqt::TableInitializer::Initialize(
+    sqt::internal::TableInitializer::Initialize(
         sqt::Table<table_initializer_test::new_table::NewTable>, 
         *DB());
     auto new_table_info = DB()->GetTableInfo("AlterTable");
@@ -238,7 +238,7 @@ TEST_F(TableInitializerTest, AlterTable) {
 
     // Initialize new table again to make sure there is no error.
     ASSERT_NO_THROW(
-        sqt::TableInitializer::Initialize(
+        sqt::internal::TableInitializer::Initialize(
             sqt::Table<table_initializer_test::new_table::NewTable>,
             *DB()));
 }
@@ -266,7 +266,7 @@ TEST_F(TableInitializerTest, CreateIndex) {
 
     auto& table = sqt::Table<table_initializer_test::EntityWithIndex>;
 
-    sqt::TableInitializer::Initialize(table, *DB());
+    sqt::internal::TableInitializer::Initialize(table, *DB());
 
     auto index_info = DB()->GetIndexInfo("EntityWithIndex_Index_id");
     ASSERT_TRUE(index_info.has_value());

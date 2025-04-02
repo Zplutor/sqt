@@ -3,7 +3,7 @@
 #include <sqt/foundation/database.h>
 #include <sqt/orm/table/abstract_table.h>
 
-namespace sqt {
+namespace sqt::internal {
 
 class TableInitializer {
 public:

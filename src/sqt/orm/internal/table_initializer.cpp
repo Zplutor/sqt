@@ -1,9 +1,9 @@
-#include <sqt/orm/table/table_initializer.h>
+#include <sqt/orm/internal/table_initializer.h>
 #include <format>
 #include <sqt/foundation/transaction.h>
 #include <sqt/orm/utility/utility.h>
 
-namespace sqt {
+namespace sqt::internal {
 
 void TableInitializer::Initialize(const AbstractTable& table, Database& db) {
 

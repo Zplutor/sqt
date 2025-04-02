@@ -16,7 +16,7 @@
     <ClCompile Include="src\sqt\foundation\data_type.cpp" />
     <ClCompile Include="src\sqt\foundation\statement.cpp" />
     <ClCompile Include="src\sqt\foundation\transaction.cpp" />
-    <ClCompile Include="src\sqt\orm\table\table_initializer.cpp" />
+    <ClCompile Include="src\sqt\orm\internal\table_initializer.cpp" />
     <ClCompile Include="src\sqt\orm\utility\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +59,7 @@
     <ClInclude Include="src\sqt\orm\expression\predicate_type.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
+    <ClInclude Include="src\sqt\orm\internal\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\table_definition.h" />
     <ClInclude Include="src\sqt\orm\querier\deleter\deleter.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h" />
@@ -92,7 +93,6 @@
     <ClInclude Include="src\sqt\orm\table\index\abstract_index.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key\abstract_primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key\primary_key.h" />
-    <ClInclude Include="src\sqt\orm\table\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
