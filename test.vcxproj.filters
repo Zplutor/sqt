@@ -99,6 +99,9 @@
     <ClCompile Include="test\unit_test\table\definition\column_definition_test.cpp">
       <Filter>test\unit_test\table\definition</Filter>
     </ClCompile>
+    <ClCompile Include="test\unit_test\table\definition\primary_key_definition_test.cpp">
+      <Filter>test\unit_test\table\definition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
