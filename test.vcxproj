@@ -23,10 +23,10 @@
     <ClCompile Include="test\unit_test\db_test_fixture.cpp" />
     <ClCompile Include="test\unit_test\deleter_test.cpp" />
     <ClCompile Include="test\unit_test\inserter_test.cpp" />
-    <ClCompile Include="test\unit_test\orm_support_test.cpp" />
     <ClCompile Include="test\unit_test\selecter_test.cpp" />
     <ClCompile Include="test\unit_test\table\column\value_source_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\column_definition_test.cpp" />
+    <ClCompile Include="test\unit_test\table\definition\index_definition_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\primary_key_definition_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\table_definition_scope_test.cpp" />
     <ClCompile Include="test\unit_test\table_definition\table_definition_test.cpp" />
@@ -46,7 +46,6 @@
     <ClInclude Include="test\unit_test\db_test_fixture.h" />
     <ClInclude Include="test\unit_test\fixture\blob.h" />
     <ClInclude Include="test\unit_test\fixture\test_entities.h" />
-    <ClInclude Include="test\unit_test\orm_support_test.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -45,9 +45,6 @@
     <ClCompile Include="test\unit_test\inserter_test.cpp">
       <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\unit_test\orm_support_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
     <ClCompile Include="test\unit_test\selecter_test.cpp">
       <Filter>test\unit_test</Filter>
     </ClCompile>
@@ -102,6 +99,9 @@
     <ClCompile Include="test\unit_test\table\definition\primary_key_definition_test.cpp">
       <Filter>test\unit_test\table\definition</Filter>
     </ClCompile>
+    <ClCompile Include="test\unit_test\table\definition\index_definition_test.cpp">
+      <Filter>test\unit_test\table\definition</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -111,9 +111,6 @@
       <Filter>test\unit_test</Filter>
     </ClInclude>
     <ClInclude Include="test\unit_test\db_test_fixture.h">
-      <Filter>test\unit_test</Filter>
-    </ClInclude>
-    <ClInclude Include="test\unit_test\orm_support_test.h">
       <Filter>test\unit_test</Filter>
     </ClInclude>
     <ClInclude Include="test\test_environment.h">

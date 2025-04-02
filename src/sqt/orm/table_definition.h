@@ -561,12 +561,16 @@ Defines an autoincrement primary key with the specified column.
 Defines an index with the specified columns.
 
 @param ...
-    The names of the columns that form the index. An index can be composed of one or more columns.
+    The names of the columns that form the index. An index can consist of up to 8 columns.
 
 @details
     This macro must be used between the `SQT_TABLE_BEGIN` and `SQT_TABLE_END` macros and must be 
     placed after all definitions of the columns that are part of the index. There can be multiple
     index definitions in a table type.
+
+    @note
+    The same combination of columns can be used for only one index definition in a table type. 
+    Attempting to define multiple indexes with the same columns will result in a compilation error.
 
     To define an unique index, use the `SQT_INDEX_UNIQUE` macro instead.
 
