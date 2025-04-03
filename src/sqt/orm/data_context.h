@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::DataContext<>` class template.
+*/
+
 #include <mutex>
 #include <optional>
 #include <vector>
@@ -20,6 +25,71 @@
 
 namespace sqt {
 
+/**
+Provides a set of operations for performing CRUD (Create, Read, Update, Delete) operations on a
+database table corresponding to a specified entity type.
+
+@tparam ENTITY
+    The entity type that can be mapped to a database table. A table type for the entity must be 
+    defined using the `SQT_TABLE_BEGIN` macro, and this table type must be registered using the 
+    `SQT_REGISTER` macro.
+    
+@details
+    One data context instance corresponds to a single table in a database. Multiple data context 
+    instances can share the same database instance. The following code demonstrates how to create a
+    data context instance:
+
+    @code
+    // The entity type, assuming its table type has been defined and registered.
+    struct MyEntity { };
+
+    // Open the database.
+    auto db = sqt::Database::Open("MyDatabase.db");
+    // Make the database shared.
+    auto shared_db = std::make_shared<sqt::Database>(std::move(db));
+
+    // Create the data context with the shared database.
+    sqt::DataContext<MyEntity> data_context{ shared_db };
+    @endcode
+
+    The database table will be automatically initialized when the first CRUD operation is executed.
+    Alternatively, the table can be initialized explicitly using the `InitializeTable()` method. 
+    The table will be created if it does not exist, or altered only if:
+    - new columns are added to the table;
+    - new indexes are added to the table.
+
+    @note
+    Only column and index additions are supported. Any other structural changes to the table 
+    (e.g., modifying or removing columns) are unsupported and will cause undefined behavior.
+
+    `sqt::DataContext<>` provides two styles of interfaces for interacting with the database table:
+
+    - Easy style
+
+      Methods like `Insert()`, `Update()`, `Delete()`, and `Select()` provide simple, direct 
+      interfaces for performing the corresponding operations. These methods are easy to use but not
+      flexible enough for more complex scenarios.
+
+      For example, `Select()` retrieves all columns of the table based on the primary key value, 
+      without the option to select a subset of columns or apply custom conditions.
+
+    - Complex style
+
+      Complex interfaces are provided via static methods prefixed with `Make`, which create 
+      queriers for the corresponding operations. Querier objects allow you to build SQL statements 
+      and bind parameters, providing greater flexibility for complex queries.
+
+      For example, the `MakeSelecter()` method creates a querier that can be used to select 
+      specific columns and add conditions using the `Where()` method. Queriers also support 
+      parameter binding, which improves performance by allowing the same query to be reused with 
+      different parameters.
+
+      To execute a querier, pass it to the `Prepare()` method, which returns an executor. The
+      executor can be used to execute the SQL statement and retrieve the results.
+
+@see SQT_TABLE_BEGIN
+@see SQT_REGISTER
+*/
 template<EntityValueType ENTITY>
 class DataContext {
 public:
@@ -78,11 +148,6 @@ public:
     }
 
 public:
-    explicit DataContext(sqt::Database database) : 
-        DataContext(std::make_shared<sqt::Database>(std::move(database))) {
-
-    }
-
     explicit DataContext(std::shared_ptr<sqt::Database> database) noexcept :
         init_once_guard_(std::move(database)) {
 

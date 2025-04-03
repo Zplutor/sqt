@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the class `sqt::StepResult`.
+    Defines the `sqt::StepResult` class.
 */
 
 namespace sqt {

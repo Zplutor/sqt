@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the enum `sqt::DataType`.
+    Defines the `sqt::DataType` enum.
 */
 
 #include <string_view>

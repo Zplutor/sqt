@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the class `sqt::Transaction`.
+    Defines the `sqt::Transaction` class.
 */
 
 namespace sqt {

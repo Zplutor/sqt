@@ -28,8 +28,8 @@ int main() {
     std::filesystem::remove(database_file_path);
 
     // Open a database and create a data context instance for the entity type.
-    auto database = sqt::Database::Open(database_file_path);
-    sqt::DataContext<MyEntity> data_context{ std::move(database) };
+    auto database = std::make_shared<sqt::Database>(sqt::Database::Open(database_file_path));
+    sqt::DataContext<MyEntity> data_context{ database };
 
     // Insert rows into the database.
     data_context.Insert(MyEntity{ 1, "The first entity" });

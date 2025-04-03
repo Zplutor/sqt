@@ -25,12 +25,16 @@ Use SQT macros to define the table type, which provides metadata for mapping the
 
 ```cpp
 SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+
 // Define the ID column that binds to the id field in MyEntity.
 SQT_COLUMN_FIELD(ID, id) 
+
 // Define the Name column that binds to the name field in MyEntity.
 SQT_COLUMN_FIELD(Name, name)
+
 // Define the primary key with the ID column.
 SQT_PRIMARY_KEY(ID)
+
 SQT_TABLE_END
 ```
 
@@ -48,8 +52,8 @@ Create a data context for database operations. This provides the ability to inse
 
 ```cpp
 // Open a database and create a data context instance for the entity type.
-auto database = sqt::Database::Open("MyDatabase.db");
-sqt::DataContext<MyEntity> data_context{ std::move(database) };
+auto database = std::make_shared<sqt::Database>(sqt::Database::Open("MyDatabase.db"));
+sqt::DataContext<MyEntity> data_context{ database };
 
 // Insert rows into the database.
 data_context.Insert(MyEntity{ 1, "The first entity" });

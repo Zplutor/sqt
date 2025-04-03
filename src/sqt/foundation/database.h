@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the class `sqt::Database`.
+    Defines the `sqt::Database` class.
 */
 
 #include <filesystem>

@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the struct `sqt::IndexInfo`.
+    Defines the `sqt::IndexInfo` struct.
 */
 
 #include <string>

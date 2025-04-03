@@ -35,25 +35,15 @@ private:
 
 TEST_F(DataContextBasicTest, Constructor) {
 
-    //Construct from a non-shared database.
-    {
-        sqt::Database db = sqt::Database::Open(DBPath());
-        TestDataContext data_context{ std::move(db) };
-        ASSERT_NE(data_context.Database(), nullptr);
-    }
-
-    //Construct from a shared database.
-    {
-        auto db = std::make_shared<sqt::Database>(sqt::Database::Open(DBPath()));
-        TestDataContext data_context{ db };
-        ASSERT_EQ(data_context.Database(), db);
-    }
+    auto db = std::make_shared<sqt::Database>(sqt::Database::Open(DBPath()));
+    TestDataContext data_context{ db };
+    ASSERT_EQ(data_context.Database(), db);
 }
 
 
 TEST_F(DataContextBasicTest, GetDatabase) {
 
-    TestDataContext data_context{ sqt::Database::Open(DBPath()) };
+    TestDataContext data_context{ std::make_shared<sqt::Database>(sqt::Database::Open(DBPath())) };
 
     auto db = data_context.Database();
     ASSERT_NE(db, nullptr);
@@ -66,7 +56,7 @@ TEST_F(DataContextBasicTest, GetDatabase) {
 
 TEST_F(DataContextBasicTest, InitializeTable) {
 
-    TestDataContext data_context{ sqt::Database::Open(DBPath()) };
+    TestDataContext data_context{ std::make_shared<sqt::Database>(sqt::Database::Open(DBPath())) };
 
     //Initialize the table manually.
     data_context.InitializeTable();

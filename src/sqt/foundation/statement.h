@@ -2,7 +2,7 @@
 
 /**
 @file
-    Defines the class `sqt::Statement`.
+    Defines the `sqt::Statement` class.
 */
 
 #include <cstdint>
