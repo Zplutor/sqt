@@ -239,8 +239,12 @@ public:
         This method is only available if the entity type has an auto-incremented primary key. Use 
         the `SQT_PRIMARY_KEY_AUTO_INC` macro to define an auto-incremented primary key.
 
+        For more control over the inserted columns or the conflict action, use the more flexible
+        `MakeAutoIncInserter()` method from the complex style interface.
+
     @see sqt::DataContext<>::Insert()
     @see sqt::DataContext<>::AutoIncReplace()
+    @see sqt::DataContext<>::MakeAutoIncInserter()
     @see SQT_PRIMARY_KEY_AUTO_INC
     */
     std::int64_t AutoIncInsert(const ENTITY& entity) requires AutoIncEntityValueType<ENTITY> {
@@ -262,7 +266,7 @@ public:
 
     @details
         This method is similar to the `Insert()` method, except that it replaces the existing row 
-        if a unique constraint violation occurs.
+        if an unique constraint violation occurs.
 
         To automatically generate the primary key value, use `AutoIncReplace()` method instead.
 
@@ -278,7 +282,36 @@ public:
         return ExecuteEntityInserter(replacer, entity);
     }
 
-    std::int64_t AutoIncReplace(const ENTITY& entity) {
+
+    /**
+    Inserts the specified entity into the database table, automatically generating the primary key
+    value and replacing the existing row.
+
+    @param entity
+        The entity to be inserted.
+
+    @return
+        The generated row ID of the inserted entity.
+
+    @throw sqt::SQLError
+        Thrown if the insertion fails.
+
+    @details
+        This method is similar to the `AutoIncInsert()` method, except that it replaces the 
+        existing row if an unique constraint violation occurs.
+
+        @note
+        This method is only available if the entity type has an auto-incremented primary key. Use
+        the `SQT_PRIMARY_KEY_AUTO_INC` macro to define an auto-incremented primary key.
+
+        For more control over the inserted columns, use the more flexible `MakeAutoIncReplacer()` 
+        method from the complex style interface.
+
+    @see sqt::DataContext<>::AutoIncInsert()
+    @see sqt::DataContext<>::MakeAutoIncReplacer()
+    @see SQT_PRIMARY_KEY_AUTO_INC
+    */
+    std::int64_t AutoIncReplace(const ENTITY& entity) requires AutoIncEntityValueType<ENTITY> {
         constexpr auto replacer = MakeAutoIncReplacer();
         return ExecuteEntityInserter(replacer, entity);
     }
