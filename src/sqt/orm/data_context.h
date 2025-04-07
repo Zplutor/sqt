@@ -148,6 +148,22 @@ public:
     }
 
 public:
+    /**
+    Constructs an instance using the specified shared database.
+
+    @param database
+        The shared database instance to be used by the constructed instance. 
+
+    @details
+        The associated database table is not initialized (i.e., created or altered) during 
+        construction. It will be automatically initialized when the first CRUD operation is 
+        executed.
+
+        To initialize the table explicitly before performing any operations, call the 
+        `InitializeTable()` method.
+
+    @see sqt::DataContext<>::InitializeTable()
+    */
     explicit DataContext(std::shared_ptr<sqt::Database> database) noexcept :
         init_once_guard_(std::move(database)) {
 
@@ -157,7 +173,7 @@ public:
     DataContext& operator=(const DataContext&) = delete;
 
     template<QuerierType QUERIER>
-    auto Prepare(const QUERIER& querier) {
+    Executor<QUERIER> Prepare(const QUERIER& querier) {
         auto db = init_once_guard_.DB();
         auto sql = querier.BuildSQL();
         auto statement = db->PrepareStatement(sql);
@@ -165,16 +181,98 @@ public:
         return Executor{ querier, std::move(db), std::move(statement) };
     }
 
+    /**
+    Inserts the specified entity into the database table.
+
+    @param entity
+        The entity to be inserted.
+
+    @return
+        The generated row ID of the inserted entity.
+
+    @throw sqt::SQLError
+        Thrown if the insertion fails.
+
+    @details
+        This method inserts the entire entity into the database table, including the primary key.
+        However, the primary key value is not automatically generated even if it is 
+        auto-incremented. To automatically generate the primary key value, use `AutoIncInsert()`
+        instead.
+
+        If a unique constraint violation occurs, the insertion will fail and throw an exception. To
+        avoid this, use `Replace()` or `AutoIncReplace()` to replace the existing row.
+
+        For more control over the inserted columns or the conflict action, use the more flexible 
+        `MakeInserter()` method from the complex style interface.
+
+    @see sqt::DataContext<>::AutoIncInsert()
+    @see sqt::DataContext<>::Replace()
+    @see sqt::DataContext<>::AutoIncReplace()
+    @see sqt::DataContext<>::MakeInserter()
+    */
     std::int64_t Insert(const ENTITY& entity) {
         constexpr auto inserter = MakeInserter();
         return ExecuteEntityInserter(inserter, entity);
     }
 
-    std::int64_t AutoIncInsert(const ENTITY& entity) {
+    /**
+    Inserts the specified entity into the database table, automatically generating the primary key
+    value.
+
+    @param entity
+        The entity to be inserted.
+
+    @return
+        The generated row ID of the inserted entity.
+
+    @throw sqt::SQLError
+        Thrown if the insertion fails.
+
+    @details
+        This method is similar to the `Insert()` method, expect that the primary key value in the 
+        entity is ignored and automatically generated.
+
+        To avoid unique constraint violations due to unique indexes, use the `AutoIncReplace()` 
+        method to replace the existing row instead.
+
+        @note
+        This method is only available if the entity type has an auto-incremented primary key. Use 
+        the `SQT_PRIMARY_KEY_AUTO_INC` macro to define an auto-incremented primary key.
+
+    @see sqt::DataContext<>::Insert()
+    @see sqt::DataContext<>::AutoIncReplace()
+    @see SQT_PRIMARY_KEY_AUTO_INC
+    */
+    std::int64_t AutoIncInsert(const ENTITY& entity) requires AutoIncEntityValueType<ENTITY> {
         constexpr auto inserter = MakeAutoIncInserter();
         return ExecuteEntityInserter(inserter, entity);
     }
 
+    /**
+    Inserts the specified entity into the database table, replacing the existing row.
+
+    @param entity
+        The entity to be inserted.
+
+    @return
+        The generated row ID of the inserted entity.
+
+    @throw sqt::SQLError
+        Thrown if the insertion fails.
+
+    @details
+        This method is similar to the `Insert()` method, except that it replaces the existing row 
+        if a unique constraint violation occurs.
+
+        To automatically generate the primary key value, use `AutoIncReplace()` method instead.
+
+        For more control over the inserted columns, use the more flexible `MakeReplacer()` method 
+        from the complex style interface.
+
+    @see sqt::DataContext<>::Insert()
+    @see sqt::DataContext<>::AutoIncReplace()
+    @see sqt::DataContext<>::MakeReplacer()
+    */
     std::int64_t Replace(const ENTITY& entity) {
         constexpr auto replacer = MakeReplacer();
         return ExecuteEntityInserter(replacer, entity);
@@ -234,10 +332,29 @@ public:
         return std::nullopt;
     }
 
+    /**
+    Explicitly initializes the database table associated with this data context.
+
+    @throw sqt::SQLError
+        Thrown if the table initialization fails.
+
+    @details
+        This method is typically not required, as the table will be automatically initialized upon 
+        the first CRUD operation. However, it can be useful in scenarios where the table must be 
+        prepared before any operations are performed.
+
+        Calling this method multiple times is safe; only the first call takes effect.
+    */
     void InitializeTable() {
         init_once_guard_.DB();
     }
 
+    /**
+    Gets the shared database instance used by this data context.
+
+    @return
+        The shared database instance.
+    */
     const std::shared_ptr<sqt::Database>& Database() const noexcept {
         return init_once_guard_.DB();
     }
