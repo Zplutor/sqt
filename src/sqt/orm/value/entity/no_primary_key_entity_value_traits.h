@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sqt/foundation/statement.h>
+#include <sqt/orm/internal/column_helper.h>
 #include <sqt/orm/value/entity/entity_value_type.h>
 
 namespace sqt {
@@ -16,21 +17,18 @@ public:
         TableType::GetInstance().GetNonPrimaryKeyColumns();
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
-
-        int index = parameter_index;
-        for (auto each_column : ManipulatingColumns) {
-            each_column->BindValueFromEntity(statement, index++, value);
-        }
+        internal::BindColumnValuesFromEntity(
+            statement,
+            parameter_index,
+            value,
+            ManipulatingColumns);
     }
 
     static T RetrieveValue(const Statement& statement, int column_index) {
-
-        T entity;
-        int index = column_index;
-        for (auto each_column : ManipulatingColumns) {
-            each_column->RetrieveValueToEntity(statement, index++, entity);
-        }
-        return entity;
+        return internal::RetrieveColumnValuesToEntity(
+            statement,
+            column_index,
+            ManipulatingColumns);
     }
 };
 

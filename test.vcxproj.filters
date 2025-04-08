@@ -25,6 +25,9 @@
     <Filter Include="test\unit_test\table\definition">
       <UniqueIdentifier>{579b6e2e-5b31-42bb-a018-7841d9689f10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\value\entity">
+      <UniqueIdentifier>{447e57f4-af69-4014-9acd-86050cf677f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\table\definition\index_definition_test.cpp">
       <Filter>test\unit_test\table\definition</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\value\entity\columns_entity_value_traits_test.cpp">
+      <Filter>test\unit_test\value\entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

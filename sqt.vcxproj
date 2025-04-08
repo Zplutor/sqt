@@ -57,6 +57,7 @@
     <ClInclude Include="src\sqt\orm\expression\predicate_operator.h" />
     <ClInclude Include="src\sqt\orm\expression\predicate_term_type.h" />
     <ClInclude Include="src\sqt\orm\expression\predicate_type.h" />
+    <ClInclude Include="src\sqt\orm\internal\column_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\table_initializer.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
     <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
     <ClInclude Include="src\sqt\orm\utility\utility.h" />
+    <ClInclude Include="src\sqt\orm\value\entity\columns_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\entity\entire_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\entity\entity_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\entity\entity_value_type.h" />
