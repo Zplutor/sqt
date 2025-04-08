@@ -145,6 +145,10 @@ public: \
     } \
     sqt::AbstractColumnsView GetAbstractColumns() const noexcept override; \
     sqt::AbstractIndexesView GetAbstractIndexes() const noexcept override; \
+    template<sqt::ColumnType COLUMN> \
+    constexpr const sqt::Column<EntityType>* GetColumn() const noexcept { \
+        static_assert(false, "The column type is not defined for this table."); \
+    } \
 private: \
     constexpr TableType() noexcept = default; \
     using ColumnLinkedList = sqt::LinkedList<sqt::Column<EntityType>>; \

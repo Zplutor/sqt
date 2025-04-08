@@ -44,6 +44,33 @@ TEST(TableDefinitionTest, TableBasicInterface) {
 }
 
 
+TEST(TableDefinitionTest, GetColumn) {
+
+    //One column
+    {
+        using TableType = sqt::TableType<table_def_test::OneColumnEntity>;
+        constexpr auto& table = TableType::GetInstance();
+        constexpr const sqt::Column<table_def_test::OneColumnEntity>* column = 
+            table.GetColumn<TableType::idType>();
+        ASSERT_EQ(column, &table.id);
+    }
+
+    //Two columns
+    {
+        using TableType = sqt::TableType<table_def_test::TwoColumnEntity>;
+        constexpr auto& table = TableType::GetInstance();
+
+        constexpr const sqt::Column<table_def_test::TwoColumnEntity>* column0 =
+            table.GetColumn<TableType::id0Type>();
+        ASSERT_EQ(column0, &table.id0);
+
+        constexpr const sqt::Column<table_def_test::TwoColumnEntity>* column1 =
+            table.GetColumn<TableType::id1Type>();
+        ASSERT_EQ(column1, &table.id1);
+    }
+}
+
+
 TEST(TableDefinitionTest, GetColumns) {
 
     //No Column
