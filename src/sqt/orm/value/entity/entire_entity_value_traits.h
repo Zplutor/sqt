@@ -13,7 +13,8 @@ public:
     using EntityType = T;
     using TableType = TableType<T>;
 
-    static constexpr ColumnsView<EntityType> ManipulatingColumns = TableType::GetColumns();
+    static constexpr ColumnsView<EntityType> ManipulatingColumns = 
+        TableType::GetInstance().GetColumns();
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
 

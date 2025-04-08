@@ -81,15 +81,19 @@ Begins the definition of a table type for the specified entity type.
         static constexpr const TableType& GetInstance() noexcept;
 
         // Retrieves all columns of the table.
-        static constexpr sqt::ColumnsView<EntityType> GetColumns() noexcept; 
+        constexpr sqt::ColumnsView<EntityType> GetColumns() const noexcept; 
 
         // Retrieves the columns that form the primary key.
         // If no primary key is defined, an empty view is returned.
-        static constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() noexcept; 
+        constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() const noexcept; 
 
         // Retrieves the columns that are not part of the primary key.
         // If no primary key is defined, this is equivalent to GetColumns().
-        static constexpr sqt::ColumnsView<EntityType> GetNonPrimaryKeyColumns() noexcept;
+        constexpr sqt::ColumnsView<EntityType> GetNonPrimaryKeyColumns() const noexcept;
+
+        // Retrieves the column of the specified column type.
+        template<sqt::ColumnType COLUMN>
+        constexpr const sqt::Column<EntityType>* GetColumn() const noexcept;
 
         // Forbids copying.
         TableType(const TableType&) = delete;
@@ -137,9 +141,9 @@ class TableType : public sqt::AbstractTable { \
 public: \
     using EntityType = TableEntityType; \
     static constexpr const TableType& GetInstance() noexcept; \
-    static constexpr sqt::ColumnsView<EntityType> GetColumns() noexcept; \
-    static constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() noexcept; \
-    static constexpr sqt::ColumnsView<EntityType> GetNonPrimaryKeyColumns() noexcept; \
+    constexpr sqt::ColumnsView<EntityType> GetColumns() const noexcept; \
+    constexpr sqt::ColumnsView<EntityType> GetPrimaryKeyColumns() const noexcept; \
+    constexpr sqt::ColumnsView<EntityType> GetNonPrimaryKeyColumns() const noexcept; \
     constexpr std::string_view GetName() const noexcept override { \
         return TableName; \
     } \
@@ -168,7 +172,7 @@ private: \
         } \
     }; \
     template<typename... Columns> \
-    static constexpr BaseIndex<Columns...> MakeBaseIndex(const Columns&...) { } \
+    static constexpr BaseIndex<Columns...> MakeBaseIndex(const Columns&...) { }
 
 
 /**
@@ -736,13 +740,13 @@ public: \
 constexpr const TableType& TableType::GetInstance() noexcept { \
     return Insider::TableInstance; \
 } \
-constexpr sqt::ColumnsView<TableEntityType> TableType::GetColumns() noexcept { \
+constexpr sqt::ColumnsView<TableEntityType> TableType::GetColumns() const noexcept { \
     return Insider::Columns; \
 } \
-constexpr sqt::ColumnsView<TableEntityType> TableType::GetPrimaryKeyColumns() noexcept { \
+constexpr sqt::ColumnsView<TableEntityType> TableType::GetPrimaryKeyColumns() const noexcept { \
     return sqt::internal::PrimaryKeyShim<TableType>::GetPKColumns(Insider::TableInstance); \
 } \
-constexpr sqt::ColumnsView<TableEntityType> TableType::GetNonPrimaryKeyColumns() noexcept { \
+constexpr sqt::ColumnsView<TableEntityType> TableType::GetNonPrimaryKeyColumns() const noexcept { \
     return Insider::NonPKColumns; \
 } \
 inline sqt::AbstractColumnsView TableType::GetAbstractColumns() const noexcept { \

@@ -13,7 +13,7 @@ public:
     using TableType = TableType<T>;
 
     static constexpr ColumnsView<EntityType> ManipulatingColumns =
-        TableType::GetNonPrimaryKeyColumns();
+        TableType::GetInstance().GetNonPrimaryKeyColumns();
 
     static void BindValue(Statement& statement, int parameter_index, const T& value) {
 

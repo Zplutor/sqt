@@ -75,26 +75,26 @@ TEST(TableDefinitionTest, GetColumns) {
 
     //No Column
     {
-        using Table = sqt::TableType<table_def_test::NoColumnEntity>;
-        constexpr sqt::ColumnsView<table_def_test::NoColumnEntity> columns = Table::GetColumns();
+        constexpr auto& table = sqt::Table<table_def_test::NoColumnEntity>;
+        constexpr sqt::ColumnsView<table_def_test::NoColumnEntity> columns = table.GetColumns();
         ASSERT_EQ(columns.size(), 0);
     }
 
     //One Column
     {
-        using Table = sqt::TableType<table_def_test::OneColumnEntity>;
-        constexpr sqt::ColumnsView<table_def_test::OneColumnEntity> columns = Table::GetColumns();
+        constexpr auto& table = sqt::Table<table_def_test::OneColumnEntity>;
+        constexpr sqt::ColumnsView<table_def_test::OneColumnEntity> columns = table.GetColumns();
         ASSERT_EQ(columns.size(), 1);
-        ASSERT_EQ(columns[0], &Table::GetInstance().id);
+        ASSERT_EQ(columns[0], &table.id);
     }
 
     //Two columns
     {
-        using Table = sqt::TableType<table_def_test::TwoColumnEntity>;
-        constexpr sqt::ColumnsView<table_def_test::TwoColumnEntity> columns = Table::GetColumns();
+        constexpr auto& table = sqt::Table<table_def_test::TwoColumnEntity>;
+        constexpr sqt::ColumnsView<table_def_test::TwoColumnEntity> columns = table.GetColumns();
         ASSERT_EQ(columns.size(), 2);
-        ASSERT_EQ(columns[0], &Table::GetInstance().id0);
-        ASSERT_EQ(columns[1], &Table::GetInstance().id1);
+        ASSERT_EQ(columns[0], &table.id0);
+        ASSERT_EQ(columns[1], &table.id1);
     }
 }
 
@@ -164,29 +164,29 @@ TEST(TableDefinitionTest, GetPrimaryKeyColumns) {
 
     //No primary key
     {
-        using Table = sqt::TableType<table_def_test::NoPKEntity>;
+        constexpr auto& table = sqt::Table<table_def_test::NoPKEntity>;
         constexpr sqt::ColumnsView<table_def_test::NoPKEntity> columns = 
-            Table::GetPrimaryKeyColumns();
+            table.GetPrimaryKeyColumns();
         ASSERT_EQ(columns.size(), 0);
     }
 
     //All primary key
     {
-        using Table = sqt::TableType<table_def_test::AllPKEntity>;
+        constexpr auto& table = sqt::Table<table_def_test::AllPKEntity>;
         constexpr sqt::ColumnsView<table_def_test::AllPKEntity> columns =
-            Table::GetPrimaryKeyColumns();
+            table.GetPrimaryKeyColumns();
         ASSERT_EQ(columns.size(), 2);
-        ASSERT_EQ(columns[0], &Table::GetInstance().id0);
-        ASSERT_EQ(columns[1], &Table::GetInstance().id1);
+        ASSERT_EQ(columns[0], &table.id0);
+        ASSERT_EQ(columns[1], &table.id1);
     }
 
     //Partial primary key
     {
-        using Table = sqt::TableType<table_def_test::PartialPKEntity>;
+        constexpr auto& table = sqt::Table<table_def_test::PartialPKEntity>;
         constexpr sqt::ColumnsView<table_def_test::PartialPKEntity> columns =
-            Table::GetPrimaryKeyColumns();
+            table.GetPrimaryKeyColumns();
         ASSERT_EQ(columns.size(), 1);
-        ASSERT_EQ(columns[0], &Table::GetInstance().id0);
+        ASSERT_EQ(columns[0], &table.id0);
     }
 }
 
@@ -195,28 +195,28 @@ TEST(TableDefinitionTest, GetNonPrimaryKeyColumns) {
 
     //No primary key
     {
-        using Table = sqt::TableType<table_def_test::NoPKEntity>;
+        constexpr auto& table = sqt::Table<table_def_test::NoPKEntity>;
         constexpr sqt::ColumnsView<table_def_test::NoPKEntity> columns =
-            Table::GetNonPrimaryKeyColumns();
+            table.GetNonPrimaryKeyColumns();
         ASSERT_EQ(columns.size(), 1);
-        ASSERT_EQ(columns[0], &Table::GetInstance().id);
+        ASSERT_EQ(columns[0], &table.id);
     }
 
     //All primary key
     {
-        using Table = sqt::TableType<table_def_test::AllPKEntity>;
+        constexpr auto& table = sqt::Table<table_def_test::AllPKEntity>;
         constexpr sqt::ColumnsView<table_def_test::AllPKEntity> columns =
-            Table::GetNonPrimaryKeyColumns();
+            table.GetNonPrimaryKeyColumns();
         ASSERT_EQ(columns.size(), 0);
     }
 
     //Partial primary key
     {
-        using Table = sqt::TableType<table_def_test::PartialPKEntity>;
+        constexpr auto& table = sqt::Table<table_def_test::PartialPKEntity>;
         constexpr sqt::ColumnsView<table_def_test::PartialPKEntity> columns =
-            Table::GetNonPrimaryKeyColumns();
+            table.GetNonPrimaryKeyColumns();
         ASSERT_EQ(columns.size(), 1);
-        ASSERT_EQ(columns[0], &Table::GetInstance().id1);
+        ASSERT_EQ(columns[0], &table.id1);
     }
 }
 
