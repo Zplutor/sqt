@@ -2201,11 +2201,16 @@ th.markdownTableHeadCenter, td.markdownTableBodyCenter {
 	text-align: center
 }
 
-tt, code, kbd
+code {
+	display: inline-block;
+	font-family: var(--font-family-monospace);
+}
+
+tt, kbd
 {
   display: inline-block;
 }
-tt, code, kbd
+tt, kbd
 {
   vertical-align: top;
 }
