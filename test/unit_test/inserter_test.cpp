@@ -56,22 +56,6 @@ TEST_F(InserterTest, ReplaceEntireEntity) {
 }
 
 
-TEST_F(InserterTest, DataContextReplace) {
-
-    sqt::DataContext<test_entities::EntityAutoInc> context{ DB() };
-    test_entities::EntityAutoInc entity{ 890, "replacer" };
-    context.Replace(entity);
-    //This will replace the previous entity
-    context.Replace(entity);
-
-    auto statement = DB()->PrepareStatement(std::format("select * from EntityAutoInc"));
-    ASSERT_TRUE(statement.Step().HasMore());
-    ASSERT_EQ(statement.GetColumnInt(0), 890);
-    ASSERT_EQ(statement.GetColumnText(1), "replacer");
-    ASSERT_FALSE(statement.Step().HasMore());
-}
-
-
 TEST_F(InserterTest, InsertAutoIncEntity) {
 
     using Context = sqt::DataContext<test_entities::EntityAutoInc>;
@@ -97,5 +81,83 @@ TEST_F(InserterTest, InsertAutoIncEntity) {
         ASSERT_EQ(statement.GetColumnInt(0), index);
         ASSERT_EQ(statement.GetColumnText(1), std::to_string(index));
     }
+    ASSERT_FALSE(statement.Step().HasMore());
+}
+
+
+namespace inserter_test {
+struct NullableEntity {
+    std::optional<int> id;
+    std::optional<std::string> name;
+};
+SQT_TABLE_BEGIN(NullableEntity, NullableEntity)
+SQT_COLUMN_FIELD(id, id)
+SQT_COLUMN_FIELD(name, name)
+SQT_TABLE_END
+}
+SQT_REGISTER(inserter_test::NullableEntity)
+
+TEST_F(InserterTest, InsertColumns) {
+
+    using Context = sqt::DataContext<inserter_test::NullableEntity>;
+    Context context{ DB() };
+
+    constexpr auto& table = sqt::Table<inserter_test::NullableEntity>;
+
+    //One column
+    {
+        constexpr auto inserter = Context::MakeInserter(table.id);
+        auto executor = context.Prepare(inserter);
+        executor.BeginBind().Bind(inserter_test::NullableEntity{ 1, "1" });
+        executor.Execute();
+    }
+
+    //Two columns
+    {
+        constexpr auto inserter = Context::MakeInserter(table.id, table.name);
+        auto executor = context.Prepare(inserter);
+        executor.BeginBind().Bind(inserter_test::NullableEntity{ 2, "2" });
+        executor.Execute();
+    }
+
+    //One column with conflict action
+    {
+        constexpr auto inserter = Context::MakeInserter<sqt::ConflictAction::Ignore>(table.id);
+        auto executor = context.Prepare(inserter);
+        executor.BeginBind().Bind(inserter_test::NullableEntity{ 3, "3" });
+        executor.Execute();
+    }
+
+    //Two columns with conflict action
+    {
+        constexpr auto inserter = 
+            Context::MakeInserter<sqt::ConflictAction::Ignore>(table.id, table.name);
+        auto executor = context.Prepare(inserter);
+        executor.BeginBind().Bind(inserter_test::NullableEntity{ 4, "4" });
+        executor.Execute();
+    }
+
+    auto statement = DB()->PrepareStatement(std::format("select * from NullableEntity"));
+
+    //Insert one column result
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 1);
+    ASSERT_EQ(statement.GetColumnType(1), sqt::DataType::Null);
+
+    //Insert two columns result
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 2);
+    ASSERT_EQ(statement.GetColumnText(1), "2");
+
+    //Insert one column with conflict action result
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 3);
+    ASSERT_EQ(statement.GetColumnType(1), sqt::DataType::Null);
+
+    //Insert two columns with conflict action result
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 4);
+    ASSERT_EQ(statement.GetColumnText(1), "4");
+
     ASSERT_FALSE(statement.Step().HasMore());
 }

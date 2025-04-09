@@ -19,6 +19,7 @@
 #include <sqt/orm/querier/updater/entity_updater.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/internal/table_initializer.h>
+#include <sqt/orm/value/entity/columns_entity_value_traits.h>
 #include <sqt/orm/value/entity/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity/entity_value_type.h>
 #include <sqt/orm/value/entity/no_primary_key_entity_value_traits.h>
@@ -96,6 +97,13 @@ public:
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeInserter() noexcept {
         using ValueTraits = EntireEntityValueTraits<ENTITY>;
+        using Operand = PlaceholderOperand<ValueTraits>;
+        return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
+    }
+
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort, ColumnType... COLUMNS>
+    static constexpr auto MakeInserter(const COLUMNS&...) noexcept {
+        using ValueTraits = ColumnsEntityValueTraits<COLUMNS...>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
