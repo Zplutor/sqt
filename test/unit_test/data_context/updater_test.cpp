@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sqt/orm/data_context.h>
 #include <sqt/orm/table_definition.h>
-#include "data_context_test_fixture.h"
+#include "unit_test/data_context_test_fixture.h"
 
 class UpdaterTest : public DataContextTestFixture {
 

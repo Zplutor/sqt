@@ -42,21 +42,6 @@
     <ClCompile Include="test\unit_test\db_test_fixture.cpp">
       <Filter>test\unit_test</Filter>
     </ClCompile>
-    <ClCompile Include="test\unit_test\deleter_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\unit_test\inserter_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\unit_test\selecter_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\unit_test\table_initializer_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
-    <ClCompile Include="test\unit_test\updater_test.cpp">
-      <Filter>test\unit_test</Filter>
-    </ClCompile>
     <ClCompile Include="test\test_environment.cpp">
       <Filter>test</Filter>
     </ClCompile>
@@ -107,6 +92,21 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\value\entity\columns_entity_value_traits_test.cpp">
       <Filter>test\unit_test\value\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context\deleter_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context\inserter_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context\selecter_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context\table_initializer_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\data_context\updater_test.cpp">
+      <Filter>test\unit_test\data_context</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

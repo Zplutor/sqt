@@ -3,7 +3,7 @@
 #include <sqt/foundation/database.h>
 #include <sqt/orm/table_definition.h>
 #include <sqt/orm/internal/table_initializer.h>
-#include "db_test_fixture.h"
+#include "unit_test/db_test_fixture.h"
 
 class TableInitializerTest : public DBTestFixture {
 
