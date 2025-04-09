@@ -112,6 +112,11 @@ public:
         return MakeInserter<ConflictAction::Replace>();
     }
 
+    template<ColumnType... COLUMNS>
+    static constexpr auto MakeReplacer(const COLUMNS&... columns) noexcept {
+        return MakeInserter<ConflictAction::Replace>(columns...);
+    }
+
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeAutoIncInserter() noexcept requires AutoIncEntityValueType<ENTITY> {
         using ValueTraits = NoPrimaryKeyEntityValueTraits<ENTITY>;
