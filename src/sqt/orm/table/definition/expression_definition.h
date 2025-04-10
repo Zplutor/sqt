@@ -44,11 +44,15 @@ constexpr auto Asc() const { \
 constexpr auto Desc() const { \
     return sqt::OrderingTerm<sqt::Ordering::Descending, sqt::IdentifierOperand<COLUMN_TYPE>>{}; \
 } \
-constexpr auto operator=( \
-    const typename COLUMN_TYPE::ValueType& value) const { \
+constexpr auto operator=(const typename COLUMN_TYPE::ValueType& value) const { \
     using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
     using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::ValueTraits>; \
     return sqt::Assignment<LHS, RHS>{ RHS{ value } }; \
+} \
+constexpr auto operator=(sqt::Placeholder) const { \
+    using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
+    using RHS = sqt::PlaceholderOperand<sqt::IdentifierValueTraits<COLUMN_TYPE>>; \
+    return sqt::Assignment<LHS, RHS>{ RHS{} }; \
 } \
 SQT_PREDICATE_OPERATOR(==, Equal, COLUMN_TYPE) \
 SQT_PREDICATE_OPERATOR(!=, NotEqual, COLUMN_TYPE) \

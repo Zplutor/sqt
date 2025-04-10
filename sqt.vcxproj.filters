@@ -398,10 +398,13 @@
     <ClInclude Include="src\sqt\orm\internal\table_initializer.h">
       <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\entity\columns_entity_value_traits.h">
-      <Filter>src\sqt\orm\value\entity</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\column_helper.h">
+      <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\inserter\column_inserter.h">
+      <Filter>src\sqt\orm\querier\inserter</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\assignment_helper.h">
       <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
   </ItemGroup>

@@ -87,74 +87,78 @@ TEST_F(InserterTest, InsertAutoIncEntity) {
 
 namespace inserter_test {
 struct ColumnInserterEntity {
-    std::optional<int> id;
+    int id{};
     std::optional<std::string> name;
 };
 SQT_TABLE_BEGIN(ColumnInserterEntity, ColumnInserterEntity)
 SQT_COLUMN_FIELD(id, id)
 SQT_COLUMN_FIELD(name, name)
+SQT_PRIMARY_KEY(id)
 SQT_TABLE_END
 }
 SQT_REGISTER(inserter_test::ColumnInserterEntity)
 
-TEST_F(InserterTest, InsertColumns) {
+TEST_F(InserterTest, InsertColumns_NoConflictAction) {
 
     using Context = sqt::DataContext<inserter_test::ColumnInserterEntity>;
     Context context{ DB() };
 
     constexpr auto& table = sqt::Table<inserter_test::ColumnInserterEntity>;
 
-    //One column
+    //One columns
     {
-        constexpr auto inserter = Context::MakeInserter(table.id);
-        auto executor = context.Prepare(inserter);
-        executor.BeginBind().Bind(inserter_test::ColumnInserterEntity{ 1, "1" });
-        executor.Execute();
+        //Inline
+        {
+            constexpr auto inserter = Context::MakeInserter(table.id = 1);
+            auto executor = context.Prepare(inserter);
+            executor.Execute();
+        }
+
+        //Placeholder
+        {
+            constexpr auto inserter = Context::MakeInserter(table.id = sqt::_);
+            auto executor = context.Prepare(inserter);
+            executor.BeginBind().Bind(2);
+            executor.Execute();
+        }
     }
 
     //Two columns
     {
-        constexpr auto inserter = Context::MakeInserter(table.id, table.name);
-        auto executor = context.Prepare(inserter);
-        executor.BeginBind().Bind(inserter_test::ColumnInserterEntity{ 2, "2" });
-        executor.Execute();
-    }
+        //Inline
+        {
+            auto inserter = Context::MakeInserter(table.id = 3, table.name = "3");
+            auto executor = context.Prepare(inserter);
+            executor.Execute();
+        }
 
-    //One column with conflict action
-    {
-        constexpr auto inserter = Context::MakeInserter<sqt::ConflictAction::Ignore>(table.id);
-        auto executor = context.Prepare(inserter);
-        executor.BeginBind().Bind(inserter_test::ColumnInserterEntity{ 3, "3" });
-        executor.Execute();
-    }
-
-    //Two columns with conflict action
-    {
-        constexpr auto inserter = 
-            Context::MakeInserter<sqt::ConflictAction::Ignore>(table.id, table.name);
-        auto executor = context.Prepare(inserter);
-        executor.BeginBind().Bind(inserter_test::ColumnInserterEntity{ 4, "4" });
-        executor.Execute();
+        //Placeholder
+        {
+            auto inserter = Context::MakeInserter(table.id = sqt::_, table.name = sqt::_);
+            auto executor = context.Prepare(inserter);
+            executor.BeginBind().Bind(4).Bind("4");
+            executor.Execute();
+        }
     }
 
     auto statement = DB()->PrepareStatement(std::format("select * from ColumnInserterEntity"));
 
-    //Insert one column result
+    //One column, inline
     ASSERT_TRUE(statement.Step().HasMore());
     ASSERT_EQ(statement.GetColumnInt(0), 1);
     ASSERT_EQ(statement.GetColumnType(1), sqt::DataType::Null);
 
-    //Insert two columns result
+    //One column, placeholder
     ASSERT_TRUE(statement.Step().HasMore());
     ASSERT_EQ(statement.GetColumnInt(0), 2);
-    ASSERT_EQ(statement.GetColumnText(1), "2");
-
-    //Insert one column with conflict action result
-    ASSERT_TRUE(statement.Step().HasMore());
-    ASSERT_EQ(statement.GetColumnInt(0), 3);
     ASSERT_EQ(statement.GetColumnType(1), sqt::DataType::Null);
 
-    //Insert two columns with conflict action result
+    //Two columns, inline
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 3);
+    ASSERT_EQ(statement.GetColumnText(1), "3");
+
+    //Two columns, placeholder
     ASSERT_TRUE(statement.Step().HasMore());
     ASSERT_EQ(statement.GetColumnInt(0), 4);
     ASSERT_EQ(statement.GetColumnText(1), "4");
@@ -163,45 +167,96 @@ TEST_F(InserterTest, InsertColumns) {
 }
 
 
-namespace inserter_test {
-struct ColumnReplacerEntity {
-    int id{};
-    std::optional<std::string> name;
-};
-SQT_TABLE_BEGIN(ColumnReplacerEntity, ColumnReplacerEntity)
-SQT_COLUMN_FIELD(id, id)
-SQT_COLUMN_FIELD(name, name)
-SQT_PRIMARY_KEY(id)
-SQT_TABLE_END
-}
-SQT_REGISTER(inserter_test::ColumnReplacerEntity)
+TEST_F(InserterTest, InsertColumns_ConflictAction) {
 
-TEST_F(InserterTest, ReplaceColumns) {
-
-    using Context = sqt::DataContext<inserter_test::ColumnReplacerEntity>;
+    using Context = sqt::DataContext<inserter_test::ColumnInserterEntity>;
     Context context{ DB() };
 
-    constexpr auto& table = sqt::Table<inserter_test::ColumnReplacerEntity>;
+    constexpr auto& table = sqt::Table<inserter_test::ColumnInserterEntity>;
 
-    //One column
+    //One columns
     {
-        constexpr auto replacer = Context::MakeReplacer(table.id);
-        auto executor = context.Prepare(replacer);
-        executor.BeginBind().Bind(inserter_test::ColumnReplacerEntity{ 1, "1" });
+        constexpr auto inserter = Context::MakeInserter<sqt::ConflictAction::Ignore>(table.id = 1);
+        auto executor = context.Prepare(inserter);
         executor.Execute();
     }
 
     //Two columns
     {
-        constexpr auto replacer = Context::MakeReplacer(table.id, table.name);
-        auto executor = context.Prepare(replacer);
-        executor.BeginBind().Bind(inserter_test::ColumnReplacerEntity{ 1, "2" });
+        //Inline
+        auto inserter = 
+            Context::MakeInserter<sqt::ConflictAction::Rollback>(table.id = 3, table.name = "3");
+        auto executor = context.Prepare(inserter);
         executor.Execute();
     }
 
-    auto statement = DB()->PrepareStatement(std::format("select * from ColumnReplacerEntity"));
+    auto statement = DB()->PrepareStatement(std::format("select * from ColumnInserterEntity"));
+
+    //One column
     ASSERT_TRUE(statement.Step().HasMore());
     ASSERT_EQ(statement.GetColumnInt(0), 1);
-    ASSERT_EQ(statement.GetColumnText(1), "2");
+    ASSERT_EQ(statement.GetColumnType(1), sqt::DataType::Null);
+    //Two columns
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 3);
+    ASSERT_EQ(statement.GetColumnText(1), "3");
+
+    ASSERT_FALSE(statement.Step().HasMore());
+}
+
+
+TEST_F(InserterTest, ReplaceColumns) {
+
+    using Context = sqt::DataContext<inserter_test::ColumnInserterEntity>;
+    Context context{ DB() };
+
+    constexpr auto& table = sqt::Table<inserter_test::ColumnInserterEntity>;
+
+    //One column
+    {
+        //Inline
+        {
+            constexpr auto replacer = Context::MakeReplacer(table.id = 1);
+            auto executor = context.Prepare(replacer);
+            executor.Execute();
+        }
+
+        //Placeholder
+        {
+            constexpr auto replacer = Context::MakeReplacer(table.id = sqt::_);
+            auto executor = context.Prepare(replacer);
+            executor.BeginBind().Bind(2);
+            executor.Execute();
+        }
+    }
+
+    //Two columns
+    {
+        //Inline
+        {
+            auto replacer = Context::MakeReplacer(table.id = 1, table.name = "3");
+            auto executor = context.Prepare(replacer);
+            executor.Execute();
+        }
+
+        //Placeholder
+        {
+            auto replacer = Context::MakeReplacer(table.id = sqt::_, table.name = sqt::_);
+            auto executor = context.Prepare(replacer);
+            executor.BeginBind().Bind(2).Bind("4");
+            executor.Execute();
+        }
+    }
+
+    auto statement = DB()->PrepareStatement(std::format("select * from ColumnInserterEntity"));
+
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 1);
+    ASSERT_EQ(statement.GetColumnText(1), "3");
+
+    ASSERT_TRUE(statement.Step().HasMore());
+    ASSERT_EQ(statement.GetColumnInt(0), 2);
+    ASSERT_EQ(statement.GetColumnText(1), "4");
+
     ASSERT_FALSE(statement.Step().HasMore());
 }

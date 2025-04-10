@@ -12,6 +12,7 @@
 #include <sqt/orm/executor/executor.h>
 #include <sqt/orm/expression/operand/placeholder_operand.h>
 #include <sqt/orm/querier/deleter/deleter.h>
+#include <sqt/orm/querier/inserter/column_inserter.h>
 #include <sqt/orm/querier/inserter/entity_inserter.h>
 #include <sqt/orm/querier/selecter/column_selecter.h>
 #include <sqt/orm/querier/selecter/entity_selecter.h>
@@ -19,7 +20,6 @@
 #include <sqt/orm/querier/updater/entity_updater.h>
 #include <sqt/orm/table/abstract_table.h>
 #include <sqt/orm/internal/table_initializer.h>
-#include <sqt/orm/value/entity/columns_entity_value_traits.h>
 #include <sqt/orm/value/entity/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity/entity_value_type.h>
 #include <sqt/orm/value/entity/no_primary_key_entity_value_traits.h>
@@ -109,16 +109,16 @@ public:
         of the entity into the database table. The following alternatives provide more control over
         the inserted columns:
 
-        - `MakeInserter(const COLUMNS&...)` for inserting specific columns.
-        - `MakeAutoIncInserter()` for inserting non-primary key columns while auto-generating the 
+        - `MakeAutoIncInserter()` for inserting non-primary key columns while auto-generating the
           primary key.
+        - `MakeInserter(const ASSIGNMENTS&...)` for inserting specific columns.
 
         The `MakeReplacer()` method is a shorthand for 
         `MakeInserter<sqt::ConflictAction::Replace>()`.
 
-        A placeholder for the entity is automatically added to the returned inserter. To execute 
-        the inserter, an entity instance must be bound. The following code demonstrates how to use 
-        the inserter:
+        A placeholder for the entity is implicitly added to the returned inserter. To execute the 
+        inserter, an entity instance must be bound. The following code demonstrates how to use the 
+        inserter:
         
         @code{.cpp}
         // The entity type, assuming its table type has been defined and registered.
@@ -146,8 +146,8 @@ public:
 
         For an easier-to-use method, use the `Insert()` method from the easy style interface.
     
-    @see sqt::DataContext<>::MakeInserter(const COLUMNS&... columns)
     @see sqt::DataContext<>::MakeAutoIncInserter()
+    @see sqt::DataContext<>::MakeInserter(const ASSIGNMENTS&... assignments)
     @see sqt::DataContext<>::MakeReplacer()
     @see sqt::DataContext<>::Insert()
     */
@@ -158,84 +158,20 @@ public:
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
-    /**
-    Creates an inserter for inserting the specified columns of the entity into the database table.
-
-    @tparam CONFLICT_ACTION
-        The conflict action to be used when a unique constraint violation occurs. The default
-        action is `sqt::ConflictAction::Abort`.
-
-    @tparam COLUMNS
-        A pack of the column types to be inserted.
-
-    @param columns
-        The columns of the entity to be inserted.
-
-    @return
-        A new inserter instance.
-
-    @details
-        This method is similar to the `MakeInserter()` method, but allows specifying which columns 
-        of the entity should be inserted, rather than inserting all columns.
-
-        The `MakeReplacer(const COLUMNS&...)` method is a shorthand for 
-        `MakeInserter<sqt::ConflictAction::Replace>(columns)`.
-
-        Placeholders for the specified columns are automatically added to the returned inserter. 
-        To execute the inserter, values for the columns must be bound. The following code 
-        demonstrates how to use the inserter.
-
-        @code{.cpp}
-        // The entity type.
-        struct MyEntity {
-            int id{};
-            std::string name;
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort, AssignmentType... ASSIGNMENTS>
+    static constexpr auto MakeInserter(ASSIGNMENTS&&... assignments) noexcept {
+        return ColumnInserter<CONFLICT_ACTION, ASSIGNMENTS...>{
+            std::forward<ASSIGNMENTS>(assignments)...
         };
-        SQT_TABLE_BEGIN(MyEntity, MyEntity)
-        SQT_COLUMN_FIELD(id, id);
-        SQT_COLUMN_FIELD(name, name);
-        SQT_TABLE_END
-
-        SQT_REGISTER(MyEntity)
-
-        // Create the inserter with columns.
-        constexpr auto inserter = sqt::DataContext<MyEntity>::MakeInserter(
-            sqt::Table<MyEntity>.id,
-            sqt::Table<MyEntity>.name
-        );
-
-        // Create a data context, assuming the shared_db is an opened database instance.
-        sqt::DataContext<MyEntity> data_context{ shared_db };
-
-        // Prepare the inserter to create a corresponding executor.
-        auto executor = data_context.Prepare(inserter);
-
-        // Bind values to the columns.
-        executor.BeginBind()
-            .Bind(1)  // Bind value to the id column.
-            .Bind("The First");  //Bind value to the name column.
-
-        // Execute the statement.
-        executor.Execute();
-        @endcode
-
-    @see sqt::DataContext<>::MakeInserter()
-    @see sqt::DataContext<>::MakeReplacer(const COLUMNS&... columns)
-    */
-    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort, ColumnType... COLUMNS>
-    static constexpr auto MakeInserter(const COLUMNS&... columns) noexcept {
-        using ValueTraits = ColumnsEntityValueTraits<COLUMNS...>;
-        using Operand = PlaceholderOperand<ValueTraits>;
-        return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
     static constexpr auto MakeReplacer() noexcept {
         return MakeInserter<ConflictAction::Replace>();
     }
 
-    template<ColumnType... COLUMNS>
-    static constexpr auto MakeReplacer(const COLUMNS&... columns) noexcept {
-        return MakeInserter<ConflictAction::Replace>(columns...);
+    template<AssignmentType... ASSIGNMENTS>
+    static constexpr auto MakeReplacer(ASSIGNMENTS&&... assignments) noexcept {
+        return MakeInserter<ConflictAction::Replace>(std::forward<ASSIGNMENTS>(assignments)...);
     }
 
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>

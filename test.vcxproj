@@ -34,7 +34,6 @@
     <ClCompile Include="test\unit_test\table_definition\table_definition_test.cpp" />
     <ClCompile Include="test\unit_test\value\composite_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\custom_value_test.cpp" />
-    <ClCompile Include="test\unit_test\value\entity\columns_entity_value_traits_test.cpp" />
     <ClCompile Include="test\unit_test\value\nullable_value_test.cpp" />
     <ClCompile Include="test\unit_test\value\primitive_value_test.cpp" />
   </ItemGroup>
