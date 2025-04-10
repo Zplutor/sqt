@@ -111,7 +111,7 @@ public:
 
         - `MakeAutoIncInserter()` for inserting non-primary key columns while auto-generating the
           primary key.
-        - `MakeInserter(const ASSIGNMENTS&...)` for inserting specific columns.
+        - `MakeInserter(ASSIGNMENTS&&...)` for inserting specific columns.
 
         The `MakeReplacer()` method is a shorthand for 
         `MakeInserter<sqt::ConflictAction::Replace>()`.
@@ -147,7 +147,7 @@ public:
         For an easier-to-use method, use the `Insert()` method from the easy style interface.
     
     @see sqt::DataContext<>::MakeAutoIncInserter()
-    @see sqt::DataContext<>::MakeInserter(const ASSIGNMENTS&... assignments)
+    @see sqt::DataContext<>::MakeInserter(ASSIGNMENTS&&... assignments)
     @see sqt::DataContext<>::MakeReplacer()
     @see sqt::DataContext<>::Insert()
     */
@@ -158,6 +158,33 @@ public:
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
+    /**
+    Creates an inserter for inserting the specified columns of the entity into the database table.
+
+    @tparam CONFLICT_ACTION
+        The conflict action to be used when a unique constraint violation occurs. The default
+        action is `sqt::ConflictAction::Abort`.
+
+    @tparam ASSIGNMENTS
+        A pack of the assignment types.
+
+    @param assignments
+        The assignments specifying the columns and their values to be inserted.
+
+    @return
+        A new inserter instance.
+
+    @details
+        This method provides more control over the inserted columns compared to the 
+        `MakeInserter()` method. It allows specifying which columns to insert and their 
+        corresponding values.
+
+        The `MakeReplacer(ASSIGNMENTS&&...)` method is a shorthand for 
+        `MakeInserter<sqt::ConflictAction::Replace>(assignments)`.
+
+    @see sqt::DataContext<>::MakeInserter()
+    @see sqt::DataContext<>::MakeReplacer(ASSIGNMENTS&&... assignments);
+    */
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort, AssignmentType... ASSIGNMENTS>
     static constexpr auto MakeInserter(ASSIGNMENTS&&... assignments) noexcept {
         return ColumnInserter<CONFLICT_ACTION, ASSIGNMENTS...>{
@@ -169,6 +196,24 @@ public:
         return MakeInserter<ConflictAction::Replace>();
     }
 
+    /**
+    Creates an inserter for inserting the specified columns of the entity into the database table,
+    replacing the existing row.
+
+    @tparam ASSIGNMENTS
+        A pack of the assignment types.
+
+    @param assignments
+        The assignments specifying the columns and their values to be inserted.
+
+    @return
+        The new inserter instance.
+
+    @details
+        This method is a shorthand for `MakeInserter<sqt::ConflictAction::Replace>(assignments)`.
+
+    @see sqt::DataContext<>::MakeInserter(ASSIGNMENTS&&... assignments)
+    */
     template<AssignmentType... ASSIGNMENTS>
     static constexpr auto MakeReplacer(ASSIGNMENTS&&... assignments) noexcept {
         return MakeInserter<ConflictAction::Replace>(std::forward<ASSIGNMENTS>(assignments)...);
