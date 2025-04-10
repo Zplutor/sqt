@@ -40,7 +40,7 @@ database table corresponding to a specified entity type.
     instances can share the same database instance. The following code demonstrates how to create a
     data context instance:
 
-    @code
+    @code{.cpp}
     // The entity type, assuming its table type has been defined and registered.
     struct MyEntity { };
 
@@ -59,7 +59,7 @@ database table corresponding to a specified entity type.
     - new columns are added to the table;
     - new indexes are added to the table.
 
-    @note
+    @warning
     Only column and index additions are supported. Any other structural changes to the table 
     (e.g., modifying or removing columns) are unsupported and will cause undefined behavior.
 
@@ -94,6 +94,63 @@ database table corresponding to a specified entity type.
 template<EntityValueType ENTITY>
 class DataContext {
 public:
+    /**
+    Creates an inserter for inserting an entire entity into the database table.
+
+    @tparam CONFLICT_ACTION
+        The conflict action to be used when a unique constraint violation occurs. The default
+        action is `sqt::ConflictAction::Abort`.
+
+    @return
+        A new inserter instance.
+
+    @details
+        The returned inserter corresponds to an `INSERT` SQL statement that inserts all columns 
+        of the entity into the database table. The following alternatives provide more control over
+        the inserted columns:
+
+        - `MakeInserter(const COLUMNS&...)` for inserting specific columns.
+        - `MakeAutoIncInserter()` for inserting non-primary key columns while auto-generating the 
+          primary key.
+
+        The `MakeReplacer()` method is a shorthand for 
+        `MakeInserter<sqt::ConflictAction::Replace>()`.
+
+        A placeholder for the entity is automatically added to the returned inserter. To execute 
+        the inserter, an entity instance must be bound. The following code demonstrates how to use 
+        the inserter:
+        
+        @code{.cpp}
+        // The entity type, assuming its table type has been defined and registered.
+        struct MyEntity {
+            int id{};
+            std::string name;
+        };
+
+        // Create the inserter.
+        constexpr auto inserter = sqt::DataContext<MyEntity>::MakeInserter();
+
+        // Create a data context, assuming the shared_db is an opened database instance.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+
+        // Prepare the inserter to create a corresponding executor.
+        auto executor = data_context.Prepare(inserter);
+
+        // Bind an entity to the executor.
+        MyEntity entity{ 1, "The First" };
+        executor.BeginBind().Bind(entity);
+
+        // Execute the statement.
+        executor.Execute();
+        @endcode
+
+        For an easier-to-use method, use the `Insert()` method from the easy style interface.
+    
+    @see sqt::DataContext<>::MakeInserter(const COLUMNS&... columns)
+    @see sqt::DataContext<>::MakeAutoIncInserter()
+    @see sqt::DataContext<>::MakeReplacer()
+    @see sqt::DataContext<>::Insert()
+    */
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeInserter() noexcept {
         using ValueTraits = EntireEntityValueTraits<ENTITY>;
@@ -101,8 +158,72 @@ public:
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
+    /**
+    Creates an inserter for inserting the specified columns of the entity into the database table.
+
+    @tparam CONFLICT_ACTION
+        The conflict action to be used when a unique constraint violation occurs. The default
+        action is `sqt::ConflictAction::Abort`.
+
+    @tparam COLUMNS
+        A pack of the column types to be inserted.
+
+    @param columns
+        The columns of the entity to be inserted.
+
+    @return
+        A new inserter instance.
+
+    @details
+        This method is similar to the `MakeInserter()` method, but allows specifying which columns 
+        of the entity should be inserted, rather than inserting all columns.
+
+        The `MakeReplacer(const COLUMNS&...)` method is a shorthand for 
+        `MakeInserter<sqt::ConflictAction::Replace>(columns)`.
+
+        Placeholders for the specified columns are automatically added to the returned inserter. 
+        To execute the inserter, values for the columns must be bound. The following code 
+        demonstrates how to use the inserter.
+
+        @code{.cpp}
+        // The entity type.
+        struct MyEntity {
+            int id{};
+            std::string name;
+        };
+        SQT_TABLE_BEGIN(MyEntity, MyEntity)
+        SQT_COLUMN_FIELD(id, id);
+        SQT_COLUMN_FIELD(name, name);
+        SQT_TABLE_END
+
+        SQT_REGISTER(MyEntity)
+
+        // Create the inserter with columns.
+        constexpr auto inserter = sqt::DataContext<MyEntity>::MakeInserter(
+            sqt::Table<MyEntity>.id,
+            sqt::Table<MyEntity>.name
+        );
+
+        // Create a data context, assuming the shared_db is an opened database instance.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+
+        // Prepare the inserter to create a corresponding executor.
+        auto executor = data_context.Prepare(inserter);
+
+        // Bind values to the columns.
+        executor.BeginBind()
+            .Bind(1)  // Bind value to the id column.
+            .Bind("The First");  //Bind value to the name column.
+
+        // Execute the statement.
+        executor.Execute();
+        @endcode
+
+    @see sqt::DataContext<>::MakeInserter()
+    @see sqt::DataContext<>::MakeReplacer(const COLUMNS&... columns)
+    */
     template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort, ColumnType... COLUMNS>
-    static constexpr auto MakeInserter(const COLUMNS&...) noexcept {
+    static constexpr auto MakeInserter(const COLUMNS&... columns) noexcept {
         using ValueTraits = ColumnsEntityValueTraits<COLUMNS...>;
         using Operand = PlaceholderOperand<ValueTraits>;
         return EntityInserter<CONFLICT_ACTION, Operand>{ Operand{} };
