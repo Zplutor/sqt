@@ -260,3 +260,86 @@ TEST_F(InserterTest, ReplaceColumns) {
 
     ASSERT_FALSE(statement.Step().HasMore());
 }
+
+
+
+TEST_F(InserterTest, InsertColumns_PK) {
+
+    //One column PK
+    {
+        using Context = sqt::DataContext<test_entities::EntityPK1>;
+        constexpr auto& table = sqt::Table<test_entities::EntityPK1>;
+
+        auto inserter = Context::MakeInserter(table.PrimaryKey = 11, table.Name = "11");
+
+        Context context{ DB() };
+        auto executor = context.Prepare(inserter);
+        executor.Execute();
+
+        auto statement = DB()->PrepareStatement(std::format("select * from EntityPK1"));
+        ASSERT_TRUE(statement.Step().HasMore());
+        ASSERT_EQ(statement.GetColumnInt(0), 11);
+        ASSERT_EQ(statement.GetColumnText(1), "11");
+    }
+
+    //Two columns PK
+    {
+        using Context = sqt::DataContext<test_entities::EntityPK2>;
+        constexpr auto& table = sqt::Table<test_entities::EntityPK2>;
+
+        auto inserter = Context::MakeInserter(
+            table.PrimaryKey = std::make_tuple(10, "ab"),
+            table.Age = 100);
+
+        Context context{ DB() };
+        auto executor = context.Prepare(inserter);
+        executor.Execute();
+
+        auto statement = DB()->PrepareStatement(std::format("select * from EntityPK2"));
+        ASSERT_TRUE(statement.Step().HasMore());
+        ASSERT_EQ(statement.GetColumnInt(0), 10);
+        ASSERT_EQ(statement.GetColumnText(1), "ab");
+        ASSERT_EQ(statement.GetColumnInt(2), 100);
+    }
+}
+
+
+TEST_F(InserterTest, ReplaceColumns_PK) {
+
+    //One column PK
+    {
+        using Context = sqt::DataContext<test_entities::EntityPK1>;
+        constexpr auto& table = sqt::Table<test_entities::EntityPK1>;
+
+        auto inserter = Context::MakeReplacer(table.PrimaryKey = 12, table.Name = "dd");
+
+        Context context{ DB() };
+        auto executor = context.Prepare(inserter);
+        executor.Execute();
+
+        auto statement = DB()->PrepareStatement(std::format("select * from EntityPK1"));
+        ASSERT_TRUE(statement.Step().HasMore());
+        ASSERT_EQ(statement.GetColumnInt(0), 12);
+        ASSERT_EQ(statement.GetColumnText(1), "dd");
+    }
+
+    //Two columns PK
+    {
+        using Context = sqt::DataContext<test_entities::EntityPK2>;
+        constexpr auto& table = sqt::Table<test_entities::EntityPK2>;
+
+        auto inserter = Context::MakeReplacer(
+            table.PrimaryKey = std::make_tuple(20, "CD"),
+            table.Age = 20);
+
+        Context context{ DB() };
+        auto executor = context.Prepare(inserter);
+        executor.Execute();
+
+        auto statement = DB()->PrepareStatement(std::format("select * from EntityPK2"));
+        ASSERT_TRUE(statement.Step().HasMore());
+        ASSERT_EQ(statement.GetColumnInt(0), 20);
+        ASSERT_EQ(statement.GetColumnText(1), "CD");
+        ASSERT_EQ(statement.GetColumnInt(2), 20);
+    }
+}
