@@ -308,6 +308,49 @@ public:
         return ColumnUpdater<ASSIGNMENT...>{ std::move(assignments)... };
     }
 
+    /**
+    Creates a deleter for deleting rows from the database table.
+
+    @return
+        A new deleter instance.
+
+    @details
+        The returned deleter corresponds to a `DELETE` SQL statement without any conditions, so it
+        will deleter all rows from the table. To control which rows to delete, use the `Where()` 
+        method on it to create a new deleter with conditions. The following code demonstrates how 
+        to use the deleter:
+
+        @code{.cpp}
+        // The entity type, assuming its table type has been defined and registered, and its
+        // columns' names are defined as the same as the entity's field names.
+        struct MyEntity {
+            int id{};
+            std::string name;
+        };
+
+        // Create the deleter with a condition.
+        constexpr auto deleter = sqt::DataContext<MyEntity>::MakeDeleter().Where(
+            sqt::Table<MyEntity>.id == 1
+        );
+
+        // Create a data context, assuming the shared_db is an opened database instance.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+
+        // Prepare the deleter to create a corresponding executor.
+        auto executor = data_context.Prepare(deleter);
+
+        // Execute the statement.
+        executor.Execute();
+        @endcode
+
+        For easier-to-use methods, use the following methods from the easy style interface:
+
+        - `Delete()` for deleting a row by the specified primary key value.
+        - `DeleteAll()` for deleting all rows in the table.
+
+    @see sqt::DataContext<>::Delete()
+    @see sqt::DataContext<>::DeleteAll()
+    */
     static constexpr auto MakeDeleter() noexcept {
         return Deleter<ENTITY>{};
     }
@@ -499,6 +542,25 @@ public:
         return executor.LastChanges() > 0;
     }
 
+    /**
+    Deletes all rows from the database table.
+
+    @return
+        The number of rows deleted.
+
+    @throw sqt::SQLError
+        Thrown if the deletion fails.
+
+    @details
+        This method empties the entire table. For more control over which rows to delete, use the 
+        following alternatives:
+
+        - `Delete()` for deleting a row by the specified primary key value.
+        - `MakeDeleter()` for creating a deleter that can be applied with custom conditions.
+
+    @see sqt::DataContext<>::Delete()
+    @see sqt::DataContext<>::MakeDeleter()
+    */
     std::size_t DeleteAll() {
         constexpr auto deleter = MakeDeleter();
         auto executor = Prepare(deleter);
