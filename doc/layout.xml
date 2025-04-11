@@ -138,10 +138,10 @@
 
   <!-- Layout definition for a concept page -->
   <concept>
-    <briefdescription visible="yes"/>
+    <briefdescription visible="no"/>
     <includes visible="$SHOW_HEADERFILE"/>
-    <definition visible="yes" title=""/>
-    <detaileddescription title=""/>
+    <definition visible="no" title=""/>
+    <detaileddescription title="Description"/>
     <authorsection visible="yes"/>
   </concept>
 
