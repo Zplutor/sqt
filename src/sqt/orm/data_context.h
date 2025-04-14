@@ -355,13 +355,118 @@ public:
         return Deleter<ENTITY>{};
     }
 
+    /**
+    Creates a selecter for retrieveing entities from the database table.
+
+    @return
+        A new selecter instance, whose result element type is the entity type.
+
+    @details
+        The returned selecter corresponds to a `SELECT` SQL statement without any conditions, so it
+        will select all entities from the table. To apply select conditions, use the `Where()`,
+        `OrderBy()`, and `Limit()` methods on it to create a new selecter with conditions. The
+        following code demonstrates how to use the selecter:
+
+        @code{.cpp}
+        // The entity type, assuming its table type has been defined and registered, and its
+        // columns' names are defined as the same as the entity's field names.
+        struct MyEntity {
+            int id{};
+            std::string name;
+        };
+
+        // Create the selecter with a condition.
+        auto selecter = sqt::DataContext<MyEntity>::MakeSelecter().Where(
+            sqt::Table<MyEntity>.name != "Unknown"
+        );
+
+        // Create a data context, assuming the shared_db is an opened database instance.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+
+        // Prepare the selecter to create a corresponding executor.
+        auto executor = data_context.Prepare(selecter);
+
+        // Execute the statement to obtain the result.
+        auto result = executor.Execute();
+
+        // Iterate through the result and print the entities.
+        for (const auto& entity : result) {
+            std::cout << "ID: " << entity.id << ", Name: " << entity.name << '\n';
+        }
+        @endcode
+
+        The returned selecter selects all columns of the table. To control which columns to select, 
+        use the `MakeSelecter(const COLUMN&&...)` method instead.
+
+        For easier-to-use methods, use the following methods from the easy style interface:
+        - `Select()` for selecting a single entity by the specified primary key value.
+        - `SelectAll()` for selecting all entities in the table.
+
+    @see sqt::DataContext<>::MakeSelecter(const COLUMNS&... columns);
+    @see sqt::DataContext<>::Select()
+    @see sqt::DataContext<>::SelectAll()
+    */
     static constexpr auto MakeSelecter() noexcept {
         return EntitySelecter<ENTITY>{};
     }
 
-    template<ColumnType... COLUMN>
-    static constexpr auto MakeSelecter(const COLUMN&... columns) noexcept {
-        return ColumnSelecter<COLUMN...>{};
+    /**
+    Creates a selecter for retrieveing the specified columns from the database table.
+
+    @tparam COLUMNS
+        A pack of the column types.
+
+    @param columns
+        The columns to be retrieved.
+
+    @return
+        A new selecter instance, whose result element type is a composite value type (a 
+        `std::tuple<>` of the specified columns' value types).
+
+    @details
+        This method is similar to the `MakeSelecter()` method, with the following differences:
+        - The returned selecter selects only the specified columns of the table, rather than all 
+          columns.
+        - The result element type is a composite value type rather than the entity type.
+
+        The following code demonstrates how to use the selecter:
+
+        @code{.cpp}
+        // The entity type, assuming its table type has been defined and registered, and its
+        // columns' names are defined as the same as the entity's field names.
+        struct MyEntity {
+            int id{};
+            std::string name;
+        };
+
+        // Create the selecter with two columns.
+        auto selecter = sqt::DataContext<MyEntity>::MakeSelecter(
+            sqt::Table<MyEntity>.id,
+            sqt::Table<MyEntity>.name,
+        );
+
+        // Create a data context, assuming the shared_db is an opened database instance.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+
+        // Prepare the selecter to create a corresponding executor.
+        auto executor = data_context.Prepare(selecter);
+
+        // Execute the statement to obtain the result.
+        auto result = executor.Execute();
+
+        // Iterate through the result and print the tuples.
+        for (const auto& tuple : result) {
+            std::cout << "ID: " << std::get<0>(tuple) << ", Name: " << std::get<1>(tuple) << '\n';
+        }
+        @endcode
+        
+    @see sqt::DataContext<>::MakeSelecter()
+    @see sqt::DataContext<>::Select()
+    @see sqt::DataContext<>::SelectAll()
+    */
+    template<ColumnType... COLUMNS>
+    static constexpr auto MakeSelecter(const COLUMNS&... columns) noexcept {
+        return ColumnSelecter<COLUMNS...>{};
     }
 
 public:
@@ -568,9 +673,34 @@ public:
         return executor.LastChanges();
     }
 
-    template<typename E = ENTITY>
-    bool Delete(const typename TableType<E>::PrimaryKeyType::ValueType& primary_key) 
-        requires PrimaryKeyEntityValueType<E> {
+    /**
+    Deletes a row by the specified primary key value from the database table.
+
+    @param primary_key
+        The primary key value of the row to be deleted.
+
+    @return
+        `true` if the row was deleted; otherwise, `false` if the row with the specified primary key
+        value does not exist.
+
+    @throw sqt::SQLError
+        Thrown if the deletion fails.
+
+    @details
+        @note
+        This method is only available if the entity type has a primary key. Use the 
+        `SQT_PRIMARY_KEY` or `SQT_PRIMARY_KEY_AUTO_INC` macro to define a primary key.
+
+        For more control over the conditions of which rows to delete, use the `MakeDeleter()` 
+        method from the complex style interface to create a deleter and apply custom conditions.
+
+    @see sqt::DataContext<>::DeleteAll()
+    @see sqt::DataContext<>::MakeDeleter()
+    @see SQT_PRIMARY_KEY
+    @see SQT_PRIMARY_KEY_AUTO_INC
+    */
+    template<typename E = ENTITY> requires PrimaryKeyEntityValueType<E>
+    bool Delete(const typename TableType<E>::PrimaryKeyType::ValueType& primary_key) {
 
         constexpr auto deleter = MakeDeleter().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(deleter);
@@ -579,6 +709,29 @@ public:
         return executor.LastChanges() > 0;
     }
 
+    /**
+    Retrieves all entities from the database table.
+
+    @return
+        A container holding all entities in the table.
+
+    @throw sqt::SQLError
+        Thrown if the selection fails.
+
+    @details
+        This method retrieves all entities into a container. Be aware that this may result in high 
+        memory consumption if the table contains a large number of rows. To mitigate this, consider
+        using the `MakeSelecter()` method from the complex style interface to control the selection 
+        progress manually.
+
+        For more control over which entities to retrieve, use the following alternatives:
+        - `Select()` for retrieving a single entity by the specified primary key value.
+        - `MakeSelecter()` for creating a selecter that can be applied with custom conditions.
+
+    @see sqt::DataContext<>::MakeSelecter()
+    @see sqt::DataContext<>::MakeSelecter(const COLUMNS&... columns)
+    @see sqt::DataContext<>::Select()
+    */
     std::vector<ENTITY> SelectAll() {
         constexpr auto selecter = MakeSelecter();
         auto executor = Prepare(selecter);
@@ -586,9 +739,37 @@ public:
         return std::vector<ENTITY>{ result.begin(), result.end() };
     }
 
-    template<typename E = ENTITY>
-    std::optional<E> Select(const typename TableType<E>::PrimaryKeyType::ValueType& primary_key) 
-        requires PrimaryKeyEntityValueType<E> {
+    /**
+    Retrieves a single entity by the specified primary key value from the database table.
+
+    @param primary_key
+        The primary key value of the entity to be retrieved.
+
+    @return
+        The entity if found; otherwise, `std::nullopt` if the entity with the specified primary key
+        value does not exist.
+
+    @throw sqt::SQLError
+        Thrown if the selection fails.
+
+    @details
+        @note
+        This method is only available if the entity type has a primary key. Use the 
+        `SQT_PRIMARY_KEY` or `SQT_PRIMARY_KEY_AUTO_INC` macro to define a primary key.
+
+        For more control over which entities to retrieve, use the `MakeSelecter()` method from the
+        complex style interface to create a selecter and apply custom conditions. Furthermore, use 
+        the `MakeSelecter(const COLUMNS&...)` method to specify which columns of the entity to
+        select.
+
+    @see sqt::DataContext<>::MakeSelecter()
+    @see sqt::DataContext<>::MakeSelecter(const COLUMNS&... columns)
+    @see sqt::DataContext<>::SelectAll()
+    @see SQT_PRIMARY_KEY
+    @see SQT_PRIMARY_KEY_AUTO_INC
+    */
+    template<typename E = ENTITY> requires PrimaryKeyEntityValueType<E>
+    std::optional<E> Select(const typename TableType<E>::PrimaryKeyType::ValueType& primary_key) {
 
         constexpr auto selecter = MakeSelecter().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(selecter);
