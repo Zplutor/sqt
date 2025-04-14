@@ -638,9 +638,44 @@ public:
         return ExecuteEntityInserter(replacer, entity);
     }
 
-    template<typename E = ENTITY>
-    bool Update(const E& entity) requires PrimaryKeyEntityValueType<E> {
-        constexpr auto updater = MakeNoPrimaryKeyUpdater().Where(Table<E>.PrimaryKey == sqt::_);
+    /**
+    Updates the specified entity in the database table.
+
+    @param entity
+        The entity to be updated. Its primary key value is used to identify the entity.
+
+    @return
+        `true` if the entity was updated; otherwise, `false` if the entity does not exist in the 
+        table.
+
+    @throw sqt::SQLError
+        Thrown if the update fails.
+
+    @details
+        @note
+        This method is only available if the entity type has a primary key. Use the 
+        `SQT_PRIMARY_KEY` or `SQT_PRIMARY_KEY_AUTO_INC` macro to define a primary key.
+
+        This method updates the row whose primary key value matches the primary key value of the 
+        specified entity. All non-primary key columns will be updated. For more control over the 
+        update conditions or the specific columns to be updated, use the following methods from the
+        complex style interface:
+        - `MakeUpdater()` for creating an updater that updates all columns of the entity type and 
+          can be applied with update conditions.
+        - `MakeNoPrimaryKeyUpdater()`, similar to `MakeUpdater()`, except that it updates only
+          non-primary key columns.
+        - `MakeUpdater(ASSIGNMENTS&&...)` for creating an updater that updates specific columns, 
+          and can also be applied with update conditions.
+
+    @see sqt::DataContext<>::MakeNoPrimaryKeyUpdater()
+    @see sqt::DataContext<>::MakeUpdater()
+    @see sqt::DataContext<>::MakeUpdater(ASSIGNMENTS&&... assignments)
+    @see SQT_PRIMARY_KEY
+    @see SQT_PRIMARY_KEY_AUTO_INC
+    */
+    bool Update(const ENTITY& entity) requires PrimaryKeyEntityValueType<ENTITY> {
+        constexpr auto updater = 
+            MakeNoPrimaryKeyUpdater().Where(Table<ENTITY>.PrimaryKey == sqt::_);
         auto executor = Prepare(updater);
         executor.BeginBind().Bind(entity).BindFromEntity(entity);
         executor.Execute();
