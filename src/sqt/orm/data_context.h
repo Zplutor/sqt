@@ -183,7 +183,7 @@ public:
         The `MakeReplacer(ASSIGNMENTS&&...)` method is a shorthand for 
         `MakeInserter<sqt::ConflictAction::Replace>(assignments)`.
 
-        For more information about the assignments, refer to the `sqt::AssignmentType`.
+        For more information about the assignments, refer to the `sqt::AssignmentType` concept.
 
     @see sqt::AssignmentType
     @see sqt::DataContext<>::MakeInserter()
@@ -605,6 +605,35 @@ public:
     DataContext(const DataContext&) = delete;
     DataContext& operator=(const DataContext&) = delete;
 
+    /**
+    Creates an executor for executing the specified querier.
+
+    @tparam QUERIER
+        The type of the querier.
+
+    @param querier
+        The querier instance to execute.
+
+    @return
+        A new executor instance for the specified querier.
+
+    @throw sqt::SQLError
+        Thrown if an error occurs during the creation of the executor.
+
+    @details
+        This method is used to execute queriers created by the `Make*()` methods. It prepares 
+        the corresponding SQL statement for the querier and binds all inline parameters in the 
+        querier to the statement. The returned executor can then be used to bind placeholder 
+        parameters and execute the statement.
+
+        For more information about using the executor, refer to the `sqt::Executor<>` class.
+
+        Calling this method will initialize the associated database table.
+
+    @see sqt::DataContext<>::InitializeTable()
+    @see sqt::Executor<>
+    @see sqt::QuerierType
+    */
     template<QuerierType QUERIER>
     Executor<QUERIER> Prepare(const QUERIER& querier) {
         auto db = init_once_guard_.DB();
