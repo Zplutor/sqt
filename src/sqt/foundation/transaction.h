@@ -12,23 +12,18 @@ class Database;
 /**
 Represents an ongoing transaction on a database, providing methods to commit or roll back the
 transaction.
+
+@details
+    To begin a transaction, use the `sqt::Database::BeginTransaction()` method, which returns a 
+    `sqt::Transaction` instance. To commit the transaction, call the `Commit()` method explicitly. 
+    To roll back the transaction, either call the `Rollback()` method explicitly or let the 
+    `sqt::Transaction` instance go out of scope, which will automatically roll back the 
+    transaction.
+
+@see sqt::Database::BeginTransaction()
 */
 class Transaction {
 public:
-    /**
-    Constructs an instance with the specified database.
-
-    @param database
-        The database which has already began a transaction.
-
-    @note
-        Don't call this constructor directly. Use `sqt::Database::BeginTransaction` to begin a 
-        transaction.
-
-    @see `sqt::Database::BeginTransaction()`
-    */
-    explicit Transaction(Database& database) noexcept;
-
     /**
     Destructs the instance, rolling back the transaction if needed.
 
@@ -61,6 +56,10 @@ public:
     void Rollback();
 
 private:
+    friend class Database;
+
+    explicit Transaction(Database& database) noexcept;
+
     void TryToRollback() noexcept;
 
 private:
