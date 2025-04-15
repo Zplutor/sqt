@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::Executor<>` class template.
+*/
+
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/executor/result.h>
 #include <sqt/orm/expression/binder/value_binder_chain.h>
@@ -10,14 +15,9 @@ namespace sqt {
 template<QuerierType QUERIER>
 class Executor {
 public:
-    Executor(
-        const QUERIER& querier, 
-        std::shared_ptr<Database> database, 
-        Statement statement) noexcept 
-        :
-        querier_(querier),
-        database_(std::move(database)),
-        statement_(std::move(statement)) {
+    Executor(Statement statement, std::shared_ptr<Database> database) noexcept :
+        statement_(std::move(statement)),
+        database_(std::move(database)) {
 
     }
 
@@ -54,9 +54,8 @@ public:
     }
 
 private:
-    const QUERIER& querier_;
-    std::shared_ptr<Database> database_;
     Statement statement_;
+    std::shared_ptr<Database> database_;
 };
 
 }

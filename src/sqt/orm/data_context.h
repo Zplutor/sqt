@@ -635,12 +635,13 @@ public:
     @see sqt::QuerierType
     */
     template<QuerierType QUERIER>
+    [[nodiscard]]
     Executor<QUERIER> Prepare(const QUERIER& querier) {
         auto db = init_once_guard_.DB();
         auto sql = querier.BuildSQL();
         auto statement = db->PrepareStatement(sql);
         querier.BindInlineParameters(statement);
-        return Executor{ querier, std::move(db), std::move(statement) };
+        return Executor<QUERIER>{ std::move(statement), std::move(db) };
     }
 
     /**
