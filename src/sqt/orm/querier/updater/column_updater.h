@@ -3,13 +3,14 @@
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/assignment_type.h>
 #include <sqt/orm/internal/assignment_helper.h>
+#include <sqt/orm/querier/conflict_action.h>
 #include <sqt/orm/querier/where_capability.h>
 #include <sqt/orm/table_mapping.h>
 
 namespace sqt {
 
-template<AssignmentType... ASSIGNMENT>
-class ColumnUpdater : public WhereCapability<ColumnUpdater<ASSIGNMENT...>> {
+template<ConflictAction CONFLICT_ACTION, AssignmentType... ASSIGNMENT>
+class ColumnUpdater : public WhereCapability<ColumnUpdater<CONFLICT_ACTION, ASSIGNMENT...>> {
 public:
     static constexpr std::size_t ParameterIndex = 1;
     static constexpr std::size_t ParameterCount = (ASSIGNMENT::ParameterCount + ... + 0);
@@ -30,7 +31,11 @@ public:
 
             using First = std::tuple_element_t<0, std::tuple<ASSIGNMENT...>>;
             constexpr auto& table = Table<typename First::LHSOperand::EntityType>;
-            return std::format("update {} set {}", table.GetName(), set_clause);
+            return std::format(
+                "update or {} {} set {}", 
+                ConvertConflictActionToString(CONFLICT_ACTION),
+                table.GetName(), 
+                set_clause);
         }();
         return sql;
     }

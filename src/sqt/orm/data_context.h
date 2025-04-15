@@ -241,7 +241,7 @@ public:
     the primary key value.
 
     @tparam CONFLICT_ACTION
-        The conflict action to be used when a unique constraint violation occurs. The default
+        The conflict action to be used when an unique constraint violation occurs. The default
         action is `sqt::ConflictAction::Abort`.
 
     @return
@@ -289,23 +289,134 @@ public:
         return MakeAutoIncInserter<ConflictAction::Replace>();
     }
 
+    /**
+    Creates an updater for updating all columns in the database table.
+
+    @tparam CONFLICT_ACTION
+        The conflict action to be used when an unique constraint violation occurs. The default
+        action is `sqt::ConflictAction::Abort`.
+
+    @return
+        The new updater instance.
+
+    @details
+        The returned updater corresponds to an `UPDATE` SQL statement without any conditions, so it
+        will update all rows in the database table. To control which rows to update, use the 
+        `Where()` method of the updater to create a new updater with conditions. 
+
+        A placeholder for the entity is implicitly added to the returned updater. To execute the
+        updater, an entity instance must be bound. 
+        
+        The following code demonstrates how to use the updater:
+        @code{.cpp}
+        // The entity type, assuming its table type has been defined and registered, and its
+        // columns' names are defined as the same as the entity's field names.
+        struct MyEntity {
+            int id{};
+            std::string name;
+        };
+
+        // Create an updater with condition.
+        constexpr auto updater = sqt::DataContext<MyEntity>::MakeUpdater().Where(
+            sqt::Table<MyEntity>.id == 1
+        );
+
+        // Create a data context, assuming the shared_db is an opened database instance.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+
+        // Prepare the updater to create a corresponding executor.
+        auto executor = data_context.Prepare(updater);
+
+        // Bind an entity to the executor.
+        MyEntity entity{ 1, "The First" };
+        executor.BeginBind().Bind(entity);
+
+        // Execute the statement.
+        executor.Execute();
+        @endcode
+
+        The returned instance updates all columns of the entity type. The following alternatives
+        provides more control over the updated columns:
+        - `MakeNoPrimaryKeyUpdater()` for updating non-primary key columns. It is typically used 
+          when updating the entity by its primary key value, reducing the unnecessary overhead of
+          updating the primary key columns.
+        - `MakeUpdater(ASSIGNMENTS&&...)` for updating specific columns.
+
+    @see sqt::DataContext<>::MakeNoPrimaryKeyUpdater()
+    @see sqt::DataContext<>::MakeUpdater(ASSIGNMENTS&&... assignments)
+    */
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeUpdater() noexcept {
         using ValueTraits = EntireEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
-        return EntityUpdater<Operand>{ Operand{} };
+        return EntityUpdater<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
+    /**
+    Creates an updater for updating non-primary key columns in the database table.
+
+    @tparam CONFLICT_ACTION
+        The conflict action to be used when an unique constraint violation occurs. The default
+        action is `sqt::ConflictAction::Abort`.
+
+    @return
+        A new updater instance.
+
+    @details
+        This method is similar to the `MakeUpdater()` method, except that it updates only the 
+        non-primary key columns of the entity type. It is typically used when updating the
+        entity by its primary key value, reducing the unnecessary overhead of updating the primary
+        key columns.
+
+        @note
+        This method is only available if the entity type has a primary key. Use the 
+        `SQT_PRIMARY_KEY` or `SQT_PRIMARY_KEY_AUTO_INC` macro to define a primary key.
+
+    @see sqt::DataContext<>::MakeUpdater()
+    @see sqt::DataContext<>::MakeUpdater(ASSIGNMENTS&&... assignments)
+    @see SQT_PRIMARY_KEY
+    @see SQT_PRIMARY_KEY_AUTO_INC
+    */
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort>
     static constexpr auto MakeNoPrimaryKeyUpdater() noexcept
         requires PrimaryKeyEntityValueType<ENTITY> {
 
         using ValueTraits = NoPrimaryKeyEntityValueTraits<ENTITY>;
         using Operand = PlaceholderOperand<ValueTraits>;
-        return EntityUpdater<Operand>{ Operand{} };
+        return EntityUpdater<CONFLICT_ACTION, Operand>{ Operand{} };
     }
 
-    template<AssignmentType... ASSIGNMENT>
-    static constexpr auto MakeUpdater(ASSIGNMENT... assignments) noexcept {
-        return ColumnUpdater<ASSIGNMENT...>{ std::move(assignments)... };
+    /**
+    Creates an updater for updating the spcified columns in the database table.
+
+    @tparam CONFLICT_ACTION
+        The conflict action to be used when an unique constraint violation occurs. The default
+        action is `sqt::ConflictAction::Abort`.
+
+    @tparam ASSIGNMENTS
+        A pack of the assignment types.
+
+    @param assignments
+        The assignments specifying the columns and their values to be updated.
+
+    @return
+        A new updater instance.
+
+    @details
+        This method provides more control over the updated columns compared to the `MakeUpdater()` 
+        method. It allows specifying which columns to update and their corresponding values.
+
+        For more information about the assignments, refer to the `sqt::AssignmentType`.
+    
+    @see sqt::AssignmentType
+    @see sqt::DataContext<>::MakeNoPrimaryKeyUpdater()
+    @see sqt::DataContext<>::MakeUpdater()
+    */
+    template<ConflictAction CONFLICT_ACTION = ConflictAction::Abort, AssignmentType... ASSIGNMENTS>
+    static constexpr auto MakeUpdater(ASSIGNMENTS&&... assignments) noexcept {
+        return ColumnUpdater<CONFLICT_ACTION, ASSIGNMENTS...>{
+            std::forward<ASSIGNMENTS>(assignments)...
+        };
     }
 
     /**
@@ -317,8 +428,8 @@ public:
     @details
         The returned deleter corresponds to a `DELETE` SQL statement without any conditions, so it
         will deleter all rows from the table. To control which rows to delete, use the `Where()` 
-        method on it to create a new deleter with conditions. The following code demonstrates how 
-        to use the deleter:
+        method of the deleter to create a new deleter with conditions. The following code 
+        demonstrates how to use the deleter:
 
         @code{.cpp}
         // The entity type, assuming its table type has been defined and registered, and its
@@ -364,8 +475,8 @@ public:
     @details
         The returned selecter corresponds to a `SELECT` SQL statement without any conditions, so it
         will select all entities from the table. To apply select conditions, use the `Where()`,
-        `OrderBy()`, and `Limit()` methods on it to create a new selecter with conditions. The
-        following code demonstrates how to use the selecter:
+        `OrderBy()`, and `Limit()` methods of the selecter to create a new selecter with 
+        conditions. The following code demonstrates how to use the selecter:
 
         @code{.cpp}
         // The entity type, assuming its table type has been defined and registered, and its

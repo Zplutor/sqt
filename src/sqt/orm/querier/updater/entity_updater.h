@@ -1,12 +1,13 @@
 #pragma once
 
 #include <sqt/orm/expression/operand/entity_value_operand_type.h>
+#include <sqt/orm/querier/conflict_action.h>
 #include <sqt/orm/querier/where_capability.h>
 
 namespace sqt {
 
-template<EntityValueOperandType VALUE_OPERAND>
-class EntityUpdater : public WhereCapability<EntityUpdater<VALUE_OPERAND>> {
+template<ConflictAction CONFLICT_ACTION, EntityValueOperandType VALUE_OPERAND>
+class EntityUpdater : public WhereCapability<EntityUpdater<CONFLICT_ACTION, VALUE_OPERAND>> {
 public:
     static constexpr std::size_t ParameterIndex = 1;
     static constexpr std::size_t ParameterCount = VALUE_OPERAND::ParameterCount;
@@ -27,7 +28,11 @@ public:
                 set_clause += std::format("{}=?", columns[index]->GetName());
             }
 
-            return std::format("update {} set {}", table.GetName(), set_clause);
+            return std::format(
+                "update or {} {} set {}", 
+                ConvertConflictActionToString(CONFLICT_ACTION),
+                table.GetName(), 
+                set_clause);
         }();
         return sql;
     }

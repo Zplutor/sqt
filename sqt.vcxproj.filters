@@ -191,9 +191,6 @@
     <ClInclude Include="src\sqt\orm\querier\inserter\entity_inserter.h">
       <Filter>src\sqt\orm\querier\inserter</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\querier\inserter\conflict_action.h">
-      <Filter>src\sqt\orm\querier\inserter</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\assignment.h">
       <Filter>src\sqt\orm\expression</Filter>
     </ClInclude>
@@ -406,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\assignment_helper.h">
       <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\querier\conflict_action.h">
+      <Filter>src\sqt\orm\querier</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
