@@ -387,7 +387,7 @@ public:
     }
 
     /**
-    Creates an updater for updating the spcified columns in the database table.
+    Creates an updater for updating the specified columns in the database table.
 
     @tparam CONFLICT_ACTION
         The conflict action to be used when an unique constraint violation occurs. The default
@@ -467,7 +467,7 @@ public:
     }
 
     /**
-    Creates a selecter for retrieveing entities from the database table.
+    Creates a selecter for retrieving entities from the database table.
 
     @return
         A new selecter instance, whose result element type is the entity type.
@@ -522,7 +522,7 @@ public:
     }
 
     /**
-    Creates a selecter for retrieveing the specified columns from the database table.
+    Creates a selecter for retrieving the specified columns from the database table.
 
     @tparam COLUMNS
         A pack of the column types.
