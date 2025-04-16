@@ -25,7 +25,7 @@ Executes the statement of a querier and retrieves the results.
     to use the executor even after the data context is destructed.
 
     If the querier contains placeholders, call the `BeginBind()` method to begin a binding process 
-    that binds parameters to the statement.
+    that binds parameters to the placeholders.
 
     The `Execute()` method is used to execute the statement. For non-select queriers, this method 
     returns nothing, but callers can use the `LastChanges()` method to retrieve the number of rows 
@@ -74,10 +74,52 @@ public:
     Executor& operator=(Executor&&) noexcept = default;
 
     /**
-    Begins a binding process to bind parameters for the placeholders.
+    Begins a binding process to bind parameters to the placeholders.
 
     @return
-        A binder chain corresponds to the placeholders in the querier.
+        A `sqt::BinderChain<>` instance corresponds to the placeholders in the querier. The 
+        instance remains valid until the executor is destructed.
+
+    @details
+        @note
+        This method is only available for queriers that contain placeholders.
+
+        The returned `sqt::BinderChain<>` instance enables binding parameters in a chain fashion. 
+        The number of binders, their order, and their value types correspond exactly to the 
+        placeholders in the querier. The following code demonstrates how to use the `BeginBind()`
+        method:
+
+        @code{.cpp}
+        // The entity type, assuming its table type has been defined and registered, and its
+        // columns' names are defined as the same as the entity's field names.
+        struct MyEntity {
+            int id{};
+            std::string name;
+            int age{};
+        };
+
+        // Create an inserter with three placeholders.
+        constexpr auto inserter = sqt::DataContext<MyEntity>::MakeInserter(
+            sqt::Table<MyEntity>.id = sqt::_,
+            sqt::Table<MyEntity>.name = sqt::_,
+            sqt::Table<MyEntity>.age = sqt::_
+        );
+
+        // Create an executor for the inserter.
+        sqt::DataContext<MyEntity> data_context{ shared_db };
+        auto executor = data_context.Prepare(inserter);
+
+        // Bind parameters to the placeholders.
+        executor.BeginBind()
+            .Bind(1)            // Binds to the first placeholder of the id column.
+            .Bind("The First")  // Binds to the second placeholder of the name column.
+            .Bind(18);          // Binds to the third placeholder of the age column.
+
+        // Execute the statement.
+        executor.Execute();
+        @endcode
+
+    @see sqt::BinderChain<>
     */
     auto BeginBind() noexcept {
         constexpr auto binders = QUERIER::BuildPlaceholderBinders();
