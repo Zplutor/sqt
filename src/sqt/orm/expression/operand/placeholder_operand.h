@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sqt/orm/expression/binder/value_binder.h>
+#include <sqt/orm/expression/binder/binder.h>
 #include <sqt/orm/expression/operand/parameter_count_deduction.h>
 #include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value/value_traits_type.h>
@@ -20,7 +20,7 @@ public:
     }
 
     static constexpr auto BuildPlaceholderBinders(int parameter_index) noexcept {
-        return std::make_tuple(ValueBinder<ValueTraits>{ parameter_index });
+        return std::make_tuple(Binder<ValueTraits>{ parameter_index });
     }
 
 public:

@@ -5,17 +5,17 @@
 namespace sqt {
 
 template<ValueTraitsType TRAITS>
-class ValueBinder {
+class Binder {
 public:
     using ValueTraits = TRAITS;
     using ValueType = typename TRAITS::ValueType;
 
 public:
-    constexpr ValueBinder(int index) : index_(index) {
+    constexpr Binder(int index) noexcept : index_(index) {
 
     }
 
-    constexpr int GetIndex() const noexcept {
+    constexpr int Index() const noexcept {
         return index_;
     }
 

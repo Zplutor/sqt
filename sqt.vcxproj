@@ -36,9 +36,9 @@
     <ClInclude Include="src\sqt\orm\expression\assignment.h" />
     <ClInclude Include="src\sqt\orm\expression\assignment_operator.h" />
     <ClInclude Include="src\sqt\orm\expression\assignment_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h" />
-    <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h" />
-    <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h" />
+    <ClInclude Include="src\sqt\orm\expression\binder\binder.h" />
+    <ClInclude Include="src\sqt\orm\expression\binder\binder_chain.h" />
+    <ClInclude Include="src\sqt\orm\expression\binder\binder_type.h" />
     <ClInclude Include="src\sqt\orm\expression\expression_like.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\entity_value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h" />

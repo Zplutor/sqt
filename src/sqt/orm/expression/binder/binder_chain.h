@@ -2,26 +2,26 @@
 
 #include <tuple>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/expression/binder/value_binder_type.h>
+#include <sqt/orm/expression/binder/binder_type.h>
 #include <sqt/orm/value/identifier/identifier_value_traits_type.h>
 
 namespace sqt {
 
-template<ValueBinderType... BINDER>
-class ValueBinderChain;
+template<BinderType... BINDER>
+class BinderChain;
 
 
 template<>
-class ValueBinderChain<> {
+class BinderChain<> {
 public:
-    ValueBinderChain(Statement& statement, std::tuple<>) noexcept { }
+    BinderChain(Statement& statement, std::tuple<>) noexcept { }
 };
 
 
-template<ValueBinderType FIRST, ValueBinderType... REST>
-class ValueBinderChain<FIRST, REST...> {
+template<BinderType FIRST, BinderType... REST>
+class BinderChain<FIRST, REST...> {
 public:
-    ValueBinderChain(Statement& statement, std::tuple<FIRST, REST...> binders) :
+    BinderChain(Statement& statement, std::tuple<FIRST, REST...> binders) :
         statement_(statement),
         binders_(std::move(binders)) {
 
@@ -30,7 +30,7 @@ public:
     auto Bind(const typename FIRST::ValueType& value) {
 
         const auto& binder = std::get<0>(binders_);
-        FIRST::ValueTraits::BindValue(statement_, binder.GetIndex(), value);
+        FIRST::ValueTraits::BindValue(statement_, binder.Index(), value);
 
         return MakeNextChain();
     }
@@ -40,7 +40,7 @@ public:
         requires IdentifierValueTraitsType<TRAITS> {
 
         const auto& binder = std::get<0>(binders_);
-        TRAITS::BindValueFromEntity(statement_, binder.GetIndex(), entity);
+        TRAITS::BindValueFromEntity(statement_, binder.Index(), entity);
 
         return MakeNextChain();
     }
@@ -53,7 +53,7 @@ private:
             },
             binders_);
 
-        return ValueBinderChain<REST...>(statement_, std::move(rest_tuple));
+        return BinderChain<REST...>(statement_, std::move(rest_tuple));
     }
 
 private:
@@ -62,9 +62,9 @@ private:
 };
 
 
-template<ValueBinderType... BINDER>
+template<BinderType... BINDER>
 auto MakeBinderChain(Statement& statement, std::tuple<BINDER...> tuple) {
-    return ValueBinderChain<BINDER...>(statement, std::move(tuple));
+    return BinderChain<BINDER...>(statement, std::move(tuple));
 }
 
 

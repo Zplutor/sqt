@@ -227,13 +227,13 @@
     <ClInclude Include="src\sqt\orm\expression\operand\operand_type.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\binder\value_binder.h">
+    <ClInclude Include="src\sqt\orm\expression\binder\binder.h">
       <Filter>src\sqt\orm\expression\binder</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\binder\value_binder_chain.h">
+    <ClInclude Include="src\sqt\orm\expression\binder\binder_chain.h">
       <Filter>src\sqt\orm\expression\binder</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\binder\value_binder_type.h">
+    <ClInclude Include="src\sqt\orm\expression\binder\binder_type.h">
       <Filter>src\sqt\orm\expression\binder</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\updater\entity_updater.h">

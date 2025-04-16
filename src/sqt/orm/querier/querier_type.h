@@ -2,7 +2,7 @@
 
 #include <concepts>
 #include <sqt/foundation/statement.h>
-#include <sqt/orm/expression/binder/value_binder_chain.h>
+#include <sqt/orm/expression/binder/binder_chain.h>
 
 namespace sqt {
 

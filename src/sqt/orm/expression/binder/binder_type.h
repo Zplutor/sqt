@@ -5,12 +5,12 @@
 namespace sqt {
 
 template<typename T>
-concept ValueBinderType = requires {
+concept BinderType = requires {
     typename T::ValueType;
     typename T::ValueTraits;
 } &&
 requires(const T& t) {
-    { t.GetIndex() } -> std::same_as<int>;
+    { t.Index() } -> std::same_as<int>;
 };
 
 }
