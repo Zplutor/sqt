@@ -12,7 +12,7 @@ TEST_F(UpdaterTest, EntityUpdater) {
 
     constexpr auto updater = NoPKContext::MakeUpdater();
     auto executer = GetNoPKContext().Prepare(updater);
-    executer.BeginBind().Bind(test_entities::EntityNoPK{ 3, "name3" });
+    executer.BeginBindings().Bind(test_entities::EntityNoPK{ 3, "name3" });
     executer.Execute();
 
     ASSERT_TRUE(CheckData({
@@ -28,7 +28,7 @@ TEST_F(UpdaterTest, EntityUpdater_Where) {
     constexpr auto updater = NoPKContext::MakeUpdater().Where(NoPKTable.ID == 2);
 
     auto executer = GetNoPKContext().Prepare(updater);
-    executer.BeginBind().Bind(test_entities::EntityNoPK{ 4, "name4" });
+    executer.BeginBindings().Bind(test_entities::EntityNoPK{ 4, "name4" });
     executer.Execute();
 
     ASSERT_TRUE(CheckData({
@@ -46,7 +46,7 @@ TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
         constexpr auto updater = PK1Context::MakeNoPrimaryKeyUpdater();
         auto executor = GetPK1Context().Prepare(updater);
 
-        executor.BeginBind().Bind(test_entities::EntityPK1{ 1, "5" });
+        executor.BeginBindings().Bind(test_entities::EntityPK1{ 1, "5" });
         executor.Execute();
         ASSERT_EQ(executor.LastChanges(), 3);
         ASSERT_TRUE(CheckData({
@@ -61,7 +61,7 @@ TEST_F(UpdaterTest, NoPrimaryKeyUpdater) {
         constexpr auto updater = PK2Context::MakeNoPrimaryKeyUpdater();
         auto executor = GetPK2Context().Prepare(updater);
 
-        executor.BeginBind().Bind(test_entities::EntityPK2{ 1, "1", 50 });
+        executor.BeginBindings().Bind(test_entities::EntityPK2{ 1, "1", 50 });
         executor.Execute();
         ASSERT_EQ(executor.LastChanges(), 3);
         ASSERT_TRUE(CheckData({

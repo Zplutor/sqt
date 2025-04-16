@@ -139,7 +139,7 @@ public:
 
         // Bind an entity to the executor.
         MyEntity entity{ 1, "The First" };
-        executor.BeginBind().Bind(entity);
+        executor.BeginBindings().Bind(entity);
 
         // Execute the statement.
         executor.Execute();
@@ -329,7 +329,7 @@ public:
 
         // Bind an entity to the executor.
         MyEntity entity{ 1, "The First" };
-        executor.BeginBind().Bind(entity);
+        executor.BeginBindings().Bind(entity);
 
         // Execute the statement.
         executor.Execute();
@@ -818,7 +818,7 @@ public:
         constexpr auto updater = 
             MakeNoPrimaryKeyUpdater().Where(Table<ENTITY>.PrimaryKey == sqt::_);
         auto executor = Prepare(updater);
-        executor.BeginBind().Bind(entity).BindFromEntity(entity);
+        executor.BeginBindings().Bind(entity).BindFromEntity(entity);
         executor.Execute();
         return executor.LastChanges() > 0;
     }
@@ -880,7 +880,7 @@ public:
 
         constexpr auto deleter = MakeDeleter().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(deleter);
-        executor.BeginBind().Bind(primary_key);
+        executor.BeginBindings().Bind(primary_key);
         executor.Execute();
         return executor.LastChanges() > 0;
     }
@@ -949,7 +949,7 @@ public:
 
         constexpr auto selecter = MakeSelecter().Where(Table<E>.PrimaryKey == sqt::_);
         auto executor = Prepare(selecter);
-        executor.BeginBind().Bind(primary_key);
+        executor.BeginBindings().Bind(primary_key);
         auto result = executor.Execute();
         auto begin = result.begin();
         if (begin != result.end()) {
@@ -989,7 +989,7 @@ private:
     template<typename INSERTER>
     std::int64_t ExecuteEntityInserter(const INSERTER& inserter, const ENTITY& entity) {
         auto executor = Prepare(inserter);
-        executor.BeginBind().Bind(entity);
+        executor.BeginBindings().Bind(entity);
         executor.Execute();
         return executor.LastInsertRowID();
     }

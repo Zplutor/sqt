@@ -24,8 +24,8 @@ Executes the statement of a querier and retrieves the results.
     an argument. The executor shares the same database instance as the data context, so it is safe
     to use the executor even after the data context is destructed.
 
-    If the querier contains placeholders, call the `BeginBind()` method to begin a binding process 
-    that binds parameters to the placeholders.
+    If the querier contains placeholders, call the `BeginBindings()` method to begin a binding 
+    process that binds parameters to the placeholders.
 
     The `Execute()` method is used to execute the statement. For non-select queriers, this method 
     returns nothing, but callers can use the `LastChanges()` method to retrieve the number of rows 
@@ -87,8 +87,8 @@ public:
 
         The returned `sqt::BinderChain<>` instance enables binding parameters in a chain fashion. 
         The number of binders, their order, and their value types correspond exactly to the 
-        placeholders in the querier. The following code demonstrates how to use the `BeginBind()`
-        method:
+        placeholders in the querier. The following code demonstrates how to use the 
+        `BeginBindings()` method:
 
         @code{.cpp}
         // The entity type, assuming its table type has been defined and registered, and its
@@ -111,7 +111,7 @@ public:
         auto executor = data_context.Prepare(inserter);
 
         // Bind parameters to the placeholders.
-        executor.BeginBind()
+        executor.BeginBindings()
             .Bind(1)            // Binds to the first placeholder of the id column.
             .Bind("The First")  // Binds to the second placeholder of the name column.
             .Bind(18);          // Binds to the third placeholder of the age column.
@@ -122,7 +122,7 @@ public:
 
     @see sqt::BinderChain<>
     */
-    auto BeginBind() noexcept {
+    auto BeginBindings() noexcept {
         constexpr auto binders = QUERIER::BuildPlaceholderBinders();
         return MakeBinderChain(statement_, binders);
     }

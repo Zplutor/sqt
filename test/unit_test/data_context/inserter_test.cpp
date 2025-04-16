@@ -18,7 +18,7 @@ TEST_F(InserterTest, InsertEntireEntity) {
     auto executor = context.Prepare(inserter);
 
     test_entities::EntityAutoInc entity{ 89, "yyx" };
-    executor.BeginBind().Bind(entity);
+    executor.BeginBindings().Bind(entity);
     executor.Execute();
     executor.Reset();
 
@@ -42,7 +42,7 @@ TEST_F(InserterTest, ReplaceEntireEntity) {
     Context context{ DB() };
     auto executor = context.Prepare(inserter);
     test_entities::EntityAutoInc entity{ 890, "replacer" };
-    executor.BeginBind().Bind(entity);
+    executor.BeginBindings().Bind(entity);
     executor.Execute();
     executor.Reset();
 
@@ -66,12 +66,12 @@ TEST_F(InserterTest, InsertAutoIncEntity) {
 
     for (int index = 1; index <= 3; ++index) {
         test_entities::EntityAutoInc entity{ 1, std::to_string(index) };
-        executor.BeginBind().Bind(entity);
+        executor.BeginBindings().Bind(entity);
         executor.Execute();
         executor.Reset();
     }
     test_entities::EntityAutoInc entity{ 1, "1" };
-    executor.BeginBind().Bind(entity);
+    executor.BeginBindings().Bind(entity);
     //This will cause a conflict
     ASSERT_THROW(executor.Execute(), sqt::SQLError);
 
@@ -118,7 +118,7 @@ TEST_F(InserterTest, InsertColumns_NoConflictAction) {
         {
             constexpr auto inserter = Context::MakeInserter(table.id = sqt::_);
             auto executor = context.Prepare(inserter);
-            executor.BeginBind().Bind(2);
+            executor.BeginBindings().Bind(2);
             executor.Execute();
         }
     }
@@ -136,7 +136,7 @@ TEST_F(InserterTest, InsertColumns_NoConflictAction) {
         {
             auto inserter = Context::MakeInserter(table.id = sqt::_, table.name = sqt::_);
             auto executor = context.Prepare(inserter);
-            executor.BeginBind().Bind(4).Bind("4");
+            executor.BeginBindings().Bind(4).Bind("4");
             executor.Execute();
         }
     }
@@ -225,7 +225,7 @@ TEST_F(InserterTest, ReplaceColumns) {
         {
             constexpr auto replacer = Context::MakeReplacer(table.id = sqt::_);
             auto executor = context.Prepare(replacer);
-            executor.BeginBind().Bind(2);
+            executor.BeginBindings().Bind(2);
             executor.Execute();
         }
     }
@@ -243,7 +243,7 @@ TEST_F(InserterTest, ReplaceColumns) {
         {
             auto replacer = Context::MakeReplacer(table.id = sqt::_, table.name = sqt::_);
             auto executor = context.Prepare(replacer);
-            executor.BeginBind().Bind(2).Bind("4");
+            executor.BeginBindings().Bind(2).Bind("4");
             executor.Execute();
         }
     }
