@@ -20,7 +20,7 @@ Executes the statement of a querier and retrieves the results.
     depend on the querier type.
 
 @details
-    To create an executor, use the `sqt::DataContext<>::Prepare()` method, passing the querier as 
+    To create an executor, use the `sqt::DataContext::Prepare()` method, passing the querier as 
     an argument. The executor shares the same database instance as the data context, so it is safe
     to use the executor even after the data context is destructed.
 
@@ -33,7 +33,8 @@ Executes the statement of a querier and retrieves the results.
     last inserted row. 
     
     For select queriers, the `Execute()` method returns a `sqt::Result<QUERIER>` instance, which
-    can be used to retrieve the results of the query.
+    can be used to retrieve the results of the query. Refer to `sqt::DataContext::MakeSelecter()`
+    for the example of retrieving results.
 
     An executor can be reused by calling the `Reset()` method, which resets the statement's state
     to allow for re-execution. This is useful when the same statement needs to be executed multiple

@@ -501,7 +501,7 @@ public:
         auto result = executor.Execute();
 
         // Iterate through the result and print the entities.
-        for (const auto& entity : result) {
+        for (const MyEntity& entity : result) {
             std::cout << "ID: " << entity.id << ", Name: " << entity.name << '\n';
         }
         @endcode
@@ -566,7 +566,7 @@ public:
         auto result = executor.Execute();
 
         // Iterate through the result and print the tuples.
-        for (const auto& tuple : result) {
+        for (const std::tuple<int, std::string>& tuple : result) {
             std::cout << "ID: " << std::get<0>(tuple) << ", Name: " << std::get<1>(tuple) << '\n';
         }
         @endcode
