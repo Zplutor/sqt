@@ -407,5 +407,8 @@
     <ClInclude Include="src\sqt\orm\querier\conflict_action.h">
       <Filter>src\sqt\orm\querier</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\binder\binder_tuple_type.h">
+      <Filter>src\sqt\orm\expression\binder</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

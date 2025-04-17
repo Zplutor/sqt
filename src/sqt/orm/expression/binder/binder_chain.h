@@ -67,10 +67,4 @@ auto MakeBinderChain(Statement& statement, std::tuple<BINDER...> tuple) {
     return BinderChain<BINDER...>(statement, std::move(tuple));
 }
 
-
-template<typename T>
-concept BinderLikeTuple = requires(T t, Statement & statement) {
-    MakeBinderChain(statement, t);
-};
-
 }
