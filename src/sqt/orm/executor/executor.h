@@ -144,8 +144,12 @@ public:
         - `LastChanges()` for retrieving the number of rows affected by the statement.
         - `LastInsertRowID()` for retrieving the row ID of the last inserted row.
 
+        To re-execute the same statement, call the `Reset()` method first and then call this method
+        again.
+
     @see sqt::Executor<>::LastChanges()
     @see sqt::Executor<>::LastInsertRowID()
+    @see sqt::Executor<>::Reset()
     @see sqt::SelecterType
     */
     void Execute() requires !SelecterType<QUERIER> {
@@ -157,7 +161,8 @@ public:
     querier.
 
     @return
-        A `sqt::Result<>` instance. The instance remains valid until the executor is destructed.
+        A `sqt::Result<>` instance. The instance remains valid until the executor is destructed or
+        the `Reset()` method is called.
 
     @details
         @note
@@ -211,6 +216,22 @@ public:
         return database_->LastInsertRowID();
     }
     
+    /**
+    Resets the statement's state for resusing.
+
+    @throw sqt::SQLError
+        Thrown if the reset fails.
+
+    @details
+        This method resets the statement's internal state, allowing the query to be re-executed.
+        
+        The placeholder bindings are not cleared, so they remain intact for reuse. To modify the 
+        bindings, call the `BeginBindings()` method again and bind new parameters before calling 
+        the `Execute()` method.
+
+    @see sqt::Executor<>::BeginBindings()
+    @see sqt::Executor<>::Execute()
+    */
     void Reset() {
         statement_.Reset();
     }
