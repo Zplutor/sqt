@@ -26,8 +26,9 @@ Constraints a type to be a `std::tuple` whose elements all satisfy the `sqt::Bin
 
 @details
     @b Requirements
-    - The type is a `std::tuple`.
-    - All elements of the tuple satisfy the `sqt::BinderType` concept; or the tuple is empty.
+    - The type must be a `std::tuple`.
+    - All elements of the tuple must satisfy the `sqt::BinderType` concept; or the tuple must be 
+      empty.
 
 @see sqt::BinderType
 */

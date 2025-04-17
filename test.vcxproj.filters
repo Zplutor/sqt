@@ -25,6 +25,9 @@
     <Filter Include="test\unit_test\table\definition">
       <UniqueIdentifier>{579b6e2e-5b31-42bb-a018-7841d9689f10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\querier">
+      <UniqueIdentifier>{4ba6cfe8-9f05-4e76-a460-cd7ae3e26b52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\data_context\updater_test.cpp">
       <Filter>test\unit_test\data_context</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\querier\bindable_querier_type_test.cpp">
+      <Filter>test\unit_test\querier</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

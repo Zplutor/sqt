@@ -15,8 +15,8 @@ Constraints a type to be an assignment type, which associates an identifier with
 
 @details 
     @b Requirements
-    - The type satisfies the `sqt::ExpressionLike` concept.
-    - The type has a static constant `Operator` of type `sqt::AssignmentOperator`.
+    - The type must satisfy the `sqt::ExpressionLike` concept.
+    - The type must have a static constant `Operator` of type `sqt::AssignmentOperator`.
 
     Assignments are used in inserters and updaters to assign values to identifiers like columns, 
     primary keys and indexes.

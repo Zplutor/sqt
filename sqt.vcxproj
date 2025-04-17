@@ -63,6 +63,7 @@
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\table_initializer.h" />
+    <ClInclude Include="src\sqt\orm\querier\bindable_querier_type.h" />
     <ClInclude Include="src\sqt\orm\querier\conflict_action.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\column_inserter.h" />
     <ClInclude Include="src\sqt\orm\table_definition.h" />

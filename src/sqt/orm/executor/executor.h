@@ -8,6 +8,7 @@
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/executor/result.h>
 #include <sqt/orm/expression/binder/binder_chain.h>
+#include <sqt/orm/querier/bindable_querier_type.h>
 #include <sqt/orm/querier/querier_type.h>
 
 namespace sqt {
@@ -122,7 +123,7 @@ public:
 
     @see sqt::BinderChain<>
     */
-    auto BeginBindings() noexcept {
+    auto BeginBindings() noexcept requires BindableQuerierType<QUERIER> {
         constexpr auto binders = QUERIER::BuildPlaceholderBinders();
         return MakeBinderChain(statement_, binders);
     }
