@@ -128,23 +128,89 @@ public:
         return MakeBinderChain(statement_, binders);
     }
 
+    /**
+    Executes the statement for the non-select querier.
+
+    @throw sqt::SQLError
+        Thrown if the execution fails.
+
+    @details
+        @note
+        This method is available only if the querier does not satisfy the `sqt::SelecterType` 
+        concept.
+
+        This method executes a non-select statement, such as an `INSERT`, `UPDATE`, or `DELETE` 
+        statement. The following methods can be used to retrieve the results of the execution:
+        - `LastChanges()` for retrieving the number of rows affected by the statement.
+        - `LastInsertRowID()` for retrieving the row ID of the last inserted row.
+
+    @see sqt::Executor<>::LastChanges()
+    @see sqt::Executor<>::LastInsertRowID()
+    @see sqt::SelecterType
+    */
     void Execute() requires !SelecterType<QUERIER> {
         statement_.Step();
     }
 
-    std::size_t LastChanges() const requires !SelecterType<QUERIER> {
-        return database_->LastChanges();
-    }
+    /**
+    Creates a `sqt::Result<>` instance that can be used to retrieve the results of the select 
+    querier.
 
-    std::int64_t LastInsertRowID() const requires !SelecterType<QUERIER> {
-        return database_->LastInsertRowID();
-    }
+    @return
+        A `sqt::Result<>` instance. The instance remains valid until the executor is destructed.
+
+    @details
+        @note
+        This method is available only if the querier satisfies the `sqt::SelecterType` concept.
+
+        This method does not immediately execute the statement. Instead, it creates a 
+        `sqt::Result<>` instance, and the execution will be deferred until the first retrieval from 
+        the returned instance.
+
+        @warning
+        This method should be called only once for each execution. To retrieve the results again, 
+        call the `Reset()` method first to reset the statement's state, and then call this method
+        again to create a new `sqt::Result<>` instance.
     
+    @see sqt::Executor<>::Reset()
+    @see sqt::Result<>
+    @see sqt::SelecterType
+    */
     [[nodiscard]]
-    auto Execute() requires SelecterType<QUERIER> {
+    auto Execute() noexcept requires SelecterType<QUERIER> {
         return sqt::Result<QUERIER>{ statement_ };
     }
 
+    /**
+    Retrieves the number of rows affected by the last executed non-select statement.
+
+    @return
+        The number of rows affected by the statement.
+
+    @details
+        @note
+        This method is available only if the querier does not satisfy the `sqt::SelecterType` 
+        concept.
+    */
+    std::size_t LastChanges() const noexcept requires !SelecterType<QUERIER> {
+        return database_->LastChanges();
+    }
+
+    /**
+    Retrieves the row ID of the last inserted row.
+
+    @return
+        The last inserted row ID.
+
+    @details
+        @note
+        This method is available only if the querier does not satisfy the `sqt::SelecterType`
+        concept.
+    */
+    std::int64_t LastInsertRowID() const noexcept requires !SelecterType<QUERIER> {
+        return database_->LastInsertRowID();
+    }
+    
     void Reset() {
         statement_.Reset();
     }
