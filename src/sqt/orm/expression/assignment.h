@@ -17,7 +17,7 @@ public:
 
     static constexpr std::size_t ParameterCount = VALUE::ParameterCount;
 
-    static constexpr auto BuildPlaceholderBinders(int parameter_index) {
+    static constexpr auto BuildPlaceholderBinders(int parameter_index) noexcept {
         return VALUE::BuildPlaceholderBinders(parameter_index);
     }
 

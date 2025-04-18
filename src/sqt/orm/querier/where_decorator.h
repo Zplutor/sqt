@@ -20,7 +20,7 @@ public:
         return sql;
     }
 
-    static constexpr auto BuildPlaceholderBinders() {
+    static constexpr auto BuildPlaceholderBinders() noexcept {
         return std::tuple_cat(
             QUERIER::BuildPlaceholderBinders(),
             PREDICATE::BuildPlaceholderBinders(ParameterIndex));

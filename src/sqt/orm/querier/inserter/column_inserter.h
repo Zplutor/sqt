@@ -46,7 +46,7 @@ public:
         return sql;
     }
 
-    static constexpr auto BuildPlaceholderBinders() {
+    static constexpr auto BuildPlaceholderBinders() noexcept {
         int index = ParameterIndex;
         return std::tuple_cat(ASSIGNMENT::BuildPlaceholderBinders(index++)...);
     }

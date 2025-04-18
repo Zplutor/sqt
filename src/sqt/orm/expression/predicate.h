@@ -24,7 +24,7 @@ public:
             RHS::BuildSQL());
     }
 
-    static constexpr auto BuildPlaceholderBinders(int parameter_index) {
+    static constexpr auto BuildPlaceholderBinders(int parameter_index) noexcept {
         auto lhs_binders = LHS::BuildPlaceholderBinders(parameter_index);
         auto rhs_binders = RHS::BuildPlaceholderBinders(parameter_index + LHS::ParameterCount);
         return std::tuple_cat(std::move(lhs_binders), std::move(rhs_binders));
