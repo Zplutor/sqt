@@ -61,7 +61,7 @@ Constraints a type to be a querier type, which corresponds to a SQL statement th
     SELECT id, name FROM MyEntity;
     @endcode
 
-    Decorated quereris add additional clauses to the SQL statement. They are created by decorative 
+    Decorated queriers add additional clauses to the SQL statement. They are created by decorative 
     methods of queriers (either primary queriers or decorated queriers). For instance:
     @code{.cpp}
     constexpr auto selecter = sqt::DataContext<MyEntity>::MakeSelecter()
