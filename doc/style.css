@@ -44,7 +44,7 @@ html {
 --icon-folder-closed-image: url('folderclosed.svg');
 
 /* brief member declaration list */
---memdecl-background-color: #F9FAFC;
+--memdecl-background-color: transparent;
 --memdecl-separator-color: #DEE4F0;
 --memdecl-foreground-color: #555;
 --memdecl-template-color: #4665A2;
@@ -240,7 +240,7 @@ html {
 --icon-folder-closed-image: url('folderclosedd.svg');
 
 /* brief member declaration list */
---memdecl-background-color: #0B101A;
+--memdecl-background-color: transparent;
 --memdecl-separator-color: #2C3F65;
 --memdecl-foreground-color: #BBB;
 --memdecl-template-color: #7C95C6;
@@ -1025,7 +1025,7 @@ table.memberdecls {
 	background-color: var(--memdecl-background-color);
 	border: none;
 	margin: 4px;
-	padding: 1px 0 0 8px;
+	padding: 0 0 0 8px;
 }
 
 .mdescLeft, .mdescRight {
@@ -1034,14 +1034,14 @@ table.memberdecls {
 }
 
 .memSeparator {
-        border-bottom: 1px solid var(--memdecl-separator-color);
-        line-height: 1px;
-        margin: 0px;
-        padding: 0px;
+	border-bottom: 1px solid var(--memdecl-separator-color);
+	line-height: 0;
+	margin: 0px;
+	padding: 0px;
 }
 
 .memItemLeft, .memTemplItemLeft {
-        white-space: nowrap;
+    white-space: nowrap;
 }
 
 .memItemRight, .memTemplItemRight {
@@ -1050,8 +1050,12 @@ table.memberdecls {
 
 .memTemplParams {
 	color: var(--memdecl-template-color);
-        white-space: nowrap;
+    white-space: nowrap;
 	font-size: 80%;
+}
+
+.memItemLeft, .memItemRight, .memTemplParams, .memSeparator {
+	padding-top: 6px;
 }
 
 /* @end */
