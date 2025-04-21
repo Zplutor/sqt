@@ -8,7 +8,7 @@ class SelecterTest : public DataContextTestFixture {
 template<typename RESULT>
 bool CheckResult(
     const RESULT& result, 
-    const std::vector<typename RESULT::ValueType>& expected) {
+    const std::vector<typename RESULT::value_type>& expected) {
 
     auto result_iterator = result.begin();
     auto expected_iterator = expected.begin();

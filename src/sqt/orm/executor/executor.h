@@ -217,7 +217,7 @@ public:
     }
     
     /**
-    Resets the statement's state for resusing.
+    Resets the statement's state for reusing.
 
     @throw sqt::SQLError
         Thrown if the reset fails.
