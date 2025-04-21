@@ -28,6 +28,9 @@
     <Filter Include="test\unit_test\querier">
       <UniqueIdentifier>{4ba6cfe8-9f05-4e76-a460-cd7ae3e26b52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\querier\selecter">
+      <UniqueIdentifier>{f6dfcfbd-ebe4-446c-a85a-db89385612a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -107,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\querier\bindable_querier_type_test.cpp">
       <Filter>test\unit_test\querier</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\querier\querier_type_test.cpp">
+      <Filter>test\unit_test\querier</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\querier\selecter\selecter_type_test.cpp">
+      <Filter>test\unit_test\querier\selecter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

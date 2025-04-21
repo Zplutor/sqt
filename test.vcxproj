@@ -27,6 +27,8 @@
     <ClCompile Include="test\unit_test\data_context_test_fixture.cpp" />
     <ClCompile Include="test\unit_test\db_test_fixture.cpp" />
     <ClCompile Include="test\unit_test\querier\bindable_querier_type_test.cpp" />
+    <ClCompile Include="test\unit_test\querier\querier_type_test.cpp" />
+    <ClCompile Include="test\unit_test\querier\selecter\selecter_type_test.cpp" />
     <ClCompile Include="test\unit_test\table\column\value_source_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\column_definition_test.cpp" />
     <ClCompile Include="test\unit_test\table\definition\index_definition_test.cpp" />
