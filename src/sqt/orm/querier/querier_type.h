@@ -69,8 +69,8 @@ Constraints a type to be a querier type, which corresponds to a SQL statement th
         .OrderBy(sqt::Table<MyEntity>.id.Desc());
     @endcode
 
-    The above code creates a decorated selecter in chain fashin. The selecter corresponds to 
-    the following SQL statement:
+    The above code creates a decorated selecter in chain fashion. The selecter corresponds to the 
+    following SQL statement:
     @code{.sql}
     SELECT id, name FROM MyEntity WHERE name <> "Unknown" ORDER BY id DESC;
     @endcode
