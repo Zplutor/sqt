@@ -95,7 +95,7 @@ public:
         again, the executor must be reset and executed to create a new result instance.
     */
     iterator begin() const {
-        return iterator{ &statement_ };
+        return iterator{ statement_ };
     }
 
     /**
@@ -105,7 +105,7 @@ public:
         An iterator pointing to the end of the result elements.
     */
     iterator end() const noexcept {
-        return iterator{};
+        return iterator{ statement_, std::monostate{} };
     }
 
     /**

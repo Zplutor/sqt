@@ -31,6 +31,9 @@
     <Filter Include="test\unit_test\querier\selecter">
       <UniqueIdentifier>{f6dfcfbd-ebe4-446c-a85a-db89385612a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\executor">
+      <UniqueIdentifier>{18fef06f-607b-4c2b-ab95-988785fc8111}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\main.cpp">
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\querier\selecter\selecter_type_test.cpp">
       <Filter>test\unit_test\querier\selecter</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\executor\iterator_test.cpp">
+      <Filter>test\unit_test\executor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
