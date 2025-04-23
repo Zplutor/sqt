@@ -19,7 +19,12 @@ Represents the iterator used by `sqt::Result<>` to iterate over the result eleme
 
 @details
     The `sqt::Iterator<>` satisfies the `std::input_iterator` concept. It is a single-pass 
-    iterator, meaning that it can only advance forward and cannot move backward.
+    iterator, meaning that it can only advance forward and cannot move backward. Due to this 
+    limitation and to avoid unnecessary performance overhead, the post-increment operator 
+    returns `void` instead of a previous iterator. As a result, the iterator does not satisfy the
+    `LegacyInputIterator` concept, which requires `*iterator++` to be a valid expression. 
+    Consequently, it cannot be used in some standard algorithms and containers that require this 
+    concept.
 
 @see sqt::Result<>
 @see sqt::SelecterType
@@ -113,6 +118,10 @@ public:
         This is the post-increment operator syntax. It is equivalent to calling the pre-increment 
         operator.
 
+        @note
+        This operator returns `void` and does not return the previous iterator, as it is a 
+        single-pass iterator.
+
     @see sqt::Iterator<>::operator++()
     */
     void operator++(int) {
@@ -137,10 +146,45 @@ public:
         return SELECTER::GetResultElement(*statement_);
     }
 
+    /**
+    Compares two iterators for checking if they are both in the same state.
+
+    @param iterator1
+        The first iterator to compare.
+
+    @param iterator2
+        The second iterator to compare.
+
+    @return
+        `true` if the iterators are both in the end state, or both not in the end state; otherwise,
+        `false`.
+
+    @details
+        @warning
+        This method should be only used to compare an iterator with an end iterator. Do not use it
+        for any other purpose.
+    */
     friend bool operator==(const Iterator& iterator1, const Iterator& iterator2) noexcept {
         return iterator1.is_end_ == iterator2.is_end_;
     }
 
+    /**
+    Compares two iterators for checking if they are not in the same state.
+
+    @param iterator1
+        The first iterator to compare.
+
+    @param iterator2
+        The second iterator to compare.
+
+    @return
+        `true` if one iterator is in the end state and the other is not; otherwise, `false`.
+
+    @details
+        @warning
+        This method should be only used to compare an iterator with an end iterator. Do not use it
+        for any other purpose.
+    */
     friend bool operator!=(const Iterator& iterator1, const Iterator& iterator2) noexcept {
         return !(iterator1 == iterator2);
     }
