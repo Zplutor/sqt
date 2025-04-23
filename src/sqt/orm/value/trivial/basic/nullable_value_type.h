@@ -4,6 +4,8 @@
 #include <sqt/orm/value/trivial/basic/primitive_value_type.h>
 
 namespace sqt {
+/** @cond */
+namespace internal {
 
 template<typename T>
 struct IsOptional : std::false_type {};
@@ -28,8 +30,12 @@ struct GetOptionalValueType<std::optional<E>> {
 template<typename T>
 using GetOptionalValueTypeT = typename GetOptionalValueType<T>::type;
 
+}
+/** @endcond */
 
 template<typename T>
-concept NullableValueType = IsOptionalV<T> && PrimitiveValueType<GetOptionalValueTypeT<T>>;
+concept NullableValueType = 
+    internal::IsOptionalV<T> && 
+    PrimitiveValueType<internal::GetOptionalValueTypeT<T>>;
 
 }

@@ -9,7 +9,7 @@ template<NullableValueType T>
 class NullableValueTraits {
 public:
     using ValueType = T;
-    using InnerValueTriats = PrimitiveValueTraits<GetOptionalValueTypeT<T>>;
+    using InnerValueTriats = PrimitiveValueTraits<internal::GetOptionalValueTypeT<T>>;
 
     static constexpr DataType DataType = InnerValueTriats::DataType;
     static constexpr bool IsNullable = true;
