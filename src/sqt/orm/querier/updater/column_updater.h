@@ -33,7 +33,7 @@ public:
             constexpr auto& table = Table<typename First::LHSOperand::EntityType>;
             return std::format(
                 "update or {} {} set {}", 
-                ConvertConflictActionToString(CONFLICT_ACTION),
+                ConflictActionEnum::ToString(CONFLICT_ACTION),
                 table.GetName(), 
                 set_clause);
         }();

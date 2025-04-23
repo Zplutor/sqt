@@ -30,7 +30,7 @@ public:
             };
             (build_column_names(ASSIGNMENT::LHSOperand::BuildSQL()), ...);
 
-            constexpr auto conflict_action = ConvertConflictActionToString(CONFLICT_ACTION);
+            constexpr auto conflict_action = ConflictActionEnum::ToString(CONFLICT_ACTION);
 
             using First = std::tuple_element_t<0, std::tuple<ASSIGNMENT...>>;
             constexpr auto& table = Table<typename First::LHSOperand::EntityType>;

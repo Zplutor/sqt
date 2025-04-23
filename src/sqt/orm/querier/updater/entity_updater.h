@@ -30,7 +30,7 @@ public:
 
             return std::format(
                 "update or {} {} set {}", 
-                ConvertConflictActionToString(CONFLICT_ACTION),
+                ConflictActionEnum::ToString(CONFLICT_ACTION),
                 table.GetName(), 
                 set_clause);
         }();

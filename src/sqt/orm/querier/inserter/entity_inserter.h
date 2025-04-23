@@ -19,7 +19,7 @@ public:
 
         static const std::string sql = []() {
 
-            constexpr auto conflict_action = ConvertConflictActionToString(CONFLICT_ACTION);
+            constexpr auto conflict_action = ConflictActionEnum::ToString(CONFLICT_ACTION);
 
             constexpr auto& table = Table<typename VALUE_OPERAND::ValueType>;
             constexpr auto table_name = table.GetName();
