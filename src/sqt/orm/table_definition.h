@@ -8,7 +8,9 @@
 #include <array>
 #include <sqt/orm/table/definition/expression_definition.h>
 #include <sqt/orm/internal/linked_list.h>
+#include <sqt/orm/internal/macro_utility.h>
 #include <sqt/orm/internal/primary_key_helper.h>
+#include <sqt/orm/internal/utility.h>
 #include <sqt/orm/table_mapping.h>
 #include <sqt/orm/table/index/abstract_index.h>
 #include <sqt/orm/table/abstract_table.h>
@@ -17,8 +19,6 @@
 #include <sqt/orm/table/column/composite_column.h>
 #include <sqt/orm/table/definition/index_definition.h>
 #include <sqt/orm/table/definition/primary_key_definition.h>
-#include <sqt/orm/utility/macro_utility.h>
-#include <sqt/orm/utility/utility.h>
 
 /**
 Begins the definition of a table type for the specified entity type.

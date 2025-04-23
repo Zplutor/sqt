@@ -1,7 +1,7 @@
 #include <sqt/orm/internal/table_initializer.h>
 #include <format>
 #include <sqt/foundation/transaction.h>
-#include <sqt/orm/utility/utility.h>
+#include <sqt/orm/internal/utility.h>
 
 namespace sqt::internal {
 
@@ -66,7 +66,9 @@ std::string TableInitializer::GeneratePrimaryKeyConstraintSQL(
         return {};
     }
 
-    return std::format(", primary key ({})", JoinColumnNames(primary_key->GetAbstractColumns()));
+    return std::format(
+        ", primary key ({})", 
+        internal::JoinColumnNames(primary_key->GetAbstractColumns()));
 }
 
 
@@ -161,7 +163,7 @@ void TableInitializer::CreateIndex(
         index.IsUnique() ? "unique" : "",
         index.GetName(),
         table.GetName(),
-        JoinColumnNames(index.GetAbstractColumns()));
+        internal::JoinColumnNames(index.GetAbstractColumns()));
 
     db.ExecuteSQL(sql);
 }

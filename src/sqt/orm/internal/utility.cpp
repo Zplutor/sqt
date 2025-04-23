@@ -1,6 +1,6 @@
-#include <sqt/orm/utility/utility.h>
+#include <sqt/orm/internal/utility.h>
 
-namespace sqt {
+namespace sqt::internal {
 
 std::string JoinPlaceholders(std::size_t count) {
 

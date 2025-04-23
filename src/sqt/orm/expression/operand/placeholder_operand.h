@@ -2,7 +2,7 @@
 
 #include <sqt/orm/expression/binder/binder.h>
 #include <sqt/orm/expression/operand/parameter_count_deduction.h>
-#include <sqt/orm/utility/utility.h>
+#include <sqt/orm/internal/utility.h>
 #include <sqt/orm/value/value_traits_type.h>
 
 namespace sqt {
@@ -16,7 +16,7 @@ public:
     static constexpr std::size_t ParameterCount = ParameterCountForV<TRAITS>;
 
     static std::string BuildSQL() {
-        return std::format("{}", JoinPlaceholders(ParameterCount));
+        return std::format("{}", internal::JoinPlaceholders(ParameterCount));
     }
 
     static constexpr auto BuildPlaceholderBinders(int parameter_index) noexcept {

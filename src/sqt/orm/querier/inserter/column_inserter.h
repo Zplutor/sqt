@@ -4,9 +4,9 @@
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/assignment_type.h>
 #include <sqt/orm/internal/assignment_helper.h>
+#include <sqt/orm/internal/utility.h>
 #include <sqt/orm/querier/conflict_action.h>
 #include <sqt/orm/table_mapping.h>
-#include <sqt/orm/utility/utility.h>
 
 namespace sqt {
 
@@ -41,7 +41,7 @@ public:
                 conflict_action,
                 table_name,
                 column_names,
-                JoinPlaceholders(ParameterCount));
+                internal::JoinPlaceholders(ParameterCount));
         }();
         return sql;
     }

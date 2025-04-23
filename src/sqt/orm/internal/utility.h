@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace sqt {
+namespace sqt::internal {
 
 template<typename VIEW>
 std::string JoinColumnNames(VIEW columns) {

@@ -17,7 +17,7 @@
     <ClCompile Include="src\sqt\foundation\statement.cpp" />
     <ClCompile Include="src\sqt\foundation\transaction.cpp" />
     <ClCompile Include="src\sqt\orm\internal\table_initializer.cpp" />
-    <ClCompile Include="src\sqt\orm\utility\utility.cpp" />
+    <ClCompile Include="src\sqt\orm\internal\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h" />
@@ -61,8 +61,10 @@
     <ClInclude Include="src\sqt\orm\internal\assignment_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\column_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
+    <ClInclude Include="src\sqt\orm\internal\macro_utility.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\table_initializer.h" />
+    <ClInclude Include="src\sqt\orm\internal\utility.h" />
     <ClInclude Include="src\sqt\orm\querier\bindable_querier_type.h" />
     <ClInclude Include="src\sqt\orm\querier\conflict_action.h" />
     <ClInclude Include="src\sqt\orm\querier\inserter\column_inserter.h" />
@@ -99,8 +101,6 @@
     <ClInclude Include="src\sqt\orm\table\primary_key\abstract_primary_key.h" />
     <ClInclude Include="src\sqt\orm\table\primary_key\primary_key.h" />
     <ClInclude Include="src\sqt\orm\table_mapping.h" />
-    <ClInclude Include="src\sqt\orm\utility\macro_utility.h" />
-    <ClInclude Include="src\sqt\orm\utility\utility.h" />
     <ClInclude Include="src\sqt\orm\value\entity\entire_entity_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\entity\entity_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\entity\entity_value_type.h" />

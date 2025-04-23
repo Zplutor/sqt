@@ -1,8 +1,8 @@
 #pragma once
 
+#include <sqt/orm/internal/utility.h>
 #include <sqt/orm/querier/selecter/base_selecter.h>
 #include <sqt/orm/table_mapping.h>
-#include <sqt/orm/utility/utility.h>
 #include <sqt/orm/value/entity/entire_entity_value_traits.h>
 #include <sqt/orm/value/entity/entity_value_type.h>
 
@@ -25,7 +25,7 @@ private:
     friend class BaseSelecter<EntitySelecter<ENTITY>>;
 
     static std::string BuildColumnNames() {
-        return JoinColumnNames(EntireEntityValueTraits<ENTITY>::ManipulatingColumns);
+        return internal::JoinColumnNames(EntireEntityValueTraits<ENTITY>::ManipulatingColumns);
     }
 };
 

@@ -13,9 +13,6 @@
     <Filter Include="src\sqt\orm">
       <UniqueIdentifier>{4099a156-4bb9-45a4-8006-3a13c1517cd5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sqt\orm\utility">
-      <UniqueIdentifier>{f81443f2-ead3-4971-874c-acf471aa03a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sqt\orm\executor">
       <UniqueIdentifier>{c4416396-feb8-460f-8c83-c71798422f5e}</UniqueIdentifier>
     </Filter>
@@ -87,9 +84,6 @@
     <ClCompile Include="sqlite\sqlite3.c">
       <Filter>sqlite</Filter>
     </ClCompile>
-    <ClCompile Include="src\sqt\orm\utility\utility.cpp">
-      <Filter>src\sqt\orm\utility</Filter>
-    </ClCompile>
     <ClCompile Include="src\sqt\foundation\data_type.cpp">
       <Filter>src\sqt\foundation</Filter>
     </ClCompile>
@@ -105,6 +99,9 @@
     <ClCompile Include="src\sqt\orm\internal\table_initializer.cpp">
       <Filter>src\sqt\orm\internal</Filter>
     </ClCompile>
+    <ClCompile Include="src\sqt\orm\internal\utility.cpp">
+      <Filter>src\sqt\orm\internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite\sqlite3.h">
@@ -115,9 +112,6 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table_mapping.h">
       <Filter>src\sqt\orm</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\utility\utility.h">
-      <Filter>src\sqt\orm\utility</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\data_context.h">
       <Filter>src\sqt\orm</Filter>
@@ -181,9 +175,6 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\table\abstract_table.h">
       <Filter>src\sqt\orm\table</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\utility\macro_utility.h">
-      <Filter>src\sqt\orm\utility</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\linked_list.h">
       <Filter>src\sqt\orm\internal</Filter>
@@ -412,6 +403,12 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\querier\bindable_querier_type.h">
       <Filter>src\sqt\orm\querier</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\macro_utility.h">
+      <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\utility.h">
+      <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
