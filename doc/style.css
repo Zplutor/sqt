@@ -2244,3 +2244,7 @@ details[open]>summary::before {
     font-size: 80%;
 }
 
+#nav-tree .label {
+	font-size: 14px;
+	line-height: 24px;
+}
