@@ -912,7 +912,11 @@ public:
         constexpr auto selecter = MakeSelecter();
         auto executor = Prepare(selecter);
         auto result = executor.Execute();
-        return std::vector<ENTITY>{ result.begin(), result.end() };
+        std::vector<ENTITY> all_entities;
+        for (auto&& each_entity : result) {
+            all_entities.push_back(std::move(each_entity));
+        }
+        return all_entities;
     }
 
     /**
