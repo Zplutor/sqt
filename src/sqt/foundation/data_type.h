@@ -43,9 +43,9 @@ enum class DataType {
 
 
 /**
-Provides utility functions for working with `sqt::DataType`.
+Provides utility functions for working with the `sqt::DataType` enum.
 */
-class DataTypeTraits {
+class DataTypeEnum {
 public:
     /**
     Converts the specified `sqt::DataType` value to a string.
@@ -78,12 +78,12 @@ public:
         A `sqt::DataType` value for the specifed string. If the string is not recognized,
         `sqt::DataType::Null` is returned.
 
-    @see sqt::DataTypeTraits::ToString
+    @see sqt::DataTypeEnum::ToString()
     */
     static DataType FromString(std::string_view string) noexcept;
 
-private:
-    DataTypeTraits() = delete;
+public:
+    DataTypeEnum() = delete;
 };
 
 }

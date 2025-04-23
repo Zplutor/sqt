@@ -129,7 +129,7 @@ std::string TableInitializer::GenerateColumnSQL(
     std::string result = std::format(
         "{} {}",
         column.GetName(),
-        DataTypeTraits::ToString(column.GetDataType()));
+        DataTypeEnum::ToString(column.GetDataType()));
 
     if (!column.IsNullable()) {
         result += " not null";
