@@ -15,7 +15,8 @@ directly mapped to a database data type.
 
 @details
     @b Requirements
-    - The type must be recognized by the framework as a type that maps directly to a database type.
+    - The type must be recognized by the framework as a type that can be mapped directly to a 
+      database data type.
 
     The following types are considered primitive value types:
     - Integral types satisfying the `std::integral` concept. These are mapped to 
