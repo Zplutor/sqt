@@ -10,7 +10,7 @@
 namespace sqt {
 
 /**
-Constraints a type to be an querier type, which has bindable placeholders.
+Constrains a type to be an querier type, which has bindable placeholders.
 
 @details
     @b Requirements

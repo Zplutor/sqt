@@ -11,7 +11,7 @@
 namespace sqt {
 
 /**
-Constraints a type to be an assignment type, which associates an identifier with a value.
+Constrains a type to be an assignment type, which associates an identifier with a value.
 
 @details 
     @b Requirements

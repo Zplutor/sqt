@@ -22,7 +22,7 @@ struct IsBinderTupleType<std::tuple<TYPES...>> : std::true_type {};
 /** @endcond */
 
 /**
-Constraints a type to be a `std::tuple` whose elements all satisfy the `sqt::BinderType` concept.
+Constrains a type to be a `std::tuple` whose elements all satisfy the `sqt::BinderType` concept.
 
 @details
     @b Requirements

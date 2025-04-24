@@ -10,7 +10,7 @@
 namespace sqt {
 
 /**
-Constraints a type to be a selecter type, which corresponds to a `SELECT` SQL statement that can be 
+Constrains a type to be a selecter type, which corresponds to a `SELECT` SQL statement that can be 
 executed.
 
 @details

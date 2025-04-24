@@ -13,7 +13,7 @@
 namespace sqt {
 
 /**
-Constraints a type to be a querier type, which corresponds to a SQL statement that can be executed.
+Constrains a type to be a querier type, which corresponds to a SQL statement that can be executed.
 
 @details
     @b Requirements
