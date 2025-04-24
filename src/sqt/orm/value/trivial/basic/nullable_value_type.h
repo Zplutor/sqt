@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::NullableValueType` concept.
+*/
+
 #include <optional>
 #include <sqt/orm/value/trivial/basic/primitive_value_type.h>
 
@@ -33,6 +38,20 @@ using GetOptionalValueTypeT = typename GetOptionalValueType<T>::type;
 }
 /** @endcond */
 
+/**
+Constrains a type to be a nullable primitive value type.
+
+@details
+    @b Requirements
+    - The type must be a `std::optional<>`.
+    - The value type of the `std::optional<>` must satisfy the `sqt::PrimitiveValueType` concept.
+
+    Nullable value types are a subset of basic value types, which are constrained by the
+    `sqt::BasicValueType` concept.
+
+@see sqt::BasicValueType
+@see sqt::PrimitiveValueType
+*/
 template<typename T>
 concept NullableValueType = 
     internal::IsOptionalV<T> && 

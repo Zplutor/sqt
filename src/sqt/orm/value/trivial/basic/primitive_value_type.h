@@ -25,10 +25,14 @@ directly mapped to a database data type.
       These are mapped to `sqt::DataType::Float`.
     - `std::string`, which is mapped to `sqt::DataType::Text`.
 
-    Primitive value type is a subset of basic value type, which is constrained by the
+    Primitive value types are not nullable. Refer to the `sqt::NullableValueType` concept for
+    nullable value types.
+
+    Primitive value types are a subset of basic value types, which are constrained by the
     `sqt::BasicValueType` concept.
 
 @see sqt::BasicValueType
+@see sqt::NullableValueType
 */
 template<typename T>
 concept PrimitiveValueType = requires {
