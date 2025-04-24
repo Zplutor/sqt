@@ -15,8 +15,8 @@ directly mapped to a database data type.
 
 @details
     @b Requirements
-    - The type must be recognized by the framework as a type that can be mapped directly to a 
-      database data type.
+    - There must be a `sqt::PrimitiveValueTraits<>` specialization for the type. The specialization
+      is defined by the framework.
 
     The following types are considered primitive value types:
     - Integral types satisfying the `std::integral` concept. These are mapped to 
@@ -33,6 +33,7 @@ directly mapped to a database data type.
 
 @see sqt::BasicValueType
 @see sqt::NullableValueType
+@see sqt::PrimitiveValueTraits<>
 */
 template<typename T>
 concept PrimitiveValueType = requires {

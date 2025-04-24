@@ -50,6 +50,7 @@ Constrains a type to be a nullable primitive value type.
     `sqt::BasicValueType` concept.
 
 @see sqt::BasicValueType
+@see sqt::NullableValueTraits<>
 @see sqt::PrimitiveValueType
 */
 template<typename T>
