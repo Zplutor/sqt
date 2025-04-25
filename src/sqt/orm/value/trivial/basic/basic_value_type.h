@@ -25,6 +25,7 @@ accessors bound to database columns.
     When defining table columns using the `SQT_COLUMN_FIELD` or `SQT_COLUMN_ACCESSOR` macros, the 
     type of the field or accessor must satisfy this concept.
 
+@see sqt::BasicValueTraitsType
 @see sqt::PrimitiveValueType
 @see sqt::NullableValueType
 @see sqt::CustomValueType
