@@ -227,7 +227,7 @@ Defines a column that binds to the specified field of the entity type.
 
             // The value traits type that defines how the value is bound to and retrieved from the 
             // database statement.
-            using ValueTraits = sqt::BasicValueTraitsForT<ValueType>;
+            using ValueTraits = sqt::BasicValueTraitsMappingT<ValueType>;
 
             // Forbids copying.
             IDType(const IDType&) = delete;

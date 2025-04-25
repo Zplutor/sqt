@@ -106,15 +106,15 @@ TEST(PrimitiveValueTest, BasicValueTraitsType) {
 TEST(PrimitiveValueTest, BasicValueTraitsMapping) {
 
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<bool>,
+        sqt::BasicValueTraitsMappingT<bool>,
         sqt::PrimitiveValueTraits<bool>>));
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<int>,
+        sqt::BasicValueTraitsMappingT<int>,
         sqt::PrimitiveValueTraits<int>>));
     static_assert((
-        std::is_same_v<sqt::BasicValueTraitsForT<float>,
+        std::is_same_v<sqt::BasicValueTraitsMappingT<float>,
         sqt::PrimitiveValueTraits<float>>));
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<std::string>,
+        sqt::BasicValueTraitsMappingT<std::string>,
         sqt::PrimitiveValueTraits<std::string>>));
 }

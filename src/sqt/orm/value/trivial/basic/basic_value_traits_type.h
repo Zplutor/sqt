@@ -29,6 +29,10 @@ Constrains a type to be a basic value traits type, which defines traits for a ba
       value traits types.
     - `sqt::CustomValueTraits<>`, for custom value types, defined by the user.
 
+    Use `sqt::BasicValueTraitsMapping<>` to map a basic value type to its corresponding value 
+    traits type.
+
+@see sqt::BasicValueTraitsMapping<>
 @see sqt::BasicValueType
 @see sqt::CustomValueTraits<>
 @see sqt::NullableValueTraits<>

@@ -23,6 +23,6 @@ TEST(CustomValueTest, CustomValueTraits) {
 TEST(CustomValueTest, BasicValueTraitsMapping) {
 
     ASSERT_TRUE((std::is_same_v<
-        sqt::BasicValueTraitsForT<BLOB>,
+        sqt::BasicValueTraitsMappingT<BLOB>,
         sqt::CustomValueTraits<BLOB>>));
 }

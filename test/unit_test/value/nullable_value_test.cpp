@@ -182,15 +182,15 @@ TEST(NullableValueType, BasicValueTriatsType) {
 TEST(NullableValueType, BasicValueTraitsMapping) {
 
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<std::optional<bool>>,
+        sqt::BasicValueTraitsMappingT<std::optional<bool>>,
         sqt::NullableValueTraits<std::optional<bool>>>));
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<std::optional<int>>,
+        sqt::BasicValueTraitsMappingT<std::optional<int>>,
         sqt::NullableValueTraits<std::optional<int>>>));
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<std::optional<float>>,
+        sqt::BasicValueTraitsMappingT<std::optional<float>>,
         sqt::NullableValueTraits<std::optional<float>>>));
     static_assert((std::is_same_v<
-        sqt::BasicValueTraitsForT<std::optional<std::string>>,
+        sqt::BasicValueTraitsMappingT<std::optional<std::string>>,
         sqt::NullableValueTraits<std::optional<std::string>>>));
 }

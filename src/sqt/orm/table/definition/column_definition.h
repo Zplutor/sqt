@@ -49,7 +49,7 @@ public: \
 
 #define __SQT_COLUMN_END(COLUMN_NAME) \
         using ValueType = typename ValueSource::ValueType; \
-        using ValueTraits = sqt::BasicValueTraitsForT<ValueType>; \
+        using ValueTraits = sqt::BasicValueTraitsMappingT<ValueType>; \
         constexpr sqt::DataType GetDataType() const noexcept override { \
             return ValueTraits::DataType; \
         } \
