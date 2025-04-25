@@ -2,8 +2,8 @@
 
 /**
 @file
-    Defines the `sqt::BasicValueTraitsMapping<>` class template specializations for various basic
-    value types.
+    Defines the `sqt::BasicValueTraitsMapping<>` primary template and its specializations for 
+    various basic value types.
 */
 
 #include <sqt/orm/value/trivial/basic/primitive_value_traits.h>

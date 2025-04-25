@@ -2,7 +2,8 @@
 
 /**
 @file
-    Defines the `sqt::PrimitiveValueTraits<>` class template specializations for various types.
+    Defines the `sqt::PrimitiveValueTraits<>` primary template and its specializations for various 
+    primitive value types.
 */
 
 #include <concepts>
