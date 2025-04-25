@@ -12,7 +12,7 @@
 namespace sqt {
 
 /**
-The primary template for defining tratis for primitive value types.
+The primary template for defining traits for primitive value types.
 
 @tparam T
     The type of the value.
@@ -39,7 +39,7 @@ class PrimitiveValueTraits;
 The specialization for defining traits for integral value types.
 
 @tparam INTEGER
-    The type that satisfies the `std::integral` concept.
+    A type that satisfies the `std::integral` concept.
 
 @details
     This specialization satisfies the `sqt::BasicValueTraitsType` concept.
@@ -128,7 +128,7 @@ public:
 The specialization for defining traits for floating-point value types.
 
 @tparam FLOAT
-    The type that satisfies the `std::floating_point` concept, except `long double`.
+    A type that satisfies the `std::floating_point` concept, except `long double`.
 
 @details
     This specialization satisfies the `sqt::BasicValueTraitsType` concept.
