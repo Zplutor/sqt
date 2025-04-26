@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::CompositeValueType` concept.
+*/
+
 #include <tuple>
 #include <sqt/orm/value/trivial/basic/basic_value_type.h>
 
@@ -27,6 +32,19 @@ struct IsCompositeValueType<std::tuple<Types...>> {
 }
 /** @endcond */
 
+
+/**
+Constrains a type to be a composite value type, which is a `std::tuple<>` of basic value types.
+
+@details
+    @b Requirements
+    - The type must be a `std::tuple<>`.
+    - All types in the tuple must satisfy the `sqt::BasicValueType` concept.
+
+    Composite value types are used for primary keys and indexes that consist of multiple columns.
+
+@see sqt::BasicValueType
+*/
 template<typename T>
 concept CompositeValueType = internal::IsCompositeValueType<T>::value;
 
