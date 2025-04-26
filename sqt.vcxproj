@@ -48,7 +48,6 @@
     <ClInclude Include="src\sqt\orm\expression\operand\parameter_count_deduction.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder_operand.h" />
-    <ClInclude Include="src\sqt\orm\expression\operand\trivial_value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\constant_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\ordering.h" />
@@ -119,8 +118,6 @@
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_traits.h" />
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_type.h" />
-    <ClInclude Include="src\sqt\orm\value\trivial\trivial_value_traits_type.h" />
-    <ClInclude Include="src\sqt\orm\value\trivial\trivial_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\value_traits_type.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -40,13 +40,10 @@ type.
         edge [dir=back,arrowtail=onormal];
         node [shape=record];
         ValueTraitsType -> { 
-            TrivialValueTraitsType 
-            IdentifierValueTraitsType 
-            EntityValueTraitsType  
-        };
-        TrivialValueTraitsType -> {
             BasicValueTraitsType
             CompositeValueTraitsType
+            IdentifierValueTraitsType
+            EntityValueTraitsType
         };
     }
     @enddot
@@ -55,7 +52,6 @@ type.
 @see sqt::CompositeValueTraitsType
 @see sqt::EntityValueTraitsType
 @see sqt::IdentifierValueTraitsType
-@see sqt::TrivialValueTraitsType
 */
 template<typename T>
 concept ValueTraitsType = 

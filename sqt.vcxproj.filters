@@ -200,9 +200,6 @@
     <ClInclude Include="src\sqt\orm\expression\operand\value_operand_type.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operand\trivial_value_operand_type.h">
-      <Filter>src\sqt\orm\expression\operand</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h">
       <Filter>src\sqt\orm\expression\operand</Filter>
     </ClInclude>
@@ -286,12 +283,6 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\entity\no_primary_key_entity_value_traits.h">
       <Filter>src\sqt\orm\value\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\trivial\trivial_value_type.h">
-      <Filter>src\sqt\orm\value\trivial</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sqt\orm\value\trivial\trivial_value_traits_type.h">
-      <Filter>src\sqt\orm\value\trivial</Filter>
     </ClInclude>
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_type.h">
       <Filter>src\sqt\orm\value\trivial\composite</Filter>
