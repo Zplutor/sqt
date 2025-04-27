@@ -57,7 +57,7 @@ public:
     using ValueType = std::tuple<typename TRAITS::ValueType...>;
 
     /**
-    Binds a composite value to the statement beginning at the specified parameter index.
+    Binds a composite value to the statement, starting at the specified parameter index.
 
     @param statement
         The statement to which the value is bound.
@@ -87,13 +87,13 @@ public:
     }
 
     /**
-    Retrieves a composite value from the statement beginning at the specified column index.
+    Retrieves a composite value from the statement, starting at the specified column index.
 
     @param statement
         The statement from which the value is retrieved.
 
     @param column_index
-        The starting index of the column from which to retrieve the value.
+        The starting index of the columns from which to retrieve the value.
 
     @return
         The retrieved composite value.
