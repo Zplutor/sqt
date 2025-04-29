@@ -33,8 +33,26 @@ struct PrimaryKeyShim<T> {
         return table.PrimaryKey.GetColumns();
     }
 
-    static constexpr std::span<const std::size_t> GetPKColumnIndexes(const T& table) noexcept {
-        return table.PrimaryKey.GetColumnIndexes();
+    template<std::size_t INDEX>
+    static constexpr std::size_t GetColumnIndex(const T& table) noexcept {
+
+        using ColumnType = std::tuple_element_t<INDEX, typename T::PrimaryKeyType::ColumnTypes>;
+        auto column = table.template GetColumn<ColumnType>();
+        return static_cast<const ColumnType*>(column)->GetIndex();
+    }
+
+    template<std::size_t... INDEXES>
+    static constexpr auto BuildColumnIndexes(
+        const T& table, 
+        std::index_sequence<INDEXES...>) noexcept {
+
+        std::array<std::size_t, sizeof...(INDEXES)> indexes{};
+        ((indexes[INDEXES] = GetColumnIndex<INDEXES>(table)), ...);
+        return indexes;
+    }
+
+    static constexpr auto GetPKColumnIndexes(const T& table) noexcept {
+        return BuildColumnIndexes(table, std::make_index_sequence<PKColumnCount>{});
     }
 };
 

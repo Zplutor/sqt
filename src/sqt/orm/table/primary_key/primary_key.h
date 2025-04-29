@@ -12,21 +12,11 @@ class PrimaryKey : public CompositeColumn<Columns...>, public AbstractPrimaryKey
         "Primary key columns cannot be nullable.");
 
 public:
-    constexpr explicit PrimaryKey(const Columns&... columns) : 
-        column_indexes_({ columns.GetIndex()... }) {
-
-    }
-
-    constexpr std::span<const std::size_t> GetColumnIndexes() const noexcept {
-        return column_indexes_;
-    }
+    constexpr PrimaryKey() noexcept = default;
 
     AbstractColumnsView GetAbstractColumns() const noexcept override {
         return CompositeColumn<Columns...>::GetAbstractColumns();
     }
-
-private:
-    std::array<std::size_t, sizeof...(Columns)> column_indexes_;
 };
 
 

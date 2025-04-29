@@ -15,7 +15,7 @@ public: \
         } \
         __SQT_EXPRESSION_OPERATORS(PrimaryKeyType) \
     }; \
-    PrimaryKeyType PrimaryKey{ __VA_ARGS__ }; \
+    PrimaryKeyType PrimaryKey{}; \
     constexpr const sqt::AbstractPrimaryKey* GetAbstractPrimaryKey() const noexcept override { \
         return &PrimaryKey; \
     }

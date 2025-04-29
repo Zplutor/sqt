@@ -23,15 +23,15 @@ public:
     };
 };
 
-template<ColumnType COLUMN>
-class ColumnArray<COLUMN> {
+template<ColumnType SINGLE>
+class ColumnArray<SINGLE> {
 public:
-    using EntityType = typename COLUMN::EntityType;
+    using EntityType = typename SINGLE::EntityType;
 
     static constexpr std::size_t ColumnCount = 1;
 
     static constexpr std::array<const Column<EntityType>*, ColumnCount> Columns{
-        Table<EntityType>.template GetColumn<COLUMN>()
+        Table<EntityType>.template GetColumn<SINGLE>()
     };
 };
 

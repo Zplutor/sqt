@@ -47,6 +47,8 @@ public:
         }
     };
 
+    using ColumnTypes = std::tuple<FIRST, REST...>;
+
     static constexpr std::size_t ColumnCount = 1 + sizeof...(REST);
 
     static std::string BuildColumnNames() {
@@ -79,6 +81,7 @@ public:
     using ValueTraits = typename SINGLE::ValueTraits;
     using ValueType = typename SINGLE::ValueType;
     using ValueSource = typename SINGLE::ValueSource;
+    using ColumnTypes = std::tuple<SINGLE>;
 
     static constexpr std::size_t ColumnCount = 1;
 
