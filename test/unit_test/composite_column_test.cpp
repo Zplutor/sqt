@@ -32,7 +32,7 @@ TEST(CompositeColumnTest, SingleColumn) {
     static_assert(std::is_same_v<TestType::ValueType, int>);
     static_assert(sqt::CompositeColumnType<TestType>);
 
-    constexpr TestType composite{ TableV.id };
+    constexpr TestType composite{};
 
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 1);
@@ -47,10 +47,7 @@ TEST(CompositeColumnTest, TwoColumns) {
     static_assert(std::is_same_v<TestType::ValueType, std::tuple<int, std::string>>);
     static_assert(sqt::CompositeColumnType<TestType>);
 
-    constexpr TestType composite{
-        TableV.id, 
-        TableV.name,
-    };
+    constexpr TestType composite{};
 
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 2);
@@ -69,11 +66,7 @@ TEST(CompositeColumnTest, ThreeColumns) {
         std::tuple<int, std::string, int>>);
     static_assert(sqt::CompositeColumnType<TestType>);
 
-    constexpr TestType composite{
-        TableV.id,
-        TableV.name,
-        TableV.age,
-    };
+    constexpr TestType composite{};
 
     auto abstract_columns = composite.GetAbstractColumns();
     ASSERT_EQ(abstract_columns.size(), 3);

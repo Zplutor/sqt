@@ -401,5 +401,8 @@
     <ClInclude Include="src\sqt\orm\internal\utility.h">
       <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\column_array.h">
+      <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,7 +13,6 @@ class PrimaryKey : public CompositeColumn<Columns...>, public AbstractPrimaryKey
 
 public:
     constexpr explicit PrimaryKey(const Columns&... columns) : 
-        CompositeColumn<Columns...>(columns...),
         column_indexes_({ columns.GetIndex()... }) {
 
     }

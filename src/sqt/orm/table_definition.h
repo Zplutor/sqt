@@ -162,10 +162,7 @@ private: \
     template<typename... Columns> \
     class BaseIndex : public sqt::CompositeColumn<Columns...>, public IndexLinkedList::Node { \
     public: \
-        constexpr BaseIndex( \
-            const IndexLinkedList::Node*& last_index, \
-            const Columns&... columns) : \
-            sqt::CompositeColumn<Columns...>(columns...), \
+        constexpr BaseIndex(const IndexLinkedList::Node*& last_index) : \
             IndexLinkedList::Node(last_index) { } \
         sqt::AbstractColumnsView GetAbstractColumns() const noexcept override { \
             return sqt::CompositeColumn<Columns...>::GetAbstractColumns(); \

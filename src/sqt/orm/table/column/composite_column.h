@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <sqt/orm/internal/column_array.h>
 #include <sqt/orm/table/column/column.h>
 #include <sqt/orm/table/column/column_type.h>
 #include <sqt/orm/value/trivial/composite/composite_value_traits.h>
@@ -55,59 +56,50 @@ public:
     }
 
 public:
-    constexpr CompositeColumn(const FIRST& first, const REST&... rest) noexcept : 
-        columns_({ &first, &rest... }) {
-
-    }
+    constexpr CompositeColumn() noexcept = default;
 
     constexpr ColumnsView<EntityType> GetColumns() const noexcept {
-        return columns_;
+        return internal::ColumnArray<FIRST, REST...>::Columns;
     }
 
     AbstractColumnsView GetAbstractColumns() const noexcept {
+        auto columns = GetColumns();
         return {
-            reinterpret_cast<const AbstractColumn* const*>(columns_.data()),
-            columns_.size()
+            reinterpret_cast<const AbstractColumn* const*>(columns.data()),
+            columns.size()
         };
     }
-
-private:
-    std::array<const Column<EntityType>*, ColumnCount> columns_;
 };
 
 
-template<ColumnType Single>
-class CompositeColumn<Single> {
+template<ColumnType SINGLE>
+class CompositeColumn<SINGLE> {
 public:
-    using EntityType = typename Single::EntityType;
-    using ValueTraits = typename Single::ValueTraits;
-    using ValueType = typename Single::ValueType;
-    using ValueSource = typename Single::ValueSource;
+    using EntityType = typename SINGLE::EntityType;
+    using ValueTraits = typename SINGLE::ValueTraits;
+    using ValueType = typename SINGLE::ValueType;
+    using ValueSource = typename SINGLE::ValueSource;
 
     static constexpr std::size_t ColumnCount = 1;
 
     static std::string BuildColumnNames() {
-        return std::string{ Single::Name };
+        return std::string{ SINGLE::Name };
     }
 
 public:
-    constexpr explicit CompositeColumn(const Single& single) noexcept : column_(&single) {
-
-    }
+    constexpr CompositeColumn() noexcept = default;
 
     constexpr ColumnsView<EntityType> GetColumns() const noexcept {
-        return ColumnsView<EntityType>{ &column_, 1 };
+        return internal::ColumnArray<SINGLE>::Columns;
     }
 
     AbstractColumnsView GetAbstractColumns() const noexcept {
-        return AbstractColumnsView{ 
-            reinterpret_cast<const AbstractColumn* const*>(&column_), 
-            1
+        auto columns = GetColumns();
+        return {
+            reinterpret_cast<const AbstractColumn* const*>(columns.data()),
+            columns.size()
         };
     }
-
-private:
-    const Column<EntityType>* column_{};
 };
 
 }

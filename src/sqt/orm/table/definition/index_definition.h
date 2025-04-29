@@ -37,8 +37,7 @@ public: \
             return UNIQUE; \
         } \
     }; \
-    __SQT_INDEX_TYPE_NAME(__VA_ARGS__) __SQT_INDEX_NAME(__VA_ARGS__){ \
-        index_linked_list_.Last(), __VA_ARGS__ };
+    __SQT_INDEX_TYPE_NAME(__VA_ARGS__) __SQT_INDEX_NAME(__VA_ARGS__){ index_linked_list_.Last() };
 
 
 namespace sqt {

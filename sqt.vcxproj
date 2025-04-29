@@ -58,6 +58,7 @@
     <ClInclude Include="src\sqt\orm\expression\predicate_term_type.h" />
     <ClInclude Include="src\sqt\orm\expression\predicate_type.h" />
     <ClInclude Include="src\sqt\orm\internal\assignment_helper.h" />
+    <ClInclude Include="src\sqt\orm\internal\column_array.h" />
     <ClInclude Include="src\sqt\orm\internal\column_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\macro_utility.h" />
