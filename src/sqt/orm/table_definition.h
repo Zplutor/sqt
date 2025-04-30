@@ -158,18 +158,7 @@ private: \
     using ColumnLinkedList = sqt::LinkedList<sqt::Column<EntityType>>; \
     ColumnLinkedList column_linked_list_; \
     using IndexLinkedList = sqt::LinkedList<sqt::AbstractIndex>; \
-    IndexLinkedList index_linked_list_; \
-    template<typename... Columns> \
-    class BaseIndex : public sqt::CompositeColumn<Columns...>, public IndexLinkedList::Node { \
-    public: \
-        constexpr BaseIndex(const IndexLinkedList::Node*& last_index) : \
-            IndexLinkedList::Node(last_index) { } \
-        sqt::AbstractColumnsView GetAbstractColumns() const noexcept override { \
-            return sqt::CompositeColumn<Columns...>::GetAbstractColumns(); \
-        } \
-    }; \
-    template<typename... Columns> \
-    static constexpr BaseIndex<Columns...> MakeBaseIndex(const Columns&...) { }
+    IndexLinkedList index_linked_list_;
 
 
 /**
@@ -669,8 +658,13 @@ Defines an index with the specified columns.
 @see SQT_INDEX_UNIQUE
 @see sqt::CompositeColumn<>
 @see sqt::AbstractIndex
+
+@hideinitializer
 */
-#define SQT_INDEX(...) __SQT_INDEX(false, __VA_ARGS__)
+#define SQT_INDEX(...) __SQT_DEFINE_INDEX_AUTO_NAME(false, __VA_ARGS__)
+
+
+#define SQT_INDEX_NAMED(NAME, ...) __SQT_DEFINE_INDEX_CUSTOM_NAME(NAME, false, __VA_ARGS__)
 
 
 /**
@@ -698,9 +692,12 @@ Defines an unique index with the specified columns.
     @endcode
 
 @see SQT_INDEX
-*/
-#define SQT_INDEX_UNIQUE(...) __SQT_INDEX(true, __VA_ARGS__)
 
+@hideinitializer
+*/
+#define SQT_INDEX_UNIQUE(...) __SQT_DEFINE_INDEX_AUTO_NAME(true, __VA_ARGS__)
+
+#define SQT_INDEX_NAMED_UNIQUE(NAME, ...) __SQT_DEFINE_INDEX_CUSTOM_NAME(NAME, true, __VA_ARGS__)
 
 /**
 Ends the definition of a table type.

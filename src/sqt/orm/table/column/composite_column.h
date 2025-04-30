@@ -105,4 +105,10 @@ public:
     }
 };
 
+
+template<ColumnType... COLUMNS> \
+constexpr CompositeColumn<COLUMNS...> MakeCompositeColumn(const COLUMNS&...) noexcept {
+    return CompositeColumn<COLUMNS...>{};
+}
+
 }

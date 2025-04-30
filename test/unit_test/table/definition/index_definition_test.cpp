@@ -25,16 +25,29 @@ SQT_COLUMN_FIELD(id5, id5)
 SQT_COLUMN_FIELD(id6, id6)
 SQT_COLUMN_FIELD(id7, id7)
 SQT_COLUMN_FIELD(id8, id8)
+
 // One column index
 SQT_INDEX(id0)
 // Two columns index
 SQT_INDEX(id0, id1)
 // Max columns index
 SQT_INDEX(id0, id1, id2, id3, id4, id5, id6, id7)
+
 // One column unique index
 SQT_INDEX_UNIQUE(id1)
 // Two columns unique index
 SQT_INDEX_UNIQUE(id2, id3)
+
+// One column named index
+SQT_INDEX_NAMED(OneColumnNamed, id0)
+// Two columns named index
+SQT_INDEX_NAMED(TwoColumnsNamed, id0, id1);
+
+// One column named unique index
+SQT_INDEX_NAMED_UNIQUE(OneColumnNamedUnique, id1)
+// Two columns named unique index
+SQT_INDEX_NAMED_UNIQUE(TwoColumnsNamedUnique, id2, id3)
+
 SQT_TABLE_END
 }
 
@@ -45,25 +58,49 @@ TEST(IndexDefinitionTest, NonCopyableNonMovable) {
 
     using TableType = sqt::TableType<index_def_test::IndexEntity>;
 
-    // One column index
-    static_assert(!std::copyable<TableType::IndexType_id0>);
-    static_assert(!std::movable<TableType::IndexType_id0>);
+    {
+        // One column index
+        static_assert(!std::copyable<TableType::IndexType_id0>);
+        static_assert(!std::movable<TableType::IndexType_id0>);
 
-    // Two columns index
-    static_assert(!std::copyable<TableType::IndexType_id0id1>);
-    static_assert(!std::movable<TableType::IndexType_id0id1>);
+        // Two columns index
+        static_assert(!std::copyable<TableType::IndexType_id0id1>);
+        static_assert(!std::movable<TableType::IndexType_id0id1>);
 
-    // Max columns index
-    static_assert(!std::copyable<TableType::IndexType_id0id1id2id3id4id5id6id7>);
-    static_assert(!std::movable<TableType::IndexType_id0id1id2id3id4id5id6id7>);
+        // Max columns index
+        static_assert(!std::copyable<TableType::IndexType_id0id1id2id3id4id5id6id7>);
+        static_assert(!std::movable<TableType::IndexType_id0id1id2id3id4id5id6id7>);
+    }
 
-    // One column unique index
-    static_assert(!std::copyable<TableType::IndexType_id1>);
-    static_assert(!std::movable<TableType::IndexType_id1>);
+    {
+        // One column unique index
+        static_assert(!std::copyable<TableType::IndexType_id1>);
+        static_assert(!std::movable<TableType::IndexType_id1>);
 
-    // Two columns unique index
-    static_assert(!std::copyable<TableType::IndexType_id2id3>);
-    static_assert(!std::movable<TableType::IndexType_id2id3>);
+        // Two columns unique index
+        static_assert(!std::copyable<TableType::IndexType_id2id3>);
+        static_assert(!std::movable<TableType::IndexType_id2id3>);
+    }
+
+    {
+        // One column named index
+        static_assert(!std::copyable<TableType::IndexType_OneColumnNamed>);
+        static_assert(!std::movable<TableType::IndexType_OneColumnNamed>);
+
+        // Two columns named index
+        static_assert(!std::copyable<TableType::IndexType_TwoColumnsNamed>);
+        static_assert(!std::movable<TableType::IndexType_TwoColumnsNamed>);
+    }
+
+    {
+        // One column named unique index
+        static_assert(!std::copyable<TableType::IndexType_OneColumnNamedUnique>);
+        static_assert(!std::movable<TableType::IndexType_OneColumnNamedUnique>);
+
+        // Two columns named unique index
+        static_assert(!std::copyable<TableType::IndexType_TwoColumnsNamedUnique>);
+        static_assert(!std::movable<TableType::IndexType_TwoColumnsNamedUnique>);
+    }
 }
 
 
@@ -100,6 +137,24 @@ TEST(IndexDefinitionTest, GetName) {
         auto index_name = table.Index_id2id3.GetName();
         ASSERT_EQ(index_name, "IndexEntity_Index_id2id3");
     }
+
+    // Named index
+    {
+        auto index_name = table.Index_OneColumnNamed.GetName();
+        ASSERT_EQ(index_name, "OneColumnNamed");
+
+        index_name = table.Index_TwoColumnsNamed.GetName();
+        ASSERT_EQ(index_name, "TwoColumnsNamed");
+    }
+
+    // Named unique index
+    {
+        auto index_name = table.Index_OneColumnNamedUnique.GetName();
+        ASSERT_EQ(index_name, "OneColumnNamedUnique");
+
+        index_name = table.Index_TwoColumnsNamedUnique.GetName();
+        ASSERT_EQ(index_name, "TwoColumnsNamedUnique");
+    }
 }
 
 
@@ -135,6 +190,30 @@ TEST(IndexDefinitionTest, IsUnique) {
     {
         constexpr bool is_unique = table.Index_id2id3.IsUnique();
         ASSERT_TRUE(is_unique);
+    }
+
+    // Named index
+    {
+        {
+            constexpr bool is_unique = table.Index_OneColumnNamed.IsUnique();
+            ASSERT_FALSE(is_unique);
+        }
+        {
+            constexpr bool is_unique = table.Index_TwoColumnsNamed.IsUnique();
+            ASSERT_FALSE(is_unique);
+        }
+    }
+
+    // Named unique index
+    {
+        {
+            constexpr bool is_unique = table.Index_OneColumnNamedUnique.IsUnique();
+            ASSERT_TRUE(is_unique);
+        }
+        {
+            constexpr bool is_unique = table.Index_TwoColumnsNamedUnique.IsUnique();
+            ASSERT_TRUE(is_unique);
+        }
     }
 }
 
@@ -182,6 +261,36 @@ TEST(IndexDefinitionTest, GetAbstractColumns) {
     // Two columns unique index
     {
         auto columns = table.Index_id2id3.GetAbstractColumns();
+        ASSERT_EQ(columns.size(), 2);
+        ASSERT_EQ(columns[0], &table.id2);
+        ASSERT_EQ(columns[1], &table.id3);
+    }
+
+    // One column named index
+    {
+        auto columns = table.Index_OneColumnNamed.GetAbstractColumns();
+        ASSERT_EQ(columns.size(), 1);
+        ASSERT_EQ(columns[0], &table.id0);
+    }
+
+    // Two columns named index
+    {
+        auto columns = table.Index_TwoColumnsNamed.GetAbstractColumns();
+        ASSERT_EQ(columns.size(), 2);
+        ASSERT_EQ(columns[0], &table.id0);
+        ASSERT_EQ(columns[1], &table.id1);
+    }
+
+    // One column named unique index
+    {
+        auto columns = table.Index_OneColumnNamedUnique.GetAbstractColumns();
+        ASSERT_EQ(columns.size(), 1);
+        ASSERT_EQ(columns[0], &table.id1);
+    }
+
+    // Two columns named unique index
+    {
+        auto columns = table.Index_TwoColumnsNamedUnique.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 2);
         ASSERT_EQ(columns[0], &table.id2);
         ASSERT_EQ(columns[1], &table.id3);
