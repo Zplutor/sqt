@@ -64,12 +64,12 @@ TEST(IndexDefinitionTest, NonCopyableNonMovable) {
         static_assert(!std::movable<TableType::IndexType_id0>);
 
         // Two columns index
-        static_assert(!std::copyable<TableType::IndexType_id0id1>);
-        static_assert(!std::movable<TableType::IndexType_id0id1>);
+        static_assert(!std::copyable<TableType::IndexType_id0_id1>);
+        static_assert(!std::movable<TableType::IndexType_id0_id1>);
 
         // Max columns index
-        static_assert(!std::copyable<TableType::IndexType_id0id1id2id3id4id5id6id7>);
-        static_assert(!std::movable<TableType::IndexType_id0id1id2id3id4id5id6id7>);
+        static_assert(!std::copyable<TableType::IndexType_id0_id1_id2_id3_id4_id5_id6_id7>);
+        static_assert(!std::movable<TableType::IndexType_id0_id1_id2_id3_id4_id5_id6_id7>);
     }
 
     {
@@ -78,8 +78,8 @@ TEST(IndexDefinitionTest, NonCopyableNonMovable) {
         static_assert(!std::movable<TableType::IndexType_id1>);
 
         // Two columns unique index
-        static_assert(!std::copyable<TableType::IndexType_id2id3>);
-        static_assert(!std::movable<TableType::IndexType_id2id3>);
+        static_assert(!std::copyable<TableType::IndexType_id2_id3>);
+        static_assert(!std::movable<TableType::IndexType_id2_id3>);
     }
 
     {
@@ -116,14 +116,14 @@ TEST(IndexDefinitionTest, GetName) {
 
     // Two columns index
     {
-        auto index_name = table.Index_id0id1.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id0id1");
+        auto index_name = table.Index_id0_id1.GetName();
+        ASSERT_EQ(index_name, "IndexEntity_Index_id0_id1");
     }
 
     // Max columns index
     {
-        auto index_name = table.Index_id0id1id2id3id4id5id6id7.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id0id1id2id3id4id5id6id7");
+        auto index_name = table.Index_id0_id1_id2_id3_id4_id5_id6_id7.GetName();
+        ASSERT_EQ(index_name, "IndexEntity_Index_id0_id1_id2_id3_id4_id5_id6_id7");
     }
 
     // One column unique index
@@ -134,8 +134,8 @@ TEST(IndexDefinitionTest, GetName) {
 
     // Two columns unique index
     {
-        auto index_name = table.Index_id2id3.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id2id3");
+        auto index_name = table.Index_id2_id3.GetName();
+        ASSERT_EQ(index_name, "IndexEntity_Index_id2_id3");
     }
 
     // Named index
@@ -170,13 +170,13 @@ TEST(IndexDefinitionTest, IsUnique) {
 
     // Two columns index
     {
-        constexpr bool is_unique = table.Index_id0id1.IsUnique();
+        constexpr bool is_unique = table.Index_id0_id1.IsUnique();
         ASSERT_FALSE(is_unique);
     }
 
     // Max columns index
     {
-        constexpr bool is_unique = table.Index_id0id1id2id3id4id5id6id7.IsUnique();
+        constexpr bool is_unique = table.Index_id0_id1_id2_id3_id4_id5_id6_id7.IsUnique();
         ASSERT_FALSE(is_unique);
     }
 
@@ -188,7 +188,7 @@ TEST(IndexDefinitionTest, IsUnique) {
 
     // Two columns unique index
     {
-        constexpr bool is_unique = table.Index_id2id3.IsUnique();
+        constexpr bool is_unique = table.Index_id2_id3.IsUnique();
         ASSERT_TRUE(is_unique);
     }
 
@@ -231,7 +231,7 @@ TEST(IndexDefinitionTest, GetAbstractColumns) {
 
     // Two columns index
     {
-        auto columns = table.Index_id0id1.GetAbstractColumns();
+        auto columns = table.Index_id0_id1.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 2);
         ASSERT_EQ(columns[0], &table.id0);
         ASSERT_EQ(columns[1], &table.id1);
@@ -239,7 +239,7 @@ TEST(IndexDefinitionTest, GetAbstractColumns) {
 
     // Max columns index
     {
-        auto columns = table.Index_id0id1id2id3id4id5id6id7.GetAbstractColumns();
+        auto columns = table.Index_id0_id1_id2_id3_id4_id5_id6_id7.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 8);
         ASSERT_EQ(columns[0], &table.id0);
         ASSERT_EQ(columns[1], &table.id1);
@@ -260,7 +260,7 @@ TEST(IndexDefinitionTest, GetAbstractColumns) {
 
     // Two columns unique index
     {
-        auto columns = table.Index_id2id3.GetAbstractColumns();
+        auto columns = table.Index_id2_id3.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 2);
         ASSERT_EQ(columns[0], &table.id2);
         ASSERT_EQ(columns[1], &table.id3);

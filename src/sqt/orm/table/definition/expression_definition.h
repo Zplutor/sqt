@@ -10,27 +10,27 @@
 #include <sqt/orm/expression/predicate.h>
 #include <sqt/orm/value/identifier/identifier_value_traits.h>
 
-#define SQT_PREDICATE_OPERATOR(OP_LITERAL, OP_VALUE, COLUMN_TYPE) \
-friend constexpr auto operator##OP_LITERAL( \
+#define SQT_PREDICATE_OPERATOR(OPERATOR, OP_VALUE, COLUMN_TYPE) \
+friend constexpr auto OPERATOR( \
     const COLUMN_TYPE& column, \
     const typename COLUMN_TYPE::ValueType& value) { \
     using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
     using RHS = sqt::ConstantOperand<typename COLUMN_TYPE::ValueTraits>; \
     return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{ value } }; \
 } \
-friend constexpr auto operator##OP_LITERAL( \
+friend constexpr auto OPERATOR( \
     const typename COLUMN_TYPE::ValueType& value, \
     const COLUMN_TYPE& column) { \
     using LHS = sqt::ConstantOperand<typename COLUMN_TYPE::ValueTraits>; \
     using RHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
     return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{ value }, RHS{} }; \
 } \
-friend constexpr auto operator##OP_LITERAL(const COLUMN_TYPE& column, sqt::Placeholder) { \
+friend constexpr auto OPERATOR(const COLUMN_TYPE& column, sqt::Placeholder) { \
     using LHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
     using RHS = sqt::PlaceholderOperand<sqt::IdentifierValueTraits<COLUMN_TYPE>>; \
     return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{} }; \
 } \
-friend constexpr auto operator##OP_LITERAL(sqt::Placeholder, const COLUMN_TYPE& column) { \
+friend constexpr auto OPERATOR(sqt::Placeholder, const COLUMN_TYPE& column) { \
     using LHS = sqt::PlaceholderOperand<sqt::IdentifierValueTraits<COLUMN_TYPE>>; \
     using RHS = sqt::IdentifierOperand<COLUMN_TYPE>; \
     return sqt::Predicate<sqt::PredicateOperator::OP_VALUE, LHS, RHS>{ LHS{}, RHS{} }; \
@@ -54,9 +54,9 @@ constexpr auto operator=(sqt::Placeholder) const { \
     using RHS = sqt::PlaceholderOperand<sqt::IdentifierValueTraits<COLUMN_TYPE>>; \
     return sqt::Assignment<LHS, RHS>{ RHS{} }; \
 } \
-SQT_PREDICATE_OPERATOR(==, Equal, COLUMN_TYPE) \
-SQT_PREDICATE_OPERATOR(!=, NotEqual, COLUMN_TYPE) \
-SQT_PREDICATE_OPERATOR(<, Less, COLUMN_TYPE) \
-SQT_PREDICATE_OPERATOR(<=, LessEqual, COLUMN_TYPE) \
-SQT_PREDICATE_OPERATOR(>, Greater, COLUMN_TYPE) \
-SQT_PREDICATE_OPERATOR(>=, GreaterEqual, COLUMN_TYPE)
+SQT_PREDICATE_OPERATOR(operator==, Equal, COLUMN_TYPE) \
+SQT_PREDICATE_OPERATOR(operator!=, NotEqual, COLUMN_TYPE) \
+SQT_PREDICATE_OPERATOR(operator<, Less, COLUMN_TYPE) \
+SQT_PREDICATE_OPERATOR(operator<=, LessEqual, COLUMN_TYPE) \
+SQT_PREDICATE_OPERATOR(operator>, Greater, COLUMN_TYPE) \
+SQT_PREDICATE_OPERATOR(operator>=, GreaterEqual, COLUMN_TYPE)
