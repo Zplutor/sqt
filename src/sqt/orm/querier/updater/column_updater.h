@@ -40,7 +40,7 @@ public:
         return sql;
     }
 
-    static auto BuildPlaceholderBinders() noexcept {
+    static constexpr auto BuildPlaceholderBinders() noexcept {
         int index = ParameterIndex;
         return std::tuple_cat(ASSIGNMENT::BuildPlaceholderBinders(index++)...);
     }

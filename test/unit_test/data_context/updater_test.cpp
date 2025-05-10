@@ -88,6 +88,22 @@ TEST_F(UpdaterTest, ColumnUpdater_OneColumn) {
 }
 
 
+TEST_F(UpdaterTest, ColumnUpdater_OnePlaceholder) {
+
+    constexpr auto updater = NoPKContext::MakeUpdater(NoPKTable.ID = sqt::_);
+
+    auto executor = GetNoPKContext().Prepare(updater);
+    executor.BeginBindings().Bind(10);
+    executor.Execute();
+
+    ASSERT_TRUE(CheckData({
+        test_entities::EntityNoPK{ 10, "1" },
+        test_entities::EntityNoPK{ 10, "2" },
+        test_entities::EntityNoPK{ 10, "3" },
+    }));
+}
+
+
 TEST_F(UpdaterTest, ColumnUpdater_TwoColumns) {
 
     auto updater = NoPKContext::MakeUpdater(NoPKTable.ID = 8, NoPKTable.Name = "name8");
@@ -99,6 +115,24 @@ TEST_F(UpdaterTest, ColumnUpdater_TwoColumns) {
         test_entities::EntityNoPK{ 8, "name8" },
         test_entities::EntityNoPK{ 8, "name8" },
         test_entities::EntityNoPK{ 8, "name8" },
+    }));
+}
+
+
+TEST_F(UpdaterTest, ColumnUpdater_TwoPlaceholders) {
+
+    constexpr auto updater = NoPKContext::MakeUpdater(
+        NoPKTable.ID = sqt::_, 
+        NoPKTable.Name = sqt::_);
+
+    auto executor = GetNoPKContext().Prepare(updater);
+    executor.BeginBindings().Bind(10).Bind("name10");
+    executor.Execute();
+
+    ASSERT_TRUE(CheckData({
+        test_entities::EntityNoPK{ 10, "name10" },
+        test_entities::EntityNoPK{ 10, "name10" },
+        test_entities::EntityNoPK{ 10, "name10" },
     }));
 }
 
