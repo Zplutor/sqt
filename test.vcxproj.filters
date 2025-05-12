@@ -34,11 +34,20 @@
     <Filter Include="test\unit_test\executor">
       <UniqueIdentifier>{18fef06f-607b-4c2b-ab95-988785fc8111}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{b1d1262c-0e9e-4653-b7b9-a718a76fe4ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\googletest">
+      <UniqueIdentifier>{26c222ee-a0d0-475a-9278-7b2792b3bc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\googletest\googletest">
+      <UniqueIdentifier>{165264c4-c482-426c-ba1b-cf175e00b23a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\googletest\googletest\src">
+      <UniqueIdentifier>{72760bfb-c224-4602-a7b9-91768a237e27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test\main.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
     <ClCompile Include="test\unit_test\composite_column_test.cpp">
       <Filter>test\unit_test</Filter>
     </ClCompile>
@@ -123,9 +132,12 @@
     <ClCompile Include="test\unit_test\executor\iterator_test.cpp">
       <Filter>test\unit_test\executor</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClCompile Include="third_party\googletest\googletest\src\gtest_main.cc">
+      <Filter>third_party\googletest\googletest\src</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\googletest\googletest\src\gtest-all.cc">
+      <Filter>third_party\googletest\googletest\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test\unit_test\data_context_test_fixture.h">
