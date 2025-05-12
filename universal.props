@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(SolutionDir)sqlite;$(SolutionDir)src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)third_party\sqlite;$(SolutionDir)src;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)build\out\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\int\$(Platform)\$(Configuration)\$(ShortProjectName)\</IntDir>
   </PropertyGroup>

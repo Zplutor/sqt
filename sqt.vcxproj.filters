@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{c9725714-7931-48d9-ad2a-bc0c167feed5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sqlite">
-      <UniqueIdentifier>{5bca8af7-537d-4486-9c25-13f7aaebfa3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sqt">
       <UniqueIdentifier>{aed0e198-da26-44c6-b978-b8ddfeadbb5f}</UniqueIdentifier>
     </Filter>
@@ -79,11 +76,14 @@
     <Filter Include="src\sqt\orm\table\primary_key">
       <UniqueIdentifier>{719ca51f-0a5e-44a7-b25d-e9d1a88bb0d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{85103f3d-d67e-4252-9518-e3afd7888caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\sqlite">
+      <UniqueIdentifier>{b4c60426-5e61-41fe-a19a-756c2163d4d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sqlite\sqlite3.c">
-      <Filter>sqlite</Filter>
-    </ClCompile>
     <ClCompile Include="src\sqt\foundation\data_type.cpp">
       <Filter>src\sqt\foundation</Filter>
     </ClCompile>
@@ -102,11 +102,11 @@
     <ClCompile Include="src\sqt\orm\internal\utility.cpp">
       <Filter>src\sqt\orm\internal</Filter>
     </ClCompile>
+    <ClCompile Include="third_party\sqlite\sqlite3.c">
+      <Filter>third_party\sqlite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sqlite\sqlite3.h">
-      <Filter>sqlite</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\table_definition.h">
       <Filter>src\sqt\orm</Filter>
     </ClInclude>
@@ -403,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\internal\column_array.h">
       <Filter>src\sqt\orm\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\sqlite\sqlite3.h">
+      <Filter>third_party\sqlite</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,16 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="src\sqt\foundation\database.cpp" />
     <ClCompile Include="src\sqt\foundation\data_type.cpp" />
     <ClCompile Include="src\sqt\foundation\statement.cpp" />
     <ClCompile Include="src\sqt\foundation\transaction.cpp" />
     <ClCompile Include="src\sqt\orm\internal\table_initializer.cpp" />
     <ClCompile Include="src\sqt\orm\internal\utility.cpp" />
+    <ClCompile Include="third_party\sqlite\sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="src\sqt\foundation\database.h" />
     <ClInclude Include="src\sqt\foundation\data_type.h" />
     <ClInclude Include="src\sqt\foundation\index_info.h" />
@@ -128,6 +127,7 @@
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_traits_type.h" />
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_type.h" />
     <ClInclude Include="src\sqt\orm\value\value_traits_type.h" />
+    <ClInclude Include="third_party\sqlite\sqlite3.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
