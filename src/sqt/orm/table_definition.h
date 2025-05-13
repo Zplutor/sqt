@@ -44,6 +44,8 @@ Begins the definition of a table type for the specified entity type.
     - Defining indexes:
         - `SQT_INDEX`
         - `SQT_INDEX_UNIQUE`
+        - `SQT_INDEX_NAMED`
+        - `SQT_INDEX_NAMED_UNIQUE`
 
     This macro can be used in any namespace, including the anonymous namespace. If the entity type 
     is defined in a different namespace, `ENTITY_TYPE` must be prefixed with its namespace to 

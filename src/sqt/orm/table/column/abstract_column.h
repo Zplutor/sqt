@@ -15,7 +15,7 @@ An interface that provides access to information about a column of a table.
 
 @details
     This interface is implemented by all column types defined using the `SQT_COLUMN_FIELD`,
-    `SQT_COLUMN_ACCESSOR` or `SQT_COLUMN_CUSTOM` macros. It allows the way to interact with column 
+    `SQT_COLUMN_ACCESSOR` and `SQT_COLUMN_CUSTOM` macros. It allows the way to interact with column 
     definitions in a non-template manner.
 
 @see SQT_COLUMN_FIELD
