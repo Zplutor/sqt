@@ -5,6 +5,9 @@
     Defines the `sqt::Result<>` class template.
 */
 
+#include <deque>
+#include <list>
+#include <vector>
 #include <sqt/orm/executor/iterator.h>
 #include <sqt/orm/querier/selecter/selecter_type.h>
 
@@ -120,6 +123,88 @@ public:
     */
     const_iterator cend() const noexcept {
         return end();
+    }
+
+    /**
+    Converts all result elements to a `std::vector`.
+
+    @return
+        A `std::vector` contains all result elements.
+
+    @throw sqt::SQLError
+        Thrown if the iteration over the result fails.
+
+    @details
+        This method is a shorthand for iterating over all elements in the result and storing them 
+        in a `std::vector`.
+
+        @warning
+        The result instance is consumed after the conversion and cannot be used again.
+
+    @see sqt::Result<>::begin()
+    @see sqt::Result<>::ToDeque()
+    @see sqt::Result<>::ToList()
+    */
+    std::vector<value_type> ToVector() const {
+        return To<std::vector<value_type>>();
+    }
+
+    /**
+    Converts all result elements to a `std::list`.
+
+    @return
+        A `std::list` contains all result elements.
+
+    @throw sqt::SQLError
+        Thrown if the iteration over the result fails.
+
+    @details
+        This method is a shorthand for iterating over all elements in the result and storing them
+        in a `std::list`.
+
+        @warning
+        The result instance is consumed after the conversion and cannot be used again.
+
+    @see sqt::Result<>::begin()
+    @see sqt::Result<>::ToDeque()
+    @see sqt::Result<>::ToVector()
+    */
+    std::list<value_type> ToList() const {
+        return To<std::list<value_type>>();
+    }
+
+    /**
+    Converts all result elements to a `std::deque`.
+
+    @return
+        A `std::deque` contains all result elements.
+
+    @throw sqt::SQLError
+        Thrown if the iteration over the result fails.
+
+    @details
+        This method is a shorthand for iterating over all elements in the result and storing them
+        in a `std::deque`.
+
+        @warning
+        The result instance is consumed after the conversion and cannot be used again.
+
+    @see sqt::Result<>::begin()
+    @see sqt::Result<>::ToList()
+    @see sqt::Result<>::ToVector()
+    */
+    std::deque<value_type> ToDeque() const {
+        return To<std::deque<value_type>>();
+    }
+
+private:
+    template<typename CONTAINER>
+    CONTAINER To() const {
+        CONTAINER result;
+        for (auto&& each_value : *this) {
+            result.push_back(std::move(each_value));
+        }
+        return result;
     }
 
 private:
