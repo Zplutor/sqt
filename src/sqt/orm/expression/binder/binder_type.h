@@ -25,6 +25,7 @@ placeholder of an executor.
     The `sqt::Binder<>` class template satisfies this concept.
 
 @see sqt::Binder<>
+@see sqt::ValueTraitsType
 */
 template<typename T>
 concept BinderType = requires {

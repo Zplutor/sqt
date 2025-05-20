@@ -22,8 +22,8 @@ Provides information for binding values to a placeholder of an executor.
 
     This class template satisfies the `sqt::BinderType` concept.
    
-@see
-    sqt::BinderType
+@see sqt::BinderChain<>
+@see sqt::BinderType
 */
 template<ValueTraitsType TRAITS>
 class Binder {
