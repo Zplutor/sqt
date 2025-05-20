@@ -9,7 +9,7 @@
 #include <tuple>
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/binder/binder_type.h>
-#include <sqt/orm/value/identifier/identifier_value_traits_type.h>
+#include <sqt/orm/expression/binder/identifier_binder_type.h>
 
 namespace sqt {
 
@@ -141,18 +141,18 @@ public:
         specified entity. It provides more convenience for binding values directly from entities
         without the need to extract the values manually.
 
-        This method is available only if the first binder's value traits type satisfies the
-        `sqt::IdentifierValueTraitsType` concept.
+        This method is available only if the first binder satisfies the `sqt::IdentifierBinderType`
+        concept.
 
     @see sqt::BinderChain<FIRST, REST...>::Bind()
     @see sqt::BinderType
-    @see sqt::IdentifierValueTraitsType
+    @see sqt::IdentifierBinderType
     */
-    template<typename TRAITS = FIRST::ValueTraits> requires IdentifierValueTraitsType<TRAITS>
-    auto BindFromEntity(const typename TRAITS::EntityType& entity) const {
+    template<typename BINDER = FIRST> requires IdentifierBinderType<BINDER>
+    auto BindFromEntity(const typename BINDER::ValueTraits::EntityType& entity) const {
 
         const auto& binder = std::get<0>(binders_);
-        TRAITS::BindValueFromEntity(statement_, binder.Index(), entity);
+        BINDER::ValueTraits::BindValueFromEntity(statement_, binder.Index(), entity);
 
         return MakeNextChain();
     }
