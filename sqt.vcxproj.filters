@@ -410,5 +410,8 @@
     <ClInclude Include="src\sqt\orm\expression\binder\identifier_binder_type.h">
       <Filter>src\sqt\orm\expression\binder</Filter>
     </ClInclude>
+    <ClInclude Include="src\sqt\orm\expression\binder\identifier_binder_tuple_type.h">
+      <Filter>src\sqt\orm\expression\binder</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

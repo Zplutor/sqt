@@ -9,6 +9,7 @@
 #include <tuple>
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/binder/binder_type.h>
+#include <sqt/orm/expression/binder/identifier_binder_tuple_type.h>
 #include <sqt/orm/expression/binder/identifier_binder_type.h>
 
 namespace sqt {
@@ -145,6 +146,7 @@ public:
         concept.
 
     @see sqt::BinderChain<FIRST, REST...>::Bind()
+    @see sqt::BinderChain<FIRST, REST...>::BindAllFromEntity()
     @see sqt::BinderType
     @see sqt::IdentifierBinderType
     */
@@ -155,6 +157,37 @@ public:
         BINDER::ValueTraits::BindValueFromEntity(statement_, binder.Index(), entity);
 
         return MakeNextChain();
+    }
+
+    /**
+    Binds values extracted from an entity to all binders in the chain.
+
+    @param entity
+        The entity from which the values will be extracted.
+
+    @details
+        This method provides a convenient way to bind values to all binders if they are all from
+        the same entity.
+
+        This method is available only if all binders satisfy the `sqt::IdentifierBinderType` 
+        concept.
+
+    @see sqt::IdentifierBinderType
+    */
+    template<typename TUPLE = std::tuple<FIRST, REST...>> requires IdentifierBinderTupleType<TUPLE>
+    void BindAllFromEntity(const typename FIRST::ValueTraits::EntityType& entity) const {
+
+        auto bind_value_from_entity = [this, &entity](const auto& binder) {
+            using BinderType = std::decay_t<decltype(binder)>;
+            using ValueTraits = typename BinderType::ValueTraits;
+            ValueTraits::BindValueFromEntity(statement_, binder.Index(), entity);
+        };
+
+        std::apply(
+            [&bind_value_from_entity](const auto&... binder) {
+                (bind_value_from_entity(binder), ...);
+            },
+            binders_);
     }
 
 private:

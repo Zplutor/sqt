@@ -20,6 +20,7 @@ Constrains a type to be a binder type that associated with an identifier type.
       concept.
 
 @see sqt::BinderType
+@see sqt::IdentifierValueTraitsType
 */
 template<typename T>
 concept IdentifierBinderType = 

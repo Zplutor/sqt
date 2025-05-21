@@ -46,6 +46,12 @@
     <Filter Include="third_party\googletest\googletest\src">
       <UniqueIdentifier>{72760bfb-c224-4602-a7b9-91768a237e27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test\unit_test\expression">
+      <UniqueIdentifier>{d0b56f61-f03b-4ec7-a757-67a7f3a7657d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\unit_test\expression\binder">
+      <UniqueIdentifier>{8cf87e8a-270a-438a-bfd4-178f5dcf9478}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test\unit_test\composite_column_test.cpp">
@@ -140,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="test\unit_test\executor\result_test.cpp">
       <Filter>test\unit_test\executor</Filter>
+    </ClCompile>
+    <ClCompile Include="test\unit_test\expression\binder\binder_chain_test.cpp">
+      <Filter>test\unit_test\expression\binder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
