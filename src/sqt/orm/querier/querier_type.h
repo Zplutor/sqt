@@ -61,15 +61,15 @@ Constrains a type to be a querier type, which corresponds to a SQL statement tha
     SELECT id, name FROM MyEntity;
     @endcode
 
-    Decorated queriers add additional clauses to the SQL statement. They are created by decorative 
-    methods of queriers (either primary queriers or decorated queriers). For instance:
+    Querier decorators add additional clauses to the SQL statement. They are created by decorative 
+    methods of queriers (either primary queriers or querier decorators). For instance:
     @code{.cpp}
     constexpr auto selecter = sqt::DataContext<MyEntity>::MakeSelecter()
         .Where(sqt::Table<MyEntity>.name != "Unknown")
         .OrderBy(sqt::Table<MyEntity>.id.Desc());
     @endcode
 
-    The above code creates a decorated selecter in chain fashion. The selecter corresponds to the 
+    The above code creates a selecter decorator in chain fashion. The decorator corresponds to the 
     following SQL statement:
     @code{.sql}
     SELECT id, name FROM MyEntity WHERE name <> "Unknown" ORDER BY id DESC;

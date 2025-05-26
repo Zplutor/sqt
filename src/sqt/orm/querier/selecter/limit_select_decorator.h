@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::LimitSelectDecorator` class template.
+*/
+
 #include <format>
 #include <string>
 #include <string_view>
@@ -8,6 +13,27 @@
 
 namespace sqt {
 
+/**
+A selecter decorator that adds a limit clause to the SQL statement of the decorated selecter.
+
+@tparam SELECTER
+    The selecter type to be decorated, which must satisfy the `sqt::SelecterType` concept.
+
+@tparam OPERAND
+    The operand type that provides the limit value, which must satisfy the `sqt::ValueOperandType`
+    concept.
+
+@details
+    To create instances of this class template, use the `Limit()` method of the 
+    `sqt::LimitSelectCapability<>` class template, which is a mixin for selecters that supports the
+    limit clause.
+
+    This class template satisfies the `sqt::SelecterType` concept.
+
+@see sqt::LimitSelectCapability<>
+@see sqt::SelecterType
+@see sqt::ValueOperandType
+*/
 template<SelecterType SELECTER, ValueOperandType OPERAND>
 class LimitSelectDecorator {
 public:
