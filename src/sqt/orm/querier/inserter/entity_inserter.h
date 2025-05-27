@@ -25,8 +25,8 @@ A primary inserter that inserts entities into the table.
     `sqt::EntityValueOperandType` concept.
 
 @details
-    This primary inserter inserts entities into the table. Columns to be inserted are specified by
-    the `VALUE_OPERAND` type.
+    This primary inserter inserts entities into the table. The columns to be inserted are specified
+    by the `VALUE_OPERAND` type.
 
     To create instances of this inserter, use the `sqt::DataContext::MakeInserter()` method.
 

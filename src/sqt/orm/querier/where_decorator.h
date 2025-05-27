@@ -25,11 +25,10 @@ A querier decorator that adds a `WHERE` clause to the SQL statement of the decor
     `sqt::WhereCapability<>` class template, which is a mixin for queriers that support the 
     `WHERE` clause.
 
-    This class template satisfies the `sqt::SelecterType` concept.
+    This class template satisfies the `sqt::QuerierType` concept.
 
 @see sqt::PredicateType
 @see sqt::QuerierType
-@see sqt::SelecterType
 @see sqt::WhereCapability<>
 */
 template<QuerierType QUERIER, PredicateType PREDICATE>

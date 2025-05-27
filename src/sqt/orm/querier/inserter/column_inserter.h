@@ -26,8 +26,8 @@ A primary inserter that inserts values to specific columns in the table.
     the `sqt::AssignmentType` concept.
 
 @details
-    This primary inserter inserts values to specific columns in the table. Columns to be inserted
-    are specified by the `ASSIGNMENTS` types.
+    This primary inserter inserts values to specific columns in the table. The columns to be 
+    inserted are specified by the `ASSIGNMENTS` types.
 
     To create instances of this inserter, use the 
     `sqt::DataContext::MakeInserter(ASSIGNMENTS&&... assignments)` method.
