@@ -18,10 +18,10 @@ A primary selecter that selects specific columns from the table.
     The column types to be selected. Each column type must satisfy the `sqt::ColumnType` concept.
 
 @details
-    This class template defines a primary selecter that selects specific columns from the table and
-    returns them as a composite value type (a `std::tuple<>` of the selected columns' value types).
+    This primary selecter selects specific columns from the table without any clauses and returns 
+    them as a composite value type (a `std::tuple<>` of the selected columns' value types).
 
-    To create an instance of this selecter, use the 
+    To create instances of this selecter, use the 
     `sqt::DataContext::MakeSelecter(const COLUMNS&...)` method.
 
     This class template satisfies the `sqt::SelecterType` concept.

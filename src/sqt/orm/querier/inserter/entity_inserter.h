@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::EntityInserter<>` class template.
+*/
+
 #include <tuple>
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/operand/entity_value_operand_type.h>
@@ -9,6 +14,29 @@
 
 namespace sqt {
 
+/**
+A primary inserter that inserts entities into the table.
+
+@tparam CONFLICT_ACTION
+    The conflict action to be used when a unique constraint violation occurs.
+
+@tparam VALUE_OPERAND
+    The value operand type that the inserter uses for insertion. It must satisfy the 
+    `sqt::EntityValueOperandType` concept.
+
+@details
+    This primary inserter inserts entities into the table. Columns to be inserted are specified by
+    the `VALUE_OPERAND` type.
+
+    To create instances of this inserter, use the `sqt::DataContext::MakeInserter()` method.
+
+    This class template satisfies the `sqt::QuerierType` concept.
+
+@see sqt::ConflictAction
+@see sqt::DataContext<>::MakeInserter()
+@see sqt::EntityValueOperandType
+@see sqt::QuerierType
+*/
 template<ConflictAction CONFLICT_ACTION, EntityValueOperandType VALUE_OPERAND>
 class EntityInserter {
 public:

@@ -20,10 +20,10 @@ A primary selecter that selects the entire entity from the table.
     The entity type that the selecter selects. It must satisfy the `sqt::EntityValueType` concept.
 
 @details
-    This class template defines a primary selecter that selects all columns from the table and 
-    returns them as entity instances.
+    This primary selecter selects all columns from the table without any clauses and returns them 
+    as entity instances.
 
-    To create an instance of this selecter, use the `sqt::DataContext::MakeSelecter()` method.
+    To create instances of this selecter, use the `sqt::DataContext::MakeSelecter()` method.
 
     This class template satisfies the `sqt::SelecterType` concept.
     
