@@ -14,7 +14,7 @@
 namespace sqt {
 
 /**
-A selecter decorator that adds a limit clause to the SQL statement of the decorated selecter.
+A selecter decorator that adds a `LIMIT` clause to the SQL statement of the decorated selecter.
 
 @tparam SELECTER
     The selecter type to be decorated, which must satisfy the `sqt::SelecterType` concept.
@@ -25,7 +25,7 @@ A selecter decorator that adds a limit clause to the SQL statement of the decora
 
 @details
     To create instances of this class template, use the `Limit()` method of the 
-    `sqt::LimitSelectCapability<>` class template, which is a mixin for selecters that supports the
+    `sqt::LimitSelectCapability<>` class template, which is a mixin for selecters that support the
     limit clause.
 
     This class template satisfies the `sqt::SelecterType` concept.

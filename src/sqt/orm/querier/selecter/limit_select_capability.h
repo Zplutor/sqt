@@ -14,7 +14,7 @@
 namespace sqt {
 
 /**
-A mixin class template that provides the capability to add a limit clause to a selecter.
+A mixin class template that provides the capability to add a `LIMIT` clause to a selecter.
 
 @tparam SELECTER
     The selecter type that the mixin is applied to. It must satisfy the `sqt::SelecterType` 
@@ -22,7 +22,7 @@ A mixin class template that provides the capability to add a limit clause to a s
 
 @details
     This class template provides the `Limit()` methods to the specified selecter type, which create
-    instances of `sqt::LimitSelectDecorator<>` that adds a limit clause to the SQL statement.
+    instances of `sqt::LimitSelectDecorator<>` that adds a `LIMIT` clause to the SQL statement.
 
 @see sqt::LimitSelectDecorator<>
 @see sqt::SelecterType

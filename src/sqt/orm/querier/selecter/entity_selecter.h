@@ -14,7 +14,7 @@
 namespace sqt {
 
 /**
-The primary selecter that selects the entire entity from the table.
+A primary selecter that selects the entire entity from the table.
 
 @tparam ENTITY
     The entity type that the selecter selects. It must satisfy the `sqt::EntityValueType` concept.

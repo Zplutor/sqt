@@ -12,7 +12,7 @@
 namespace sqt {
 
 /**
-The primary selecter that selects specific columns from the table.
+A primary selecter that selects specific columns from the table.
 
 @tparam COLUMNS...
     The column types to be selected. Each column type must satisfy the `sqt::ColumnType` concept.

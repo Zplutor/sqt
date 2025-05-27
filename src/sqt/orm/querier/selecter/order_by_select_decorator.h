@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::OrderBySelectDecorator<>` class template.
+*/
+
 #include <format>
 #include <sqt/orm/expression/ordering_term_type.h>
 #include <sqt/orm/querier/selecter/limit_select_capability.h>
@@ -7,9 +12,30 @@
 
 namespace sqt {
 
-template<SelecterType SELECTER, OrderingTermType... TERM>
+/**
+A selecter decorator that adds an `ORDER BY` clause to the SQL statement of the decorated selecter.
+
+@tparam SELECTER
+    The selecter type to be decorated, which must satisfy the `sqt::SelecterType` concept.
+
+@tparam TERMS
+    The ordering term types to be applied in the `ORDER BY` clause. Each type must satisfy the
+    `sqt::OrderingTermType` concept.
+
+@details
+    To create instances of this class template, use the `OrderBy()` method of the
+    `sqt::OrderBySelectCapability<>` class template, which is a mixin for selecters that support
+    the order by clause.
+
+    This class template satisfies the `sqt::SelecterType` concept.
+
+@see sqt::OrderBySelectCapability<>
+@see sqt::OrderingTermType
+@see sqt::SelecterType
+*/
+template<SelecterType SELECTER, OrderingTermType... TERMS>
 class OrderBySelectDecorator : 
-    public LimitSelectCapability<OrderBySelectDecorator<SELECTER, TERM...>> {
+    public LimitSelectCapability<OrderBySelectDecorator<SELECTER, TERMS...>> {
 
 public:
     using ResultElementType = SELECTER::ResultElementType;
@@ -31,7 +57,7 @@ public:
                 order_by_clause += sql;
                 ++index;
             };
-            (build_order_by_clause(TERM::BuildSQL()), ...);
+            (build_order_by_clause(TERMS::BuildSQL()), ...);
 
             return std::format("{} order by {}", SELECTER::BuildSQL(), order_by_clause);
         }();
