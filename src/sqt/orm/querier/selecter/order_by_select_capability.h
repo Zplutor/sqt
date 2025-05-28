@@ -40,26 +40,6 @@ public:
     @return
         A `sqt::OrderBySelectDecorator<>` instance.
 
-    @details
-        To create ordering terms, use the `Asc()` and `Desc()` method of columns. The following 
-        code demonstrates how to use the `OrderBy()` method:
-        @code{.cpp}
-        struct Entity {
-            int id{};
-            std::string name;
-        };
-        SQT_TABLE_BEGIN(Entity, Entity)
-        SQT_COLUMN_FIELD(Id, id)
-        SQT_COLUMN_FIELD(Name, name)
-        SQT_TABLE_END
-
-        constexpr auto& table = sqt::Table<Entity>;
-
-        auto selecter = sqt::DataContext<Entity>::MakeSelecter().OrderBy(
-            table.Id.Asc(), 
-            table.Name.Desc());
-        @endcode
-
     @see sqt::OrderBySelectDecorator<>
     @see sqt::OrderingTermType
     */

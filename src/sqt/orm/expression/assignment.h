@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+@file 
+    Defines the `sqt::Assignment<>` class template.
+*/
+
 #include <format>
 #include <sqt/orm/expression/assignment_operator.h>
 #include <sqt/orm/expression/operand/identifier_operand_type.h>
@@ -7,6 +12,22 @@
 
 namespace sqt {
 
+/**
+Represents an assignment of a value to an identifier.
+
+@tparam IDENTIFIER
+    The identifier operand type, which must satisfy the `sqt::IdentifierOperandType` concept.
+
+@tparam VALUE
+    The value operand type, which must satisfy the `sqt::ValueOperandType` concept.
+
+@details
+    This class template satisfies the `sqt::AssignmentType` concept.
+
+@see sqt::AssignmentType
+@see sqt::IdentifierOperandType
+@see sqt::ValueOperandType
+*/
 template<IdentifierOperandType IDENTIFIER, ValueOperandType VALUE>
 class Assignment {
 public:
@@ -26,7 +47,7 @@ public:
     }
 
 public:
-    constexpr explicit Assignment(VALUE value) : value_(std::move(value)) {
+    constexpr explicit Assignment(VALUE value) noexcept : value_(std::move(value)) {
 
     }
 

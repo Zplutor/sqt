@@ -37,7 +37,7 @@ Constrains a type to be an assignment type, which associates an identifier with 
     SQT_TABLE_END
     @endcode
 
-    Example of creating an inserter with assignments:
+    Examples of creating an inserter with assignments:
     @code{.cpp}
     // Inserter with assignments of columns, using inline values.
     auto inserter = sqt::DataContext<MyEntity>::MakeInserter(
@@ -53,10 +53,13 @@ Constrains a type to be an assignment type, which associates an identifier with 
 
     //Inserter with assignment of an index, which uses a composite value.
     auto inserter = sqt::DataContext<MyEntity>::MakeInserter(
-        sqt::Table<MyEntity>::Index_idname = std::make_tuple(1, "The Name")
+        sqt::Table<MyEntity>::Index_id_name = std::make_tuple(1, "The Name")
     );
     @endcode
 
+    The `sqt::Assignment<>` class template satisfies this concept.
+
+@see sqt::Assignment<>
 @see sqt::AssignmentOperator
 @see sqt::ExpressionLike
 */
