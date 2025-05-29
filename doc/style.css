@@ -2463,3 +2463,7 @@ details[open]>summary::before {
         background-color: var(--scrollbar-background-color);
 }
 
+#nav-tree .label {
+	font-size: 14px;
+	line-height: 24px;
+}
