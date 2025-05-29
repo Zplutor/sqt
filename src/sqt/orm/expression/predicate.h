@@ -1,11 +1,37 @@
 #pragma once
 
+/**
+@file
+    Defines the `sqt::Predicate<>` class template.
+*/
+
 #include <format>
 #include <sqt/orm/expression/predicate_operator.h>
 #include <sqt/orm/expression/predicate_term_type.h>
 
 namespace sqt {
 
+/**
+Represents a predicate that combines two operands with an operator.
+
+@tparam OPERATOR
+    The operator to use for the predicate.
+
+@tparam LHS
+    The left-hand side operand of the predicate, which must satisfy the `sqt::PredicateTermType` 
+    concept.
+
+@tparam RHS
+    The right-hand side operand of the predicate, which must satisfy the `sqt::PredicateTermType` 
+    concept.
+
+@details
+    This class template satisfies the `sqt::PredicateType` concept.
+
+@see sqt::PredicateOperator
+@see sqt::PredicateType
+@see sqt::PredicateTermType
+*/
 template<PredicateOperator OPERATOR, PredicateTermType LHS, PredicateTermType RHS>
 class Predicate {
 public:
@@ -20,7 +46,7 @@ public:
         return std::format(
             "({}){}({})",
             LHS::BuildSQL(),
-            ConvertPredicateOperatorToString(OPERATOR),
+            PredicateOperatorEnum::ToString(OPERATOR),
             RHS::BuildSQL());
     }
 

@@ -1,11 +1,33 @@
 #pragma once
 
+/**
+@file 
+    Defines the `sqt::OrderingTerm<>` class template.
+*/
+
 #include <sqt/foundation/statement.h>
 #include <sqt/orm/expression/operand/identifier_operand_type.h>
 #include <sqt/orm/expression/ordering.h>
 
 namespace sqt {
 
+/**
+Represents an ordering term used in the `ORDER BY` clause.
+
+@tparam ORDERING
+    The ordering direction.
+
+@tparam OPERAND
+    The identifier operand type used to sort, which must satisfy the `sqt::IdentifierOperandType` 
+    concept.
+
+@details
+    This class template satisfies the `sqt::OrderingTermType` concept.
+
+@see sqt::IdentifierOperandType
+@see sqt::Ordering
+@see sqt::OrderingTermType
+*/
 template<Ordering ORDERING, IdentifierOperandType OPERAND>
 class OrderingTerm {
 public:

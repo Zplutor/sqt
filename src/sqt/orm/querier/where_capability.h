@@ -45,25 +45,6 @@ public:
         A `DECORATOR` instance. It will be a `sqt::WhereDecorator<>` for non-selecters, or a
         `sqt::WhereSelectDecorator<>` for selecters.
 
-    @details
-        To create a predicate, use the comparison operators of columns and the logical operators.
-        The following code demonstrates how to use the `Where()` method:
-        @code{.cpp}
-        struct Entity {
-            int id{};
-            std::string name;
-        };
-        SQT_TABLE_BEGIN(Entity, Entity)
-        SQT_COLUMN_FIELD(Id, id)
-        SQT_COLUMN_FIELD(Name, name)
-        SQT_TABLE_END
-
-        constexpr auto& table = sqt::Table<Entity>;
-
-        auto updater = sqt::DataContext<Entity>::MakeUpdater().Where(
-            table.Id < 10 && table.Name == "Unknown");
-        @endcode
-
     @see sqt::PredicateType
     @see sqt::WhereDecorator<>
     @see sqt::WhereSelectDecorator<>
