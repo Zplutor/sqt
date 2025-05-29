@@ -2406,6 +2406,10 @@ th.markdownTableHeadCenter, td.markdownTableBodyCenter {
 	text-align: center
 }
 
+code {
+	font-family: var(--font-family-monospace);
+}
+
 tt, code, kbd
 {
 	display: inline-block;
