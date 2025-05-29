@@ -411,9 +411,9 @@ body {
 
 body, table, div, p, dl {
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	font-family: var(--font-family-normal);
-	line-height: 22px;
+	line-height: 24px;
 }
 
 body.resizing {
@@ -787,8 +787,8 @@ span.tt {
 
 div.line {
 	font-family: var(--font-family-monospace);
-	font-size: 13px;
-	min-height: 13px;
+	font-size: 16px;
+	min-height: 16px;
 	line-height: 1.2;
 	text-wrap: wrap; 
 	word-break: break-all;
