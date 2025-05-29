@@ -335,9 +335,6 @@
     <ClInclude Include="src\sqt\orm\value\trivial\basic\custom_value_type.h">
       <Filter>src\sqt\orm\value\trivial\basic</Filter>
     </ClInclude>
-    <ClInclude Include="src\sqt\orm\expression\operand\parameter_count_deduction.h">
-      <Filter>src\sqt\orm\expression\operand</Filter>
-    </ClInclude>
     <ClInclude Include="src\sqt\orm\value\trivial\composite\composite_value_traits_type.h">
       <Filter>src\sqt\orm\value\trivial\composite</Filter>
     </ClInclude>
@@ -412,6 +409,9 @@
     </ClInclude>
     <ClInclude Include="src\sqt\orm\expression\binder\identifier_binder_tuple_type.h">
       <Filter>src\sqt\orm\expression\binder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sqt\orm\internal\parameter_count_deduction.h">
+      <Filter>src\sqt\orm\internal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

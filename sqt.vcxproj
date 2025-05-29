@@ -54,7 +54,6 @@
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\identifier_operand_type.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\operand_type.h" />
-    <ClInclude Include="src\sqt\orm\expression\operand\parameter_count_deduction.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\placeholder_operand.h" />
     <ClInclude Include="src\sqt\orm\expression\operand\constant_operand.h" />
@@ -71,6 +70,7 @@
     <ClInclude Include="src\sqt\orm\internal\column_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\linked_list.h" />
     <ClInclude Include="src\sqt\orm\internal\macro_utility.h" />
+    <ClInclude Include="src\sqt\orm\internal\parameter_count_deduction.h" />
     <ClInclude Include="src\sqt\orm\internal\primary_key_helper.h" />
     <ClInclude Include="src\sqt\orm\internal\table_initializer.h" />
     <ClInclude Include="src\sqt\orm\internal\utility.h" />

@@ -5,7 +5,7 @@
 #include <sqt/orm/value/trivial/basic/basic_value_traits_type.h>
 #include <sqt/orm/value/trivial/composite/composite_value_traits_type.h>
 
-namespace sqt {
+namespace sqt::internal {
 
 template<typename TRAITS>
 class ParameterCountFor;
