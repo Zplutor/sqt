@@ -24,7 +24,8 @@ Constrains a type to be a predicate type.
     the SQL statement.
 
     A predicate consists of an operator (specified by the `sqt::PredicateOperator` enum) and two
-    operands (which must satisfy the `sqt::PredicateTermType` concept).
+    operands (which must satisfy the `sqt::PredicateTermType` concept). Operands can also be a
+    predicate, allowing to build a tree structure of predicates.
 
     To create predicates, use the comparison operators (`==`, `!=`, `<`, `<=`, `>`, `>=`) on 
     identifiers (including columns, primary keys and indexes), or logical operators (`&&`, `||`) on
