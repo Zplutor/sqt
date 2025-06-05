@@ -68,7 +68,7 @@ public:
     @param statement
         The statement from which the value is retrieved.
 
-    @param column_index
+    @param index
         The index of the column from which the value is retrieved.
 
     @param entity

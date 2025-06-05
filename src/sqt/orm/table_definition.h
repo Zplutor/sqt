@@ -225,44 +225,19 @@ Defines a column that binds to the specified field of the entity type.
             IDType(IDType&&) = delete;
             IDType& operator=(IDType&&) = delete;
 
-            // Assignment operator that generates an assignment expression which can be used in
-            // set clauses.
+            // Assignment operator that generates an assignment expression.
             constexpr auto operator=(const ValueType&) const noexcept;
 
-            // Ordering operator that generates an ordering term expression which can be used in
-            // order by clauses.
+            // Ordering operator that generates an ordering term expression.
             constexpr auto Asc() const noexcept;
             constexpr auto Desc() const noexcept;
 
-            // Comparison operators that generate predicate expressions which can be used in 
-            // where clauses.
+            // Comparison operators that generate predicate expressions.
+            // Here shows only the == operator. Other operators (!=, <, <=, >, >=) are omitted.
             friend constexpr auto operator==(const IDType&, const ValueType&) const noexcept;
-            friend constexpr auto operator!=(const IDType&, const ValueType&) const noexcept;
-            friend constexpr auto operator<(const IDType&, const ValueType&) const noexcept;
-            friend constexpr auto operator<=(const IDType&, const ValueType&) const noexcept;
-            friend constexpr auto operator>(const IDType&, const ValueType&) const noexcept;
-            friend constexpr auto operator>=(const IDType&, const ValueType&) const noexcept;
-
             friend constexpr auto operator==(const IDType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator!=(const IDType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator<(const IDType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator<=(const IDType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator>(const IDType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator>=(const IDType&, sqt::Placeholder) const noexcept;
-
             friend constexpr auto operator==(const ValueType&, const IDType&) const noexcept;
-            friend constexpr auto operator!=(const ValueType&, const IDType&) const noexcept;
-            friend constexpr auto operator<(const ValueType&, const IDType&) const noexcept;
-            friend constexpr auto operator<=(const ValueType&, const IDType&) const noexcept;
-            friend constexpr auto operator>(const ValueType&, const IDType&) const noexcept;
-            friend constexpr auto operator>=(const ValueType&, const IDType&) const noexcept;
-
             friend constexpr auto operator==(sqt::Placeholder, const IDType&) const noexcept;
-            friend constexpr auto operator!=(sqt::Placeholder, const IDType&) const noexcept;
-            friend constexpr auto operator<(sqt::Placeholder, const IDType&) const noexcept;
-            friend constexpr auto operator<=(sqt::Placeholder, const IDType&) const noexcept;
-            friend constexpr auto operator>(sqt::Placeholder, const IDType&) const noexcept;
-            friend constexpr auto operator>=(sqt::Placeholder, const IDType&) const noexcept;
         };
 
         // The instance of the column, which is defined as a public member variable of the table 
@@ -468,44 +443,19 @@ Defines a primary key with the specified columns.
             PrimaryKeyType(PrimaryKeyType&&) = delete;
             PrimaryKeyType& operator=(PrimaryKeyType&&) = delete;
 
-            // Assignment operator that generates an assignment expression which can be used in set
-            // clauses.
+            // Assignment operator that generates an assignment expression.
             constexpr auto operator=(const ValueType&) const noexcept;
 
-            // Ordering operator that generates an ordering term expression which can be used in
-            // order by clauses.
+            // Ordering operator that generates an ordering term expression.
             constexpr auto Asc() const noexcept;
             constexpr auto Desc() const noexcept;
 
-            // Comparison operators that generate predicate expressions which can be used in
-            // where clauses.
+            // Comparison operators that generate predicate expressions.
+            // Here shows only the == operator. Other operators (!=, <, <=, >, >=) are omitted.
             friend constexpr auto operator==(const PrimaryKeyType&, const ValueType&) const noexcept;
-            friend constexpr auto operator!=(const PrimaryKeyType&, const ValueType&) const noexcept;
-            friend constexpr auto operator<(const PrimaryKeyType&, const ValueType&) const noexcept;
-            friend constexpr auto operator<=(const PrimaryKeyType&, const ValueType&) const noexcept;
-            friend constexpr auto operator>(const PrimaryKeyType&, const ValueType&) const noexcept;
-            friend constexpr auto operator>=(const PrimaryKeyType&, const ValueType&) const noexcept;
-
             friend constexpr auto operator==(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator!=(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator<(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator<=(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator>(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator>=(const PrimaryKeyType&, sqt::Placeholder) const noexcept;
-
             friend constexpr auto operator==(const ValueType&, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator!=(const ValueType&, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator<(const ValueType&, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator<=(const ValueType&, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator>(const ValueType&, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator>=(const ValueType&, const PrimaryKeyType&) const noexcept;
-
             friend constexpr auto operator==(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator!=(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator<(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator<=(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator>(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
-            friend constexpr auto operator>=(sqt::Placeholder, const PrimaryKeyType&) const noexcept;
         };
 
         // The instance of the primary key, which is defined as a public member variable of the 
@@ -608,44 +558,19 @@ Defines an index with an auto-generated name based on the specified columns.
             IndexType_IDName(IndexType_IDName&&) = delete;
             IndexType_IDName& operator=(IndexType_IDName&&) = delete;
 
-            // Assignment operator that generates an assignment expression which can be used in set
-            // clauses.
+            // Assignment operator that generates an assignment expression.
             constexpr auto operator=(const ValueType&) const noexcept;
 
-            // Ordering operator that generates an ordering term expression which can be used in
-            // order by clauses.
+            // Ordering operator that generates an ordering term expression.
             constexpr auto Asc() const noexcept;
             constexpr auto Desc() const noexcept;
 
-            // Comparison operators that generate predicate expressions which can be used in
-            // where clauses.
+            // Comparison operators that generate predicate expressions.
+            // Here shows only the == operator. Other operators (!=, <, <=, >, >=) are omitted.
             friend constexpr auto operator==(const IndexType_IDName&, const ValueType&) const noexcept;
-            friend constexpr auto operator!=(const IndexType_IDName&, const ValueType&) const noexcept;
-            friend constexpr auto operator<(const IndexType_IDName&, const ValueType&) const noexcept;
-            friend constexpr auto operator<=(const IndexType_IDName&, const ValueType&) const noexcept;
-            friend constexpr auto operator>(const IndexType_IDName&, const ValueType&) const noexcept;
-            friend constexpr auto operator>=(const IndexType_IDName&, const ValueType&) const noexcept;
-
             friend constexpr auto operator==(const IndexType_IDName&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator!=(const IndexType_IDName&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator<(const IndexType_IDName&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator<=(const IndexType_IDName&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator>(const IndexType_IDName&, sqt::Placeholder) const noexcept;
-            friend constexpr auto operator>=(const IndexType_IDName&, sqt::Placeholder) const noexcept;
-
             friend constexpr auto operator==(const ValueType&, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator!=(const ValueType&, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator<(const ValueType&, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator<=(const ValueType&, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator>(const ValueType&, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator>=(const ValueType&, const IndexType_IDName&) const noexcept;
-
             friend constexpr auto operator==(sqt::Placeholder, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator!=(sqt::Placeholder, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator<(sqt::Placeholder, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator<=(sqt::Placeholder, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator>(sqt::Placeholder, const IndexType_IDName&) const noexcept;
-            friend constexpr auto operator>=(sqt::Placeholder, const IndexType_IDName&) const noexcept;
         };
 
         // The instance of the index, which is defined as a public member variable of the table

@@ -76,4 +76,4 @@ public: \
     template<> \
     constexpr const sqt::Column<EntityType>* GetColumn<COLUMN_NAME##Type>() const noexcept { \
         return &COLUMN_NAME; \
-    } \
+    }
