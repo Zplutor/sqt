@@ -28,7 +28,7 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
 
     //Primitive
     {
-        using ValueSource = typename TableType::PrimitiveType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_Primitive::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithField>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, std::string>);
         static_assert(std::is_same_v<
@@ -44,7 +44,7 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
 
     //Nullable
     {
-        using ValueSource = typename TableType::NullableType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_Nullable::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithField>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, std::optional<int>>);
         static_assert(std::is_same_v<
@@ -60,7 +60,7 @@ TEST(ValueSourceTest, DefaultValueSource_Field) {
 
     //Custom
     {
-        using ValueSource = typename TableType::CustomType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_Custom::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithField>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, BLOB>);
         static_assert(std::is_same_v<
@@ -110,7 +110,7 @@ TEST(ValueSourceTest, DefaultValueSource_Accessor) {
 
     //ValueRef
     {
-        using ValueSource = typename TableType::ValueRefType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_ValueRef::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithAccessor>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, std::string>);
         static_assert(std::is_same_v<
@@ -126,7 +126,7 @@ TEST(ValueSourceTest, DefaultValueSource_Accessor) {
 
     //ValueCopy
     {
-        using ValueSource = typename TableType::ValueCopyType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_ValueCopy::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityWithAccessor>);
         static_assert(std::is_same_v<typename ValueSource::ValueType, std::string>);
         static_assert(std::is_same_v<
@@ -181,7 +181,7 @@ TEST(ValueSourceTest, CustomValueSource) {
 
     //Custom value source
     {
-        using ValueSource = typename TableType::CustomValueType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_CustomValue::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityCustom>);
 
         const auto& value = ValueSource::GetValueFromEntity(entity);
@@ -193,7 +193,7 @@ TEST(ValueSourceTest, CustomValueSource) {
 
     //Inline value source
     {
-        using ValueSource = typename TableType::InlineValueType::ValueSource;
+        using ValueSource = typename TableType::ColumnType_InlineValue::ValueSource;
         static_assert(sqt::ValueSourceType<ValueSource, value_source_test::EntityCustom>);
 
         const auto& value = ValueSource::GetValueFromEntity(entity);

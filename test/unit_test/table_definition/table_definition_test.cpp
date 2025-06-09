@@ -51,7 +51,7 @@ TEST(TableDefinitionTest, GetColumn) {
         using TableType = sqt::TableType<table_def_test::OneColumnEntity>;
         constexpr auto& table = TableType::GetInstance();
         constexpr const sqt::Column<table_def_test::OneColumnEntity>* column = 
-            table.GetColumn<TableType::idType>();
+            table.GetColumn<TableType::ColumnType_id>();
         ASSERT_EQ(column, &table.id);
     }
 
@@ -61,11 +61,11 @@ TEST(TableDefinitionTest, GetColumn) {
         constexpr auto& table = TableType::GetInstance();
 
         constexpr const sqt::Column<table_def_test::TwoColumnEntity>* column0 =
-            table.GetColumn<TableType::id0Type>();
+            table.GetColumn<TableType::ColumnType_id0>();
         ASSERT_EQ(column0, &table.id0);
 
         constexpr const sqt::Column<table_def_test::TwoColumnEntity>* column1 =
-            table.GetColumn<TableType::id1Type>();
+            table.GetColumn<TableType::ColumnType_id1>();
         ASSERT_EQ(column1, &table.id1);
     }
 }

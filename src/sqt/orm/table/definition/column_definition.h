@@ -5,9 +5,9 @@
 
 #define __SQT_COLUMN_BEGIN(COLUMN_NAME) \
 public: \
-    class COLUMN_NAME##Type : public ColumnLinkedList::Node { \
+    class ColumnType_##COLUMN_NAME : public ColumnLinkedList::Node { \
     private: \
-        using ThisType = COLUMN_NAME##Type; \
+        using ThisType = ColumnType_##COLUMN_NAME; \
     public: \
         using Node::Node; \
         static constexpr std::string_view Name = #COLUMN_NAME; \
@@ -72,8 +72,9 @@ public: \
         } \
         __SQT_EXPRESSION_OPERATORS(ThisType) \
     }; \
-    COLUMN_NAME##Type COLUMN_NAME{ column_linked_list_.Last() }; \
+    ColumnType_##COLUMN_NAME COLUMN_NAME{ column_linked_list_.Last() }; \
     template<> \
-    constexpr const sqt::Column<EntityType>* GetColumn<COLUMN_NAME##Type>() const noexcept { \
+    constexpr const sqt::Column<EntityType>* \
+        GetColumn<ColumnType_##COLUMN_NAME>() const noexcept { \
         return &COLUMN_NAME; \
     }

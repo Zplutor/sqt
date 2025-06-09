@@ -27,7 +27,7 @@ constexpr auto& TableV = sqt::Table<composite_column_test::Entity>;
 
 TEST(CompositeColumnTest, SingleColumn) {
 
-    using TestType = sqt::CompositeColumn<TableT::idType>;
+    using TestType = sqt::CompositeColumn<TableT::ColumnType_id>;
     static_assert(std::is_same_v<TestType::EntityType, composite_column_test::Entity>);
     static_assert(std::is_same_v<TestType::ValueType, int>);
     static_assert(sqt::CompositeColumnType<TestType>);
@@ -42,7 +42,7 @@ TEST(CompositeColumnTest, SingleColumn) {
 
 TEST(CompositeColumnTest, TwoColumns) {
 
-    using TestType = sqt::CompositeColumn<TableT::idType, TableT::nameType>;
+    using TestType = sqt::CompositeColumn<TableT::ColumnType_id, TableT::ColumnType_name>;
     static_assert(std::is_same_v<TestType::EntityType, composite_column_test::Entity>);
     static_assert(std::is_same_v<TestType::ValueType, std::tuple<int, std::string>>);
     static_assert(sqt::CompositeColumnType<TestType>);
@@ -58,7 +58,10 @@ TEST(CompositeColumnTest, TwoColumns) {
 
 TEST(CompositeColumnTest, ThreeColumns) {
 
-    using TestType = sqt::CompositeColumn<TableT::idType, TableT::nameType, TableT::ageType>;
+    using TestType = sqt::CompositeColumn<
+        TableT::ColumnType_id, 
+        TableT::ColumnType_name, 
+        TableT::ColumnType_age>;
 
     static_assert(std::is_same_v<TestType::EntityType, composite_column_test::Entity>);
     static_assert(

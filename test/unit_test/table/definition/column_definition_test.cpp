@@ -18,7 +18,7 @@ SQT_REGISTER(column_def_test::BasicEntity)
 
 TEST(ColumnDefinitionTest, ColumnBasicInterface) {
 
-    using ColumnType = sqt::TableType<column_def_test::BasicEntity>::IDType;
+    using ColumnType = sqt::TableType<column_def_test::BasicEntity>::ColumnType_ID;
     static_assert(!std::copyable<ColumnType>);
     static_assert(!std::movable<ColumnType>);
 
@@ -83,7 +83,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     constexpr const auto& table = sqt::Table<column_def_test::VariousValueEntity>;
 
     {
-        using BoolColumnType = TableType::BoolValueType;
+        using BoolColumnType = TableType::ColumnType_BoolValue;
         static_assert(std::is_same_v<BoolColumnType::ValueType, bool>);
         static_assert(std::is_same_v<
             BoolColumnType::ValueTraits, 
@@ -96,7 +96,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using CharColumnType = TableType::CharValueType;
+        using CharColumnType = TableType::ColumnType_CharValue;
         static_assert(std::is_same_v<CharColumnType::ValueType, char>);
         static_assert(std::is_same_v<
             CharColumnType::ValueTraits,
@@ -109,7 +109,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using SignedCharColumnType = TableType::SignedCharValueType;
+        using SignedCharColumnType = TableType::ColumnType_SignedCharValue;
         static_assert(std::is_same_v<SignedCharColumnType::ValueType, signed char>);
         static_assert(std::is_same_v<
             SignedCharColumnType::ValueTraits,
@@ -122,7 +122,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using UnsignedCharColumnType = TableType::UnsignedCharValueType;
+        using UnsignedCharColumnType = TableType::ColumnType_UnsignedCharValue;
         static_assert(std::is_same_v<UnsignedCharColumnType::ValueType, unsigned char>);
         static_assert(std::is_same_v<
             UnsignedCharColumnType::ValueTraits,
@@ -135,7 +135,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using Char8TColumnType = TableType::Char8TValueType;
+        using Char8TColumnType = TableType::ColumnType_Char8TValue;
         static_assert(std::is_same_v<Char8TColumnType::ValueType, char8_t>);
         static_assert(std::is_same_v<
             Char8TColumnType::ValueTraits,
@@ -148,7 +148,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using Char16TColumnType = TableType::Char16TValueType;
+        using Char16TColumnType = TableType::ColumnType_Char16TValue;
         static_assert(std::is_same_v<Char16TColumnType::ValueType, char16_t>);
         static_assert(std::is_same_v<
             Char16TColumnType::ValueTraits,
@@ -161,7 +161,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using Char32TColumnType = TableType::Char32TValueType;
+        using Char32TColumnType = TableType::ColumnType_Char32TValue;
         static_assert(std::is_same_v<Char32TColumnType::ValueType, char32_t>);
         static_assert(std::is_same_v<
             Char32TColumnType::ValueTraits,
@@ -174,7 +174,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using WCharTColumnType = TableType::WCharTValueType;
+        using WCharTColumnType = TableType::ColumnType_WCharTValue;
         static_assert(std::is_same_v<WCharTColumnType::ValueType, wchar_t>);
         static_assert(std::is_same_v<
             WCharTColumnType::ValueTraits,
@@ -187,7 +187,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using ShortColumnType = TableType::ShortValueType;
+        using ShortColumnType = TableType::ColumnType_ShortValue;
         static_assert(std::is_same_v<ShortColumnType::ValueType, short>);
         static_assert(std::is_same_v<
             ShortColumnType::ValueTraits,
@@ -200,7 +200,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using UnsignedShortColumnType = TableType::UnsignedShortValueType;
+        using UnsignedShortColumnType = TableType::ColumnType_UnsignedShortValue;
         static_assert(std::is_same_v<UnsignedShortColumnType::ValueType, unsigned short>);
         static_assert(std::is_same_v<
             UnsignedShortColumnType::ValueTraits,
@@ -213,7 +213,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using IntColumnType = TableType::IntValueType;
+        using IntColumnType = TableType::ColumnType_IntValue;
         static_assert(std::is_same_v<IntColumnType::ValueType, int>);
         static_assert(std::is_same_v<
             IntColumnType::ValueTraits,
@@ -226,7 +226,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using UnsignedIntColumnType = TableType::UnsignedIntValueType;
+        using UnsignedIntColumnType = TableType::ColumnType_UnsignedIntValue;
         static_assert(std::is_same_v<UnsignedIntColumnType::ValueType, unsigned int>);
         static_assert(std::is_same_v<
             UnsignedIntColumnType::ValueTraits,
@@ -239,7 +239,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using LongColumnType = TableType::LongValueType;
+        using LongColumnType = TableType::ColumnType_LongValue;
         static_assert(std::is_same_v<LongColumnType::ValueType, long>);
         static_assert(std::is_same_v<
             LongColumnType::ValueTraits,
@@ -252,7 +252,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using UnsignedLongColumnType = TableType::UnsignedLongValueType;
+        using UnsignedLongColumnType = TableType::ColumnType_UnsignedLongValue;
         static_assert(std::is_same_v<UnsignedLongColumnType::ValueType, unsigned long>);
         static_assert(std::is_same_v<
             UnsignedLongColumnType::ValueTraits,
@@ -265,7 +265,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using LongLongColumnType = TableType::LongLongValueType;
+        using LongLongColumnType = TableType::ColumnType_LongLongValue;
         static_assert(std::is_same_v<LongLongColumnType::ValueType, long long>);
         static_assert(std::is_same_v<
             LongLongColumnType::ValueTraits,
@@ -278,7 +278,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using UnsignedLongLongColumnType = TableType::UnsignedLongLongValueType;
+        using UnsignedLongLongColumnType = TableType::ColumnType_UnsignedLongLongValue;
         static_assert(std::is_same_v<UnsignedLongLongColumnType::ValueType, unsigned long long>);
         static_assert(std::is_same_v<
             UnsignedLongLongColumnType::ValueTraits,
@@ -291,7 +291,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using FloatColumnType = TableType::FloatValueType;
+        using FloatColumnType = TableType::ColumnType_FloatValue;
         static_assert(std::is_same_v<FloatColumnType::ValueType, float>);
         static_assert(std::is_same_v<
             FloatColumnType::ValueTraits,
@@ -304,7 +304,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using DoubleColumnType = TableType::DoubleValueType;
+        using DoubleColumnType = TableType::ColumnType_DoubleValue;
         static_assert(std::is_same_v<DoubleColumnType::ValueType, double>);
         static_assert(std::is_same_v<
             DoubleColumnType::ValueTraits,
@@ -317,7 +317,7 @@ TEST(ColumnDefinitionTest, VariousValues) {
     }
 
     {
-        using StringColumnType = TableType::StringValueType;
+        using StringColumnType = TableType::ColumnType_StringValue;
         static_assert(std::is_same_v<StringColumnType::ValueType, std::string>);
         static_assert(std::is_same_v<
             StringColumnType::ValueTraits,
@@ -384,7 +384,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     constexpr const auto& table = sqt::Table<column_def_test::NullableValueEntity>;
 
     {
-        using BoolColumnType = TableType::BoolValueType;
+        using BoolColumnType = TableType::ColumnType_BoolValue;
         static_assert(std::is_same_v<BoolColumnType::ValueType, std::optional<bool>>);
         static_assert(std::is_same_v<
             BoolColumnType::ValueTraits,
@@ -397,7 +397,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using CharColumnType = TableType::CharValueType;
+        using CharColumnType = TableType::ColumnType_CharValue;
         static_assert(std::is_same_v<CharColumnType::ValueType, std::optional<char>>);
         static_assert(std::is_same_v<
             CharColumnType::ValueTraits,
@@ -410,7 +410,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using SignedCharColumnType = TableType::SignedCharValueType;
+        using SignedCharColumnType = TableType::ColumnType_SignedCharValue;
         static_assert(std::is_same_v<SignedCharColumnType::ValueType, std::optional<signed char>>);
         static_assert(std::is_same_v<
             SignedCharColumnType::ValueTraits,
@@ -423,7 +423,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using UnsignedCharColumnType = TableType::UnsignedCharValueType;
+        using UnsignedCharColumnType = TableType::ColumnType_UnsignedCharValue;
         static_assert(std::is_same_v<
             UnsignedCharColumnType::ValueType,
             std::optional<unsigned char>>);
@@ -438,7 +438,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using Char8TColumnType = TableType::Char8TValueType;
+        using Char8TColumnType = TableType::ColumnType_Char8TValue;
         static_assert(std::is_same_v<Char8TColumnType::ValueType, std::optional<char8_t>>);
         static_assert(std::is_same_v<
             Char8TColumnType::ValueTraits,
@@ -451,7 +451,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using Char16TColumnType = TableType::Char16TValueType;
+        using Char16TColumnType = TableType::ColumnType_Char16TValue;
         static_assert(std::is_same_v<Char16TColumnType::ValueType, std::optional<char16_t>>);
         static_assert(std::is_same_v<
             Char16TColumnType::ValueTraits,
@@ -464,7 +464,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using Char32TColumnType = TableType::Char32TValueType;
+        using Char32TColumnType = TableType::ColumnType_Char32TValue;
         static_assert(std::is_same_v<Char32TColumnType::ValueType, std::optional<char32_t>>);
         static_assert(std::is_same_v<
             Char32TColumnType::ValueTraits,
@@ -477,7 +477,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using WCharTColumnType = TableType::WCharTValueType;
+        using WCharTColumnType = TableType::ColumnType_WCharTValue;
         static_assert(std::is_same_v<WCharTColumnType::ValueType, std::optional<wchar_t>>);
         static_assert(std::is_same_v<
             WCharTColumnType::ValueTraits,
@@ -490,7 +490,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using ShortColumnType = TableType::ShortValueType;
+        using ShortColumnType = TableType::ColumnType_ShortValue;
         static_assert(std::is_same_v<ShortColumnType::ValueType, std::optional<short>>);
         static_assert(std::is_same_v<
             ShortColumnType::ValueTraits,
@@ -503,7 +503,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using UnsignedShortColumnType = TableType::UnsignedShortValueType;
+        using UnsignedShortColumnType = TableType::ColumnType_UnsignedShortValue;
         static_assert(std::is_same_v<
             UnsignedShortColumnType::ValueType, 
             std::optional<unsigned short>>);
@@ -518,7 +518,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using IntColumnType = TableType::IntValueType;
+        using IntColumnType = TableType::ColumnType_IntValue;
         static_assert(std::is_same_v<IntColumnType::ValueType, std::optional<int>>);
         static_assert(std::is_same_v <
             IntColumnType::ValueTraits,
@@ -531,7 +531,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using UnsignedIntColumnType = TableType::UnsignedIntValueType;
+        using UnsignedIntColumnType = TableType::ColumnType_UnsignedIntValue;
         static_assert(std::is_same_v<
             UnsignedIntColumnType::ValueType,
             std::optional<unsigned int>>);
@@ -546,7 +546,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using LongColumnType = TableType::LongValueType;
+        using LongColumnType = TableType::ColumnType_LongValue;
         static_assert(std::is_same_v<LongColumnType::ValueType, std::optional<long>>);
         static_assert(std::is_same_v<
             LongColumnType::ValueTraits,
@@ -559,7 +559,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using UnsignedLongColumnType = TableType::UnsignedLongValueType;
+        using UnsignedLongColumnType = TableType::ColumnType_UnsignedLongValue;
         static_assert(std::is_same_v<
             UnsignedLongColumnType::ValueType,
             std::optional<unsigned long>>);
@@ -574,7 +574,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using LongLongColumnType = TableType::LongLongValueType;
+        using LongLongColumnType = TableType::ColumnType_LongLongValue;
         static_assert(std::is_same_v<LongLongColumnType::ValueType, std::optional<long long>>);
         static_assert(std::is_same_v <
             LongLongColumnType::ValueTraits,
@@ -587,7 +587,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using UnsignedLongLongColumnType = TableType::UnsignedLongLongValueType;
+        using UnsignedLongLongColumnType = TableType::ColumnType_UnsignedLongLongValue;
         static_assert(std::is_same_v<
             UnsignedLongLongColumnType::ValueType,
             std::optional<unsigned long long>>);
@@ -602,7 +602,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using FloatColumnType = TableType::FloatValueType;
+        using FloatColumnType = TableType::ColumnType_FloatValue;
         static_assert(std::is_same_v<FloatColumnType::ValueType, std::optional<float>>);
         static_assert(std::is_same_v <
             FloatColumnType::ValueTraits,
@@ -615,7 +615,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using DoubleColumnType = TableType::DoubleValueType;
+        using DoubleColumnType = TableType::ColumnType_DoubleValue;
         static_assert(std::is_same_v<DoubleColumnType::ValueType, std::optional<double>>);
         static_assert(std::is_same_v <
             DoubleColumnType::ValueTraits,
@@ -628,7 +628,7 @@ TEST(ColumnDefinitionTest, NullableValues) {
     }
 
     {
-        using StringColumnType = TableType::StringValueType;
+        using StringColumnType = TableType::ColumnType_StringValue;
         static_assert(std::is_same_v<StringColumnType::ValueType, std::optional<std::string>>);
         static_assert(std::is_same_v <
             StringColumnType::ValueTraits,
