@@ -640,3 +640,93 @@ TEST(ColumnDefinitionTest, NullableValues) {
         ASSERT_EQ(is_nullable, true);
     }
 }
+
+
+/*
+Test the SQT_COLUMN_FIELD_2 macro.
+*/
+namespace column_def_test {
+struct FieldColumnsEntity {
+    int value{};
+};
+SQT_TABLE_BEGIN(FieldColumnsEntity, FieldColumnsEntity)
+SQT_COLUMN_FIELD_2(Value, CustomValue, value)
+SQT_TABLE_END
+}
+SQT_REGISTER(column_def_test::FieldColumnsEntity)
+
+TEST(ColumnDefinitionTest, FieldColumns) {
+
+    using TableType = sqt::TableType<column_def_test::FieldColumnsEntity>;
+    ASSERT_EQ(TableType::ColumnType_CustomValue::Name, "Value");
+
+    constexpr auto& table = sqt::Table<column_def_test::FieldColumnsEntity>;
+    ASSERT_EQ(table.CustomValue.GetName(), "Value");
+}
+
+
+/*
+Test the SQT_COLUMN_ACCESSOR* macros.
+*/
+namespace column_def_test {
+struct AccessorColumnsEntity {
+    int GetValue() const {
+        return 0;
+    }
+    void SetValue(int) {
+
+    }
+};
+SQT_TABLE_BEGIN(AccessorColumnsEntity, AccessorColumnsEntity)
+SQT_COLUMN_ACCESSOR(Value, GetValue, SetValue)
+SQT_COLUMN_ACCESSOR_2(Value2, CustomValue, GetValue, SetValue)
+SQT_TABLE_END
+}
+SQT_REGISTER(column_def_test::AccessorColumnsEntity)
+
+TEST(ColumnDefinitionTest, AccessorColumns) {
+
+    using TableType = sqt::TableType<column_def_test::AccessorColumnsEntity>;
+    constexpr auto& table = sqt::Table<column_def_test::AccessorColumnsEntity>;
+
+    ASSERT_EQ(TableType::ColumnType_Value::Name, "Value");
+    ASSERT_EQ(TableType::ColumnType_CustomValue::Name, "Value2");
+        
+    ASSERT_EQ(table.Value.GetName(), "Value");
+    ASSERT_EQ(table.CustomValue.GetName(), "Value2");
+}
+
+
+/*
+Test the SQT_COLUMN_CUSTOM* macros.
+*/
+namespace column_def_test {
+struct CustomColumnsEntity {
+};
+struct ValueSource {
+    using ValueType = int;
+    static int GetValueFromEntity(const CustomColumnsEntity&) {
+        return 0;
+    }
+    static void SetValueToEntity(CustomColumnsEntity& entity, int value) {
+
+    }
+};
+SQT_TABLE_BEGIN(CustomColumnsEntity, CustomColumnsEntity)
+SQT_COLUMN_CUSTOM(Value, ValueSource)
+SQT_COLUMN_CUSTOM_2(Value2, CustomValue, ValueSource)
+SQT_TABLE_END
+}
+SQT_REGISTER(column_def_test::CustomColumnsEntity)
+
+TEST(ColumnDefinitionTest, CustomColumns) {
+
+    using TableType = sqt::TableType<column_def_test::CustomColumnsEntity>;
+    constexpr auto& table = sqt::Table<column_def_test::CustomColumnsEntity>;
+
+    ASSERT_EQ(TableType::ColumnType_Value::Name, "Value");
+    ASSERT_EQ(TableType::ColumnType_CustomValue::Name, "Value2");
+
+    ASSERT_EQ(table.Value.GetName(), "Value");
+    ASSERT_EQ(table.CustomValue.GetName(), "Value2");
+}

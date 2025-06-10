@@ -3,11 +3,11 @@
 #include <sqt/orm/value/identifier/identifier_value_traits.h>
 #include <sqt/orm/value/trivial/basic/basic_value_traits_mapping.h>
 
-#define __SQT_COLUMN_BEGIN(COLUMN_NAME) \
+#define __SQT_COLUMN_BEGIN(COLUMN_NAME, INSTANCE_NAME) \
 public: \
-    class ColumnType_##COLUMN_NAME : public ColumnLinkedList::Node { \
+    class ColumnType_##INSTANCE_NAME : public ColumnLinkedList::Node { \
     private: \
-        using ThisType = ColumnType_##COLUMN_NAME; \
+        using ThisType = ColumnType_##INSTANCE_NAME; \
     public: \
         using Node::Node; \
         static constexpr std::string_view Name = #COLUMN_NAME; \
@@ -47,7 +47,7 @@ public: \
         using ValueSource = CLASS;
 
 
-#define __SQT_COLUMN_END(COLUMN_NAME) \
+#define __SQT_COLUMN_END(COLUMN_NAME, INSTANCE_NAME) \
         using ValueType = typename ValueSource::ValueType; \
         using ValueTraits = sqt::BasicValueTraitsMappingT<ValueType>; \
         constexpr sqt::DataType GetDataType() const noexcept override { \
@@ -72,9 +72,9 @@ public: \
         } \
         __SQT_EXPRESSION_OPERATORS(ThisType) \
     }; \
-    ColumnType_##COLUMN_NAME COLUMN_NAME{ column_linked_list_.Last() }; \
+    ColumnType_##INSTANCE_NAME INSTANCE_NAME{ column_linked_list_.Last() }; \
     template<> \
     constexpr const sqt::Column<EntityType>* \
-        GetColumn<ColumnType_##COLUMN_NAME>() const noexcept { \
-        return &COLUMN_NAME; \
+        GetColumn<ColumnType_##INSTANCE_NAME>() const noexcept { \
+        return &INSTANCE_NAME; \
     }
