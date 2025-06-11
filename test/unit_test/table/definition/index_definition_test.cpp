@@ -111,31 +111,31 @@ TEST(IndexDefinitionTest, GetName) {
     // One column index
     {
         auto index_name = table.Index_id0.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id0");
+        ASSERT_EQ(index_name, "SQTIndex_IndexEntity_id0");
     }
 
     // Two columns index
     {
         auto index_name = table.Index_id0_id1.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id0_id1");
+        ASSERT_EQ(index_name, "SQTIndex_IndexEntity_id0_id1");
     }
 
     // Max columns index
     {
         auto index_name = table.Index_id0_id1_id2_id3_id4_id5_id6_id7.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id0_id1_id2_id3_id4_id5_id6_id7");
+        ASSERT_EQ(index_name, "SQTIndex_IndexEntity_id0_id1_id2_id3_id4_id5_id6_id7");
     }
 
     // One column unique index
     {
         auto index_name = table.Index_id1.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id1");
+        ASSERT_EQ(index_name, "SQTIndex_IndexEntity_id1");
     }
 
     // Two columns unique index
     {
         auto index_name = table.Index_id2_id3.GetName();
-        ASSERT_EQ(index_name, "IndexEntity_Index_id2_id3");
+        ASSERT_EQ(index_name, "SQTIndex_IndexEntity_id2_id3");
     }
 
     // Named index

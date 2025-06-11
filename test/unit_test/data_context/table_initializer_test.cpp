@@ -268,25 +268,25 @@ TEST_F(TableInitializerTest, CreateIndex) {
 
     sqt::internal::TableInitializer::Initialize(table, *DB());
 
-    auto index_info = DB()->GetIndexInfo("EntityWithIndex_Index_id");
+    auto index_info = DB()->GetIndexInfo("SQTIndex_EntityWithIndex_id");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 1);
     ASSERT_EQ(index_info->columns[0], "id");
 
-    index_info = DB()->GetIndexInfo("EntityWithIndex_Index_id_name");
+    index_info = DB()->GetIndexInfo("SQTIndex_EntityWithIndex_id_name");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 2);
     ASSERT_EQ(index_info->columns[0], "id");
     ASSERT_EQ(index_info->columns[1], "name");
 
-    index_info = DB()->GetIndexInfo("EntityWithIndex_Index_id_name_age");
+    index_info = DB()->GetIndexInfo("SQTIndex_EntityWithIndex_id_name_age");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 3);
     ASSERT_EQ(index_info->columns[0], "id");
     ASSERT_EQ(index_info->columns[1], "name");
     ASSERT_EQ(index_info->columns[2], "age");
 
-    index_info = DB()->GetIndexInfo("EntityWithIndex_index_id_age");
+    index_info = DB()->GetIndexInfo("SQTIndex_EntityWithIndex_id_age");
     ASSERT_TRUE(index_info.has_value());
     ASSERT_EQ(index_info->columns.size(), 2);
     ASSERT_EQ(index_info->columns[0], "id");

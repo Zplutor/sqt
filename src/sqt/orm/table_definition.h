@@ -652,7 +652,7 @@ Defines an index with an auto-generated name based on the specified columns.
 
     The index name in the database is generated using the following format:
     @code
-    <TableName>_Index_<Column1>_<Column2>_...
+    SQTIndex_<TableName>_<Column1>_<Column2>_...
     @endcode
 
     Example usage:
