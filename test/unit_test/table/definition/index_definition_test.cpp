@@ -39,14 +39,14 @@ SQT_INDEX_UNIQUE(id1)
 SQT_INDEX_UNIQUE(id2, id3)
 
 // One column named index
-SQT_INDEX_NAMED(OneColumnNamed, id0)
+SQT_INDEX_2(OneColumnNamed, Index_OneColumn, id0)
 // Two columns named index
-SQT_INDEX_NAMED(TwoColumnsNamed, id0, id1);
+SQT_INDEX_2(TwoColumnsNamed, Index_TwoColumns, id0, id1);
 
 // One column named unique index
-SQT_INDEX_NAMED_UNIQUE(OneColumnNamedUnique, id1)
+SQT_INDEX_UNIQUE_2(OneColumnNamedUnique, UniqueIndex_OneColumn, id1)
 // Two columns named unique index
-SQT_INDEX_NAMED_UNIQUE(TwoColumnsNamedUnique, id2, id3)
+SQT_INDEX_UNIQUE_2(TwoColumnsNamedUnique, UniqueIndex_TwoColumns, id2, id3)
 
 SQT_TABLE_END
 }
@@ -84,22 +84,22 @@ TEST(IndexDefinitionTest, NonCopyableNonMovable) {
 
     {
         // One column named index
-        static_assert(!std::copyable<TableType::IndexType_OneColumnNamed>);
-        static_assert(!std::movable<TableType::IndexType_OneColumnNamed>);
+        static_assert(!std::copyable<TableType::IndexType_Index_OneColumn>);
+        static_assert(!std::movable<TableType::IndexType_Index_OneColumn>);
 
         // Two columns named index
-        static_assert(!std::copyable<TableType::IndexType_TwoColumnsNamed>);
-        static_assert(!std::movable<TableType::IndexType_TwoColumnsNamed>);
+        static_assert(!std::copyable<TableType::IndexType_Index_TwoColumns>);
+        static_assert(!std::movable<TableType::IndexType_Index_TwoColumns>);
     }
 
     {
         // One column named unique index
-        static_assert(!std::copyable<TableType::IndexType_OneColumnNamedUnique>);
-        static_assert(!std::movable<TableType::IndexType_OneColumnNamedUnique>);
+        static_assert(!std::copyable<TableType::IndexType_UniqueIndex_OneColumn>);
+        static_assert(!std::movable<TableType::IndexType_UniqueIndex_OneColumn>);
 
         // Two columns named unique index
-        static_assert(!std::copyable<TableType::IndexType_TwoColumnsNamedUnique>);
-        static_assert(!std::movable<TableType::IndexType_TwoColumnsNamedUnique>);
+        static_assert(!std::copyable<TableType::IndexType_UniqueIndex_TwoColumns>);
+        static_assert(!std::movable<TableType::IndexType_UniqueIndex_TwoColumns>);
     }
 }
 
@@ -140,19 +140,19 @@ TEST(IndexDefinitionTest, GetName) {
 
     // Named index
     {
-        auto index_name = table.Index_OneColumnNamed.GetName();
+        auto index_name = table.Index_OneColumn.GetName();
         ASSERT_EQ(index_name, "OneColumnNamed");
 
-        index_name = table.Index_TwoColumnsNamed.GetName();
+        index_name = table.Index_TwoColumns.GetName();
         ASSERT_EQ(index_name, "TwoColumnsNamed");
     }
 
     // Named unique index
     {
-        auto index_name = table.Index_OneColumnNamedUnique.GetName();
+        auto index_name = table.UniqueIndex_OneColumn.GetName();
         ASSERT_EQ(index_name, "OneColumnNamedUnique");
 
-        index_name = table.Index_TwoColumnsNamedUnique.GetName();
+        index_name = table.UniqueIndex_TwoColumns.GetName();
         ASSERT_EQ(index_name, "TwoColumnsNamedUnique");
     }
 }
@@ -195,11 +195,11 @@ TEST(IndexDefinitionTest, IsUnique) {
     // Named index
     {
         {
-            constexpr bool is_unique = table.Index_OneColumnNamed.IsUnique();
+            constexpr bool is_unique = table.Index_OneColumn.IsUnique();
             ASSERT_FALSE(is_unique);
         }
         {
-            constexpr bool is_unique = table.Index_TwoColumnsNamed.IsUnique();
+            constexpr bool is_unique = table.Index_TwoColumns.IsUnique();
             ASSERT_FALSE(is_unique);
         }
     }
@@ -207,11 +207,11 @@ TEST(IndexDefinitionTest, IsUnique) {
     // Named unique index
     {
         {
-            constexpr bool is_unique = table.Index_OneColumnNamedUnique.IsUnique();
+            constexpr bool is_unique = table.UniqueIndex_OneColumn.IsUnique();
             ASSERT_TRUE(is_unique);
         }
         {
-            constexpr bool is_unique = table.Index_TwoColumnsNamedUnique.IsUnique();
+            constexpr bool is_unique = table.UniqueIndex_TwoColumns.IsUnique();
             ASSERT_TRUE(is_unique);
         }
     }
@@ -268,14 +268,14 @@ TEST(IndexDefinitionTest, GetAbstractColumns) {
 
     // One column named index
     {
-        auto columns = table.Index_OneColumnNamed.GetAbstractColumns();
+        auto columns = table.Index_OneColumn.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 1);
         ASSERT_EQ(columns[0], &table.id0);
     }
 
     // Two columns named index
     {
-        auto columns = table.Index_TwoColumnsNamed.GetAbstractColumns();
+        auto columns = table.Index_TwoColumns.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 2);
         ASSERT_EQ(columns[0], &table.id0);
         ASSERT_EQ(columns[1], &table.id1);
@@ -283,14 +283,14 @@ TEST(IndexDefinitionTest, GetAbstractColumns) {
 
     // One column named unique index
     {
-        auto columns = table.Index_OneColumnNamedUnique.GetAbstractColumns();
+        auto columns = table.UniqueIndex_OneColumn.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 1);
         ASSERT_EQ(columns[0], &table.id1);
     }
 
     // Two columns named unique index
     {
-        auto columns = table.Index_TwoColumnsNamedUnique.GetAbstractColumns();
+        auto columns = table.UniqueIndex_TwoColumns.GetAbstractColumns();
         ASSERT_EQ(columns.size(), 2);
         ASSERT_EQ(columns[0], &table.id2);
         ASSERT_EQ(columns[1], &table.id3);

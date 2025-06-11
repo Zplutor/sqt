@@ -14,14 +14,14 @@ namespace sqt {
 An interface that provides access to information about an index.
 
 @details
-    This interface is implemented by all index types defined using the `SQT_INDEX`,
-    `SQT_INDEX_UNIQUE`, `SQT_INDEX_NAMED` and `SQT_INDEX_NAMED_UNIQUE` macros. It allows the way to
-    interact with index definitions in a non-template manner.
+    This interface is implemented by all index types defined using the `SQT_INDEX`, `SQT_INDEX_2`,
+    `SQT_INDEX_UNIQUE` and `SQT_INDEX_UNIQUE_2` macros. It allows the way to interact with index 
+    definitions in a non-template manner.
 
 @see SQT_INDEX
-@see SQT_INDEX_NAMED
-@see SQT_INDEX_NAMED_UNIQUE
+@see SQT_INDEX_2
 @see SQT_INDEX_UNIQUE
+@see SQT_INDEX_UNIQUE_2
 */
 class AbstractIndex {
 public:
