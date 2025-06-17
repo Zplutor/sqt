@@ -1,0 +1,49 @@
+name: Deploy documentation to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doxygen
+        run: |
+          if ! command -v doxygen &> /dev/null; then
+            tmpdir=$(mktemp -d /tmp/doxygen.XXXXXX)
+            wget -O "$tmpdir/doxygen.tar.gz" https://github.com/doxygen/doxygen/releases/download/Release_1_14_0/doxygen-1.14.0.linux.bin.tar.gz
+            tar -xzf "$tmpdir/doxygen.tar.gz" -C "$tmpdir"
+            sudo mv "$tmpdir/doxygen-1.14.0/bin/doxygen" /usr/local/bin/
+            rm -rf "$tmpdir"
+          fi     
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build documentation
+        run: |
+          mkdir -p build/out/doc
+          cd doc
+          doxygen doxyfile
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'build/out/doc/html'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
