@@ -79,3 +79,7 @@ for (const auto& each_entity : all_entities) {
     std::cout << each_entity.id << ',' << each_entity.name << "\n";
 }
 ```
+
+## Documentation
+
+For more information about using SQT, please refer to the [SQT Documentation](https://zplutor.github.io/sqt/).
