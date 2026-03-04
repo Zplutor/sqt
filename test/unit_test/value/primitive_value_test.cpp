@@ -3,6 +3,17 @@
 #include <sqt/orm/value/trivial/basic/basic_value_traits_type.h>
 #include <sqt/orm/value/trivial/basic/primitive_value_type.h>
 
+// Test enums
+enum class SmallEnum : unsigned char {
+    Value1 = 0,
+    Value2 = 1
+};
+
+enum class LargeEnum : std::int64_t {
+    Value1 = 0,
+    Value2 = 1
+};
+
 TEST(PrimitiveValueTest, PrimitiveValueType) {
 
     static_assert(sqt::PrimitiveValueType<bool>);
@@ -24,6 +35,9 @@ TEST(PrimitiveValueTest, PrimitiveValueType) {
     static_assert(sqt::PrimitiveValueType<float>);
     static_assert(sqt::PrimitiveValueType<double>);
     static_assert(sqt::PrimitiveValueType<std::string>);
+
+    static_assert(sqt::PrimitiveValueType<SmallEnum>);
+    static_assert(sqt::PrimitiveValueType<LargeEnum>);
 
     static_assert(!sqt::PrimitiveValueType<long double>);
     static_assert(!sqt::PrimitiveValueType<std::optional<int>>);
@@ -52,6 +66,9 @@ TEST(PrimitiveValueTest, DataType) {
     ASSERT_EQ(sqt::PrimitiveValueTraits<float>::DataType, sqt::DataType::Float);
     ASSERT_EQ(sqt::PrimitiveValueTraits<double>::DataType, sqt::DataType::Float);
     ASSERT_EQ(sqt::PrimitiveValueTraits<std::string>::DataType, sqt::DataType::Text);
+
+    ASSERT_EQ(sqt::PrimitiveValueTraits<SmallEnum>::DataType, sqt::DataType::Integer);
+    ASSERT_EQ(sqt::PrimitiveValueTraits<LargeEnum>::DataType, sqt::DataType::Integer);
 }
 
 
@@ -76,6 +93,9 @@ TEST(PrimitiveValueTest, IsNullable) {
     static_assert(!sqt::PrimitiveValueTraits<float>::IsNullable);
     static_assert(!sqt::PrimitiveValueTraits<double>::IsNullable);
     static_assert(!sqt::PrimitiveValueTraits<std::string>::IsNullable);
+
+    static_assert(!sqt::PrimitiveValueTraits<SmallEnum>::IsNullable);
+    static_assert(!sqt::PrimitiveValueTraits<LargeEnum>::IsNullable);
 }
 
 
@@ -100,6 +120,9 @@ TEST(PrimitiveValueTest, BasicValueTraitsType) {
     static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<float>>);
     static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<double>>);
     static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<std::string>>);
+
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<SmallEnum>>);
+    static_assert(sqt::BasicValueTraitsType<sqt::PrimitiveValueTraits<LargeEnum>>);
 }
 
 
@@ -117,4 +140,11 @@ TEST(PrimitiveValueTest, BasicValueTraitsMapping) {
     static_assert((std::is_same_v<
         sqt::BasicValueTraitsMappingT<std::string>,
         sqt::PrimitiveValueTraits<std::string>>));
+
+    static_assert((std::is_same_v<
+        sqt::BasicValueTraitsMappingT<SmallEnum>,
+        sqt::PrimitiveValueTraits<SmallEnum>>));
+    static_assert((std::is_same_v<
+        sqt::BasicValueTraitsMappingT<LargeEnum>,
+        sqt::PrimitiveValueTraits<LargeEnum>>));
 }

@@ -7,10 +7,17 @@
 */
 
 #include <concepts>
+#include <type_traits>
 #include <sqt/foundation/data_type.h>
 #include <sqt/foundation/statement.h>
 
 namespace sqt {
+namespace internal {
+
+template<typename T>
+concept EnumType = std::is_enum_v<T>;
+
+}
 
 /**
 The primary template for defining traits for primitive value types.
@@ -22,12 +29,14 @@ The primary template for defining traits for primitive value types.
     This primary template is intentionally left undefined. It is used to trigger a compile-time 
     error when instantiated with a type that is not recognized as a primitive value type.
     
-    There are three specializations provided for primitive value types:
+    There are four specializations provided for primitive value types:
     - `sqt::PrimitiveValueTraits<INTEGER>`, for integral types.
+    - `sqt::PrimitiveValueTraits<ENUM>`, for enumeration types.
     - `sqt::PrimitiveValueTraits<FLOAT>`, for floating-point types.
     - `sqt::PrimitiveValueTraits<std::string>`, for `std::string`.
 
 @see sqt::PrimitiveValueTraits<INTEGER>
+@see sqt::PrimitiveValueTraits<ENUM>
 @see sqt::PrimitiveValueTraits<FLOAT>
 @see sqt::PrimitiveValueTraits<std::string>
 @see sqt::PrimitiveValueType
@@ -46,6 +55,7 @@ The specialization for defining traits for integral value types.
     This specialization satisfies the `sqt::BasicValueTraitsType` concept.
 
 @see sqt::BasicValueTraitsType
+@see sqt::PrimitiveValueTraits<ENUM>
 @see sqt::PrimitiveValueTraits<FLOAT>
 @see sqt::PrimitiveValueTraits<std::string>
 */
@@ -126,6 +136,81 @@ public:
 
 
 /**
+The specialization for defining traits for enum value types.
+
+@tparam ENUM
+    A type that satisfies the `sqt::internal::EnumType` concept.
+
+@details
+    This specialization satisfies the `sqt::BasicValueTraitsType` concept.
+    Enum values are handled as their underlying integral types.
+
+@see sqt::BasicValueTraitsType
+@see sqt::PrimitiveValueTraits<INTEGER>
+@see sqt::PrimitiveValueTraits<FLOAT>
+@see sqt::PrimitiveValueTraits<std::string>
+*/
+template<internal::EnumType ENUM>
+class PrimitiveValueTraits<ENUM> {
+public:
+    using ValueType = ENUM;
+    using UnderlyingType = std::underlying_type_t<ENUM>;
+
+    static constexpr sqt::DataType DataType = sqt::DataType::Integer;
+    static constexpr bool IsNullable = false;
+
+    /**
+    Binds an enum value to the statement at the specified parameter index.
+
+    @param statement
+        The statement to which the enum value is bound.
+
+    @param parameter_index
+        The index of the parameter to which the enum value is bound.
+
+    @param value
+        The enum value to bind.
+
+    @throw sqt::SQLError
+        Thrown if the binding fails.
+
+    @details
+        The enum value is converted to its underlying integral type and then delegated to
+        the `PrimitiveValueTraits<UnderlyingType>` specialization for binding.
+
+    @see sqt::PrimitiveValueTraits<INTEGER>::BindValue
+    */
+    static void BindValue(Statement& statement, int parameter_index, ENUM value) {
+        PrimitiveValueTraits<UnderlyingType>::BindValue(
+            statement, parameter_index, static_cast<UnderlyingType>(value));
+    }
+
+    /**
+    Retrieves an enum value from the statement at the specified column index.
+
+    @param statement
+        The statement from which the enum value is retrieved.
+
+    @param column_index
+        The index of the column from which to retrieve the enum value.
+
+    @return
+        The retrieved enum value.
+
+    @details
+        The value is retrieved using the `PrimitiveValueTraits<UnderlyingType>` specialization
+        and then converted to the enum type.
+
+    @see sqt::PrimitiveValueTraits<INTEGER>::RetrieveValue
+    */
+    static ENUM RetrieveValue(const Statement& statement, int column_index) noexcept {
+        return static_cast<ENUM>(
+            PrimitiveValueTraits<UnderlyingType>::RetrieveValue(statement, column_index));
+    }
+};
+
+
+/**
 The specialization for defining traits for floating-point value types.
 
 @tparam FLOAT
@@ -136,6 +221,7 @@ The specialization for defining traits for floating-point value types.
 
 @see sqt::BasicValueTraitsType
 @see sqt::PrimitiveValueTraits<INTEGER>
+@see sqt::PrimitiveValueTraits<ENUM>
 @see sqt::PrimitiveValueTraits<std::string>
 */
 template<std::floating_point FLOAT> requires (!std::same_as<FLOAT, long double>)
@@ -205,6 +291,7 @@ The specialization for defining traits for `std::string`.
     This specialization satisfies the `sqt::BasicValueTraitsType` concept.
 
 @see sqt::BasicValueTraitsType
+@see sqt::PrimitiveValueTraits<ENUM>
 @see sqt::PrimitiveValueTraits<FLOAT>
 @see sqt::PrimitiveValueTraits<INTEGER>
 */

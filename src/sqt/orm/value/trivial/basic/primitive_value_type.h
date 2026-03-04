@@ -21,6 +21,7 @@ directly mapped to a database data type.
     The following types are considered primitive value types:
     - Integral types satisfying the `std::integral` concept. These are mapped to 
       `sqt::DataType::Integer`.
+    - Enumeration types, which are mapped to `sqt::DataType::Integer`.
     - Floating-point types satisfying the `std::floating_point` concept, excluding `long double`.
       These are mapped to `sqt::DataType::Float`.
     - `std::string`, which is mapped to `sqt::DataType::Text`.
