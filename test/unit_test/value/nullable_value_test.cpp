@@ -136,6 +136,141 @@ TEST(NullableValueType, IsNullable) {
 }
 
 
+TEST(NullableValueType, ToSQLLiteral) {
+
+    // bool
+    ASSERT_EQ(sqt::NullableValueTraits<std::optional<bool>>::ToSQLLiteral(std::nullopt), "null");
+    ASSERT_EQ(sqt::NullableValueTraits<std::optional<bool>>::ToSQLLiteral(true), "1");
+    ASSERT_EQ(sqt::NullableValueTraits<std::optional<bool>>::ToSQLLiteral(false), "0");
+
+    // integral types
+    ASSERT_EQ(sqt::NullableValueTraits<std::optional<char>>::ToSQLLiteral(std::nullopt), "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char>>::ToSQLLiteral('A'),
+        "65");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<signed char>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<signed char>>::ToSQLLiteral(
+            static_cast<signed char>(-12)),
+        "-12");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned char>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned char>>::ToSQLLiteral(
+            static_cast<unsigned char>(250)),
+        "250");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char8_t>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char8_t>>::ToSQLLiteral(u8'Z'),
+        "90");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char16_t>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char16_t>>::ToSQLLiteral(u'\u4E2D'),
+        "20013");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char32_t>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<char32_t>>::ToSQLLiteral(U'\U0001F600'),
+        "128512");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<wchar_t>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<wchar_t>>::ToSQLLiteral(L'X'),
+        "88");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<short>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<short>>::ToSQLLiteral(static_cast<short>(-32123)),
+        "-32123");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned short>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned short>>::ToSQLLiteral(
+            static_cast<unsigned short>(54321)),
+        "54321");
+    ASSERT_EQ(sqt::NullableValueTraits<std::optional<int>>::ToSQLLiteral(std::nullopt), "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<int>>::ToSQLLiteral(42),
+        "42");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned int>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned int>>::ToSQLLiteral(
+            4000000000u),
+        "4000000000");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<long>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<long>>::ToSQLLiteral(-123456789l),
+        "-123456789");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned long>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned long>>::ToSQLLiteral(123456789ul),
+        "123456789");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<long long>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<long long>>::ToSQLLiteral(-1234567890123ll),
+        "-1234567890123");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned long long>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<unsigned long long>>::ToSQLLiteral(1234567890ull),
+        "1234567890");
+
+    // floating-point types
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<float>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<float>>::ToSQLLiteral(3.14f),
+        "3.140000");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<float>>::ToSQLLiteral(-2.5f),
+        "-2.500000");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<double>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<double>>::ToSQLLiteral(3.1415926),
+        "3.141593");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<double>>::ToSQLLiteral(-2.5),
+        "-2.500000");
+
+    // string type
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<std::string>>::ToSQLLiteral(std::nullopt),
+        "null");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<std::string>>::ToSQLLiteral("Hello"),
+        "'Hello'");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<std::string>>::ToSQLLiteral("He'llo"),
+        "'He''llo'");
+    ASSERT_EQ(
+        sqt::NullableValueTraits<std::optional<std::string>>::ToSQLLiteral("Hello World 123"),
+        "'Hello World 123'");
+}
+
+
 TEST(NullableValueType, BasicValueTriatsType) {
 
     static_assert(

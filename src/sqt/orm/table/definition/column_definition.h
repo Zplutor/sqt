@@ -16,6 +16,11 @@ public: \
         }
 
 
+#define __SQT_VALUE_TYPE_ALIAS \
+        using ValueType = typename ValueSource::ValueType; \
+        using ValueTraits = sqt::BasicValueTraitsMappingT<ValueType>;
+
+
 #define __SQT_VALUE_SOURCE_FIELD(FIELD) \
         class ValueSource { \
         public: \
@@ -26,7 +31,8 @@ public: \
             static void SetValueToEntity(EntityType& entity, ValueType&& value) { \
                 entity.FIELD = std::move(value); \
             } \
-        };
+        }; \
+        __SQT_VALUE_TYPE_ALIAS
 
 
 #define __SQT_VALUE_SOURCE_ACCESSOR(GETTER, SETTER) \
@@ -40,16 +46,24 @@ public: \
             static void SetValueToEntity(EntityType& entity, ValueType&& value) { \
                 entity.SETTER(std::move(value)); \
             } \
-        };
+        }; \
+        __SQT_VALUE_TYPE_ALIAS
 
 
 #define __SQT_VALUE_SOURCE_CUSTOM(CLASS) \
-        using ValueSource = CLASS;
+        using ValueSource = CLASS; \
+        __SQT_VALUE_TYPE_ALIAS
+
+
+#define __SQT_COLUMN_DEFAULT_VALUE(DEFAULT_VALUE) \
+        using DefaultValueType = typename ValueTraits::DefaultValueType; \
+        static constexpr DefaultValueType DefaultValue = DEFAULT_VALUE; \
+        std::optional<std::string> GetDefaultValueSQLLiteral() const override { \
+            return ValueTraits::ToSQLLiteral(DefaultValue); \
+        }
 
 
 #define __SQT_COLUMN_END(COLUMN_NAME, INSTANCE_NAME) \
-        using ValueType = typename ValueSource::ValueType; \
-        using ValueTraits = sqt::BasicValueTraitsMappingT<ValueType>; \
         constexpr sqt::DataType GetDataType() const noexcept override { \
             return ValueTraits::DataType; \
         } \

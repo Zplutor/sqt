@@ -63,6 +63,7 @@ template<std::integral INTEGER>
 class PrimitiveValueTraits<INTEGER> {
 public:
     using ValueType = INTEGER;
+    using DefaultValueType = INTEGER;
 
     static constexpr sqt::DataType DataType = sqt::DataType::Integer;
     static constexpr bool IsNullable = false;
@@ -132,6 +133,11 @@ public:
         }
         return static_cast<INTEGER>(statement.GetColumnInt(column_index));
     }
+
+
+    static std::string ToSQLLiteral(INTEGER value) {
+        return std::to_string(value);
+    }
 };
 
 
@@ -154,6 +160,7 @@ template<internal::EnumType ENUM>
 class PrimitiveValueTraits<ENUM> {
 public:
     using ValueType = ENUM;
+    using DefaultValueType = ENUM;
     using UnderlyingType = std::underlying_type_t<ENUM>;
 
     static constexpr sqt::DataType DataType = sqt::DataType::Integer;
@@ -207,6 +214,11 @@ public:
         return static_cast<ENUM>(
             PrimitiveValueTraits<UnderlyingType>::RetrieveValue(statement, column_index));
     }
+
+
+    static std::string ToSQLLiteral(ENUM value) {
+        return std::to_string(static_cast<UnderlyingType>(value));
+    }
 };
 
 
@@ -228,6 +240,7 @@ template<std::floating_point FLOAT> requires (!std::same_as<FLOAT, long double>)
 class PrimitiveValueTraits<FLOAT> {
 public:
     using ValueType = FLOAT;
+    using DefaultValueType = FLOAT;
 
     static constexpr sqt::DataType DataType = sqt::DataType::Float;
     static constexpr bool IsNullable = false;
@@ -281,6 +294,11 @@ public:
     static FLOAT RetrieveValue(const Statement& statement, int column_index) noexcept {
         return static_cast<FLOAT>(statement.GetColumnDouble(column_index));
     }
+
+
+    static std::string ToSQLLiteral(FLOAT value) {
+        return std::to_string(value);
+    }
 };
 
 
@@ -299,6 +317,7 @@ template<>
 class PrimitiveValueTraits<std::string> {
 public:
     using ValueType = std::string;
+    using DefaultValueType = std::string_view;
 
     static constexpr sqt::DataType DataType = sqt::DataType::Text;
     static constexpr bool IsNullable = false;
@@ -350,6 +369,22 @@ public:
     */
     static std::string RetrieveValue(const Statement& statement, int column_index) {
         return std::string{ statement.GetColumnText(column_index) };
+    }
+
+
+    static std::string ToSQLLiteral(std::string_view value) {
+
+        std::string result;
+        result.reserve(value.size() + 2);
+        result += '\'';
+        for (char c : value) {
+            if (c == '\'') {
+                result += '\'';
+            }
+            result += c;
+        }
+        result += '\'';
+        return result;
     }
 };
 

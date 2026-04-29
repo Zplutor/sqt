@@ -31,6 +31,7 @@ class NullableValueTraits {
 public:
     using ValueType = T;
     using InnerValueTriats = PrimitiveValueTraits<internal::GetOptionalValueTypeT<T>>;
+    using DefaultValueType = std::optional<typename InnerValueTriats::DefaultValueType>;
 
     static constexpr DataType DataType = InnerValueTriats::DataType;
     static constexpr bool IsNullable = true;
@@ -98,6 +99,16 @@ public:
         }
 
         return InnerValueTriats::RetrieveValue(statement, column_index);
+    }
+
+
+    static std::string ToSQLLiteral(const DefaultValueType& value) {
+        if (value.has_value()) {
+            return InnerValueTriats::ToSQLLiteral(*value);
+        }
+        else {
+            return "null";
+        }
     }
 };
 

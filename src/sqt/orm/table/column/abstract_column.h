@@ -53,6 +53,10 @@ public:
         `true` if the column is nullable; otherwise `false`.
     */
     virtual bool IsNullable() const noexcept = 0;
+
+    virtual std::optional<std::string> GetDefaultValueSQLLiteral() const {
+        return std::nullopt;
+    }
 };
 
 
