@@ -282,6 +282,38 @@ __SQT_VALUE_SOURCE_FIELD(FIELD) \
 __SQT_COLUMN_END(COLUMN_NAME, COLUMN_NAME)
 
 
+/**
+Defines a column with a default value that binds to the specified field of the entity type.
+
+@param COLUMN_NAME
+    The name of the column in the database. It will be also used as the instance name of the 
+    column.
+
+@param FIELD
+    The field of the entity type to which the column is bound.
+
+@param DEFAULT_VALUE
+    The default value of the column.
+
+@details
+    This macro is similar to the `SQT_COLUMN_FIELD` macro, except that it allows specifying a 
+    default value for the column.
+
+    Example usage:
+    @code
+    struct MyEntity {
+        int id{};
+        std::string name;
+    };
+
+    SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+    SQT_COLUMN_FIELD_DEFAULT(ID, id, 0)
+    SQT_COLUMN_FIELD_DEFAULT(Name, name, "default_name")
+    SQT_TABLE_END
+    @endcode
+
+@see SQT_COLUMN_FIELD
+*/
 #define SQT_COLUMN_FIELD_DEFAULT(COLUMN_NAME, FIELD, DEFAULT_VALUE) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME, COLUMN_NAME) \
 __SQT_VALUE_SOURCE_FIELD(FIELD) \
@@ -348,6 +380,39 @@ __SQT_VALUE_SOURCE_FIELD(FIELD) \
 __SQT_COLUMN_END(COLUMN_NAME, INSTANCE_NAME)
 
 
+/**
+Defines a column with a custom instance name and a default value that binds to the specified field
+of the entity type.
+
+@param COLUMN_NAME
+    The name of the column in the database.
+
+@param INSTANCE_NAME
+    The name of the column instance.
+
+@param FIELD
+    The field of the entity type to which the column is bound.
+
+@param DEFAULT_VALUE
+    The default value of the column.
+
+@details
+    This macro is similar to the `SQT_COLUMN_FIELD_2` macro, except that it allows specifying a 
+    default value for the column.
+
+    Example usage:
+    @code{.cpp}
+    struct MyEntity {
+        int value{};
+    };
+    
+    SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+    SQT_COLUMN_FIELD_2_DEFAULT(Value, CustomValue, value, 0)
+    SQT_TABLE_END
+    @endcode
+
+@see SQT_COLUMN_FIELD_2
+*/
 #define SQT_COLUMN_FIELD_2_DEFAULT(COLUMN_NAME, INSTANCE_NAME, FIELD, DEFAULT_VALUE) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME, INSTANCE_NAME) \
 __SQT_VALUE_SOURCE_FIELD(FIELD) \
@@ -421,6 +486,62 @@ __SQT_VALUE_SOURCE_ACCESSOR(GETTER, SETTER) \
 __SQT_COLUMN_END(COLUMN_NAME, COLUMN_NAME)
 
 
+/**
+Defines a column with a default value that binds to the specified accessor methods of the entity 
+type.
+
+@param COLUMN_NAME
+    The name of the column in the database. It will be also used as the instance name of the 
+    column.
+
+@param GETTER
+    A const member function of the entity type that retrieves the column value from an entity
+    instance.
+
+@param SETTER
+    A non-const member function of the entity type that assigns the column value to an entity
+    instance.
+
+@param DEFAULT_VALUE
+    The default value of the column.
+
+@details
+    This macro is similar to the `SQT_COLUMN_ACCESSOR` macro, except that it allows specifying a 
+    default value for the column.
+
+    Example usage:
+    @code
+    class MyEntity {
+    public:
+        int GetID() const {
+            return id_;
+        }
+
+        void SetID(int id) {
+            id_ = id;
+        }
+
+        const std::string& GetName() const {
+            return name_;
+        }
+
+        void SetName(std::string_view name) {
+            name_ = std::string{ name };
+        }
+
+    private:
+        int id_{};
+        std::string name_;
+    };
+
+    SQT_TABLE_BEGIN(MyEntityTable, MyEntity)
+    SQT_COLUMN_ACCESSOR_DEFAULT(ID, GetID, SetID, 0)
+    SQT_COLUMN_ACCESSOR_DEFAULT(Name, GetName, SetName, "default_name")
+    SQT_TABLE_END
+    @endcode
+
+@see SQT_COLUMN_ACCESSOR
+*/
 #define SQT_COLUMN_ACCESSOR_DEFAULT(COLUMN_NAME, GETTER, SETTER, DEFAULT_VALUE) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME, COLUMN_NAME) \
 __SQT_VALUE_SOURCE_ACCESSOR(GETTER, SETTER) \
@@ -460,6 +581,33 @@ __SQT_VALUE_SOURCE_ACCESSOR(GETTER, SETTER) \
 __SQT_COLUMN_END(COLUMN_NAME, INSTANCE_NAME)
 
 
+/**
+Defines a column with a custom instance name and a default value that binds to the specified 
+accessor methods of the entity type.
+
+@param COLUMN_NAME
+    The name of the column in the database.
+
+@param INSTANCE_NAME
+    The name of the column instance.
+
+@param GETTER
+    A const member function of the entity type that retrieves the column value from an entity
+    instance.
+
+@param SETTER
+    A non-const member function of the entity type that assigns the column value to an entity
+    instance.
+
+@param DEFAULT_VALUE
+    The default value of the column.
+
+@details
+    This macro is similar to the `SQT_COLUMN_ACCESSOR_2` macro, except that it allows specifying a 
+    default value for the column.
+
+@see SQT_COLUMN_ACCESSOR_2
+*/
 #define SQT_COLUMN_ACCESSOR_2_DEFAULT(COLUMN_NAME, INSTANCE_NAME, GETTER, SETTER, DEFAULT_VALUE) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME, INSTANCE_NAME) \
 __SQT_VALUE_SOURCE_ACCESSOR(GETTER, SETTER) \
@@ -535,6 +683,23 @@ __SQT_VALUE_SOURCE_CUSTOM(VALUE_SOURCE) \
 __SQT_COLUMN_END(COLUMN_NAME, COLUMN_NAME)
 
 
+/**
+Defines a column with a default value that binds to the specified custom value source.
+
+@param COLUMN_NAME
+    The name of the column in the database. It will be also used as the instance name of the
+    column.
+
+@param VALUE_SOURCE
+    A type that satisfies the `sqt::ValueSourceType` concept, which defines the value type and
+    methods for retrieving and setting values in an entity instance.
+
+@details
+    This macro is similar to the `SQT_COLUMN_CUSTOM` macro, except that it allows specifying a 
+    default value for the column.
+
+@see SQT_COLUMN_CUSTOM
+*/
 #define SQT_COLUMN_CUSTOM_DEFAULT(COLUMN_NAME, VALUE_SOURCE, DEFAULT_VALUE) \
 __SQT_COLUMN_BEGIN(COLUMN_NAME, COLUMN_NAME) \
 __SQT_VALUE_SOURCE_CUSTOM(VALUE_SOURCE) \
@@ -570,6 +735,26 @@ __SQT_VALUE_SOURCE_CUSTOM(VALUE_SOURCE) \
 __SQT_COLUMN_END(COLUMN_NAME, INSTANCE_NAME)
 
 
+/**
+Defines a column with a custom instance name and a default value that binds to the specified custom
+value source.
+
+@param COLUMN_NAME
+    The name of the column in the database.
+
+@param INSTANCE_NAME
+    The name of the column instance.
+
+@param VALUE_SOURCE
+    A type that satisfies the `sqt::ValueSourceType` concept, which defines the value type and
+    methods for retrieving and setting values in an entity instance.
+
+@details
+    This macro is similar to the `SQT_COLUMN_CUSTOM_2` macro, except that it allows specifying a 
+    default value.
+
+@see SQT_COLUMN_CUSTOM_2
+*/
 #define SQT_COLUMN_CUSTOM_2_DEFAULT( \
     COLUMN_NAME, \
     INSTANCE_NAME, \

@@ -13,14 +13,22 @@ namespace table_initializer_test {
 struct EntityNoPK {
     int integer_field{};
     std::optional<int> nullable_integer_field;
+    int default_integer_field{};
+    std::optional<int> default_nullable_integer_field;
     std::string string_field;
     std::optional<std::string> nullable_string_field;
+    std::string default_string_field;
+    std::optional<std::string> default_nullable_string_field;
 };
 SQT_TABLE_BEGIN(EntityNoPK, EntityNoPK)
 SQT_COLUMN_FIELD(IntegerField, integer_field)
 SQT_COLUMN_FIELD(StringField, string_field)
 SQT_COLUMN_FIELD(NullableIntegerField, nullable_integer_field)
 SQT_COLUMN_FIELD(NullableStringField, nullable_string_field)
+SQT_COLUMN_FIELD_DEFAULT(DefaultIntegerField, default_integer_field, 28)
+SQT_COLUMN_FIELD_DEFAULT(DefaultStringField, default_string_field, "default1")
+SQT_COLUMN_FIELD_DEFAULT(DefaultNullableIntegerField, default_nullable_integer_field, 30)
+SQT_COLUMN_FIELD_DEFAULT(DefaultNullableStringField, default_nullable_string_field, "")
 SQT_TABLE_END
 }
 SQT_REGISTER(table_initializer_test::EntityNoPK)
@@ -33,7 +41,7 @@ TEST_F(TableInitializerTest, NewTableNoPK) {
 
     auto table_info = DB()->GetTableInfo("EntityNoPK");
     ASSERT_TRUE(table_info.has_value());
-    ASSERT_EQ(table_info->columns.size(), 4);
+    ASSERT_EQ(table_info->columns.size(), 8);
 
     {
         const auto& column0 = table_info->columns[0];
@@ -41,6 +49,7 @@ TEST_F(TableInitializerTest, NewTableNoPK) {
         ASSERT_EQ(column0.data_type, sqt::DataType::Integer);
         ASSERT_EQ(column0.is_nullable, false);
         ASSERT_EQ(column0.is_primary_key, false);
+        ASSERT_EQ(column0.default_value_expression, "");
     }
 
     {
@@ -49,6 +58,7 @@ TEST_F(TableInitializerTest, NewTableNoPK) {
         ASSERT_EQ(column1.data_type, sqt::DataType::Text);
         ASSERT_EQ(column1.is_nullable, false);
         ASSERT_EQ(column1.is_primary_key, false);
+        ASSERT_EQ(column1.default_value_expression, "");
     }
 
     {
@@ -57,6 +67,7 @@ TEST_F(TableInitializerTest, NewTableNoPK) {
         ASSERT_EQ(column2.data_type, sqt::DataType::Integer);
         ASSERT_EQ(column2.is_nullable, true);
         ASSERT_EQ(column2.is_primary_key, false);
+        ASSERT_EQ(column2.default_value_expression, "");
     }
 
     {
@@ -65,6 +76,43 @@ TEST_F(TableInitializerTest, NewTableNoPK) {
         ASSERT_EQ(column3.data_type, sqt::DataType::Text);
         ASSERT_EQ(column3.is_nullable, true);
         ASSERT_EQ(column3.is_primary_key, false);
+        ASSERT_EQ(column3.default_value_expression, "");
+    }
+
+    {
+        const auto& column4 = table_info->columns[4];
+        ASSERT_EQ(column4.name, "DefaultIntegerField");
+        ASSERT_EQ(column4.data_type, sqt::DataType::Integer);
+        ASSERT_EQ(column4.is_nullable, false);
+        ASSERT_EQ(column4.is_primary_key, false);
+        ASSERT_EQ(column4.default_value_expression, "28");
+    }
+
+    {
+        const auto& column5 = table_info->columns[5];
+        ASSERT_EQ(column5.name, "DefaultStringField");
+        ASSERT_EQ(column5.data_type, sqt::DataType::Text);
+        ASSERT_EQ(column5.is_nullable, false);
+        ASSERT_EQ(column5.is_primary_key, false);
+        ASSERT_EQ(column5.default_value_expression, "'default1'");
+    }
+
+    {
+        const auto& column6 = table_info->columns[6];
+        ASSERT_EQ(column6.name, "DefaultNullableIntegerField");
+        ASSERT_EQ(column6.data_type, sqt::DataType::Integer);
+        ASSERT_EQ(column6.is_nullable, true);
+        ASSERT_EQ(column6.is_primary_key, false);
+        ASSERT_EQ(column6.default_value_expression, "30");
+    }
+
+    {
+        const auto& column7 = table_info->columns[7];
+        ASSERT_EQ(column7.name, "DefaultNullableStringField");
+        ASSERT_EQ(column7.data_type, sqt::DataType::Text);
+        ASSERT_EQ(column7.is_nullable, true);
+        ASSERT_EQ(column7.is_primary_key, false);
+        ASSERT_EQ(column7.default_value_expression, "''");
     }
 }
 

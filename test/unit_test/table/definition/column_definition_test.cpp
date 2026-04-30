@@ -1526,6 +1526,30 @@ TEST(ColumnDefinitionTest, FieldColumns) {
 
 
 /*
+Test the SQT_COLUMN_FIELD_2_DEFAULT macro.
+*/
+namespace column_def_test {
+struct FieldColumnsDefaultEntity {
+    int value{};
+};
+SQT_TABLE_BEGIN(FieldColumnsDefaultEntity, FieldColumnsDefaultEntity)
+SQT_COLUMN_FIELD_2_DEFAULT(Value, CustomValue, value, 42)
+SQT_TABLE_END
+}
+SQT_REGISTER(column_def_test::FieldColumnsDefaultEntity)
+
+TEST(ColumnDefinitionTest, FieldColumnsDefault) {
+
+    using TableType = sqt::TableType<column_def_test::FieldColumnsDefaultEntity>;
+    ASSERT_EQ(TableType::ColumnType_CustomValue::Name, "Value");
+    ASSERT_EQ(TableType::ColumnType_CustomValue::DefaultValue, 42);
+
+    constexpr auto& table = sqt::Table<column_def_test::FieldColumnsDefaultEntity>;
+    ASSERT_EQ(table.CustomValue.GetName(), "Value");
+}
+
+
+/*
 Test the SQT_COLUMN_ACCESSOR* macros.
 */
 namespace column_def_test {
@@ -1540,6 +1564,7 @@ struct AccessorColumnsEntity {
 SQT_TABLE_BEGIN(AccessorColumnsEntity, AccessorColumnsEntity)
 SQT_COLUMN_ACCESSOR(Value, GetValue, SetValue)
 SQT_COLUMN_ACCESSOR_2(Value2, CustomValue, GetValue, SetValue)
+SQT_COLUMN_ACCESSOR_2_DEFAULT(Value3, CustomValue2, GetValue, SetValue, 42)
 SQT_TABLE_END
 }
 SQT_REGISTER(column_def_test::AccessorColumnsEntity)
@@ -1551,9 +1576,11 @@ TEST(ColumnDefinitionTest, AccessorColumns) {
 
     ASSERT_EQ(TableType::ColumnType_Value::Name, "Value");
     ASSERT_EQ(TableType::ColumnType_CustomValue::Name, "Value2");
+    ASSERT_EQ(TableType::ColumnType_CustomValue2::Name, "Value3");
         
     ASSERT_EQ(table.Value.GetName(), "Value");
     ASSERT_EQ(table.CustomValue.GetName(), "Value2");
+    ASSERT_EQ(table.CustomValue2.GetName(), "Value3");
 }
 
 
@@ -1575,6 +1602,7 @@ struct ValueSource {
 SQT_TABLE_BEGIN(CustomColumnsEntity, CustomColumnsEntity)
 SQT_COLUMN_CUSTOM(Value, ValueSource)
 SQT_COLUMN_CUSTOM_2(Value2, CustomValue, ValueSource)
+SQT_COLUMN_CUSTOM_2_DEFAULT(Value3, CustomValue2, ValueSource, 42)
 SQT_TABLE_END
 }
 SQT_REGISTER(column_def_test::CustomColumnsEntity)
@@ -1586,7 +1614,9 @@ TEST(ColumnDefinitionTest, CustomColumns) {
 
     ASSERT_EQ(TableType::ColumnType_Value::Name, "Value");
     ASSERT_EQ(TableType::ColumnType_CustomValue::Name, "Value2");
+    ASSERT_EQ(TableType::ColumnType_CustomValue2::Name, "Value3");
 
     ASSERT_EQ(table.Value.GetName(), "Value");
     ASSERT_EQ(table.CustomValue.GetName(), "Value2");
+    ASSERT_EQ(table.CustomValue2.GetName(), "Value3");
 }

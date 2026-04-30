@@ -35,6 +35,11 @@ struct ColumnInfo {
     Whether the column is nullable.
     */
     bool is_nullable{};
+
+    /**
+    The default value expression for the column.
+    */
+    std::string default_value_expression;
 };
 
 

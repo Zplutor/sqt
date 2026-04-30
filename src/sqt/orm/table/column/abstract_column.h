@@ -54,6 +54,12 @@ public:
     */
     virtual bool IsNullable() const noexcept = 0;
 
+    /**
+    Gets the default value of the column as an SQL literal, if it has one.
+
+    @return
+        A SQL literal string if the column has default value; otherwise `std::nullopt`.
+    */
     virtual std::optional<std::string> GetDefaultValueSQLLiteral() const {
         return std::nullopt;
     }

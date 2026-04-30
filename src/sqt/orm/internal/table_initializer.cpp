@@ -137,6 +137,11 @@ std::string TableInitializer::GenerateColumnSQL(
         result += " not null";
     }
 
+    if (auto default_value = column.GetDefaultValueSQLLiteral()) {
+        result += " default ";
+        result += *default_value;
+    }
+
     if (is_autoincrement) {
         result += " primary key autoincrement";
     }
